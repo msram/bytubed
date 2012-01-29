@@ -12,7 +12,7 @@ How to install BYTubeD?
 To install BYTubeD please visit: https://addons.mozilla.org/en-US/firefox/addon/bytubed/
 and click on "Add to Firefox".
 
-To know more about BYTubeD, please visit http://bytubed.blogspot.com/
+To know more about BYTubeD, please visit http://bytubed.blogspot.com/p/faq.html
 
 
 How to invoke BYTubeD?
