@@ -12,11 +12,15 @@ playlists easy.
 
 ##  How to install BYTubeD?
 
-To install BYTubeD please visit  [this page](https://addons.mozilla.org/addon/bytubed/
-"Add on page") and click on "Add to Firefox". To know more about BYTubeD, please visit 
-[this blog](http://bytubed.blogspot.com/p/faq.html "BYTubeD Blog").
+To install BYTubeD, please visit [this page](https://addons.mozilla.org/addon/bytubed/)
+and click on "Add to Firefox". To know more about BYTubeD, please visit 
+[BYTubeD blog](http://bytubed.blogspot.com/p/faq.html).
 
 ##  How to invoke BYTubeD?
 
 Once BYTubeD is installed, it can be invoked by clicking on the BYTubeD menu item in the
 Tools menu or in the context menu (i.e., the right click menu).
+
+-----------------------------------------------------
+
+*Last Modified: 1:40 AM Tuesday, January 31, 2012*
