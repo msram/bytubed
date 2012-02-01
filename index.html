@@ -9,7 +9,8 @@
         {
             margin-top: 1.0em;
             background-color: #ffffff;
-            font-family: Verdana, Helvetica, Arial, FreeSans, san-serif;
+            font-family: georgia, Verdana, Helvetica, Arial, FreeSans, san-serif;
+            
             color: #666666;
             text-align: justify;
             line-height: 1.5;
@@ -71,9 +72,17 @@
             font-style: italic;
         }
         
-        .download 
+        .download, .rfloat 
         { 
             float: right; 
+        }
+        .center
+        {
+            text-align: center;
+        }
+        .italic
+        {
+            font-style: italic;
         }
         
         pre 
@@ -111,7 +120,7 @@
             <a href="https://github.com/msram/bytubed/zipball/master"><img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
             <a href="https://github.com/msram/bytubed/tarball/master"><img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
             <br/>
-            <span class="info rfloat">(source code yet to be uploaded)</span>
+            <div class="info center">(source code yet to be uploaded)</div>
         </div>
 
         <h1>
@@ -152,8 +161,9 @@
             <pre>$ git clone git://github.com/msram/bytubed</pre>
         </p>
         -->
-
-        <br/><hr/><br/>
+        
+        <br/>
+        <hr/>
         
         <script>
             var idcomments_acct = '4aca98f14705a845798ff5146c6bb67d';
@@ -172,7 +182,17 @@
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
         </script>
+        
+        <span class="rfloat italic">Last Modified:
+            <script type="text/javascript">
+                document.write(document.lastModified);
+            </script>
+        </span>
+        
+        <br/><br/>
+        
     </div>
+    
     
     
     <script type="text/javascript">
