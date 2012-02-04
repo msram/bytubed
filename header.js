@@ -4,6 +4,7 @@ document.write
         '<div class="download">' + 
             '<a href="https://github.com/msram/bytubed/zipball/master"><img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>' +
             '<a href="https://github.com/msram/bytubed/tarball/master"><img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>' +
+            '<div class="info">Source code of BYTubeD<br/>(from GitHub)</div>' +
         '</div>' +
         '<h1>' +
             '<a href="https://github.com/msram/bytubed">BYTubeD</a> ' +
@@ -14,7 +15,8 @@ document.write
             '(A <a href="https://addons.mozilla.org/addon/bytubed/">Firefox extension</a> to download YouTube videos in bulk)' +
         '</div>'
     );
-            
+
+/* Navigation Bar */
 document.write
     (
         '<hr/>' +
@@ -22,6 +24,4 @@ document.write
         '<a href="help.html">Help</a> ' +
         '<br/><hr/><br/>' 
     );
-    
-
-        
+/* End of Navigation Bar */

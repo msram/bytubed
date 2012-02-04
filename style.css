@@ -97,6 +97,7 @@ hr
 }
 .info
 {
-    font-size: 12px;
+    font-size: 10px;
+    text-align: center;
     color: #888888;
 }
