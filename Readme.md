@@ -4,11 +4,11 @@
 
 ##  What is BYTubeD?
 
-BYTubeD stands for "Bulk YouTube video Downloader" (or "Batch YouTube video Downloader"). It is a Firefox extension that helps
-in downloading YouTube videos in bulk (i.e., downloading multiple YouTube videos at once
-in batch mode with a few clicks). It can be used to download all/selected YouTube videos
-on any page which has some YouTube video links.  It makes the job of downloading YouTube
-playlists easy.
+BYTubeD stands for "Bulk YouTube video Downloader" (or "Batch YouTube video Downloader").
+It is a Firefox extension that helps in downloading YouTube videos in bulk (i.e., 
+downloading multiple YouTube videos at once in batch mode with a few clicks). It can be
+used to download all/selected YouTube videos on any page which has some YouTube video links.
+It makes the job of downloading YouTube playlists easy.
 
 ##  How to install BYTubeD?
 
