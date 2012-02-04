@@ -1,202 +1,44 @@
 <html>
-<head>
-    <meta charset='utf-8'>
+    <head>
+        <meta charset='utf-8'>
+        <title>msram/bytubed @ GitHub</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
 
-    <title>msram/bytubed @ GitHub</title>
-
-    <style type="text/css">
-        body 
-        {
-            margin-top: 1.0em;
-            background-color: #ffffff;
-            font-family: georgia, Verdana, Helvetica, Arial, FreeSans, san-serif;
+    <body>   
+        <div class="container">
             
-            color: #666666;
-            text-align: justify;
-            line-height: 1.5;
-        }
-        
-        #container 
-        {
-            margin: 0 auto;
-            width: 800px;
-        }
-        
-        h1 
-        { 
-            font-size: 3.8em;
-            color: #555555;
-            margin-bottom: 3px; 
-        }
-        
-        h1 .small 
-        { 
-            font-size: 0.4em; 
-        }
-        
-        h1 a 
-        { 
-            text-decoration: none; color: #555555 
-        }
-        
-        h2 
-        { 
-            font-size: 1.5em; 
-            color: #555555; 
-        }
-        
-        h3 
-        { 
-            text-align: center; 
-            color: #555555; 
-        }
-        
-        a 
-        { 
-            color: #6688dd; 
-            text-decoration: none
-        }
-        
-        a:hover
-        {
-            color: #0000ff;
-            text-decoration: underline 
-        }
-        
-        .description
-        { 
-            font-size: 1.2em; 
-            margin-bottom: 30px; 
-            text-align:center; 
-            margin-top: 30px; 
-            font-style: italic;
-        }
-        
-        .download, .rfloat 
-        { 
-            float: right; 
-        }
-        .center
-        {
-            text-align: center;
-        }
-        .italic
-        {
-            font-style: italic;
-        }
-        
-        pre 
-        { 
-            background: #000;
-            color: #fff; padding: 15px;
-        }
-        
-        hr 
-        {
-            border: 0;
-            border-bottom: 1px solid #aaa
-        }
+            <script type="text/javascript" src="./header.js"></script>
+            <script type="text/javascript" src="./navbar.js"></script>
+            
+            <h2>Description</h2>
+            <p>BYTubeD stands for "Bulk YouTube video Downloader". It is a Firefox extension that helps in downloading YouTube videos in bulk (i.e., downloading multiple YouTube videos at once in batch mode with a few clicks). It can be used to download all/selected YouTube videos on any page which has some YouTube video links. It makes the job of downloading YouTube playlists easy.</p>
 
-        .footer 
-        { 
-            text-align:center;
-            padding-top:30px;
-            font-style: italic; 
-        }
-        .info
-        {
-            font-size: 12px;
-            color: #888888;
-        }        
-    </style>
-</head>
+            <h2>Dependencies</h2>
+            <p>Mozilla Firefox 3.5 or above</p>
 
-<body>
-    <a href="http://github.com/msram"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/71eeaab9d563c2b3c590319b398dd35683265e85/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub"></a>
+            <h2>Install</h2>
+            <p>To install BYTubeD please visit <a href="https://addons.mozilla.org/addon/bytubed/">this page</a> and click on "Add to Firefox". To know more about BYTubeD, please visit <a href="http://bytubed.blogspot.com/p/faq.html">BYTubeD Blog</a>.</p>
 
-    <div id="container">
-
-        <div class="download">
-            <a href="https://github.com/msram/bytubed/zipball/master"><img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
-            <a href="https://github.com/msram/bytubed/tarball/master"><img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
-        </div>
-
-        <h1>
-            <a href="https://github.com/msram/bytubed">BYTubeD</a>
-            <span class="small">by <a href="https://github.com/msram">msram</a></span>
-        </h1>
-
-        <div class="description">
-            (A <a href="https://addons.mozilla.org/addon/bytubed/">Firefox extension</a> to download YouTube videos in bulk)
-        </div>
-        
-        <hr/><br/>
-        
-        <h2>Description</h2>
-        <p>BYTubeD stands for "Bulk YouTube video Downloader". It is a Firefox extension that helps in downloading YouTube videos in bulk (i.e., downloading multiple YouTube videos at once in batch mode with a few clicks). It can be used to download all/selected YouTube videos on any page which has some YouTube video links. It makes the job of downloading YouTube playlists easy.</p>
-
-        <h2>Dependencies</h2>
-        <p>Mozilla Firefox 3.5 or above</p>
-
-        <h2>Install</h2>
-        <p>To install BYTubeD please visit <a href="https://addons.mozilla.org/addon/bytubed/">this page</a> and click on "Add to Firefox". To know more about BYTubeD, please visit <a href="http://bytubed.blogspot.com/p/faq.html">BYTubeD Blog</a>.</p>
-
-        <h2>License</h2>        
-        <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html">GNU General Public License Version 3</a>
-        
-        <h2>Author(s)</h2>
-        <p><a href="http://www.cse.iitk.ac.in/users/msram">M S Ram</a> (M.S.Ramaiah @ gmail . com)</p>
-        
-        
-        <h2>Source Code</h2>
-        <p>
-            You can download this project in either
-            <a href="https://github.com/msram/bytubed/zipball/master">zip</a> or
-            <a href="https://github.com/msram/bytubed/tarball/master">tar formats.</a>
-        </p>
-        <p>
-            You can also clone the project with <a href="http://git-scm.com">Git</a> by running:
-            <pre>$ git clone git://github.com/msram/bytubed</pre>
-        </p>
-        
-        
-        <br/>
-        <hr/>
-        
-        <script>
-            var idcomments_acct = '4aca98f14705a845798ff5146c6bb67d';
-            var idcomments_post_id;
-            var idcomments_post_url;
-        </script>
-        <span id="IDCommentsPostTitle" style="display:none"></span>
-        <script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
-        <script>
-            var idcomments_acct = '4aca98f14705a845798ff5146c6bb67d';
-            var idcomments_post_id;
-            var idcomments_post_url;
-        </script>
-        <script type="text/javascript" src="http://www.intensedebate.com/js/genericLinkWrapperV2.js"></script>
-        <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-        
-        <span class="rfloat italic info">Last Modified:
-            <script type="text/javascript">
-                document.write(document.lastModified);
-            </script>
-        </span>
-        
-        <br/><br/>
-        
-    </div>
-    
-    
-    
-    <script type="text/javascript">
-        var pageTracker = _gat._getTracker("UA-20281055-1");
-        pageTracker._initData();
-        pageTracker._trackPageview();
-    </script>
-</body>
+            <h2>License</h2>        
+            <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html">GNU General Public License Version 3</a>
+            
+            <h2>Author(s)</h2>
+            <p><a href="http://www.cse.iitk.ac.in/users/msram">M S Ram</a> (M.S.Ramaiah @ gmail . com)</p>
+            
+            
+            <h2>Source Code</h2>
+            <p>
+                You can download this project in either
+                <a href="https://github.com/msram/bytubed/zipball/master">zip</a> or
+                <a href="https://github.com/msram/bytubed/tarball/master">tar</a> format.
+            </p>
+            <p>
+                You can also clone the project with <a href="http://git-scm.com">Git</a> by running:
+                <pre>$ git clone git://github.com/msram/bytubed</pre>
+            </p>
+            
+            <script type="text/javascript" src="./footer.js"></script>
+        </div>    
+    </body>
 </html>
