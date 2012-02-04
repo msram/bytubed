@@ -1,0 +1,128 @@
+treechildren::-moz-tree-row
+{
+    margin:1px;
+}
+
+treechildren::-moz-tree-row(selected) 
+{ 
+    background-color: #DCFFB3;
+}  
+
+
+treechildren::-moz-tree-row(odd) 
+{ 
+    background-color: #EEEEFF; 
+}  
+
+treechildren::-moz-tree-row(odd, selected)
+{ 
+    background-color: #DCFFB3;
+    /* background-image: url('selection.gif'); */
+}  
+
+treechildren::-moz-tree-cell-text(selected)
+{ 
+    color: #000000;
+}  
+
+treechildren::-moz-tree-cell-text(odd, selected) 
+{ 
+    color: #000000; 
+}
+tabpanels, tabpanel, tabbox
+{
+    background-color:#EFF0FF;
+    margin:0px;
+    padding:0px;
+    border-color:#EFF0FF;
+}
+window
+{
+    background-color:#EFF0FF;
+    min-width:640px;
+    min-height:480px;
+}
+
+.spacingPanel
+{
+   margin:10px;
+   margin-bottom:8px;
+}
+
+.spacingPanel1
+{
+   margin-left:10px; 
+   margin-right:10px; 
+   margin-bottom:10px;
+}
+
+tree
+{
+    margin:4px;
+    
+}
+
+treecols
+{
+    
+}
+treechildren
+{
+    font-family:  Georgia, 'Trebuchet MS', Ubuntu;
+    font-size: 15px;
+}
+
+.top
+{
+	padding-top:4px;
+}
+
+#successConsole
+{
+    background-color:#FFFFFF;
+    color:#006600;
+    font-family:  Georgia, 'Trebuchet MS';
+    font-size: 15px;
+}
+#errorConsole
+{
+    background-color:#FFFFFF;
+    color:#FF0000;
+    font-family:  Georgia, 'Trebuchet MS';
+    font-size: 15px;
+}
+#infoConsole
+{
+    background-color:#FFFFFF;
+    font-family:  Georgia, 'Trebuchet MS';
+    font-size: 15px;
+}
+
+.silver
+{
+    color: silver;
+}
+.bold
+{
+    font-weight:600;
+}
+.pad_top3
+{
+    padding-top:3px;
+}
+.pad_top6
+{
+    padding-top:6px;
+}
+.pad_top8
+{
+    padding-top:8px;
+}
+.pad_top12
+{
+    padding-top:12px;
+}
+.indent
+{
+    margin-left: 20px;
+}

@@ -1,0 +1,298 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<!--
+/* ***** BEGIN LICENSE BLOCK *****
+ *
+ * The contents of this file are subject to the GNU General Public License
+ * Version 3 (the "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ * http://www.gnu.org/copyleft/gpl.html
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing the rights and limitations under the
+ * License.
+ *
+ * The Original Code is BYTubeD. The Initial Developer of the Original Code
+ * is M S Ram (M.S.Ramaiah@gmail.com).
+ *
+ * Portions created by the Initial Developer are Copyright (C) 2010-2012 the
+ * Initial Developer. All Rights Reserved.
+ *
+ * ***** END LICENSE BLOCK ***** */
+-->
+
+<?xml-stylesheet href = "chrome://global/skin/" type = "text/css"?>
+<?xml-stylesheet href = "chrome://BYTubeD/skin/win.css" type = "text/css"?>
+
+<window id = "BYTubeD" title = "BYTubeD - Select the videos to be downloaded"
+        xmlns:html = "http://www.w3.org/1999/xhtml"
+        xmlns = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        onload = "IITK.CSE.CS213.BYTubeD.selectionManager.onLoad(event)"
+        onunload = "IITK.CSE.CS213.BYTubeD.selectionManager.onUnload(event)"
+        persist = "height width" minheight = "480" minwidth = "640">
+
+    <!--
+    <html:link rel = "icon" href = "chrome://BYTubeD/skin/icons/Down-32.png" />
+    -->
+    <script src = "globals.js"/>
+    <script src = "utf.js"/>
+    <script src = "xmlHttpRequestManager.js"/>
+    <script src = "videoListManager.js" />
+    <script src = "downloadQueueManager.js" />
+    <script src = "selectionManager.js"/>
+
+
+    <keyset>
+        <key id = "close_cmd" keycode = "VK_ESCAPE"
+                   oncommand = "window.close();" />
+    </keyset>
+    <commandset>
+        <command id = "cmd_start"           oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onStart(event)"/>
+        <command id = "cmd_cancel"          oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onCancel(event)"/>
+        <command id = "cmd_select_all"      oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onSelectAll(event)"/>
+        <command id = "suppress_errors"     oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleSuppression(event)"/>
+        <command id = "toggle_format"       oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleFormatDisabled(event)"/>
+        <command id = "manage_window"       oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.manageWindow()"/>
+        <command id = "res_and_qual"        oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleResAndQual(event)"/>
+        <command id = "silent_prefetching"  oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.togglePrefetching(event)"/>
+    </commandset>
+
+    <box flex = "1" class = "spacingPanel">
+        <tabbox flex = "1">
+            <tabs>
+                <tab label = "Selection"/>
+                <tab label = "Preferences"/>
+            </tabs>
+            <tabpanels flex = "1">
+                <tabpanel flex = "1">
+                    <tree   id = "videoTitlesTree" hidecolumnpicker = "true" flex = "1" rows = "2"
+                            onselect = "IITK.CSE.CS213.BYTubeD.selectionManager.onSelect(event);">
+                        <treecols align = "stretch">
+                            <treecol id = "sno" label = "S.No" />
+                            <splitter class = "tree-splitter" />
+                            <treecol id = "title" label = "Title" flex = "1"/>
+                            <splitter class = "tree-splitter" />
+                            <treecol id = "maxResolution" label = "Max Resolution"/>
+                            <splitter class = "tree-splitter" />
+                            <treecol id = "maxQuality" label = "Max Quality"/>
+                        </treecols>
+
+                        <treechildren   id = "treeChildren" flex = "1"
+                                        tooltiptext = "Hold Ctrl to select non-contiguous items">
+                        </treechildren>
+                    </tree>
+                </tabpanel>
+                <tabpanel flex = "1">
+                    <tabbox flex = "1">
+                        <tabs>
+                            <tab label = "Additional Features" />
+                            <tab label = "User Interaction" />
+
+                            <tab label = "Generate Links" />
+                            <tab label = "Window Management" />
+                        </tabs>
+                        <tabpanels flex = "1">
+                            <tabpanel flex = "1">
+                                <groupbox class = "spacingPanel"  flex = "1">
+                                    <checkbox id    = "ignoreFileType"
+                                              label = "Video format does not matter. Try to get the videos in requested quality."
+                                              checked = "false"
+                                              persist = "checked"
+                                              command = "toggle_format"/>
+
+                                    <checkbox id = "preserveOrder"
+                                              label = "Preserve order (prepends the file name with the serial number)."
+                                              checked = "false"
+                                              persist = "checked" />
+
+                                    <checkbox id = "prefetch"
+                                              label   = "Silently prefetch downloadable video URLs (makes the next step faster)."
+                                              checked = "true" persist = "checked"
+                                              command = "silent_prefetching"/>
+
+                                    <hbox   class = "indent" id = "showResAndQual">
+
+                                        <checkbox id  = "showResolution"
+                                              label   = "Show Max Resolution"
+                                              checked = "false" disabled = "false"
+                                              persist = "checked disabled"
+                                              command = "res_and_qual"/>
+
+                                        <checkbox id  = "showQuality"
+                                              label   = "Show Max Quality"
+                                              checked = "false" disabled = "false"
+                                              persist = "checked disabled"
+                                              command = "res_and_qual" />
+                                    </hbox>
+                                </groupbox>
+                            </tabpanel>
+
+                            <tabpanel flex = "1">
+
+                                <groupbox class = "spacingPanel" flex = "1">
+
+                                    <checkbox id        = "showDLWindow"
+                                              label     = "Popup the Downloads window after enqueueing all the videos, if 'What to do?' = 'Enqueue for Download'."
+                                              checked   = "true"
+                                              persist   = "checked" />
+
+                                    <checkbox id        = "closeQStatusWindow"
+                                              label     = "Close the queueing status window after processing all the requests unless there are some errors."
+                                              checked   = "true"
+                                              persist   = "checked" />
+
+                                    <checkbox id        = "suppressErrorMessages"
+                                              label     = "Suppress error messages. I don't want to see frequent error report requests."
+                                              checked   = "false"
+                                              persist   = "checked"
+                                              command   = "suppress_errors"/>
+
+                                </groupbox>
+
+                            </tabpanel>
+
+                            <tabpanel flex = "1">
+                                <vbox flex = "1">
+
+                                    <description value = ""/>
+
+                                    <description value = "When 'What to do?' = 'Generate Links' ..." />
+
+                                    <groupbox class = "spacingPanel" flex = "1">
+
+                                        <description value = "Generate an HTML file containing YouTube watch links for ..." />
+                                        <hbox>
+                                            <checkbox id = "generateFailedLinks" label = "Failed requests"
+                                                      checked = "true" persist = "checked"/>
+
+                                            <checkbox id = "generateWatchLinks" label = "Successful requests"
+                                                      checked = "true" persist = "checked"/>
+                                        </hbox>
+                                    </groupbox>
+
+                                    <groupbox class = "spacingPanel" flex = "1">
+
+                                        <description value = "Generate text files containing YouTube watch links for ..." />
+                                        <hbox>
+                                            <checkbox id = "generateBadLinks"
+                                                      label = "Failed requests"
+                                                      checked = "false" persist = "checked"/>
+
+                                            <checkbox id = "generateGoodLinks"
+                                                      label = "Successful requests"
+                                                      checked = "false" persist = "checked"/>
+                                        </hbox>
+                                    </groupbox>
+
+                                </vbox>
+                            </tabpanel>
+                            <tabpanel flex = "1">
+                                <groupbox class = "spacingPanel" flex = "1">
+                                    <checkbox id = "resizeWindow"
+                                              label = "Try to resize the window to fit content."
+                                              checked = "true" persist = "checked"
+                                              command = "manage_window"/>
+
+                                    <checkbox id = "centerWindow"
+                                              label = "Try to center the window after resizing."
+                                              checked = "true" persist = "checked"
+                                              command = "manage_window"/>
+
+                                    <checkbox id = "maintainAspectRatio"
+                                              label = "Maintain aspect ratio while resizing the window."
+                                              checked = "false" persist = "checked"
+                                              command = "manage_window"/>
+                                </groupbox>
+                            </tabpanel>
+                        </tabpanels>
+                    </tabbox>
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
+    </box>
+
+
+    <groupbox class = "spacingPanel1 pad_top6" orient = "horizontal">
+        <vbox>
+            <description class = "bold pad_top6" value = "Video Format"
+                         tooltiptext = "Which file format do you prefer?"/>
+            <description class = "bold pad_top8" value = "Destination"
+                         tooltiptext = "Where do you want the files to be stored?"/>
+            <description class = "bold pad_top12" value = "Selection Filter"
+                         tooltiptext = "JavaScript regular expression for video selection." />
+        </vbox>
+
+        <vbox flex = "1">
+            <hbox flex = "1">
+                <menulist id = "formatPreference" persist = "disabled">
+                    <menupopup>
+                        <menuitem id = "flv" label = "FLV" persist = "selected"/>
+                        <menuitem id = "mp4" label = "MP4" selected = "true" persist = "selected"/>
+                        <menuitem id = "webm" label = "WebM" persist = "selected"/>
+                    </menupopup>
+                </menulist>
+
+                <description class = "silver pad_top3" pack = "center" value = " | "/>
+
+                <description id = "qualityDesc" value = "Quality" class = "bold pad_top6"/>
+
+                <menulist id = "quality" persist = "disabled">
+                    <menupopup>
+                        <menuitem id = "p240" label = "240p" persist = "selected"/>
+                        <menuitem id = "p360" label = "360p" persist = "selected"/>
+                        <menuitem id = "p480" label = "480p" persist = "selected"/>
+                        <menuitem id = "p720" label = "720p HD" selected = "true" persist = "selected"/>
+                        <menuitem id = "p1080" label = "1080p HD" persist = "selected"/>
+                        <menuitem id = "original" label = "Original" persist = "selected"/>
+                    </menupopup>
+                </menulist>
+
+                <description class = "silver pad_top3" pack = "center" value = " | " />
+
+                <description id = "todoDesc" class = "bold pad_top6" value = "What to do?"
+                             tooltiptext = "'Enqueue for Download' directly enqueues the videos into the default Downloads window. Use this option if you don't have a download manager already installed. 'Generate Links' generates downloadable video links. Use this option if you already have a download manager installed."/>
+
+                <menulist id = "todo" label = "Generate Links" flex = "1"
+                            tooltiptext = "'Enqueue for Download' directly enqueues the videos into the default Downloads window. Use this option if you don't have a download manager already installed. 'Generate Links' generates downloadable video links. Use this option if you already have a download manager installed.">
+                    <menupopup>
+                        <menuitem id = "genLinks" label = "Generate Links" selected = "true"
+                                  persist = "selected"
+                                  tooltiptext = "I will use a download manager; Don't enqueue the videos into the default Downloads window; Just generate links."/>
+                        <menuitem id = "nqLinks" label = "Enqueue for Download" persist = "selected"
+                                  tooltiptext = "I don't have a download manager; Enqueue the videos into the default Downloads window."/>
+                    </menupopup>
+                </menulist>
+
+            </hbox>
+
+            <hbox flex = "1">
+                <textbox id = "destination" accesskey = "D" flex = "2"/>
+                <button id = "browseButton" accesskey = "B" label = "  Browse"
+                        oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onBrowse(event)"
+                        image = "chrome://BYTubeD/skin/icons/Browse-16.png"/>
+            </hbox>
+
+            <hbox flex = "1">
+                <textbox id = "filter" accesskey = "F" flex = "1"
+                         tooltiptext = "JavaScript regular expression for video selection."
+                         oninput = "IITK.CSE.CS213.BYTubeD.selectionManager.onFilterChange(event)"/>
+                <checkbox id = "selectAll" label = "Select All"
+                          checked = "false" persist = "checked" command = "cmd_select_all"/>
+                <button id = "start" accesskey = "S" label = "  Start" default = "true"
+                        command = "cmd_start" image = "chrome://BYTubeD/skin/icons/Start-16.png" />
+                <button id = "help" accesskey = "H" label = "  Help"
+                        oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onHelp(event)"
+                        image = "chrome://BYTubeD/skin/icons/Help-16.png" />
+                <button id = "cancel" accesskey = "C" label = "  Cancel" pack = "center"
+                        oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onCancel(event)"
+                        image = "chrome://BYTubeD/skin/icons/Cancel-16.png" />
+            </hbox>
+        </vbox>
+
+    </groupbox>
+
+    <statusbar id = "footer">
+        <statusbarpanel id = "status" label = "No videos selected."  flex = "1"/>
+    </statusbar>
+</window>

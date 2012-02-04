@@ -1,0 +1,27 @@
+** BYTubeD **
+Copyright (C) 2010-2012 M S Ram (M.S.Ramaiah@gmail.com) (the "Author")
+All rights reserved.
+
+BYTubeD is licensed under GPL 3. See the GPL file for details of the license.
+This applies to all and only those files of BYTubeD which were authored by the
+Author. All such files contain a block of license statement at the beginning.
+
+Icons courtesy:
+
+    * BYTubeD icon has been taken from the Free Icons Set by PixelMixer 
+      (http://pixel-mixer.com/)
+      
+    * Start, Help and Cancel button icons have been taken from 
+      Iconset: I Like Buttons 3a Icons by MazeNL77 (peterverschoor@xs4all.nl)
+      (http://www.iconarchive.com/show/I-like-buttons-3a-icons-by-mazenl77.html)
+      
+    * Browse button icon has been taken from 
+      Iconset: NX11 Icons by MazeNL77 (peterverschoor@xs4all.nl)
+      (http://www.iconarchive.com/show/NX11-icons-by-mazenl77/Folder-Default-icon.html)
+
+Code courtesy:
+    
+    * xmlHttpRequestManager.js uses code from "Multiple XMLHTTPRequest Objects"
+      by Matt (http://drakware.com/?e=3)
+  
+    * utf.js Copyright (C) 1999 Masanao Izumo <iz@onicos.co.jp>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+/* ***** BEGIN LICENSE BLOCK *****
+ * 
+ * The contents of this file are subject to the GNU General Public License
+ * Version 3 (the "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ * http://www.gnu.org/copyleft/gpl.html
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing the rights and limitations under the
+ * License.
+ *
+ * The Original Code is BYTubeD. The Initial Developer of the Original Code
+ * is M S Ram (M.S.Ramaiah@gmail.com).
+ * 
+ * Portions created by the Initial Developer are Copyright (C) 2010-2012 the 
+ * Initial Developer. All Rights Reserved.
+ *
+ * ***** END LICENSE BLOCK ***** */
+-->
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://BYTubeD/skin/win.css" type="text/css"?>
+
+<window id="BYTubeD" title="BYTubeD - Queueing status window"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        onload="IITK.CSE.CS213.BYTubeD.queueingStatusManager.onLoad(event)"
+        onunload="IITK.CSE.CS213.BYTubeD.queueingStatusManager.onUnload(event)">
+
+    <!-- <html:link rel="icon" href="chrome://BYTubeD/skin/icons/Down-32.png" /> -->
+
+    <script src="globals.js"/>
+    <script src="utf.js"/>
+    <script src="xmlHttpRequestManager.js" />
+    <script src="videoListManager.js" />
+    <script src="downloadQueueManager.js" />
+    <script src="queueingStatusManager.js"/>
+
+    <keyset>
+        <key id="close_cmd" keycode="VK_ESCAPE" oncommand="window.close();" />
+    </keyset>
+
+    <box class="spacingPanel" orient="vertical" flex="1">
+        <tabbox flex="1">
+            <tabs id="consoleTabs">
+                <tab label="Sucessful Requests" id="successConsoleTab"/>
+                <tab label="Failed Requests" id="errorConsoleTab"/>
+            </tabs>
+            <tabpanels id="consolePanels" flex="1">
+                <tabpanel>
+                    <textbox id="successConsole" flex="1" multiline="true" readonly="true" class="plain" />
+                </tabpanel>
+                <tabpanel>
+                    <textbox id="errorConsole" flex="1" multiline="true" readonly="true" class="plain"/>
+                </tabpanel>
+
+            </tabpanels>
+        </tabbox>
+    </box>
+    <statusbar id="footer">
+        <statusbarpanel id="status" label="No videos selected." flex="1" />
+        <progressmeter id="progressmeter" mode="determined" value="0"/>
+    </statusbar>
+
+</window>
