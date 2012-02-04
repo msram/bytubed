@@ -7,11 +7,11 @@
 
 ### Release Date
 
-    - February 4, 2012
+-   February 4, 2012
 
 ### License
     
-    -   Earlier versions of BYTubeD were released under MPL 1.1; BYTubeD 1.0.7 is released
+-   Earlier versions of BYTubeD were released under MPL 1.1; BYTubeD 1.0.7 is released
         under GPL 3.
 
 ### UI Changes
@@ -150,22 +150,22 @@
 
 3.  All the functions with return values to the following template:
 
-        ```javascript
-        var func = func()
+    ```javascript
+    var func = func()
+    {
+        var returnValue = ...;
+
+        try
         {
-            var returnValue = ...;
+            // populate returnValue
+        }
+        catch(error)
+        {
+            // handle error
+        }
 
-            try
-            {
-                // populate returnValue
-            }
-            catch(error)
-            {
-                // handle error
-            }
-
-            return returnValue;
-        }```
+        return returnValue;
+    }```
 
 ---------------------------------------------------
 
