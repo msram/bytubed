@@ -148,24 +148,6 @@
 
 2.  Error reports will include BYTubeD version number to make developer's life easy
 
-3.  All the functions with return values to the following template:
-
-    ```javascript
-    var func = func()
-    {
-        var returnValue = ...;
-
-        try
-        {
-            // populate returnValue
-        }
-        catch(error)
-        {
-            // handle error
-        }
-
-        return returnValue;
-    }
 
 ---------------------------------------------------
 
