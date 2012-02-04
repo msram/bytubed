@@ -23,4 +23,3 @@ Tools menu or in the context menu (i.e., the right click menu).
 
 -----------------------------------------------------
 
-*Last Modified: 1:40 AM Tuesday, January 31, 2012*
