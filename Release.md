@@ -2,6 +2,174 @@
 
 -----------------------------------------------------
 
+
+## 1.0.7
+
+### Release Date
+
+    - February 4, 2012
+
+### License
+    
+    -   Earlier versions of BYTubeD were released under MPL 1.1; BYTubeD 1.0.7 is released
+        under GPL 3.
+
+### UI Changes
+
+1.  Preferences tab has been split into 4 sub-tabs:
+
+    1.  "Additional Features" with the following options:
+
+        -   "Video format does not matter. Try to get the videos in requested quality."
+
+        -   "Preserve order (prepends the file name with the serial number)."
+
+        -   "Silently prefetch downloadable video URLs (makes the next step faster)."
+
+            -   "Show Max Resolution"
+
+            -   "Show Max Quality"
+
+    2.  "User Interaction" with the first 3 of the old options of the Preferences tab.
+
+    3.  "Generate Links" with options to generate text files for YouTube watch links.
+
+    4.  "Window Management" with the following options:
+
+        -   "Try to resize the window to fit content."
+
+        -   "Try to center the window after resizing."
+
+        -   "Maintain aspect ratio while resizing the window."
+
+2.  In addition to "FLV" and "MP4", a new option "WebM" has been added in the Video Format
+    field
+
+    -   Radio-group has been replaced by a drop-down-menu.
+
+    -   If a video is not available in the requested format, then among the available
+        formats, the highest quality video will be fetched subject to the quality
+        constraints specified in the Quality field.
+
+3.  More specific Quality field:
+
+    -   The set {"High", "Medium", "Low"} of quality values has been replaced by the
+        following set of options:
+
+        -   {"240p", "360p", "480p", "720p HD", "1080p HD", "Original"}
+
+    -   "240p" to "Original" are arranged in increasing order of quality.
+
+    -   "720p HD" is the default value.
+
+    -   If a video is not available in the requested quality, then a lower quality video
+        of the same format, as specified in the Video Format field, will be fetched.
+
+
+4.  By default "What to do?" = "Generate Links"; earlier it was "Enqueue for Download"
+
+5.  The option "Always get highest quality video (don't care whether MP4 or FLV)" has
+    been replaced by "Video format does not matter. Try to get the videos in requested
+    quality." under Preferences -> Additional Features
+
+    -   This new option allows prioritizing quality over file format.
+
+6.  "Show Max Resolution" and "Show Max Quality" under Preferences -> Additional Features
+
+    -   To show maximum resolution and maximum quality of each video along with S.No and
+        Title in Selection Window.
+
+    -   Require silent prefetching enabled.
+
+7.  Added an option: "Select All" in the Selection Window to select all the videos.
+
+### Features Added
+
+1.  **Silent prefetching** of downloadable video URLs
+
+2.  **Grabbing more links**
+
+    1.  Ability to grab YouTube URLs even if they are not hyperlinks to YouTube videos.
+        This means that now BYTubeD can be invoked on:
+
+        -   a page containing embedded YouTube videos, hidden video links, etc.
+
+        -   even a text file containing some YouTube URLs here and there.
+
+    2.  Ability to grab YouTube links from the clipboard.
+
+
+3.  **Preserve Order**
+
+    -   This option can be set to true to make sure that the videos in the destination
+        directory are in the same order as they appear on the page where BYTubeD was
+        invoked.
+
+4.  **Support for WebM format**
+
+    -   In addition to "FLV" and "MP4", a new option "WebM" has been added in the
+        Video Format field
+
+    -   If a video is not available in the requested format, then among the available
+        formats, the highest quality video will be fetched subject to the quality
+        constraints specified in the Quality field.
+
+### Other Changes
+
+1.  Generating the youtube-page-links in a sperate file; and showing only download links
+    in the 'main' links file, to avoid watch links being shown in DownThemAll
+
+    -   *download_links_bytubed@cs213.cse.iitk.ac.in.html* contains the downloadable
+        video links
+
+    -   *watch_links_bytubed@cs213.cse.iitk.ac.in.html* contains the YouTube video page
+        links for all the successful and failed requests.
+
+2.  Including, at the top of generated youtube-watch-links page:
+
+    -   time stamp of BYTubeD invocation
+
+    -   window/tab title/link of the source page on which BYTubeD was invoked,
+
+3.  Added an option to generate text files containing the YouTube page links for failed
+    and successful requests  (not the download links, because the download links expire
+    within 7 hours after generation)
+
+    -   Failed requests are saved in *bad_links_bytubed@cs213.cse.iitk.ac.in.txt*
+
+    -   Successful requests are saved in *good_links_bytubed@cs213.cse.iitk.ac.in.txt*
+
+4.  All communication happens over HTTPS rather than HTTP
+
+### Code Improvements
+
+1.  Including swf_map as a property of YouTubeVideo and added code to make sure that
+    video_info is fetched at most once for each video.
+
+2.  Error reports will include BYTubeD version number to make developer's life easy
+
+3.  All the functions with return values to the following template:
+
+        ```javascript
+        var func = func()
+        {
+            var returnValue = ...;
+
+            try
+            {
+                // populate returnValue
+            }
+            catch(error)
+            {
+                // handle error
+            }
+
+            return returnValue;
+        }```
+
+---------------------------------------------------
+
+
 ##  1.0.6
 
 ### Release Date
