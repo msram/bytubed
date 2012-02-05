@@ -11,8 +11,8 @@ document.write
             '<a href="https://github.com/msram/bytubed">BYTubeD - Bulk (Batch) YouTube video Downloader</a> ' +
         '</h1>' +
         '<div class="description">' +
-            'A <a href="https://addons.mozilla.org/addon/bytubed/">Firefox extension</a> by <a href="https://github.com/msram">msram</a> to download YouTube videos in bulk' +
-            '' +
+            'A <a href="https://addons.mozilla.org/addon/bytubed/">Firefox extension</a>' +
+            'by <a href="https://github.com/msram">msram</a>, to batch download multiple YouTube videos.' +
         '</div>'        
     );
 
