@@ -6,12 +6,11 @@
 
 ### Release Date
 
-    - February 4, 2012
+- February 4, 2012
 
 ### License
     
-    -   Earlier versions of BYTubeD were released under MPL 1.1; BYTubeD 1.0.7 is released
-        under GPL 3.
+-   Earlier versions of BYTubeD were released under MPL 1.1; BYTubeD 1.0.7 is released under GPL 3.
 
 ### UI Changes
 
