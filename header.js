@@ -6,14 +6,12 @@ document.write
             '<a href="https://github.com/msram/bytubed/tarball/master"><img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>' +
             '<div class="info">Source code of BYTubeD<br/>(from GitHub)</div>' +
         '</div>' +
-        '<h1>' +
-            '<a href="https://github.com/msram/bytubed">BYTubeD</a> ' +
-            '<span class="small">by <a href="https://github.com/msram">msram</a></span>' +
+        '<h1 class="header">' +
+            '<a href="https://github.com/msram/bytubed">BYTubeD - Bulk (Batch) YouTube video Downloader</a> ' +
         '</h1>' +
-
         '<div class="description">' +
-            '(A <a href="https://addons.mozilla.org/addon/bytubed/">Firefox extension</a> to download YouTube videos in bulk)' +
-        '</div>'
+            'A <a href="https://addons.mozilla.org/addon/bytubed/">Firefox extension</a> by <a href="https://github.com/msram">msram</a> to download YouTube videos in bulk' +
+        '</div>'        
     );
 
 /* Navigation Bar */
