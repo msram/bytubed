@@ -20,5 +20,5 @@ document.write('<scri' + 'pt src="text/javascript"> var pageTracker = _gat._getT
             );
 /* End of Google Analytics Code */
 
-document.write('<span class="rfloat italic info">Last Modified:' + document.lastModified + '</span><br/><br/>');
+document.write('<span class="rfloat italic">Last Modified:' + document.lastModified + '</span><br/><br/>');
 
