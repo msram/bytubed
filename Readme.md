@@ -26,7 +26,7 @@ Tools menu or in the context menu. To know more about how to use BYTubeD, please
 
 ## Development
 
--   ### [Release Notes](Changes.md)
+-   [Release Notes](bytubed/Changes.md)
 
 -----------------------------------------------------
 
