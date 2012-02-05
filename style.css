@@ -144,7 +144,13 @@ hr.header
     text-align: center;
     color: #888888;
 }
-table
+table.screen-shots, td
 {
     border-collapse: collapse;
+    border: 1px dotted gray;
+}
+
+table.screen-shots
+{
+    margin-bottom: 5px;
 }
