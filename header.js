@@ -21,7 +21,8 @@ document.write
     (
         '<hr/>' +
         '<a href="index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;' +
-        '<a href="help.html">Help</a> ' +
-        '<br/><hr/><br/>' 
+        '<a href="help.html">Help</a>&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;' +
+        '<a href="screen-shots.html">Screenshots</a>' +
+        '<br/><hr/>' 
     );
 /* End of Navigation Bar */

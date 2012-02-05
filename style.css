@@ -101,3 +101,7 @@ hr
     text-align: center;
     color: #888888;
 }
+table
+{
+    border-collapse: collapse;
+}
