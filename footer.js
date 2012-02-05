@@ -1,4 +1,4 @@
-document.write('<br/><div class="center info italic">Last Modified:' + document.lastModified + '</div><br/>');
+document.write('<br/><div class="center info italic">Last Modified: ' + new Date(document.lastModified) + '</div><br/>');
 document.write('<div class="comments">');
 
 /* IntenseDebate Code */

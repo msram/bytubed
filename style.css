@@ -126,10 +126,10 @@ pre
     padding: 15px;
 }
 
-hr
+hr.header
 {
     border: 0;
-    border-bottom: 1px solid #888888;
+    border-bottom: 1px solid orange;
 }
 
 .footer 
