@@ -35,6 +35,20 @@ body
     border-radius: 20px;
 }
 
+.comments
+{
+    border: 1px solid orange;
+    padding: 10px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+}
+
+h1, h2
+{
+    border-bottom: 1px dotted #cccccc;
+}
+
 h1, h2, h3
 {
     font-variant: small-caps;
@@ -52,6 +66,7 @@ h1.header
 {
     font-variant: normal;
     font-style: italic;
+    border: none;
 }
 
 h1 a 
@@ -111,10 +126,10 @@ pre
     padding: 15px;
 }
 
-hr 
+hr
 {
     border: 0;
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid #888888;
 }
 
 .footer 
@@ -125,7 +140,7 @@ hr
 }
 .info
 {
-    font-size: 10px;
+    font-size: 12px;
     text-align: center;
     color: #888888;
 }

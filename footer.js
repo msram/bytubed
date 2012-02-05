@@ -1,4 +1,5 @@
-document.write('<br/><hr/>');
+document.write('<br/><div class="center info italic">Last Modified:' + document.lastModified + '</div><br/>');
+document.write('<div class="comments">');
 
 /* IntenseDebate Code */
 var idcomments_acct = "4aca98f14705a845798ff5146c6bb67d";
@@ -20,5 +21,6 @@ document.write('<scri' + 'pt src="text/javascript"> var pageTracker = _gat._getT
             );
 /* End of Google Analytics Code */
 
-document.write('<span class="rfloat italic">Last Modified:' + document.lastModified + '</span><br/><br/>');
+document.write('<div>');
+
 
