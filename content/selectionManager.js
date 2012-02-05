@@ -56,7 +56,7 @@ IITK.CSE.CS213.BYTubeD.InvocationInfo = function()
     };
 };
 
-IITK.CSE.CS213.BYTubeD.helpPageLink = "http://bytubed.blogspot.com/p/faq.html";
+IITK.CSE.CS213.BYTubeD.helpPageLink = "http://msram.github.com/bytubed/help.html";
 
 IITK.CSE.CS213.BYTubeD.undesirablePattern   =
     new RegExp( "^http|^<img|thumb|Back(\\s)+$|" +
