@@ -1,7 +1,7 @@
 body 
 {
     margin-top: 1.0em;
-    background-color: #cccccc;
+    background-color: #505050;
     font-family: georgia, Verdana, Helvetica, Arial, FreeSans, san-serif;
     color: #666666;
     text-align: justify;
@@ -12,11 +12,14 @@ body
 {
     margin: 0 auto;
     width: 900px;
-    border:1px solid #aaaaaa;
+    
+    -moz-box-shadow: 0 0 12px 12px #444;
+    -webkit-box-shadow: 0 0 12px 12px #444;
+    box-shadow: 0 0 12px 12px #444;
     border-radius:25px;
     padding: 20px;
     margin-bottom: 25px;
-    margin-top: 25px;
+    margin-top: 50px;
     background-color: #ffffff;
 }
 
@@ -65,6 +68,7 @@ a:hover
 { 
     font-size: 18px;
     text-align:center; 
+    vertical-align: middle;
     margin-bottom: 30px; 
     font-style: italic;
 }
