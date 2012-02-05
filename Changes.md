@@ -139,6 +139,10 @@
 
 4.  All communication happens over HTTPS rather than HTTP
 
+5.  Change in support page:
+    -   All references to http://bytubed.blogspot.com/ have been replaced by 
+        http://msram.github.com/bytubed/
+
 ### Code Improvements
 
 1.  Including swf_map as a property of YouTubeVideo and added code to make sure that
