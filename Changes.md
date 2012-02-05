@@ -6,7 +6,7 @@
 
 ### Release Date
 
-- February 4, 2012
+-   February 4, 2012
 
 ### License
     
@@ -146,24 +146,24 @@
 
 2.  Error reports will include BYTubeD version number to make developer's life easy
 
-3.  All the functions with return values to the following template:
+3.  Brought all the functions with return values to the following template:
 
-        ```javascript
-        var func = func()
+    ```javascript
+    var func = func()
+    {
+        var returnValue = ...;
+
+        try
         {
-            var returnValue = ...;
+            // populate returnValue
+        }
+        catch(error)
+        {
+            // handle error
+        }
 
-            try
-            {
-                // populate returnValue
-            }
-            catch(error)
-            {
-                // handle error
-            }
-
-            return returnValue;
-        }```
+        return returnValue;
+    }```
 
 ---------------------------------------------------
 
