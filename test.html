@@ -1,3 +1,5 @@
+<div id="images">Loading...</div>
+
 <script type="text/javascript">
 	
 	function getRemoteDirectoryContents(url)
@@ -8,10 +10,12 @@
 	    {
 			if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
 			{
-				alert(xmlhttp.responseText);
+				document.getElementById('images').innerHTML = xmlhttp.responseText;
 			}
 	    };
 	}
 	
 	getRemoteDirectoryContents('http://msram.github.com/bytubed/screen-shots/');
 </script>
+
+
