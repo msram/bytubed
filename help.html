@@ -6,493 +6,494 @@
 
     <body>   
         <div class="container">
-            <div class="content">
+            <div class="document">
                 <script type="text/javascript" src="./header.js"></script>
+                <div class="content">                
+                    <h2>Help on BYTubeD</h2>
                 
-                <h2>Help on BYTubeD</h2>
-                
-                <div class="indent">
-	                <p>
-	                    <strong>Q: What is BYTubeD?</strong>
-	                </p>
-	                <p>
-	                    A: BYTubeD stands for "Bulk YouTube video Downloader" (or "Batch YouTube video Downloader").
-	                    It is a <a href="https://adddons.mozilla.org/addon/bytubed/" rel="nofollow">Firefox extension</a>
-	                    that helps users in downloading YouTube videos in bulk (i.e., downloading multiple YouTube
-	                    videos at once in batch mode with a few clicks). It can be used to download all/selected YouTube
-	                    videos on any page which has some YouTube video links. It makes the job of downloading YouTube
-	                    playlists easy.
-	                </p>
-	                <p>
-	                    <strong>Q: Which is the latest version?</strong>
-	                </p>
-	                <p>
-	                    A: 1.0.7
-	                </p>
-                </div>
-                
-                <h2>How to use BYTubeD?</h2>
-                <div class="indent">
-	                <p>
-	                    <strong>Q: How do I invoke BYTubeD?</strong>
-	                </p>
-	                <p>
-	                    A: There are atleast 2 ways to invoke BYTubeD:
+	                <div class="indent">
+		                <p>
+		                    <strong>Q: What is BYTubeD?</strong>
+		                </p>
+		                <p>
+		                    A: BYTubeD stands for "Bulk YouTube video Downloader" (or "Batch YouTube video Downloader").
+		                    It is a <a href="https://adddons.mozilla.org/addon/bytubed/" rel="nofollow">Firefox extension</a>
+		                    that helps users in downloading YouTube videos in bulk (i.e., downloading multiple YouTube
+		                    videos at once in batch mode with a few clicks). It can be used to download all/selected YouTube
+		                    videos on any page which has some YouTube video links. It makes the job of downloading YouTube
+		                    playlists easy.
+		                </p>
+		                <p>
+		                    <strong>Q: Which is the latest version?</strong>
+		                </p>
+		                <p>
+		                    A: 1.0.7
+		                </p>
+	                </div>
+	                
+	                <h2>How to use BYTubeD?</h2>
+	                <div class="indent">
+		                <p>
+		                    <strong>Q: How do I invoke BYTubeD?</strong>
+		                </p>
+		                <p>
+		                    A: There are atleast 2 ways to invoke BYTubeD:
+			                <ul>
+			                    <li>
+			                        Right click and then click on BYTubeD
+			                    </li>
+			                    <li>
+			                        Click on the Tools -&gt; BYTubeD menu item
+			                    </li>
+			                </ul>
+		                </p>
+		                <p>
+		                    <strong>Q: How do I select the videos to download?</strong>
+		                </p>
+		                <p>
+		                    A: Either enter an appropriate selection filter in the Selection Filter
+		                    field, or select the titles manually by holding Ctrl key while selecting
+		                    the individual titles.
+		                </p>
+		                <p>
+		                    <strong>Q: How can select all the videos for download?</strong>
+		                </p>
+		                <p>
+		                    A: There are at least two options:
+		                </p>
 		                <ul>
 		                    <li>
-		                        Right click and then click on BYTubeD
+		                        By pressing Ctrl+A
 		                    </li>
 		                    <li>
-		                        Click on the Tools -&gt; BYTubeD menu item
+		                        By checking the "Select All" check box near the Start button.
 		                    </li>
 		                </ul>
-	                </p>
-	                <p>
-	                    <strong>Q: How do I select the videos to download?</strong>
-	                </p>
-	                <p>
-	                    A: Either enter an appropriate selection filter in the Selection Filter
-	                    field, or select the titles manually by holding Ctrl key while selecting
-	                    the individual titles.
-	                </p>
-	                <p>
-	                    <strong>Q: How can select all the videos for download?</strong>
-	                </p>
-	                <p>
-	                    A: There are at least two options:
-	                </p>
-	                <ul>
+		                <p>
+		                    <strong>Q: How does the selection filter work?</strong>
+		                </p>
+		                <p>
+		                    A: The selection filter understands 
+		                    <a href="http://www.javascriptkit.com/javatutors/redev2.shtml" rel="nofollow">
+		                        JavaScript regular expressions
+		                   	</a>.
+		                    If you are not familiar with JavaScript regular expressions, just enter
+		                    some text and all the titles that have this text as a substring will be
+		                    selected. In case you don't understand this substring business, the
+		                    easiest option is to select the videos manually.
+		                </p>
+		                <p>
+		                    <strong>Q: I have selected the videos to be downloaded. Then what?</strong>
+		                </p>
+		                <p>
+		                    A: Click "Start" or press ENTER.
+		                </p>
+		                <p>
+		                    <strong>Q: Ok! Then what happens?</strong>
+		                </p>
+		                <p>
+		                    A: Depending on the value of the "What to do?" field, BYTubeD will either start generating video links
+		                    or it will start enqueueing the requested videos into Firefox's Downloads window. Once the process of
+		                    enqueueing/generating is completed, the Downloads window or the generated links window will popup. Now
+		                    you can close the BYTubeD queueing status window, if it is still open.
+		                </p>
+		                <p>
+		                    <strong>Q: Can I use a download manager like DownThemAll to better manage my
+		                    downloads?</strong>
+		                </p>
+		                <p>
+		                    A: Yes! Starting from version 1.0.4, BYTubeD provides a way of using
+		                    your favorite download managers to better manage downloads.
+		                </p>
+		                <p>
+		                    <strong>Q: How do I use my favorite download manager with BYTubeD?</strong>
+		                </p>
+		                <p>
+		                    A: On the selection window (i.e., the first window that you see when you
+		                    invoke BYTubeD), select "Generate Links" for "What to do?". Now when you
+		                    say Start, BYTubeD will generate all the downloadable video links in a
+		                    new window, where you can invoke your favorite download manager.
+		                </p>
+	                </div>
+	                
+	                <h2>More Details</h2>
+	                <h3>Of Various Options...</h3>
+	                <ul class="indent-right">
 	                    <li>
-	                        By pressing Ctrl+A
+	                        <p>
+	                            <strong>Video Format</strong>
+	                        </p>
+	                        <ul>
+	                            <li>
+	                                Supported formats: MP4, FLV and WebM
+	                            </li>
+	                            <li>
+	                                Default value of the field is "MP4"
+	                            </li>
+	                            <li>
+	                                If a video is not available in the chosen format, then of the
+	                                available formats, the highest quality video will be fetched subject
+	                                to the constraints specified by the Quality field.
+	                            </li>
+	                        </ul>
 	                    </li>
 	                    <li>
-	                        By checking the "Select All" check box near the Start button.
+	                        <p>
+	                            <strong>Quality</strong>
+	                        </p>
+	                        <ul>
+	                            <li>
+	                                Supported qualities: 240p, 360p, 480p, 720p HD, 1080p HD, Original
+	                            </li>
+	                            <li>
+	                                Default value of the field is "720p HD"
+	                            </li>
+	                            <li>
+	                                If a video is not available in the chosen quality, then it will be
+	                                fetched in the next (available) highest quality.
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li>
+	                        <p>
+	                            <strong>What to do?</strong>
+	                        </p>
+	                        <ul>
+	                            <li>
+	                                This filed can be either "Enqueue for Download" or "Generate Links"
+	                                <br>
+	                            </li>
+	                            <li>
+	                                Default value is "Generate Links"
+	                                <br>
+	                            </li>
+	                            <li>
+	                                If you choose "Enqueue for Download", then BYTubeD will directly enqueue
+	                                the download requests in to the default Downloads window of Firefox.
+	                                This is a very basic option and not quite recommended.
+	                            </li>
+	                            <li>
+	                                If you choose "Generate Links", then BYTubeD will generate a list of
+	                                links to downloadable videos as an HTML page, where you can invoke a
+	                                download manager like DownThemAll. This option is much better, because
+	                                with this you will have lot more control over the downloads than
+	                                otherwise.
+	                                <ul>
+	                                    <li>
+	                                        <code>
+	                                            download_links_bytubed@cs213.cse.iitk.ac.in.html</code>
+	                                        in the
+	                                        destination directory will contain the downloadable video links.
+	                                    </li>
+	                                </ul>
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li>
+	                        <p>
+	                            <strong>Destination</strong>
+	                        </p>
+	                        <ul>
+	                            <li>
+	                                Tell BYTubeD which directory to download the videos or generate the
+	                                download_links files into.
+	                            </li>
+	                            <li>
+	                                By default, set to the default Downloads directory; can be changed
+	                                manually or using the <strong>Browse</strong> button.
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li>
+	                        <p>
+	                            <strong>Selection Filter</strong>
+	                        </p>
+	                        <ul>
+	                            <li>
+	                                Use this field to specify which videos you want to select for
+	                                download. This field understands JavaScript regular expressions.
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li>
+	                        <p>
+	                            <strong>Select All</strong>
+	                        </p>
+	                        <ul>
+	                            <li>
+	                                Check this if you want to select all videos for download.
+	                            </li>
+	                        </ul>
 	                    </li>
 	                </ul>
-	                <p>
-	                    <strong>Q: How does the selection filter work?</strong>
-	                </p>
-	                <p>
-	                    A: The selection filter understands 
-	                    <a href="http://www.javascriptkit.com/javatutors/redev2.shtml" rel="nofollow">
-	                        JavaScript regular expressions
-	                   	</a>.
-	                    If you are not familiar with JavaScript regular expressions, just enter
-	                    some text and all the titles that have this text as a substring will be
-	                    selected. In case you don't understand this substring business, the
-	                    easiest option is to select the videos manually.
-	                </p>
-	                <p>
-	                    <strong>Q: I have selected the videos to be downloaded. Then what?</strong>
-	                </p>
-	                <p>
-	                    A: Click "Start" or press ENTER.
-	                </p>
-	                <p>
-	                    <strong>Q: Ok! Then what happens?</strong>
-	                </p>
-	                <p>
-	                    A: Depending on the value of the "What to do?" field, BYTubeD will either start generating video links
-	                    or it will start enqueueing the requested videos into Firefox's Downloads window. Once the process of
-	                    enqueueing/generating is completed, the Downloads window or the generated links window will popup. Now
-	                    you can close the BYTubeD queueing status window, if it is still open.
-	                </p>
-	                <p>
-	                    <strong>Q: Can I use a download manager like DownThemAll to better manage my
-	                    downloads?</strong>
-	                </p>
-	                <p>
-	                    A: Yes! Starting from version 1.0.4, BYTubeD provides a way of using
-	                    your favorite download managers to better manage downloads.
-	                </p>
-	                <p>
-	                    <strong>Q: How do I use my favorite download manager with BYTubeD?</strong>
-	                </p>
-	                <p>
-	                    A: On the selection window (i.e., the first window that you see when you
-	                    invoke BYTubeD), select "Generate Links" for "What to do?". Now when you
-	                    say Start, BYTubeD will generate all the downloadable video links in a
-	                    new window, where you can invoke your favorite download manager.
-	                </p>
+	                
+	                <h3>On Preferences...</h3>
+	                <ul class="indent-right">
+	                    <li>
+	                        <p>
+	                            <strong>Additional Features</strong>
+	                        </p>
+	                        <ul>
+	                            <li>
+	                                "Video format does not matter. Try to get the videos in requested
+	                                quality."
+	                                <ul>
+	                                    <li>
+	                                        This option allows prioritizing quality over file format.
+	                                    </li>
+	                                    <li>
+	                                        For example, to get highest quality videos irrespective of their
+	                                        file format, check this option and set the Quality field to
+	                                        "Original".
+	                                    </li>
+	                                </ul>
+	                            </li>
+	                            <li>
+	                                "Preserve order (prepends the file name with the serial number)."
+	                                <ul>
+	                                    <li>
+	                                        This option can be set to true when you want to make sure that the
+	                                        videos are seen in the destination folder in the same order as they
+	                                        appear on the page you invoked BYTubeD.
+	                                    </li>
+	                                    <li>
+	                                        Ex: If you want to download all videos from a playlist like <a href="http://www.youtube.com/playlist?list=FD0EB975BA0CC1E0"
+	                                        rel="nofollow">this
+	                                        one</a>, where
+	                                        there is a logical sequence in the videos but that sequence is not
+	                                        captured in the video titles by means of some kind of serial number,
+	                                        the Preserve Order option adds a serial number to the file names
+	                                        when you download them so that the logical sequence is preserved.
+	                                    </li>
+	                                </ul>
+	                            </li>
+	                            <li>
+	                                "Silently prefetch downloadable video URLs (makes the next step faster)."
+	                                <ul>
+	                                    <li>
+	                                        While you decide on which videos to download and select them,
+	                                        BYTubeD will silently start building the downloadable video URLs, so
+	                                        that when you say Start, you will not have to wait too long to see
+	                                        the Downloads window or the generated_links window.
+	                                    </li>
+	                                    <li>
+	                                        Checked by default.
+	                                    </li>
+	                                </ul>
+	                            </li>
+	                            <li>
+	                                "Show Max Resolution" and "Show Max Quality"
+	                                <ul>
+	                                    <li>
+	                                        To show maximum resolution and maximum quality of each video along
+	                                        with S.No and Title in Selection Window.
+	                                    </li>
+	                                    <li>
+	                                        These options require silent prefetching enabled.
+	                                    </li>
+	                                </ul>
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li>
+	                        <p>
+	                            <strong>User Interaction</strong>
+	                        </p>
+	                        <ul>
+	                            <li>
+	                                "Popup the Downloads window after enqueueing all the videos, if 'What to
+	                                do?' = 'Enqueue for Download'."
+	                                <ul>
+	                                    <li>
+	                                        Checked by default; can be unchecked if you are using something like <a href="https://addons.mozilla.org/en-US/firefox/addon/download-statusbar/" rel="nofollow">download statusbar</a>
+	                                        and do not want to see the default Downloads window popup after the
+	                                        process of enqueueing.
+	                                    </li>
+	                                </ul>
+	                            </li>
+	                            <li>
+	                                "Close the queueing status window after processing all the requests unless
+	                                there are some errors."
+	                                <ul>
+	                                    <li>
+	                                        Checked by default
+	                                    </li>
+	                                </ul>
+	                            </li>
+	                            <li>
+	                                "Suppress error messages. I don't want to see frequent error report
+	                                requests."
+	                                <ul>
+	                                    <li>
+	                                        Can be checked if you don't want to see error report requests
+	                                        popping up when there are problems.
+	                                    </li>
+	                                </ul>
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li>
+	                        <p>
+	                            <strong>Generate Links</strong>
+	                        </p>
+	                        <ul>
+	                            <li>
+	                                <p>
+	                                    "When 'What to do?' = 'Generate Links' ..."
+	                                </p>
+	                                <ul>
+	                                    <li>
+	                                        <p>
+	                                            "Generate an HTML file containing YouTube watch links for ..."
+	                                        </p>
+	                                        <ul>
+	                                            <li>
+	                                                "Failed requests"
+	                                                <ul>
+	                                                    <li>
+	                                                        If checked, <code>
+	                                                            watch_links_bytubed@cs213.cse.iitk.ac.in.html</code>
+	                                                        will
+	                                                        contain YouTube page links to failed requests along with reasons for
+	                                                        failure.
+	                                                    </li>
+	                                                    <li>
+	                                                        Checked by default
+	                                                    </li>
+	                                                </ul>
+	                                            </li>
+	                                            <li>
+	                                                "Successful requests"
+	                                                <ul>
+	                                                    <li>
+	                                                        If checked, <code>
+	                                                            watch_links_bytubed@cs213.cse.iitk.ac.in.html</code>
+	                                                        will
+	                                                        contain YouTube page links to successful requests.
+	                                                    </li>
+	                                                    <li>
+	                                                        Checked by default
+	                                                    </li>
+	                                                </ul>
+	                                            </li>
+	                                        </ul>
+	                                    </li>
+	                                    <li>
+	                                        <p>
+	                                            "Generate text files containing YouTube watch links for ..."
+	                                        </p>
+	                                        <ul>
+	                                            <li>
+	                                                "Failed requests"
+	                                                <ul>
+	                                                    <li>
+	                                                        Not checked by default; if checked, YouTube page links of the failed
+	                                                        requests will be saved in <code>
+	                                                            bad_links_bytubed@cs213.cse.iitk.ac.in.txt</code>
+	                                                        .
+	                                                    </li>
+	                                                </ul>
+	                                            </li>
+	                                            <li>
+	                                                "Successful requests"
+	                                                <ul>
+	                                                    <li>
+	                                                        Not checked by default; if checked, YouTube page links of the successful
+	                                                        requests will be saved in <code>
+	                                                            good_links_bytubed@cs213.cse.iitk.ac.in.txt</code>
+	                                                        .
+	                                                    </li>
+	                                                </ul>
+	                                            </li>
+	                                        </ul>
+	                                    </li>
+	                                </ul>
+	                            </li>
+	                            <li>
+	                                <p>
+	                                    Applicable when the 'What to do?' field is set to 'Generate Links'.
+	                                </p>
+	                            </li>
+	                        </ul>
+	                    </li>
+	                    <li>
+	                        <p>
+	                            <strong>Window Management</strong>
+	                        </p>
+	                        <ul>
+	                            <li>
+	                                "Try to resize the window to fit content."
+	                                <ul>
+	                                    <li>
+	                                        Checked by default; but may not succeed always.
+	                                    </li>
+	                                </ul>
+	                            </li>
+	                            <li>
+	                                "Try to center the window after resizing."
+	                                <ul>
+	                                    <li>
+	                                        Checked by default; but may not succeed always.
+	                                    </li>
+	                                </ul>
+	                            </li>
+	                            <li>
+	                                "Maintain aspect ratio while resizing the window."
+	                                <ul>
+	                                    <li>
+	                                        If checked, size of the BYTubeD window will always be proportional
+	                                        to the aspect ratio of the screen resolution.
+	                                    </li>
+	                                    <li>
+	                                        Not checked by default
+	                                    </li>
+	                                </ul>
+	                            </li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                
+	                <h2>Miscellaneous</h2>
+	                <div class="indent">
+		                <p>
+		                    <strong>Q: What does MP4 &gt; FLV mean?</strong>
+		                </p>
+		                <p>
+		                    A: (By the way, if you are seeing "MP4 &gt; FLV" on your BYTubeD window,
+		                    you are using an older version. Please get the <a href="https://addons.mozilla.org/en-us/firefox/addon/bytubed/" rel="nofollow">new
+		                    version</a>.) Any
+		                    way, MP4 &gt; FLV means that you would like to download the videos in MP4
+		                    format if they are available in MP4 format. If they are not available in
+		                    MP4 format, then BYTubeD will try to fetch them in FLV format.
+		                </p>
+		                <p>
+		                    <strong>Q: I don't want to see too many error report requests. Can I suppress
+		                    them?</strong>
+		                </p>
+		                <p>
+		                    A: Yes. Go to Preferences -&gt; User Interaction; and check the "Suppress
+		                    error messages..." checkbox.
+		                </p>
+		                <p>
+		                    <strong>Q: I am not able to download certain videos with BYTubeD. It says
+		                    "Embedding disabled by request. Watch on YouTube". What should I do?</strong>
+		                </p>
+		                <p>
+		                    A: Please get the <a href="https://addons.mozilla.org/addon/bytubed" rel="nofollow">latest version</a>.
+		                    With the latest version you can download almost any YouTube video.
+		                </p>
+		                <p>
+		                    <strong>Q: I have some queries/comments/suggestions!</strong>
+		                </p>
+		                <p>
+		                    A: Please post them as comments below or send a	mail to bytubed (at) gmail (dot) com.
+		                </p>
+	                </div>
                 </div>
-                
-                <h2>More Details</h2>
-                <h3>Of Various Options...</h3>
-                <ul class="indent-right">
-                    <li>
-                        <p>
-                            <strong>Video Format</strong>
-                        </p>
-                        <ul>
-                            <li>
-                                Supported formats: MP4, FLV and WebM
-                            </li>
-                            <li>
-                                Default value of the field is "MP4"
-                            </li>
-                            <li>
-                                If a video is not available in the chosen format, then of the
-                                available formats, the highest quality video will be fetched subject
-                                to the constraints specified by the Quality field.
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p>
-                            <strong>Quality</strong>
-                        </p>
-                        <ul>
-                            <li>
-                                Supported qualities: 240p, 360p, 480p, 720p HD, 1080p HD, Original
-                            </li>
-                            <li>
-                                Default value of the field is "720p HD"
-                            </li>
-                            <li>
-                                If a video is not available in the chosen quality, then it will be
-                                fetched in the next (available) highest quality.
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p>
-                            <strong>What to do?</strong>
-                        </p>
-                        <ul>
-                            <li>
-                                This filed can be either "Enqueue for Download" or "Generate Links"
-                                <br>
-                            </li>
-                            <li>
-                                Default value is "Generate Links"
-                                <br>
-                            </li>
-                            <li>
-                                If you choose "Enqueue for Download", then BYTubeD will directly enqueue
-                                the download requests in to the default Downloads window of Firefox.
-                                This is a very basic option and not quite recommended.
-                            </li>
-                            <li>
-                                If you choose "Generate Links", then BYTubeD will generate a list of
-                                links to downloadable videos as an HTML page, where you can invoke a
-                                download manager like DownThemAll. This option is much better, because
-                                with this you will have lot more control over the downloads than
-                                otherwise.
-                                <ul>
-                                    <li>
-                                        <code>
-                                            download_links_bytubed@cs213.cse.iitk.ac.in.html</code>
-                                        in the
-                                        destination directory will contain the downloadable video links.
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p>
-                            <strong>Destination</strong>
-                        </p>
-                        <ul>
-                            <li>
-                                Tell BYTubeD which directory to download the videos or generate the
-                                download_links files into.
-                            </li>
-                            <li>
-                                By default, set to the default Downloads directory; can be changed
-                                manually or using the <strong>Browse</strong> button.
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p>
-                            <strong>Selection Filter</strong>
-                        </p>
-                        <ul>
-                            <li>
-                                Use this field to specify which videos you want to select for
-                                download. This field understands JavaScript regular expressions.
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p>
-                            <strong>Select All</strong>
-                        </p>
-                        <ul>
-                            <li>
-                                Check this if you want to select all videos for download.
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <h3>On Preferences...</h3>
-                <ul class="indent-right">
-                    <li>
-                        <p>
-                            <strong>Additional Features</strong>
-                        </p>
-                        <ul>
-                            <li>
-                                "Video format does not matter. Try to get the videos in requested
-                                quality."
-                                <ul>
-                                    <li>
-                                        This option allows prioritizing quality over file format.
-                                    </li>
-                                    <li>
-                                        For example, to get highest quality videos irrespective of their
-                                        file format, check this option and set the Quality field to
-                                        "Original".
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                "Preserve order (prepends the file name with the serial number)."
-                                <ul>
-                                    <li>
-                                        This option can be set to true when you want to make sure that the
-                                        videos are seen in the destination folder in the same order as they
-                                        appear on the page you invoked BYTubeD.
-                                    </li>
-                                    <li>
-                                        Ex: If you want to download all videos from a playlist like <a href="http://www.youtube.com/playlist?list=FD0EB975BA0CC1E0"
-                                        rel="nofollow">this
-                                        one</a>, where
-                                        there is a logical sequence in the videos but that sequence is not
-                                        captured in the video titles by means of some kind of serial number,
-                                        the Preserve Order option adds a serial number to the file names
-                                        when you download them so that the logical sequence is preserved.
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                "Silently prefetch downloadable video URLs (makes the next step faster)."
-                                <ul>
-                                    <li>
-                                        While you decide on which videos to download and select them,
-                                        BYTubeD will silently start building the downloadable video URLs, so
-                                        that when you say Start, you will not have to wait too long to see
-                                        the Downloads window or the generated_links window.
-                                    </li>
-                                    <li>
-                                        Checked by default.
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                "Show Max Resolution" and "Show Max Quality"
-                                <ul>
-                                    <li>
-                                        To show maximum resolution and maximum quality of each video along
-                                        with S.No and Title in Selection Window.
-                                    </li>
-                                    <li>
-                                        These options require silent prefetching enabled.
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p>
-                            <strong>User Interaction</strong>
-                        </p>
-                        <ul>
-                            <li>
-                                "Popup the Downloads window after enqueueing all the videos, if 'What to
-                                do?' = 'Enqueue for Download'."
-                                <ul>
-                                    <li>
-                                        Checked by default; can be unchecked if you are using something like <a href="https://addons.mozilla.org/en-US/firefox/addon/download-statusbar/" rel="nofollow">download statusbar</a>
-                                        and do not want to see the default Downloads window popup after the
-                                        process of enqueueing.
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                "Close the queueing status window after processing all the requests unless
-                                there are some errors."
-                                <ul>
-                                    <li>
-                                        Checked by default
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                "Suppress error messages. I don't want to see frequent error report
-                                requests."
-                                <ul>
-                                    <li>
-                                        Can be checked if you don't want to see error report requests
-                                        popping up when there are problems.
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p>
-                            <strong>Generate Links</strong>
-                        </p>
-                        <ul>
-                            <li>
-                                <p>
-                                    "When 'What to do?' = 'Generate Links' ..."
-                                </p>
-                                <ul>
-                                    <li>
-                                        <p>
-                                            "Generate an HTML file containing YouTube watch links for ..."
-                                        </p>
-                                        <ul>
-                                            <li>
-                                                "Failed requests"
-                                                <ul>
-                                                    <li>
-                                                        If checked, <code>
-                                                            watch_links_bytubed@cs213.cse.iitk.ac.in.html</code>
-                                                        will
-                                                        contain YouTube page links to failed requests along with reasons for
-                                                        failure.
-                                                    </li>
-                                                    <li>
-                                                        Checked by default
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                "Successful requests"
-                                                <ul>
-                                                    <li>
-                                                        If checked, <code>
-                                                            watch_links_bytubed@cs213.cse.iitk.ac.in.html</code>
-                                                        will
-                                                        contain YouTube page links to successful requests.
-                                                    </li>
-                                                    <li>
-                                                        Checked by default
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            "Generate text files containing YouTube watch links for ..."
-                                        </p>
-                                        <ul>
-                                            <li>
-                                                "Failed requests"
-                                                <ul>
-                                                    <li>
-                                                        Not checked by default; if checked, YouTube page links of the failed
-                                                        requests will be saved in <code>
-                                                            bad_links_bytubed@cs213.cse.iitk.ac.in.txt</code>
-                                                        .
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                "Successful requests"
-                                                <ul>
-                                                    <li>
-                                                        Not checked by default; if checked, YouTube page links of the successful
-                                                        requests will be saved in <code>
-                                                            good_links_bytubed@cs213.cse.iitk.ac.in.txt</code>
-                                                        .
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <p>
-                                    Applicable when the 'What to do?' field is set to 'Generate Links'.
-                                </p>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p>
-                            <strong>Window Management</strong>
-                        </p>
-                        <ul>
-                            <li>
-                                "Try to resize the window to fit content."
-                                <ul>
-                                    <li>
-                                        Checked by default; but may not succeed always.
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                "Try to center the window after resizing."
-                                <ul>
-                                    <li>
-                                        Checked by default; but may not succeed always.
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                "Maintain aspect ratio while resizing the window."
-                                <ul>
-                                    <li>
-                                        If checked, size of the BYTubeD window will always be proportional
-                                        to the aspect ratio of the screen resolution.
-                                    </li>
-                                    <li>
-                                        Not checked by default
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <h2>Miscellaneous</h2>
-                <div class="indent">
-	                <p>
-	                    <strong>Q: What does MP4 &gt; FLV mean?</strong>
-	                </p>
-	                <p>
-	                    A: (By the way, if you are seeing "MP4 &gt; FLV" on your BYTubeD window,
-	                    you are using an older version. Please get the <a href="https://addons.mozilla.org/en-us/firefox/addon/bytubed/" rel="nofollow">new
-	                    version</a>.) Any
-	                    way, MP4 &gt; FLV means that you would like to download the videos in MP4
-	                    format if they are available in MP4 format. If they are not available in
-	                    MP4 format, then BYTubeD will try to fetch them in FLV format.
-	                </p>
-	                <p>
-	                    <strong>Q: I don't want to see too many error report requests. Can I suppress
-	                    them?</strong>
-	                </p>
-	                <p>
-	                    A: Yes. Go to Preferences -&gt; User Interaction; and check the "Suppress
-	                    error messages..." checkbox.
-	                </p>
-	                <p>
-	                    <strong>Q: I am not able to download certain videos with BYTubeD. It says
-	                    "Embedding disabled by request. Watch on YouTube". What should I do?</strong>
-	                </p>
-	                <p>
-	                    A: Please get the <a href="https://addons.mozilla.org/addon/bytubed" rel="nofollow">latest version</a>.
-	                    With the latest version you can download almost any YouTube video.
-	                </p>
-	                <p>
-	                    <strong>Q: I have some queries/comments/suggestions!</strong>
-	                </p>
-	                <p>
-	                    A: Please post them as comments below or send a	mail to bytubed (at) gmail (dot) com.
-	                </p>
-                </div>
+                <script type="text/javascript" src="./comments.js"></script>
+                <script type="text/javascript" src="./footer.js"></script>
             </div>
-            
-            <script type="text/javascript" src="./footer.js"></script>
-            
         </div>
     </body>
 </html>
+	                

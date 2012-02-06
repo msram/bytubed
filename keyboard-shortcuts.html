@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <script type="text/javascript" src="./docHeader.js"></script>
+        <title>BYTubeD - Bulk (Batch) YouTube video Downloader :: Keyboard Shortcuts</title>
+    </head>
+
+    <body>   
+        <div class="container">
+            <div class="document">
+                <script type="text/javascript" src="./header.js"></script>
+                <div class="content">
+	                <h2>Keyboard Shortcuts</h2>
+	                <p class="indent">
+		                <script type="text/javascript">
+			                var keymap = {
+			                        "0" : {"key" : "Ctrl-A",            "action" : "Selects all videos for download."},
+			                        "1" : {"key" : "Alt-F",             "action" : "Transfers focus to the Selection Filter field."},
+			                        "2" : {"key" : "Alt-S or ENTER",    "action" : "Starts processing the requests."},
+			                        "3" : {"key" : "Alt-C or ESCAPE",   "action" : "Closes the selection window."},
+			                        "4" : {"key" : "Alt-D",             "action" : "Transfers focus to destination directory field."},
+			                        "5" : {"key" : "Alt-B",             "action" : "Opens a Browse dialog to select the destination directory."},
+			                        "6" : {"key" : "Alt-H or F1",       "action" : "Opens Help."}
+			                };
+			                var table = "<table class='shortcuts indent' border='1'>";
+			                table += "<tr><th class='left'>Key</th><th class='left'>Action</th></tr>";
+			                for(var ind in keymap)
+			               	{
+			                	table += "<tr><td>" + keymap[ind].key + "</td><td>" + keymap[ind].action + "</td></tr>";
+			               	}
+			                table += "</table>"
+			                document.write(table);
+		                </script>
+	                </p>
+                </div>
+                <script type="text/javascript" src="./comments.js"></script>
+                <script type="text/javascript" src="./footer.js"></script>
+            </div>
+        </div>
+    </body>
+</html>

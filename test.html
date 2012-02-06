@@ -1,21 +1,21 @@
 <div id="images">Loading...</div>
 
 <script type="text/javascript">
-	
-	function getRemoteDirectoryContents(url)
-	{
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("GET", url, true);
-		xmlhttp.onreadystatechange = function()
-	    {
-			if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
-			{
-				document.getElementById('images').innerHTML = xmlhttp.responseText;
-			}
-	    };
-	}
-	
-	getRemoteDirectoryContents('http://msram.github.com/bytubed/screen-shots/');
+    
+    function getRemoteDirectoryContents(url)
+    {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", url, true);
+        xmlhttp.onreadystatechange = function()
+        {
+            if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
+            {
+                document.getElementById('images').innerHTML = xmlhttp.responseText;
+            }
+        };
+    }
+    
+    getRemoteDirectoryContents('http://msram.github.com/bytubed/screen-shots/');
 </script>
 
 

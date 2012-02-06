@@ -24,26 +24,25 @@ document.write
 *   Do not forget to add a comma at the end of the current list before adding the
 *   new item.
 */
-var menu = {
-    "0" : {"text": "Home",          "link" : "index.html"},
-    "1" : {"text": "Help",          "link" : "help.html"},
-    "2" : {"text": "Screenshots",   "link" : "screen-shots.html"},
-    "3" : {"text": "Development",   "link" : "development.html"}
-};
+var menu = [
+    {"text" : "Home",          		"link" : "index.html"},
+    {"text" : "Help",          		"link" : "help.html"},
+    {"text" : "Screenshots",   		"link" : "screen-shots.html"},
+    {"text" : "Keyboard Shortcuts", "link" : "keyboard-shortcuts.html"},
+    {"text" : "Development",		"link" : "development.html"},
+    {"text" : "Acknowledgements",   "link" : "acknowledgements.html"}
+];
 
-var navBar = '<hr class="navbar"/>';
+var navbar = '<hr class="navbar"/>';
 
-var itemCount = Object.keys(menu).length;  // Works in FF4+
-
-var i = 0;
-for(var item in menu)
+for(var i=0; i < menu.length; i++)
 {
-    navBar += '<a href="' + menu[item].link + '">' + menu[item].text + '</a>';
+    navbar += '<a href="' + menu[i].link + '">' + menu[i].text + '</a>';
     
-    if(!itemCount || i++ < itemCount - 1)
-        navBar += '&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;';
+    if(i < menu.length - 1)
+        navbar += '&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;';
 }
-navBar += '<br/><hr class="navbar"/>';
+navbar += '<br/><hr class="navbar"/>';
 
-document.write(navBar);
+document.write(navbar);
 /* End of Navigation Bar */
