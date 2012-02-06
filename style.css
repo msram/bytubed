@@ -57,15 +57,13 @@ h1, h2, h3
     color: #444444;
 }
 
-h1
-{
-    font-size: 28px;
-}
+
 
 h1.header
 {
     font-variant: normal;
     font-style: italic;
+    text-align: left;
     border: none;
 }
 
@@ -74,16 +72,7 @@ h1 a
     color: #444444;
 }
 
-h2 
-{ 
-    font-size: 24px;
-}
 
-h3 
-{
-    font-size: 20px;
-    font-weight: 300;
-}
 
 a 
 { 
