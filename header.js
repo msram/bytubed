@@ -28,7 +28,7 @@ var menu = {
     "0" : {"text": "Home",          "link" : "index.html"},
     "1" : {"text": "Help",          "link" : "help.html"},
     "2" : {"text": "Screenshots",   "link" : "screen-shots.html"},
-    "3" : {"text": "Development",   "link" : "development.html"}    
+    "3" : {"text": "Development",   "link" : "development.html"}
 };
 
 var navBar = '<hr class="navbar"/>';

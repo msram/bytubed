@@ -1,0 +1,17 @@
+<script type="text/javascript">
+	
+	function getRemoteDirectoryContents(url)
+	{
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET", url, true);
+		xmlhttp.onreadystatechange = function()
+	    {
+			if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
+			{
+				alert(xmlhttp.responseText);
+			}
+	    };
+	}
+	
+	getRemoteDirectoryContents('http://msram.github.com/bytubed/screen-shots/');
+</script>
