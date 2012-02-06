@@ -71,9 +71,6 @@ h1 a
 {
     color: #444444;
 }
-
-
-
 a 
 { 
     color:  green;
@@ -115,7 +112,7 @@ pre
     padding: 15px;
 }
 
-hr.header
+hr.navbar
 {
     border: 0;
     border-bottom: 1px solid orange;

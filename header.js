@@ -17,14 +17,33 @@ document.write
         '</div>'        
     );
 
-/* Navigation Bar */
-document.write
-    (
-        '<hr class="header"/>' +
-        '<a href="index.html">Home</a>&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;' +
-        '<a href="help.html">Help</a>&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;' +
-        '<a href="screen-shots.html">Screenshots</a>&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;' +
-        '<a href="development.html">Development</a>' +
-        '<br/><hr class="header"/>' 
-    );
+/* 
+*   Navigation Bar
+*   --------------
+*   To add a new page, just add an entry in the menu list following  the template.
+*   Do not forget to add a comma at the end of the current list before adding the
+*   new item.
+*/
+var menu = {
+    "0" : {"text": "Home",          "link" : "index.html"},
+    "1" : {"text": "Help",          "link" : "help.html"},
+    "2" : {"text": "Screenshots",   "link" : "screen-shots.html"},
+    "3" : {"text": "Development",   "link" : "development.html"}    
+};
+
+var navBar = '<hr class="navbar"/>';
+
+var itemCount = Object.keys(menu).length;  // Works in FF4+
+
+var i = 0;
+for(var item in menu)
+{
+    navBar += '<a href="' + menu[item].link + '">' + menu[item].text + '</a>';
+    
+    if(!itemCount || i++ < itemCount - 1)
+        navBar += '&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;';
+}
+navBar += '<br/><hr class="navbar"/>';
+
+document.write(navBar);
 /* End of Navigation Bar */
