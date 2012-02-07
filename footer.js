@@ -1,9 +1,8 @@
 var footer = '';
-footer += '<div class="center info italic">';
+footer += '<div class="info italic">';
 footer += 'Last Modified: ' + new Date(document.lastModified);
 footer += '</div>';
 document.write(footer);
-
 
 
 /* Google Analytics Code */        
