@@ -42,7 +42,7 @@ for(var i=0; i < menu.length; i++)
     if(i < menu.length - 1)
         navbar += '&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;';
 }
-navbar += '<br/><hr class="navbar"/>';
+navbar += '<hr class="navbar"/>';
 
 document.write(navbar);
 /* End of Navigation Bar */
