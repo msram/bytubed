@@ -25,11 +25,11 @@ document.write
 *   new item.
 */
 var menu = [
-    {"text" : "Home",          		"link" : "index.html"},
-    {"text" : "Help",          		"link" : "help.html"},
-    {"text" : "Screenshots",   		"link" : "screen-shots.html"},
+    {"text" : "Home",               "link" : "index.html"},
+    {"text" : "Help",               "link" : "help.html"},
+    {"text" : "Screenshots",        "link" : "screen-shots.html"},
     {"text" : "Keyboard Shortcuts", "link" : "keyboard-shortcuts.html"},
-    {"text" : "Development",		"link" : "development.html"},
+    {"text" : "Development",        "link" : "development.html"},
     {"text" : "Acknowledgements",   "link" : "acknowledgements.html"}
 ];
 
