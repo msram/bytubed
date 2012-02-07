@@ -1,21 +1,11 @@
-<div id="images">Loading...</div>
-
+<div id="disqus_thread"></div>
 <script type="text/javascript">
-    
-    function getRemoteDirectoryContents(url)
-    {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", url, true);
-        xmlhttp.onreadystatechange = function()
-        {
-            if(xmlhttp.readyState == 4 && xmlhttp.status == 200)
-            {
-                document.getElementById('images').innerHTML = xmlhttp.responseText;
-            }
-        };
-    }
-    
-    getRemoteDirectoryContents('http://msram.github.com/bytubed/screen-shots/');
+    var disqus_shortname = 'bytubed-gh'; // required: replace example with your forum shortname
+    var disqus_developer = 1; // developer mode is on
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
 </script>
-
-
