@@ -1,48 +1,139 @@
 <html>
     <head>
-        <script type="text/javascript" src="./docHeader.js"></script>
-        <title>BYTubeD - Bulk (Batch) YouTube video Downloader :: Home</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>
+            BYTubeD - Bulk (Batch) YouTube video Downloader  :: Home 
+        </title>
+        <script type="text/javascript">
+            // IE is not a supported browser
+            if(navigator.userAgent.indexOf("Trident") != -1) 
+                window.location.href = "ie.html";
+        </script>
+        
+        
     </head>
 
     <body>   
         <div class="container">
             <div class="document">
-                <script type="text/javascript" src="./header.js"></script>
-                <div class="content">                    
-                    
-                    <h2>Home</h2>	                
-	                
-	                <h3>Description</h3>
-	                <p class="indent">
-	                    BYTubeD stands for "Bulk YouTube video Downloader" (or "Batch YouTube video Downloader").
-	                    It is a <a href="https://addons.mozilla.org/addon/bytubed/" rel="nofollow">Firefox extension</a>
-	                    that helps users in downloading YouTube videos in bulk (i.e., downloading multiple YouTube
-	                    videos at once in batch mode with a few clicks). It can be used to download all/selected YouTube
-	                    videos on any page which has some YouTube video links. It makes the job of downloading YouTube
-	                    playlists easy.
-	                </p>
-	
-	                <h3>Dependencies</h3>
-	                <p class="indent">Mozilla Firefox 3.5 or above</p>
-	
-	                <h3>Install</h3>
-	                <p class="indent">
-	                    To install BYTubeD please visit <a href="https://addons.mozilla.org/addon/bytubed/">this page</a>
-	                    and click on "Add to Firefox". To know more about BYTubeD, please see the <a href="help.html">Help
-	                    page</a>.
-	                </p>
-	
-	                <h3>License</h3>
-	                <p class="indent">        
-	                	<a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html">GNU General Public License version 3</a>
-	               	</p>
-	                
-	                <h3>Author(s)</h3>
-	                <p class="indent"><a href="http://www.cse.iitk.ac.in/users/msram">M S Ram</a></p>
+                <!--  Begin document Header -->
+                
+                <!--  Site title and description with appropriate links -->                                
+                <a href="http://github.com/msram">
+                    <img style="position: absolute; top: 0; right: 0; border: 0;"
+                            src="images/fork_me_gray.png" alt="Fork me on GitHub" />
+                </a>
+        
+                <div class="download"> 
+                    <a href="https://github.com/msram/bytubed/tarball/master"><img border="0" width="90" src="images/tar.png"></a>
+                    <div class="info">Source code<br/>(from GitHub)</div>
                 </div>
-                <script type="text/javascript" src="./comments.js"></script>
-                <script type="text/javascript" src="./footer.js"></script>
+                <h1 class="header">
+                    <a href="https://github.com/msram/bytubed">BYTubeD - Bulk (Batch) YouTube video Downloader</a>
+                </h1>
+                <div class="description"> 
+                    A <a href="https://addons.mozilla.org/addon/bytubed/">Firefox extension</a>
+                    by <a href="https://github.com/msram">msram</a>, to batch download multiple YouTube videos.
+                </div>
+                
+                <!-- Begin Navigation bar -->
+                <hr class="navbar"/>
+                <a class="navbar" href="index.html"> Home </a>&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="navbar" href="help.html"> Help </a>&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="navbar" href="screen-shots.html"> Screenshots </a>&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="navbar" href="keyboard-shortcuts.html"> Keyboard Shortcuts </a>&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="navbar" href="development.html"> Development </a>&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="navbar" href="acknowledgements.html"> Acknowledgements </a>
+                <hr class="navbar"/>
+                <!-- End Navigation bar -->
+                
+                <!-- End Header -->
+                
+                <div class="content">
+                    <h2>Home</h2>
+                    <h3>Description</h3>
+                    <p class="indent">
+                        BYTubeD stands for "Bulk YouTube video Downloader" (or "Batch YouTube video Downloader").
+                        It is a <a href="https://addons.mozilla.org/addon/bytubed/" rel="nofollow">Firefox extension</a>
+                        that helps users in downloading YouTube videos in bulk (i.e., downloading multiple YouTube
+                        videos at once in batch mode with a few clicks). It can be used to download all/selected YouTube
+                        videos on any page which has some YouTube video links. It makes the job of downloading YouTube
+                        playlists easy.
+                    </p>
+    
+                    <h3>Dependencies</h3>
+                    <p class="indent">Mozilla Firefox 3.5 or above</p>
+    
+                    <h3>Install</h3>
+                    <p class="indent">
+                        To install BYTubeD please visit <a href="https://addons.mozilla.org/addon/bytubed/">this page</a>
+                        and click on "Add to Firefox". To know more about BYTubeD, please see the <a href="help.html">Help
+                        page</a>.
+                    </p>
+    
+                    <h3>License</h3>
+                    <p class="indent">        
+                        <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html">GNU General Public License version 3</a>
+                       </p>
+                    
+                    <h3>Author(s)</h3>
+                    <p class="indent"><a href="http://www.cse.iitk.ac.in/users/msram">M S Ram</a></p>
+
+
+                
+                </div>
+                
+                <!-- Begin Comments -->
+                <div class="comments">
+                    <!--
+                    <script>
+                        var idcomments_acct = '4aca98f14705a845798ff5146c6bb67d';
+                        var idcomments_post_id;
+                        var idcomments_post_url;
+                    </script>
+                    <span id="IDCommentsPostTitle" style="display:none"></span>
+                    <script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
+                    -->
+                    
+                    <!-- Begin Disqus Comments -->
+                    <div id="disqus_thread"></div>
+                    <script type="text/javascript">
+                        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                        var disqus_shortname = 'bytubed-gh'; // required: replace example with your forum shortname
+                        var disqus_developer = 1; // developer mode is on
+                        
+                        /* * * DON'T EDIT BELOW THIS LINE * * */
+                        (function() {
+                            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                        })();
+                    </script>
+                    <!-- End Disqus Comments -->
+                </div>
+                <!-- End Comments -->
+                
+                <!-- Begin Footer -->
+                <div class="footer">
+                    Last Modified: <script type="text/javascript">document.write(new Date(document.lastModified));</script>
+                </div> 
+                <!-- End Footer -->
             </div>
         </div>
+        
+        <!-- Begin Google Analytics Code for bytubed@github -->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-29027773-1']);
+            _gaq.push(['_trackPageview']);
+            
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        <!-- End Google Analytics Code -->
     </body>
 </html>
