@@ -168,6 +168,14 @@ td.figure
     padding: 20px;
     text-align: center;
 }
+
+td.figure img
+{	
+    -moz-box-shadow: 0 0 2px 2px #888;
+    -webkit-box-shadow: 0 0 2px 2px #888;
+    box-shadow: 0 0 2px 2px #888;
+}
+
 .left
 {
 	text-align: left;
