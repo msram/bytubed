@@ -57,6 +57,13 @@ body
     margin-right: 2.5%;
 }
 
+
+.post
+{
+    margin-top: 20px; 
+    
+}
+
 h1, h2
 {
     border-bottom: 1px dotted #cccccc;
@@ -145,7 +152,7 @@ hr.navbar
 hr.thin
 {
 	border: 0;
-    border-bottom: 1px dotted #cccccc;
+    border-bottom: 1px dotted gray;
 }
 
 .footer 
@@ -153,9 +160,10 @@ hr.thin
     text-align:center;
     font-size: 12px;
     font-style: italic; 
+    margin-top: 20px;
 }
 
-.info
+.info, .post-date
 {
     font-size: 12px;
     text-align: center;
@@ -185,12 +193,16 @@ table.screen-shots
     margin-bottom: 5px;
     border-collapse: collapse;
 }
-table.shortcuts
+table.shortcuts, table.news
 {	
 	border-collapse: collapse;
 }
-table.shortcuts td, th
+td, th
 {
-	padding: 10px;
+    padding: 10px;
+    text-align: left;
+}
+table.shortcuts td, table.shortcuts th
+{
 	border: 1px dotted gray;
 }
