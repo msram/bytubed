@@ -3,7 +3,7 @@ body
     margin-top: 1.0em;
     background-color: #505050;
     background-image:url('images/carbon_fibre.png');
-    font-family: georgia, Verdana, Helvetica, Arial, FreeSans, san-serif;
+    font-family: georgia, Verdana, Helvetica, Arial, FreeSans, sans-serif;
     color: #666666;
     text-align: justify;
     line-height: 1.5;
@@ -218,4 +218,20 @@ td, th
 table.shortcuts td, table.shortcuts th
 {
 	border: 1px dotted gray;
+}
+span.news
+{
+    float: right;
+    font-family: comic sans MS;
+    border: 1px solid red;
+    background-color: #fff0e0;
+    padding: 10px;    
+    color: #000088;
+    margin: 20px;
+    
+    text-align: center;
+}
+span.news a
+{
+    color: blue;
 }
