@@ -166,9 +166,22 @@ hr.thin
 .info, .post-date
 {
     font-size: 12px;
+    font-style: none;
     text-align: center;
     color: #888888;
 }
+dl.faq dt
+{
+    padding-bottom: 10px;
+    font-weight: 600;
+}
+
+dl.faq dd 
+{
+    padding-bottom: 20px;
+    margin-left: 0;
+}
+
 
 td.figure
 {
