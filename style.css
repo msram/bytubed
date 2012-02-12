@@ -170,13 +170,13 @@ hr.thin
     text-align: center;
     color: #888888;
 }
-dl.faq dt
+dl.faq dt, dl.news dt
 {
     padding-bottom: 10px;
     font-weight: 600;
 }
 
-dl.faq dd 
+dl.faq dd, dl.news dd
 {
     padding-bottom: 20px;
     margin-left: 0;
@@ -213,7 +213,7 @@ table
 td, th
 {
     padding: 10px;
-    text-align: left;
+    text-align: justify;
 }
 table.shortcuts td, table.shortcuts th
 {
