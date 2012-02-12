@@ -193,7 +193,7 @@ table.screen-shots
     margin-bottom: 5px;
     border-collapse: collapse;
 }
-table.shortcuts, table.news
+table
 {	
 	border-collapse: collapse;
 }
