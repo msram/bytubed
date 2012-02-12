@@ -223,15 +223,34 @@ span.news
 {
     float: right;
     font-family: comic sans MS;
-    border: 1px solid red;
-    background-color: #fff0e0;
+    border: 1px solid orange;
+    background-color: #fff8f0;
     padding: 10px;    
     color: #000088;
     margin: 20px;
     
     text-align: center;
 }
-span.news a
+
+/* Begin Contribute Button */
+.contribute-button
 {
-    color: blue;
+    box-shadow: 0 3px rgba(0, 0, 0, 0.1), 0 -4px rgba(0, 0, 0, 0.1) inset;
+    font-size: 16px;
+    padding: 8px 16px 12px;
+    display: inline-block;
+    background: -moz-linear-gradient( #669BE1, #5784BF) repeat scroll 0 0 #DFA457;
+    border: 0 none;
+    border-radius: 24px 24px 24px 24px; 
+    box-shadow: 0 1px rgba(0, 0, 0, 0.1), 0 -2px rgba(0, 0, 0, 0.1) inset;
+    color: #FFFFFF;
+    cursor: pointer;
+    font: bold 12px/1em Verdana, Georgia,sans-serif;
+    padding: 4px 12px 5px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 .5px 0 rgba(0, 0, 0, 0.2);
+    letter-spacing:0.5px; 
 }
+/* End Contribute button */
