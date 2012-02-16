@@ -225,7 +225,7 @@
 
         <vbox flex = "1">
             <hbox flex = "1">
-                <menulist id = "formatPreference" persist = "disabled">
+                <menulist id = "formatPreferenceNew" persist = "disabled">
                     <menupopup>
                         <menuitem id = "flv" label = "FLV" persist = "selected"/>
                         <menuitem id = "mp4" label = "MP4" selected = "true" persist = "selected"/>
@@ -237,7 +237,7 @@
 
                 <description id = "qualityDesc" value = "Quality" class = "bold pad_top6"/>
 
-                <menulist id = "quality" persist = "disabled">
+                <menulist id = "qualityNew">
                     <menupopup>
                         <menuitem id = "p240" label = "240p" persist = "selected"/>
                         <menuitem id = "p360" label = "360p" persist = "selected"/>

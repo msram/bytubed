@@ -1179,8 +1179,8 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
             var preferences    = new IITK.CSE.CS213.BYTubeD.Preferences();
 
-            var i1 = document.getElementById("formatPreference").selectedIndex;
-            var i2 = document.getElementById("quality").selectedIndex;
+            var i1 = document.getElementById("formatPreferenceNew").selectedIndex;
+            var i2 = document.getElementById("qualityNew").selectedIndex;
             var i3 = document.getElementById("todo").selectedIndex;
             var c1 = document.getElementById("showDLWindow").checked;
             var c2 = document.getElementById("closeQStatusWindow").checked;
@@ -1272,7 +1272,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     {
         try
         {
-            document.getElementById("formatPreference").disabled =
+            document.getElementById("formatPreferenceNew").disabled =
                         document.getElementById("ignoreFileType").checked;
         }
         catch(error)
@@ -1404,11 +1404,8 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
             document.getElementById("selectAll")
                     .setAttribute("checked", document.getElementById("selectAll").checked);
 
-            document.getElementById("formatPreference")
-                    .setAttribute("disabled", document.getElementById("formatPreference").disabled);
-
-            document.getElementById("quality")
-                    .setAttribute("disabled", document.getElementById("quality").disabled);
+            document.getElementById("formatPreferenceNew")
+                    .setAttribute("disabled", document.getElementById("formatPreferenceNew").disabled);
 
             document.getElementById("mp4")
                     .setAttribute("selected", document.getElementById("mp4").selected);
