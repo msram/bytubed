@@ -95,7 +95,7 @@ IITK.CSE.CS213.BYTubeD.processTitle = function processTitle(title)
         title = scriptableUnescapeHTML.unescape(title);
 
         title = title.replace(/^(\s)*|(\s)*$/g, "")    // Strip off white spaces
-                     .replace(/(&lt;)|(&gt;)"/g, "")   // replace < >
+                     .replace(/(&lt;)|(&gt;)|"/g, "")  // replace < >
                      .replace(/&#39;|'|&quot;/g, "")   // " and ' by nothing
                      .replace(/<[^>]*>/g, "")          // skip all html tags
                      .replace(/[\\\/!|:?]/g, " - ")    // replace {/, |, ?, \} by " - "
