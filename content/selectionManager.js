@@ -535,11 +535,11 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
             var destination = document.getElementById("destination");
             var dlMgr       = IITK.CSE.CS213.BYTubeD.services.downloadManager;
             var destDir     = prefs.getCharPref("destinationDirectory");
-
+            
             if(!destDir || destDir == "")
                 destination.value   = dlMgr.defaultDownloadsDirectory.path;
             else
-                destination.value   = destDir;
+                destination.value   = IITK.CSE.CS213.BYTubeD.utf8to16(destDir);
             // ----------------------- END Important ----------------------- //
 
 
@@ -1444,7 +1444,8 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                     .setAttribute("selected", document.getElementById("nqLinks").selected);
 
             var dest = document.getElementById("destination");
-            IITK.CSE.CS213.BYTubeD.prefs.setCharPref("destinationDirectory", dest.value);
+            
+            IITK.CSE.CS213.BYTubeD.prefs.setCharPref("destinationDirectory", IITK.CSE.CS213.BYTubeD.utf16to8(dest.value));
         }
         catch(error)
         {

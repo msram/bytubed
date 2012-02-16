@@ -217,7 +217,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
                 "\n\t\t\t .purple   { color:#C000FF; }" +
                 "\n\t\t\t .lightblue{ color:#4480FF; }" +
                 "\n\t\t\t .center   { text-align:center; }" +
-                "\n\t\t\t .fullwidth{ witdh:100%; }" +
+                "\n\t\t\t .fullwidth{ width:100%; }" +
                 "\n\t\t\t .centerdiv{ margin:auto; }" +
                 "\n\t\t\t .pad20    { padding:20px }" +
                 "\n\t\t </style>" +
