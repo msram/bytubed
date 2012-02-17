@@ -2,6 +2,23 @@
 
 -----------------------------------------------------
 
+## 10.8
+
+### Release Date
+
+-   February 17, 2012
+
+### Changes
+
+This is not a major release. It just includes fixes for the following bugs that got introduced
+in 1.0.7:
+
+1.  Quality field is grayed out and cannot be changed from 720p.
+2.  Cannot handle destination directory with non-ASCII characters.
+3.  Cannot download videos containing double-quotes in title, when using "Enqueue for Download". 
+
+For actual changes from earlier versions, please see notes on 1.0.7.
+
 ## 1.0.7
 
 ### Release Date
