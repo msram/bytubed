@@ -184,7 +184,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
         }
 
         return returnValue;
-    }```
+    }
 
 ---------------------------------------------------
 
