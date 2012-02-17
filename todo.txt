@@ -1,3 +1,0 @@
-1. Remove: Home
-2. Rename: News -> Home
-3. Split: Help -> FAQ & Help
