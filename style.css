@@ -1,6 +1,5 @@
 body 
 {
-    margin-top: 1.0em;
     background-color: #505050;
     background-image:url('images/carbon_fibre.png');
     font-family: georgia, Verdana, Helvetica, Arial, FreeSans, sans-serif;
@@ -114,6 +113,10 @@ a:hover
 .download, .rfloat 
 { 
     float: right; 
+}
+.middle
+{
+    vertical-align: middle;
 }
 .center
 {
