@@ -7,9 +7,23 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Mon, 20 Feb 2012 16:12:42 +0530</pubDate>
-        <lastBuildDate>Mon, 20 Feb 2012 16:12:42 +0530</lastBuildDate>
+        <pubDate>Mon, 20 Feb 2012 16:32:07 +0530</pubDate>
+        <lastBuildDate>Mon, 20 Feb 2012 16:32:07 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>Site Changes</title>
+          <link>http://msram.github.com/bytubed//2012/02/20/site-changes.html</link>
+          <pubDate>Mon, 20 Feb 2012 21:58:35 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2012/02/20/site-changes</guid>
+          <description>&lt;ul class=&quot;indent-right&quot;&gt;
+&lt;li&gt;Added &lt;a href=&quot;/bytubed/feed.xml&quot;&gt;RSS feeds&lt;/a&gt; for News&lt;/li&gt;
+&lt;li&gt;Added a FaceBook Like button near the description&lt;/li&gt;
+&lt;li&gt;Added ShareThis buttons that float on the left side&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
         
         <item>
           <title>New Version - 1.0.8</title>
