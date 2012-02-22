@@ -7,9 +7,24 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Wed, 22 Feb 2012 11:56:25 +0530</pubDate>
-        <lastBuildDate>Wed, 22 Feb 2012 11:56:25 +0530</lastBuildDate>
+        <pubDate>Wed, 22 Feb 2012 20:15:38 +0530</pubDate>
+        <lastBuildDate>Wed, 22 Feb 2012 20:15:38 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>New Development Version - 1.0.8a1</title>
+          <link>http://msram.github.com/bytubed//2012/02/23/new-development-version-1-0-8a1.html</link>
+          <pubDate>Thu, 23 Feb 2012 01:34:17 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2012/02/23/new-development-version-1-0-8a1</guid>
+          <description>&lt;div class=&quot;indent&quot;&gt;
+    A new development version (1.0.8a1) is up for trying. This version shows
+    Clip Length along with Title and other columns in the section window. Please
+    see the &lt;a href=&quot;/bytubed/development.html&quot;&gt;Development&lt;/a&gt; section to install
+    the new version.
+&lt;/div&gt;
+</description>
+        </item>
         
         <item>
           <title>Site Changes</title>
