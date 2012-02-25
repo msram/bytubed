@@ -211,6 +211,7 @@ table.screen-shots
 table
 {	
 	border-collapse: collapse;
+    line-height: 1.5;
 }
 td, th
 {
@@ -255,3 +256,59 @@ span.news
 }
 /* End Contribute button */
  
+.paypal-proceed
+{
+    box-shadow: 0 3px rgba(0, 0, 0, 0.1), 0 -4px rgba(0, 0, 0, 0.1) inset ; 
+    font: 14px/1em Verdana, Georgia,sans-serif; 
+    
+    display: inline-block; 
+    background: -moz-linear-gradient(bottom, rgb(255,168,61) 29%, rgb(255,188,110) 100%);
+    border: 0 none; border-radius: 24px 24px 24px 24px; 
+    box-shadow: 0 1px rgba(0, 0, 0, 0.1), 0 -2px rgba(0, 0, 0, 0.1) inset;
+    color: #000066; 
+    cursor: pointer; 
+    
+    padding: 4px 12px 4px; 
+    position: relative; 
+    text-align: center; 
+    text-decoration: none; 
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+.white { color: white;}
+.no-decoration:hover { text-decoration:none; }
+
+.fixed
+{
+    position: fixed;
+}
+.absolute
+{
+    position: absolute;
+}
+
+.top0
+{
+    top: 0;
+}
+.right0
+{
+    right: 0;
+}
+.bottom-right
+{
+    bottom: 10px; 
+    right: 10px;
+}
+.bottom-left
+{
+    bottom: 10px; 
+    left: 10px;
+}
+.right
+{
+    right: 10px;
+}
+.middle
+{
+    top: 45%;
+}
