@@ -105,7 +105,7 @@
                     <p class="indent">
                         In case you feel like making a monetary contribution to BYTubeD...
                         <br/><br/>
-                        <table>
+                        <table class="contributions">
                             <tr>
                                 <th>Option 1:</th>
                                 <td>
@@ -113,6 +113,11 @@
                                 </td>
                                 <td>My Bitcoin Address:<br/> <strong>1Lopx22oDsTCKBhZoNf6Kxv5bpLb2gvR5h</strong>
                             </tr>
+                        </table>
+                        
+                        <br/>
+                        
+                        <table class="contributions">
                             <tr>
                                 <th>Option 2:</th>
                                 <td>
@@ -121,8 +126,11 @@
                                 <td>
                                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
                                         <strong>Amount:</strong> USD
-                                        <input type="textbox" name="amount" value="" size="5"/>
+                                        <input type="text" name="amount" value="" size="5"/>
                                         <span class="info italic">(Please enter an amount)</span> 
+                                        <br/><br/>
+                                        Any Coments? <input type="text" value="" size="35" name="cn"> 
+                                        
                                         <br/><br/>
                                         <input type="image" name="submit" alt="Proceed..." class="paypal-proceed" />
                                         <input type="hidden" value="_xclick" name="cmd"> 
@@ -131,39 +139,17 @@
                                         <input type="hidden" value="2" name="no_shipping">
                                         <input type="hidden" value="http://msram.github.com/bytubed/thank-you.html" name="return"/>
                                         <input type="hidden" value="http://msram.github.com/bytubed/contribute.html" name="cancel_return"/> 
-                                        <input type="hidden" value="Any Special Instructions?" name="cn"> 
                                         <input type="hidden" value="USD" name="currency_code">
                                         <input type="hidden" value="0" name="tax">
                                         <input type="hidden" value="bytubed@gmail.com" name="business"></p>
                                     </form>
                                 </td>
-
-
-                            </tr>
-                            
-                            <tr>
-                                <td>
-                                
-                                    
-                                    <input type="hidden" name="cmd" value="_xclick">
-                                    <input type="hidden" name="business" value="bytubed@gmail.com">
-                                    <input type="hidden" name="lc" value="IN">
-                                    
-                                    <input type="hidden" name="amount" value="">
-                                    <input type="hidden" name="currency_code" value="USD">
-                                    <input type="hidden" name="button_subtype" value="services">
-                                    <input type="hidden" name="no_note" value="0">
-                                    <input type="hidden" name="bn" value="PP-BuyNowBF:btn_paynow_LG.gif:NonHostedGuest">
-                                    
-                                    <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
-                                    </form>
-
-                                </td>
                             </tr>
                         </table>
+                        <br/>
                     </p>
    
-                    <hr class="thin"/>
+                    
                     <div class="right middle fixed">
                         <!-- Mail me -->
                         <script type="text/javascript">
@@ -173,10 +159,6 @@
                         </script>
                         
                         <!-- End mail me -->
-                    </div>
-                    <div class="info italic">
-                        <br/>
-                        Last Modified: <script type="text/javascript">document.write(new Date(document.lastModified));</script>
                     </div>
                 </div>
                 
@@ -214,11 +196,16 @@
                 
                 <!-- Begin Footer -->
                 <div class="footer">
-                    <span class="bottom-right fixed">
+                
+                    <div class="info italic">
+                        Last Modified: <script type="text/javascript">document.write(new Date(document.lastModified));</script>
+                    </div>
+                
                     <!-- Begin Contribute Button -->
+                    <span class="bottom-right fixed">
                     <a href="/bytubed/contribute.html"><span class="contribute-button">Contribute<span></a>
-                    <!-- End Contribute Button -->
                     </span>
+                    <!-- End Contribute Button -->
                 </div> 
                 <!-- End Footer -->
             </div>

@@ -277,6 +277,16 @@ span.news
 .white { color: white;}
 .no-decoration:hover { text-decoration:none; }
 
+table.contributions 
+{ 
+    border: 1px solid silver; 
+}
+
+table.contributions td
+{
+    padding: 20px;
+}
+
 .fixed
 {
     position: fixed;
