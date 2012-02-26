@@ -279,7 +279,8 @@ span.news
 
 table.contributions 
 { 
-    border: 1px solid silver; 
+    border: 1px solid silver;
+    width: 100%;
 }
 
 table.contributions td
