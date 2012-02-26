@@ -4,6 +4,7 @@ body
     background-image:url('images/carbon_fibre.png');
     font-family: georgia, Verdana, Helvetica, Arial, FreeSans, sans-serif;
     color: #666666;
+    
     text-align: justify;
     line-height: 1.5;
 }
@@ -212,6 +213,7 @@ table
 {	
 	border-collapse: collapse;
     line-height: 1.5;
+    width: 100%;
 }
 td, th
 {
@@ -280,7 +282,6 @@ span.news
 table.contributions 
 { 
     border: 1px solid silver;
-    width: 100%;
 }
 
 table.contributions td
