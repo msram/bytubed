@@ -7,9 +7,22 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Sun, 26 Feb 2012 20:58:40 +0530</pubDate>
-        <lastBuildDate>Sun, 26 Feb 2012 20:58:40 +0530</lastBuildDate>
+        <pubDate>Mon, 27 Feb 2012 12:32:07 +0530</pubDate>
+        <lastBuildDate>Mon, 27 Feb 2012 12:32:07 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>New Development Version - 1.0.8a2</title>
+          <link>http://msram.github.com/bytubed//2012/02/27/new-development-version-1-0-8a2.html</link>
+          <pubDate>Mon, 27 Feb 2012 17:58:01 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2012/02/27/new-development-version-1-0-8a2</guid>
+          <description>                &lt;p class=&quot;indent&quot;&gt;
+                    This new version fixes the issue: &quot;Watch-links file gets generated even when
+                    not asked for.&quot; Please see the &lt;a href=&quot;/bytubed/issues-fixes.html&quot;&gt;Issues &amp;
+                    Fixes&lt;/a&gt; section for a download link for 1.0.8a2.
+                &lt;/p&gt;</description>
+        </item>
         
         <item>
           <title>New Development Version - 1.0.8a1</title>
