@@ -268,8 +268,7 @@ span.news
     background: -moz-linear-gradient(bottom, rgb(255,168,61) 29%, rgb(255,188,110) 100%);
     border: 0 none; border-radius: 24px 24px 24px 24px; 
     box-shadow: 0 1px rgba(0, 0, 0, 0.1), 0 -2px rgba(0, 0, 0, 0.1) inset;
-    color: #000066; 
-    cursor: pointer; 
+    color: #000066;
     
     padding: 4px 12px 4px; 
     position: relative; 

@@ -7,9 +7,23 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Wed, 29 Feb 2012 16:49:04 +0530</pubDate>
-        <lastBuildDate>Wed, 29 Feb 2012 16:49:04 +0530</lastBuildDate>
+        <pubDate>Sat, 03 Mar 2012 19:12:27 +0530</pubDate>
+        <lastBuildDate>Sat, 03 Mar 2012 19:12:27 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>Dev-versions Renamed</title>
+          <link>http://msram.github.com/bytubed//2012/03/04/dev-versions-renamed.html</link>
+          <pubDate>Sun, 04 Mar 2012 00:28:56 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2012/03/04/dev-versions-renamed</guid>
+          <description>&lt;div class=&quot;indent&quot;&gt;
+    Firefox is somehow treating 1.0.8a1 and 1.0.8a2 as lower versions than 1.0.8 and
+    soon after installing 1.0.8a1 or 1.0.8a2, it is downgrading BYTubeD to 1.0.8. In    
+    order to make Firefox believe that these dev-versions are more recent, 1.0.8a1
+    has been renamed as 1.0.9a1 and 1.0.8a2 has been renamed as 1.0.9a2.
+&lt;/div&gt;</description>
+        </item>
         
         <item>
           <title>New Development Version - 1.0.8a2</title>
