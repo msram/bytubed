@@ -1,11 +1,10 @@
 body 
 {
     background-color: #505050;
-    background-image:url('images/carbon_fibre.png');
+    /* background-image:url('images/carbon_fibre.png'); */
     background-attachment:fixed;
     font-family: georgia, Verdana, Helvetica, Arial, FreeSans, sans-serif;
     color: #666666;
-    
     text-align: justify;
     line-height: 1.5;
 }
@@ -27,7 +26,7 @@ body
     padding-top: 22px;
     padding-bottom: 22px;
     margin-bottom: 70px;
-    margin-top: 70px;
+    margin-top: 100px;
 }
 
 .document
@@ -46,6 +45,8 @@ body
     margin-bottom: 20px;
     border-bottom: 1px dotted gray; 
 }
+.gray { color: gray; }
+.silver { color: silver; }
 
 .indent
 {
@@ -278,6 +279,33 @@ span.news
 }
 .white { color: white;}
 .no-decoration:hover { text-decoration:none; }
+
+
+.meta-bar
+{
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px;
+    padding-bottom: 8px;
+    background-color: #444444;
+    color: white;
+    opacity:0.7;
+    -moz-box-shadow: 1px 1px 1px 1px #333333;
+}
+
+.meta-bar a
+{
+    color: white;
+}
+
+.meta-bar a:hover
+{
+    text-decoration: none;
+    color: white;
+}
 
 table.contributions 
 { 
