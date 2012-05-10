@@ -280,17 +280,20 @@ span.news
 .white { color: white;}
 .no-decoration:hover { text-decoration:none; }
 
-
-.meta-bar
+.meta-container
 {
-    text-align: center;
-    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
+    background-color: #444444;
+    text-align: center;
+    width: 100%;
+}
+.meta-bar
+{
     padding: 5px;
     padding-bottom: 8px;
-    background-color: #444444;
+    
     color: white;
     opacity:0.7;
     -moz-box-shadow: 1px 1px 1px 1px #333333;
