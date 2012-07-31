@@ -259,6 +259,34 @@ span.news
     letter-spacing:0.5px; 
 }
 /* End Contribute button */
+
+/* Add to Firefox */
+.add-to-firefox
+{
+    background: -moz-linear-gradient(#64A63C, #287615) repeat scroll 0 0 #287615; 
+    border-radius: 6px 6px 6px 6px;
+    border: 0 none;
+    color: white; 
+    cursor: pointer; 
+    font-size: 18px; 
+    font-weight: 700; 
+    font: Trebuchet MS, sans-serif; 
+    letter-spacing: 1px; 
+    padding: 8px 16px 12px; 
+    position: relative; 
+    text-align: center; 
+    text-decoration: none; 
+    font-size: 14px;
+    font-variant: normal;
+    font-style: normal;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+.add-to-firefox:hover
+{
+   text-decoration: none; 
+   color: white; 
+}
+/* End of add-to-firefox */
  
 .paypal-proceed
 {
