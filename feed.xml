@@ -7,9 +7,22 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Tue, 31 Jul 2012 13:24:05 +0530</pubDate>
-        <lastBuildDate>Tue, 31 Jul 2012 13:24:05 +0530</lastBuildDate>
+        <pubDate>Sat, 04 Aug 2012 17:19:44 +0530</pubDate>
+        <lastBuildDate>Sat, 04 Aug 2012 17:19:44 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>New Development Version - 1.0.9a3</title>
+          <link>http://msram.github.com/bytubed//2012/08/04/new-development-version-1-0-9a3.html</link>
+          <pubDate>Sat, 04 Aug 2012 22:43:02 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2012/08/04/new-development-version-1-0-9a3</guid>
+          <description>                &lt;p class=&quot;indent&quot;&gt;
+                    This new version fixes the issue: &quot;Preserve Order option does not work.&quot; 
+                    Please see the &lt;a href=&quot;/bytubed/issues-fixes.html&quot;&gt;Issues &amp;
+                    Fixes&lt;/a&gt; section for a download link for 1.0.9a3.
+                &lt;/p&gt;</description>
+        </item>
         
         <item>
           <title>Dev-versions Renamed</title>
