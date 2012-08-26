@@ -62,7 +62,16 @@ body
 
 .post
 {
-    margin-top: 20px;
+    
+    background-color: #ffffff;
+    border-bottom:  1px dotted gray;
+    padding: 10px;
+}
+
+.posts
+{
+    padding: 20px;
+    padding-top: 0px;
 }
 
 h1, h2
@@ -168,7 +177,7 @@ hr.thin
     margin-top: 20px;
 }
 
-.info, .post-date
+.info, .post-date, .small
 {
     font-size: 12px;
     font-style: none;
@@ -314,14 +323,15 @@ span.news
     top: 0;
     left: 0;
     background-color: #444444;
+    
     text-align: center;
     width: 100%;
+    padding: 5px;
 }
 .meta-bar
 {
     padding: 5px;
     padding-bottom: 8px;
-    
     color: white;
     opacity:0.7;
     -moz-box-shadow: 1px 1px 1px 1px #333333;
@@ -378,8 +388,4 @@ table.contributions td
 .right
 {
     right: 10px;
-}
-.middle
-{
-    top: 45%;
 }
