@@ -324,9 +324,11 @@ span.news
     left: 0;
     background-color: #444444;
     
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
     text-align: center;
     width: 100%;
-    padding: 5px;
 }
 .meta-bar
 {
