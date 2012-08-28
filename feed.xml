@@ -7,9 +7,30 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Sun, 26 Aug 2012 14:01:35 +0530</pubDate>
-        <lastBuildDate>Sun, 26 Aug 2012 14:01:35 +0530</lastBuildDate>
+        <pubDate>Tue, 28 Aug 2012 19:03:19 +0530</pubDate>
+        <lastBuildDate>Tue, 28 Aug 2012 19:03:19 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>New Development Version - 1.0.9a4</title>
+          <link>http://msram.github.com/bytubed//2012/08/28/new-development-version-1-0-9a4.html</link>
+          <pubDate>Tue, 28 Aug 2012 21:49:14 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2012/08/28/new-development-version-1-0-9a4</guid>
+          <description>                &lt;div class=&quot;indent&quot;&gt;
+                    This new version adds the following features:
+                    &lt;ul&gt;
+                        &lt;li&gt;&lt;b&gt;Scan all tabs&lt;/b&gt; of the current window for YouTube links&lt;/li&gt;
+                        &lt;li&gt;&lt;b&gt;Support for 3gp&lt;/b&gt; format&lt;/li&gt;
+                        &lt;li&gt;&lt;b&gt;Fetch subtitles&lt;/b&gt; when they are available&lt;/li&gt;
+                    &lt;/ul&gt;
+                    Please &lt;a href=&quot;/bytubed/dev-versions/1.0.9a4.xpi&quot;&gt;install 1.0.9a4&lt;/a&gt; and
+                    explore the &quot;Additional Features&quot; tab. If you observe any unsual behaviour,
+                    please report it in the
+                    &lt;a href=&quot;/bytubed//2012/08/28/new-development-version-1-0-9a4.html#comments&quot;&gt;
+                    comments of this post&lt;/a&gt;.
+                &lt;/div&gt;</description>
+        </item>
         
         <item>
           <title>New Development Version - 1.0.9a3</title>

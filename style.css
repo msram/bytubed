@@ -59,15 +59,40 @@ body
     margin-right: 2.5%;
 }
 
+span.news
+{
+    float: right;
+    font-size: 15px;
+    font-variant: normal;
+    font-family: comic sans MS;
+    font-weight: 900;
+    border: 1px solid green;
+    background-color: #f8fff0;
+    padding: 10px;    
+    color: #000088;
+    margin-left: 20px;
+}
+.quest { color: #FF6000; }
+.ans { color: blue; }
 
 .post
 {
-    
-    background-color: #ffffff;
-    border-bottom:  1px dotted gray;
+    line-height: 1.5;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
     padding: 10px;
+    box-shadow: 0px 0px 2px 0px #cccccc;
 }
 
+.headline 
+{
+    font-size:18px;
+    font-weight: bold;
+}
+.hidden 
+{
+    visibility: hidden;
+}
 .posts
 {
     padding: 20px;
@@ -179,8 +204,10 @@ hr.thin
 
 .info, .post-date, .small
 {
-    font-size: 12px;
+    font-family: Verdana, Palatino, Helvetica, Times;
+    font-size: 14px;
     font-style: none;
+    font-weight: 300;
     text-align: center;
     color: #888888;
 }
@@ -234,16 +261,6 @@ td, th
 table.shortcuts td, table.shortcuts th
 {
 	border: 1px dotted gray;
-}
-span.news
-{
-    float: right;
-    font-family: comic sans MS;
-    border: 1px solid orange;
-    background-color: #fff8f0;
-    padding: 10px;    
-    color: #000088;
-    margin: 20px;
 }
 
 /* Begin Contribute Button */
