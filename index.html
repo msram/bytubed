@@ -56,7 +56,6 @@
                 <!--  Begin document Header -->
                 
                 <!--  Site title and description with appropriate links -->                                
-                
                 <div class="download"> 
                     <a href="https://github.com/msram/bytubed/tarball/master"><img border="0" width="90" src="/bytubed/images/tar.png"></a>
                     <a href="https://github.com/msram/bytubed/zipball/master"><img border="0" width="90" src="/bytubed/images/zip.png"></a>
@@ -94,8 +93,8 @@
                         
                         <span class="news">
                             <span class="quest">Q: What's new?</span><br/>
-                            A: <span class="ans"><a href="/bytubed//2012/08/28/new-development-version-1-0-9a4.html">
-                            New Development Version - 1.0.9a4</a></span>.
+                            A: <span class="ans"><a href="/bytubed/2012/08/30/new-development-version-1-0-9a5.html">
+                            New Development Version - 1.0.9a5</a></span>.
                         </span>
                         
                         
@@ -110,110 +109,100 @@
                         <li>Can be used in combination with download managers like DownThemAll</li>
                     </ul>
                     <p class="indent">For more details, please see the <a href="faq.html">FAQ page</a>.</p>
-                    <!--
-                    <div class='center'>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class='add-to-firefox' 
-                            href='https://addons.mozilla.org/firefox/downloads/latest/126518/addon-126518-latest.xpi?src=bytubed-github'> 
-                            Install BYTubeD
-                        </a>
-                    </div>
-                    --> 
                     
                     <h3>News <a href="feed.xml"> <img src="images/rss16.png"/> </a></h3> 
-                    
-                    <!--
-                    <table class="indent news" border="1">
-                        <tr><th>Date</th><th>Headline</th><th>Snippet</th></tr>
+                    <script type="text/javascript">
+                        function getElementsByClassName(elem, className) 
+                        {
+                            if(!elem) return null;
+                            
+                            if(elem.getElementsByClassName) 
+                            { 
+                                return elem.getElementsByClassName(className); 
+                            }
+                            else 
+                            { 
+                                return elem.querySelectorAll('.' + className); 
+                            }
+                        }
+
+                        function togglePosts(obj)
+                        {
+                            try
+                            {
+                                var divs = document.getElementsByTagName("div");
+                                for(var i=0; i<divs.length; i++)
+                                {
+                                    if(divs[i].hasAttribute('class') && divs[i] != obj &&
+                                        divs[i].getAttribute('class').indexOf('post') != -1 && 
+                                        divs[i].getElementsByClassName('pContent').length != 0)
+                                    {
+                                        divs[i].getElementsByClassName('pContent')[0].hidden = true;
+                                    }
+                                }
+                                if(obj)
+                                    obj.getElementsByClassName('pContent')[0].hidden = false;
+                            }
+                            catch(error)
+                            {
+                                //alert(error);
+                            }
+                        }
+                    </script>
                         
-                        <tr>
-                            <td style="width:20%">28 August 2012</td>
-                            <td style="width:30%"><a href="/bytubed//2012/08/28/new-development-version-1-0-9a4.html">New Development Version - 1.0.9a4</a> </td>
-                            <td>
-                                This new version adds the following features: Scan all tabs of the current window for YouTube links Support for 3gp... 
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td style="width:20%">04 August 2012</td>
-                            <td style="width:30%"><a href="/bytubed//2012/08/04/new-development-version-1-0-9a3.html">New Development Version - 1.0.9a3</a> </td>
-                            <td>
-                                This new version fixes the issue: "Preserve Order option does not work." Please see the Issues & Fixes section for... 
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td style="width:20%">04 March 2012</td>
-                            <td style="width:30%"><a href="/bytubed//2012/03/04/dev-versions-renamed.html">Dev-versions Renamed</a> </td>
-                            <td>
-                                Firefox is somehow treating 1.0.8a1 and 1.0.8a2 as lower versions than 1.0.8 and soon after installing 1.0.8a1 or 1.0.8a2, it... 
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td style="width:20%">27 February 2012</td>
-                            <td style="width:30%"><a href="/bytubed//2012/02/27/new-development-version-1-0-8a2.html">New Development Version - 1.0.8a2</a> </td>
-                            <td>
-                                This new version fixes the issue: "Watch-links file gets generated even when not asked for." Please see the Issues &... 
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td style="width:20%">23 February 2012</td>
-                            <td style="width:30%"><a href="/bytubed//2012/02/23/new-development-version-1-0-8a1.html">New Development Version - 1.0.8a1</a> </td>
-                            <td>
-                                A new development version (1.0.8a1) is up for trying. This version shows Clip Length along with Title and other columns... 
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td style="width:20%">20 February 2012</td>
-                            <td style="width:30%"><a href="/bytubed//2012/02/20/site-changes.html">Site Changes</a> </td>
-                            <td>
-                                Added RSS feeds for News Added a FaceBook Like button near the description Added ShareThis buttons that float on the... 
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td style="width:20%">17 February 2012</td>
-                            <td style="width:30%"><a href="/bytubed//2012/02/17/12-22-23-new-version-108.html">New Version - 1.0.8</a> </td>
-                            <td>
-                                This is not really a new version in that it does not add any new features above 1.0.7. It just... 
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td style="width:20%">12 February 2012</td>
-                            <td style="width:30%"><a href="/bytubed//2012/02/12/01-52-29-issues-in-107.html">BYTubeD - Issues in 1.0.7</a> </td>
-                            <td>
-                                
-    Please see the Issues & Fixes section.
- 
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td style="width:20%">12 February 2012</td>
-                            <td style="width:30%"><a href="/bytubed//2012/02/12/00-45-20-site-changes.html">Site Changes</a> </td>
-                            <td>
-                                News section has been added in the Home page. The "Keyboard Shortcuts" page has been merged into the Help page... 
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    <br/>
-                    -->
-                    
                     <div class="posts">
                         
-                        <div class="post">
+                        <a href="">
+                        <div class="post" onclick="togglePosts(this)">
+                            <div class="headline">
+                                <a href="/bytubed//2012/08/30/new-development-version-1-0-9a5.html">New Development Version - 1.0.9a5</a>
+                                <span class="post-date">
+                                    &nbsp;&nbsp;&nbsp;(Posted on 30 August 2012)
+                                </span>
+                            </div>
+                            
+                            <div class='pContent'>
+                                <hr class="thin"/>
+                                <br/>
+                                                <div class="indent">
+                    This version (1.0.9a5) just fixes the 
+                    <a href="/bytubed//2012/08/28/new-development-version-1-0-9a4.html#comment-632822038">
+                    issue with non-contiguous selection</a> of videos in Firefox 15+.
+                    Please note that the earlier dev-version (1.0.9a4) has the following major
+                    feature additions:
+                    <ul>
+                        <li><b>Scan all tabs</b> of the current window for YouTube links</li>
+                        <li><b>Support for 3gp</b> format</li>
+                        <li><b>Fetch subtitles</b> when they are available</li>
+                    </ul>
+                    Version 1.0.9a5 includes all these new feautures and fixes the issue of video
+                    selection. Please <a href="/bytubed/dev-versions/1.0.9a5.xpi">install 1.0.9a5</a>
+                    and explore the "Additional Features" tab. If you observe any unsual behaviour,
+                    please report it in the
+                    <a href="/bytubed//2012/08/30/new-development-version-1-0-9a5.html#comments">
+                    comments of this post</a>.
+                </div>
+                                <br/><hr class="thin"/>
+                                <span class="post-date">
+                                    Posted on 30 August 2012
+                                    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                                    <a href="/bytubed//2012/08/30/new-development-version-1-0-9a5.html#disqus_thread">Comments</a>
+                                </span>
+                            </div>
+                        </div>
+                        </a>
+                        <br/>
+                        
+                        <a href="">
+                        <div class="post" onclick="togglePosts(this)">
                             <div class="headline">
                                 <a href="/bytubed//2012/08/28/new-development-version-1-0-9a4.html">New Development Version - 1.0.9a4</a>
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 28 August 2012)
                                 </span>
                             </div>
-                            <span>
+                            
+                            <div class='pContent'>
                                 <hr class="thin"/>
                                 <br/>
                                                 <div class="indent">
@@ -235,18 +224,21 @@
                                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                                     <a href="/bytubed//2012/08/28/new-development-version-1-0-9a4.html#disqus_thread">Comments</a>
                                 </span>
-                            </span>
+                            </div>
                         </div>
+                        </a>
                         <br/>
                         
-                        <div class="post">
+                        <a href="">
+                        <div class="post" onclick="togglePosts(this)">
                             <div class="headline">
                                 <a href="/bytubed//2012/08/04/new-development-version-1-0-9a3.html">New Development Version - 1.0.9a3</a>
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 04 August 2012)
                                 </span>
                             </div>
-                            <span>
+                            
+                            <div class='pContent'>
                                 <hr class="thin"/>
                                 <br/>
                                                 <p class="indent">
@@ -260,18 +252,21 @@
                                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                                     <a href="/bytubed//2012/08/04/new-development-version-1-0-9a3.html#disqus_thread">Comments</a>
                                 </span>
-                            </span>
+                            </div>
                         </div>
+                        </a>
                         <br/>
                         
-                        <div class="post">
+                        <a href="">
+                        <div class="post" onclick="togglePosts(this)">
                             <div class="headline">
                                 <a href="/bytubed//2012/03/04/dev-versions-renamed.html">Dev-versions Renamed</a>
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 04 March 2012)
                                 </span>
                             </div>
-                            <span>
+                            
+                            <div class='pContent'>
                                 <hr class="thin"/>
                                 <br/>
                                 <div class="indent">
@@ -286,18 +281,21 @@
                                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                                     <a href="/bytubed//2012/03/04/dev-versions-renamed.html#disqus_thread">Comments</a>
                                 </span>
-                            </span>
+                            </div>
                         </div>
+                        </a>
                         <br/>
                         
-                        <div class="post">
+                        <a href="">
+                        <div class="post" onclick="togglePosts(this)">
                             <div class="headline">
                                 <a href="/bytubed//2012/02/27/new-development-version-1-0-8a2.html">New Development Version - 1.0.8a2</a>
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 27 February 2012)
                                 </span>
                             </div>
-                            <span>
+                            
+                            <div class='pContent'>
                                 <hr class="thin"/>
                                 <br/>
                                                 <p class="indent">
@@ -311,18 +309,21 @@
                                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                                     <a href="/bytubed//2012/02/27/new-development-version-1-0-8a2.html#disqus_thread">Comments</a>
                                 </span>
-                            </span>
+                            </div>
                         </div>
+                        </a>
                         <br/>
                         
-                        <div class="post">
+                        <a href="">
+                        <div class="post" onclick="togglePosts(this)">
                             <div class="headline">
                                 <a href="/bytubed//2012/02/23/new-development-version-1-0-8a1.html">New Development Version - 1.0.8a1</a>
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 23 February 2012)
                                 </span>
                             </div>
-                            <span>
+                            
+                            <div class='pContent'>
                                 <hr class="thin"/>
                                 <br/>
                                 <div class="indent">
@@ -338,18 +339,21 @@
                                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                                     <a href="/bytubed//2012/02/23/new-development-version-1-0-8a1.html#disqus_thread">Comments</a>
                                 </span>
-                            </span>
+                            </div>
                         </div>
+                        </a>
                         <br/>
                         
-                        <div class="post">
+                        <a href="">
+                        <div class="post" onclick="togglePosts(this)">
                             <div class="headline">
                                 <a href="/bytubed//2012/02/20/site-changes.html">Site Changes</a>
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 20 February 2012)
                                 </span>
                             </div>
-                            <span>
+                            
+                            <div class='pContent'>
                                 <hr class="thin"/>
                                 <br/>
                                 <ul class="indent-right">
@@ -364,18 +368,21 @@
                                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                                     <a href="/bytubed//2012/02/20/site-changes.html#disqus_thread">Comments</a>
                                 </span>
-                            </span>
+                            </div>
                         </div>
+                        </a>
                         <br/>
                         
-                        <div class="post">
+                        <a href="">
+                        <div class="post" onclick="togglePosts(this)">
                             <div class="headline">
                                 <a href="/bytubed//2012/02/17/12-22-23-new-version-108.html">New Version - 1.0.8</a>
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 17 February 2012)
                                 </span>
                             </div>
-                            <span>
+                            
+                            <div class='pContent'>
                                 <hr class="thin"/>
                                 <br/>
                                 <div class="indent">
@@ -388,18 +395,21 @@ This is not really a new version in that it does not add any new features above
                                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                                     <a href="/bytubed//2012/02/17/12-22-23-new-version-108.html#disqus_thread">Comments</a>
                                 </span>
-                            </span>
+                            </div>
                         </div>
+                        </a>
                         <br/>
                         
-                        <div class="post">
+                        <a href="">
+                        <div class="post" onclick="togglePosts(this)">
                             <div class="headline">
                                 <a href="/bytubed//2012/02/12/01-52-29-issues-in-107.html">BYTubeD - Issues in 1.0.7</a>
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 12 February 2012)
                                 </span>
                             </div>
-                            <span>
+                            
+                            <div class='pContent'>
                                 <hr class="thin"/>
                                 <br/>
                                 <div class="indent">
@@ -411,18 +421,21 @@ This is not really a new version in that it does not add any new features above
                                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                                     <a href="/bytubed//2012/02/12/01-52-29-issues-in-107.html#disqus_thread">Comments</a>
                                 </span>
-                            </span>
+                            </div>
                         </div>
+                        </a>
                         <br/>
                         
-                        <div class="post">
+                        <a href="">
+                        <div class="post" onclick="togglePosts(this)">
                             <div class="headline">
                                 <a href="/bytubed//2012/02/12/00-45-20-site-changes.html">Site Changes</a>
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 12 February 2012)
                                 </span>
                             </div>
-                            <span>
+                            
+                            <div class='pContent'>
                                 <hr class="thin"/>
                                 <br/>
                                 <ul class="indent">
@@ -439,12 +452,15 @@ This is not really a new version in that it does not add any new features above
                                     &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
                                     <a href="/bytubed//2012/02/12/00-45-20-site-changes.html#disqus_thread">Comments</a>
                                 </span>
-                            </span>
+                            </div>
                         </div>
+                        </a>
                         <br/>
                         
                     </div>
-                    
+                    <script type="text/javascript">
+                        togglePosts(document.getElementsByClassName('post')[0]);
+                    </script>
                     
                     <span class="indent-right rfloat">
                         <a href="feed.xml"><img src="images/rss16.png"/> Subscribe</a>
@@ -454,15 +470,6 @@ This is not really a new version in that it does not add any new features above
                 
                 <!-- Begin Comments -->
                 <div class="comments">
-                    <!--
-                    <script>
-                        var idcomments_acct = '4aca98f14705a845798ff5146c6bb67d';
-                        var idcomments_post_id;
-                        var idcomments_post_url;
-                    </script>
-                    <span id="IDCommentsPostTitle" style="display:none"></span>
-                    <script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
-                    -->
                     
                     <!-- Begin Disqus Comments -->
                     <div id="disqus_thread"></div>

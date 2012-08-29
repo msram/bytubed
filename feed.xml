@@ -7,9 +7,35 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Tue, 28 Aug 2012 19:03:19 +0530</pubDate>
-        <lastBuildDate>Tue, 28 Aug 2012 19:03:19 +0530</lastBuildDate>
+        <pubDate>Thu, 30 Aug 2012 00:00:45 +0530</pubDate>
+        <lastBuildDate>Thu, 30 Aug 2012 00:00:45 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>New Development Version - 1.0.9a5</title>
+          <link>http://msram.github.com/bytubed//2012/08/30/new-development-version-1-0-9a5.html</link>
+          <pubDate>Thu, 30 Aug 2012 05:10:26 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2012/08/30/new-development-version-1-0-9a5</guid>
+          <description>                &lt;div class=&quot;indent&quot;&gt;
+                    This version (1.0.9a5) just fixes the 
+                    &lt;a href=&quot;/bytubed//2012/08/28/new-development-version-1-0-9a4.html#comment-632822038&quot;&gt;
+                    issue with non-contiguous selection&lt;/a&gt; of videos in Firefox 15+.
+                    Please note that the earlier dev-version (1.0.9a4) has the following major
+                    feature additions:
+                    &lt;ul&gt;
+                        &lt;li&gt;&lt;b&gt;Scan all tabs&lt;/b&gt; of the current window for YouTube links&lt;/li&gt;
+                        &lt;li&gt;&lt;b&gt;Support for 3gp&lt;/b&gt; format&lt;/li&gt;
+                        &lt;li&gt;&lt;b&gt;Fetch subtitles&lt;/b&gt; when they are available&lt;/li&gt;
+                    &lt;/ul&gt;
+                    Version 1.0.9a5 includes all these new feautures and fixes the issue of video
+                    selection. Please &lt;a href=&quot;/bytubed/dev-versions/1.0.9a5.xpi&quot;&gt;install 1.0.9a5&lt;/a&gt;
+                    and explore the &quot;Additional Features&quot; tab. If you observe any unsual behaviour,
+                    please report it in the
+                    &lt;a href=&quot;/bytubed//2012/08/30/new-development-version-1-0-9a5.html#comments&quot;&gt;
+                    comments of this post&lt;/a&gt;.
+                &lt;/div&gt;</description>
+        </item>
         
         <item>
           <title>New Development Version - 1.0.9a4</title>
