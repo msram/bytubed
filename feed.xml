@@ -7,8 +7,8 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Thu, 30 Aug 2012 00:00:45 +0530</pubDate>
-        <lastBuildDate>Thu, 30 Aug 2012 00:00:45 +0530</lastBuildDate>
+        <pubDate>Thu, 30 Aug 2012 20:38:16 +0530</pubDate>
+        <lastBuildDate>Thu, 30 Aug 2012 20:38:16 +0530</lastBuildDate>
 
         
         <item>
@@ -34,6 +34,15 @@
                     please report it in the
                     &lt;a href=&quot;/bytubed//2012/08/30/new-development-version-1-0-9a5.html#comments&quot;&gt;
                     comments of this post&lt;/a&gt;.
+                    
+                    &lt;p/&gt;
+                    &lt;div class=&quot;center&quot;&gt;
+                        &lt;a class='add-to-firefox'
+                            href='/bytubed/dev-versions/1.0.9a5.xpi'&gt;
+                            Install BYTubeD 1.0.9a5
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                    &lt;p/&gt;
                 &lt;/div&gt;</description>
         </item>
         
