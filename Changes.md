@@ -2,6 +2,30 @@
 
 -----------------------------------------------------
 
+## 1.0.9
+
+### Release Date
+
+-   August 31, 2012
+
+### Changes
+
+Features Added:
+* Support for downloading subtitles
+* Support for 3gp format
+* Ability to scan all tabs of the current window for YouTube links
+* Show Clip Length
+
+Fixed the following issues:
+* Generating watch_links file when not necessary.
+* Preserve Order does not work with FF 14+
+* Selecting multiple non-contiguous videos is not possible with FF 15+ 
+
+Other changes
+* Moved "Additional Features" tab from "Preferences" tab to main window.
+* Added "Miscellaneous" and "Subtitles" tabs under "Additional Features".
+* Changed the default value of Generate links for "Successful requests" to "false".
+
 ## 1.0.8
 
 ### Release Date
@@ -184,7 +208,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
         }
 
         return returnValue;
-    }
+    }```
 
 ---------------------------------------------------
 

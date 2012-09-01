@@ -30,18 +30,25 @@ IITK.CSE.CS213.BYTubeD.Preferences = function()
     this.format             = "flv";
     this.quality            = "720p";
     this.todo               = 0;
-
+    
     this.preserveOrder      = false;
     this.ignoreFileType     = false;
 
     this.showDLWindow           = true;
     this.closeQStatusWindow     = false;
     this.suppressErrorMessages  = false;
+    
+    this.fetchSubtitles         = false;
+    this.subtitleLangCodes      = new Array();
+    // this.tryOtherLanguages      = true;      // this is not needed.
 
     this.generateFailedLinks    = true;
     this.generateWatchLinks     = true;
     this.generateBadLinks       = false;
     this.generateGoodLinks      = false;
+    
+    this.destinationDirectory   = "";
+    this.subtitleDestination    = "";
 };
 
 IITK.CSE.CS213.BYTubeD.InvocationInfo = function()
@@ -72,6 +79,7 @@ IITK.CSE.CS213.BYTubeD.patternToBeRemoved   =
     new RegExp( "(youtube\\.com\\/v\\/|\\/watch\\?(.)*v=|" +
                 "youtube\\.com\\/embed\\/|\\/movie?v=|" +
                 "youtu\\.be\\/|y2u\\.be\\/)", "i");
+
 
 /**
  * hasUndesirablePatterns checks if a YouTube link has certain non-title text
@@ -111,9 +119,16 @@ IITK.CSE.CS213.BYTubeD.isValidVid = function isValidVid(vid)
 
 IITK.CSE.CS213.BYTubeD.isYouTubeLink = function isYouTubeLink(link)
 {
+    var iccb = IITK.CSE.CS213.BYTubeD;
     try
     {
-        return IITK.CSE.CS213.BYTubeD.youTubePatterns.test(link);
+        var yp = iccb.youTubePatterns;
+        
+        // Reset the lastIndex to 0 so that the next regex pattern match will
+        // happen from the beginning. This is a fix suggested by Phil, 
+        // to overcome the problem of skipped anchors.
+        yp.lastIndex = 0; 
+        return yp.test(link);
     }
     catch(error)
     {
@@ -133,9 +148,10 @@ IITK.CSE.CS213.BYTubeD.isYouTubeLink = function isYouTubeLink(link)
  **/
 IITK.CSE.CS213.BYTubeD.getVidFromUrl = function getVidFromUrl(ytURL)
 {
+    var iccb = IITK.CSE.CS213.BYTubeD;
     try
     {
-        return ytURL.replace(IITK.CSE.CS213.BYTubeD.patternToBeRemoved, "");
+        return iccb.getParamsFromUrl(ytURL)["v"];
     }
     catch(error)
     {
@@ -156,11 +172,12 @@ IITK.CSE.CS213.BYTubeD.getVidFromUrl = function getVidFromUrl(ytURL)
  */
 IITK.CSE.CS213.BYTubeD.getVidsFromText = function getVidsFromText(text)
 {
+    var iccb = IITK.CSE.CS213.BYTubeD;
     var vids = new Array();
-    var patternToBeRemoved = IITK.CSE.CS213.BYTubeD.patternToBeRemoved;
+    var patternToBeRemoved = iccb.patternToBeRemoved;
     try
     {
-        var results = text.match(IITK.CSE.CS213.BYTubeD.youTubePatterns);
+        var results = text.match(iccb.youTubePatterns);
         if(results)
         {
             for(var i=0; i<results.length; i++)
@@ -169,121 +186,173 @@ IITK.CSE.CS213.BYTubeD.getVidsFromText = function getVidsFromText(text)
     }
     catch(error)
     {
-        IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+        iccb.reportProblem(error, arguments.callee.name);
     }
 
     return vids;
 };
 
-// buildLinks builds anchors from contentDocument and clipboard
-IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument)
+/**
+ * yetToBeProcessed searchs for vid in vids
+ *
+ * @return
+ *      true, if vid was found in vids;
+ *      false, otherwise
+ */
+IITK.CSE.CS213.BYTubeD.yetToBeProcessed = function yetToBeProcessed(vid, vids)
 {
-    var links           = new Array();	// Will store the links to be passed on
-                                        // to selectionManager.xul
+    return vids.indexOf(vid) == -1;
+};
 
-    var vidsOnThisPage	= new Array();	// Will store the vids of all YouTube
-                                        // URLs on this page. Redundant but
-                                        // improves speed.
-
+IITK.CSE.CS213.BYTubeD.getVidsFromLinks = function getVidsFromLinks(links)
+{
+    var iccb = IITK.CSE.CS213.BYTubeD;
+    var vids = new Array();
     try
     {
-        var isValidVid = IITK.CSE.CS213.BYTubeD.isValidVid;
-        var isYouTubeLink = IITK.CSE.CS213.BYTubeD.isYouTubeLink;
-        var getVidsFromText = IITK.CSE.CS213.BYTubeD.getVidsFromText;
+        for(var i=0; i<links.length; i++)
+        {
+            vids.push(iccb.getVidFromUrl(links[i].href));
+        }
+    }
+    catch(error)
+    {
+        // Ignore
+    }
+    return vids;
+}
 
+// Works by side-effect; Updates the varialbe "links"
+IITK.CSE.CS213.BYTubeD.buildLinksForVids = function buildLinksForVids(vids, links, processedVids)
+{
+    var iccb = IITK.CSE.CS213.BYTubeD;
+    var watchUrlPrefix =  iccb.watchUrlPrefix;
+    
+    try
+    {
+        if(!processedVids)
+            processedVids = iccb.getVidsFromLinks(links);
+
+        for(var j=0; j<vids.length; j++)
+        {
+            var vid = vids[j];
+            // Need not allow duplicates here, because there are no display
+            // titles available for non-anchor URLs.
+            // See the anchors code block above
+
+            // with yetToBeProcessed(), this function becomes a bit slower;
+            // but the overall responsiveness increases.
+            if(iccb.isValidVid(vid) && iccb.yetToBeProcessed(vid, processedVids))
+            {
+                var link    = document.createElement("a");
+                link.href   = watchUrlPrefix + vid;
+                links[links.length] = link;
+                processedVids.push(vid);
+            }
+        }
+    }
+    catch(error)
+    {
+        // iccb.reportProblem(error, arguments.callee.name);
+    }
+};
+
+// getMajorityLength: returns the mode of the lengths of the video-ids from links
+IITK.CSE.CS213.BYTubeD.getMajorityLength = function getMajorityLength(links)
+{
+    var iccb = IITK.CSE.CS213.BYTubeD;
+    
+    /*
+        Implementation of MJRTY algorithm of
+        [Boyer, Moore: 1982] & [Fischer, Salzberg: 1982]
+    */
+    
+    var majorityLength = 11;
+    try
+    {
+        var vids = iccb.getVidsFromLinks(links);
+        var counter = 0;
+        for(var i=0; i<vids.length; i++)
+        {
+            var len = vids[i].length;
+            if(counter == 0)
+                majorityLength = len;
+            else if(len == majorityLength)
+                counter++;
+            else
+                counter--;
+        }
+    }
+    catch(error)
+    {
+        // Ignore
+    }
+    return majorityLength;
+};
+
+// buildLinks builds anchors from contentDocument and clipboard
+IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument, links)
+{
+    var iccb = IITK.CSE.CS213.BYTubeD;
+    try
+    {
+        if(links == null)
+            links = new Array();
+        
+        var processedVids = new Array();
+        
         /**
          *  Get all the anchors in the current page and append them to links.
          *  Anchors are handled specially, instead of getting just the vid
          *  through youTubePatterns, because innerHTML is useful as the default
          *  display title.
          */
+         
         var anchors   = contentDocument.getElementsByTagName("a");
-
+        
         for(var i=0; i<anchors.length; i++)
         {
-            if(anchors[i].href && isYouTubeLink(anchors[i].href))
+            if(anchors[i].href && iccb.isYouTubeLink(anchors[i].href))
             {
-                var vid = getVidsFromText(anchors[i].href)[0];
+                var vid = iccb.getVidsFromText(anchors[i].href)[0];
 
-                if(isValidVid(vid))
+                if(iccb.isValidVid(vid))
                 {
                     // Allow duplicates so that the getTitleAndDisplayTitle
                     // method can choose the best diplay title
                     links[links.length] = anchors[i]; // This is special
-                    vidsOnThisPage.push(vid);
+                    processedVids.push(vid);
                 }
             }
         }
-
-        /**
-         * yetToBeProcessed searchs for vid in the global variable
-         * vidsOnThisPage
-         *
-         * @return
-         *      true, if vid was found in vidsOnThisPage;
-         *      false, otherwise
-         */
-        var yetToBeProcessed = function yetToBeProcessed(vid)
+        
+        // Some times anchor.href is not proper; but the title has a valid YouTube URL
+        // Ex: <a title="http://www.youtube.com/watch?v=Y4MnpzG5Sqc" 
+        //        href="http://t.co/zeZUtIeg">
+        //          youtube.com/watch?v=Y4Mnpz...
+        //     </a>
+        for(i=0; i<anchors.length; i++)
         {
-            return vidsOnThisPage.indexOf(vid) == -1;
-        };
-
-        // Uses the links created so far.
-        var getMajorityLength = function getMajorityLength()
-        {
-            /*
-                Implementation of MJRTY algorithm of
-                [Boyer, Moore: 1982] & [Fischer, Salzberg: 1982]
-            */
-            var majorityLength = 11;
-            var counter = 0;
-            for(var i=0; i<links.length; i++)
+            if(anchors[i].title && iccb.isYouTubeLink(anchors[i].title))
             {
-                var len = getVidsFromText(links[i].href)[0].length;
-                if(counter == 0)
-                    majorityLength = len;
-                else if(len == majorityLength)
-                    counter++;
-                else
-                    counter--;
+                var vids = iccb.getVidsFromText(anchors[i].title);
+                iccb.buildLinksForVids(vids, links, processedVids);
             }
-            return majorityLength;
-        };
-
-        // Works by side-effect; Updates the global varialbe "links"
-        var buildAndPushLinkFor = function buildAndPushLinkFor(vids)
-        {
-            var watchUrlPrefix =  IITK.CSE.CS213.BYTubeD.watchUrlPrefix;
-
-            for(var j=0; j<vids.length; j++)
-            {
-                var vid = vids[j];
-                // Need not allow duplicates here, because there are no display
-                // titles available for non-anchor URLs.
-                // See the anchors code block above
-
-                // with yetToBeProcessed(), this function becomes a bit slower;
-                // but the overall responsiveness increases.
-                if(isValidVid(vid) && yetToBeProcessed(vid))
-                {
-                    var link    = document.createElement("a");
-                    link.href   = watchUrlPrefix + vid;
-                    links[links.length] = link;
-                    vidsOnThisPage.push(vid);
-                }
-            }
-        };
-
+        }
+        
         //var t1 = new Date().getTime();    // Let it be;
                                             // will use during development
-
+        
         var innerHTML            = null;
         var getElementsByTagName = contentDocument.getElementsByTagName;
-
-        if(getElementsByTagName("html"))
-            innerHTML = getElementsByTagName("html")[0].innerHTML;
-        else if(getElementsByTagName("HTML"))
-            innerHTML = getElementsByTagName("HTML")[0].innerHTML;
+        
+        try
+        {
+            if(getElementsByTagName("html") && getElementsByTagName("html")[0])
+                innerHTML = getElementsByTagName("html")[0].innerHTML;
+            else if(getElementsByTagName("HTML") && getElementsByTagName("HTML")[0])
+                innerHTML = getElementsByTagName("HTML")[0].innerHTML;
+        } catch(error) { /* Ignore */ }
 
         if(innerHTML)
         {
@@ -292,9 +361,9 @@ IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument)
                 that look like YouTube URLs even though they are not hyper
                 links.
             */
-            var vids = getVidsFromText(innerHTML);
-            buildAndPushLinkFor(vids);
-
+            var vids = iccb.getVidsFromText(innerHTML);
+            iccb.buildLinksForVids(vids, links, processedVids);
+            
             /*
              *  There are certain videos on YouTube pages hiding behind span
              *  tags. Video IDs of such videos are present in the
@@ -307,10 +376,10 @@ IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument)
             {
                 for(i=0; i<dataVideoIds.length; i++)
                 {
-                    var sPattern    = /(")?(data-video-ids)(")?(\s)*=(\s)*|"/g;
-                    var dvids       = dataVideoIds[i].replace(sPattern, "").split(",");
+                    var pattern = /(")?(data-video-ids)(")?(\s)*=(\s)*|"/g;
+                    var dvids   = dataVideoIds[i].replace(pattern, "").split(",");
 
-                    buildAndPushLinkFor(dvids);
+                    iccb.buildLinksForVids(dvids, links, processedVids);
                 }
             }
             //var t2 = new Date().getTime(); // Let it be;
@@ -330,27 +399,38 @@ IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument)
 
             // t2 = new Date().getTime();
             var text = innerHTML.replace(/<[^>]*>/g, "");
-            vids = getVidsFromText(text);
-            var majorityLength = getMajorityLength();
+            vids = iccb.getVidsFromText(text);
+            var majorityLength = 11; // iccb.getMajorityLength(links);  // getMajorityLength is slow
             for(i=0; i<vids.length; i++)
             {
                 // Truncate the vids to the length of the most of the VIDs
                 // so far.
                 vids[i] = vids[i].substring(0, majorityLength);
             }
-            buildAndPushLinkFor(vids);
-
+            iccb.buildLinksForVids(vids, links, processedVids);
+            
             //var t3 = new Date().getTime();	// Let it be;
                                                 // will use during development
             //alert(t3 - t2);
         }
+    }
+    catch(error)
+    {
+        iccb.reportProblem(error, arguments.callee.name);
+    }
+};
 
+IITK.CSE.CS213.BYTubeD.getLinksFromClipboard = function getLinksFromClipboard(links)
+{
+    var iccb = IITK.CSE.CS213.BYTubeD;
+    try
+    {
         /*
          *  Build links from clipboard content as well; The following code block
          *  uses the code snippets from
          *  https://developer.mozilla.org/en/Using_the_Clipboard
          */
-
+        
         var Cc          = Components.classes;
         var Ci          = Components.interfaces;
         var clipboard   = Cc["@mozilla.org/widget/clipboard;1"]
@@ -360,7 +440,7 @@ IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument)
         {
             var trans = Cc["@mozilla.org/widget/transferable;1"]
                           .createInstance(Ci.nsITransferable);
-
+            
             if(trans)
             {
                 var str       = new Object();
@@ -384,31 +464,51 @@ IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument)
                 {
                     str = str.value.QueryInterface(Ci.nsISupportsString);
                     var clipboardText = str.data.substring(0, strLength.value / 2);
-
-                    var vids = getVidsFromText(clipboardText);
-                    var majorityLength = getMajorityLength();
+                    
+                    var vids = iccb.getVidsFromText(clipboardText);
+                    
+                    var processedVids   = iccb.getVidsFromLinks(links);
+                    
+                    var majorityLength =  11; // iccb.getMajorityLength(links); // getMajorityLength is slow
                     for(i=0; i<vids.length; i++)
                     {
                         // Truncate the vids to the length of the most of
                         // the VIDs so far.
                         vids[i] = vids[i].substring(0, majorityLength);
                     }
-
-                    buildAndPushLinkFor(vids);
+                    
+                    iccb.buildLinksForVids(vids, links, processedVids);
                 }
             }
         } catch(error) { /* Ignore */ }
     }
     catch(error)
     {
-        IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+        // Ignore
     }
+};
 
-    return links;
+IITK.CSE.CS213.BYTubeD.getLinksFromAllTabs = function getLinksFromAllTabs(browsers, currentDocument, links)
+{
+    var iccb = IITK.CSE.CS213.BYTubeD;
+    try
+    {
+        for(var i=0; i<browsers.length; i++)
+        {
+            if(browsers[i].contentDocument != currentDocument)
+                iccb.buildLinks(browsers[i].contentDocument, links);
+        }
+    }
+    catch(error)
+    {
+        iccb.reportProblem(error, arguments.callee.name);
+    }
 };
 
 IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitle(link)
 {
+    var iccb = IITK.CSE.CS213.BYTubeD;
+    
     var title = "";
     var displayTitle = "";
 
@@ -419,7 +519,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
 
     try
     {
-        var processTitle    = IITK.CSE.CS213.BYTubeD.processTitle;
+        var processTitle    = iccb.processTitle;
         var Cc              = Components.classes;
         var Ci              = Components.interfaces
 
@@ -495,7 +595,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
             }
         }
 
-        if(IITK.CSE.CS213.BYTubeD.hasUndesirablePatterns(title))
+        if(iccb.hasUndesirablePatterns(title))
         {
             spans = link.getElementsByClassName("album-track-name");
 
@@ -518,97 +618,156 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     videoList: new Array(),
     destinationDirectory: null,
     invocationInfo: null,
+    subtitleLanguageInfo: new Array(),
+    aborting: false,
+    locked: false,
 
     onLoad: function onLoad(event)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        var selMgr  = iccb.selectionManager;
         try
         {
             // ---------------------- BEGIN Important ---------------------- //
             // Do thsese things in any case;
             // even if there are no YouTube links on this page!
 
-            var prefs       = IITK.CSE.CS213.BYTubeD.prefs;
+            var prefs       = iccb.prefs;
 
             var chkd = document.getElementById("suppressErrorMessages").checked;
-            IITK.CSE.CS213.BYTubeD.suppressErrorMessages = chkd;
+            iccb.suppressErrorMessages = chkd;
 
             var destination = document.getElementById("destination");
-            var dlMgr       = IITK.CSE.CS213.BYTubeD.services.downloadManager;
+            var dlMgr       = iccb.services.downloadManager;
             var destDir     = prefs.getCharPref("destinationDirectory");
             
             if(!destDir || destDir == "")
-                destination.value   = dlMgr.defaultDownloadsDirectory.path;
+                destination.value   = dlMgr.userDownloadsDirectory.path;
             else
-                destination.value   = IITK.CSE.CS213.BYTubeD.utf8to16(destDir);
+                destination.value   = iccb.utf8to16(destDir);
+                
+            var subtitleDestination = document.getElementById("subtitleDestination");
+            var destDir1 = prefs.getCharPref("subtitleDestination");
+            if(!destDir1 || destDir1 == "")
+                subtitleDestination.value = destination.value;
+            else
+                subtitleDestination.value = iccb.utf8to16(destDir1);
+            
             // ----------------------- END Important ----------------------- //
 
-
-            var contentDocument = window.arguments[0];
-            var links = IITK.CSE.CS213.BYTubeD.buildLinks(contentDocument);
-
+            var currentDocument = window.arguments[0];
+            var browsers        = window.arguments[1];
+            
+            var links   = new Array();
+            
+            var scanCB      = document.getElementById("scanClipboard").checked;
+            var scanTabs    = document.getElementById("scanAllTabs").checked;
+            
+            var scanCurTabFirst = document.getElementById("scanCurTabFirst").checked;
+            if(!scanTabs)
+            {
+                iccb.buildLinks(currentDocument, links);
+            }
+            else if(scanCurTabFirst)
+            {  
+                iccb.buildLinks(currentDocument, links);
+                iccb.getLinksFromAllTabs(browsers, currentDocument, links);
+            }
+            else
+            {
+                iccb.getLinksFromAllTabs(browsers, null, links);
+            }
+            
+            if(scanCB)
+            {
+                iccb.getLinksFromClipboard(links);
+            }
+            
             // If no YouTube links were found on 'this' page, alert the user
             // "No YouTube links were found on this page."
             if(links.length == 0)
             {
-                var alrt = IITK.CSE.CS213.BYTubeD.services.promptService.alert;
-                alrt(null, "BYTubeD",
-                "No YouTube links were found on this page or in the clipboard.");
+                
+                var alrt = iccb.services.promptService.alert;
+                var message = "No YouTube links were found on this page";
+                if(scanCB)
+                    message += " or in the system clipboard";
+                if(scanTabs)
+                    message += " or in any open tab of the current window";
+                message += ".";
+                
+                alrt(null, "BYTubeD", message);
 
+                selMgr.aborting = true;
                 window.close();
             }
             else
             {
-                //var start = new Date().getTime(); // Let it be;
-                                                // will use during development
+                var II      = iccb.InvocationInfo;
 
-                var selMgr  = IITK.CSE.CS213.BYTubeD.selectionManager;
-                var II      = IITK.CSE.CS213.BYTubeD.InvocationInfo;
-
-                var href    = contentDocument.location.href;
+                var href    = currentDocument.location.href;
                 selMgr.invocationInfo                   = new II();
                 selMgr.invocationInfo.timeStamp         = new Date().toString();
                 selMgr.invocationInfo.sourcePageUrl     = href;
                 selMgr.invocationInfo.sourcePageTitle   = href;
-                if(contentDocument.title && contentDocument.title.length > 0)
-                    selMgr.invocationInfo.sourcePageTitle = contentDocument.title;
+                if(currentDocument.title && currentDocument.title.length > 0)
+                    selMgr.invocationInfo.sourcePageTitle = currentDocument.title;
 
+                    
+                var start = new Date().getTime(); // Let it be;
+                                                // will use during development
+                
                 // populate the videoList before applying default fliters
                 selMgr.buildVideoList(links); // works by side-effect
                 selMgr.setStatus(selMgr.videoList.length +
                                 " video links have been found on this page.");
 
+                var stop = new Date().getTime(); // Let it be;
+                                                // will use during development
+                                                
                 var filter = document.getElementById("filter");
                 filter.focus();
 
-                selMgr.onSelectAll(null);
-                selMgr.toggleResAndQual(null);
-
+                selMgr.loadFlags();
+                
                 window.addEventListener('keypress', selMgr.keyPressed, true);
 
                 window.addEventListener("resize", function(event) {
                     selMgr.manageWindow(event);
                 }, false);
 
-                //var stop = new Date().getTime(); // Let it be;
-                                                // will use during development
-                //alert(stop-start);
+                iccb.readTextFromAddonDirectory("langList.js", "generated", selMgr.loadSubtitleLangs);
+                iccb.readTextFromAddonDirectory("langList.js", "content", selMgr.loadSubtitleLangs);
+                
+                // alert(stop-start);
+                
             }
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
+    loadFlags: function loadFlags()
+    {
+        var selMgr = IITK.CSE.CS213.BYTubeD.selectionManager;
+        
+        selMgr.onSelectAll();
+        selMgr.togglePrefetching();
+        selMgr.toggleFormatDisabled();
+        selMgr.toggleFetchSubtitles();
+        selMgr.toggleTryOtherLanguages();
+        selMgr.toggleScanTabs();
+    },
+    
     buildVideoList: function buildVideoList(links)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
-            var selMgr                  = IITK.CSE.CS213.BYTubeD.selectionManager;
-            var hasUndesirablePatterns  = IITK.CSE.CS213.BYTubeD.hasUndesirablePatterns;
-            var getVidsFromText         = IITK.CSE.CS213.BYTubeD.getVidsFromText;
-            var getTitleAndDisplayTitle = IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle;
-            var YoutubeVideo            = IITK.CSE.CS213.BYTubeD.YoutubeVideo;
+            var selMgr                  = iccb.selectionManager;
 
             var vidCount            = 0;
             var treeChildren        = document.getElementById("treeChildren");
@@ -621,14 +780,14 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
                 // This is faster than getVidFromUrl
                 // probably because of instruction caching.
-                var curVid = getVidsFromText(links[li].href)[0];
+                var curVid = iccb.getVidsFromText(links[li].href)[0];
                 if(curVid == "")
                     continue;
 
                 var title = "";
                 var displayTitle = "";
 
-                var tNdt = getTitleAndDisplayTitle(links[li]);
+                var tNdt = iccb.getTitleAndDisplayTitle(links[li]);
                 title = tNdt[0];
                 displayTitle = tNdt[1];
 
@@ -641,8 +800,8 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                         found = true;
                         break;
                     }
-
-                if( found && !hasUndesirablePatterns(title) &&
+                
+                if( found && !iccb.hasUndesirablePatterns(title) &&
                     selMgr.videoList[vi].title.length < title.length )
                 {
                     document.getElementById("title"+vi)
@@ -651,7 +810,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                     selMgr.videoList[vi].displayTitle = displayTitle;
                 }
 
-                if(displayTitle.length == 0 || hasUndesirablePatterns(displayTitle))
+                if(displayTitle.length == 0 || iccb.hasUndesirablePatterns(displayTitle))
                 {
                     displayTitle = "Loading...";
                     title = "";
@@ -659,7 +818,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
                 if(found == false)
                 {
-                    selMgr.videoList[vidCount] = new YoutubeVideo();
+                    selMgr.videoList[vidCount] = new iccb.YoutubeVideo(); // <- videoListManager.js
 
                     selMgr.videoList[vidCount].vid = curVid;
                     selMgr.videoList[vidCount].title = title;
@@ -682,14 +841,19 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                     tr.appendChild(tc2);
 
                     var tc3 = document.createElement("treecell");
-                    tc3.setAttribute("label", "Loading...");
+                    tc3.setAttribute("label", "Unknown");
                     tc3.setAttribute("id", "maxResolution" + vidCount );
                     tr.appendChild(tc3);
 
                     var tc4 = document.createElement("treecell");
-                    tc4.setAttribute("label", "Loading...");
+                    tc4.setAttribute("label", "Unknown");
                     tc4.setAttribute("id", "maxQuality" + vidCount );
                     tr.appendChild(tc4);
+
+                    var tc5 = document.createElement("treecell");
+                    tc5.setAttribute("label", "Unknown");
+                    tc5.setAttribute("id", "clipLength" + vidCount );
+                    tr.appendChild(tc5);
 
                     ti.appendChild(tr);
                     treeChildren.appendChild(ti);
@@ -699,7 +863,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
                 // Prefetch when prefetchingEnabled or the title has
                 // some undesirable patterns or title is too short
-                if(!found && (prefetchingEnabled || hasUndesirablePatterns(title) || title.length < 4))
+                if(!found && (prefetchingEnabled || iccb.hasUndesirablePatterns(title) || title.length < 4))
                 {
                     selMgr.initiatePrefetching(selMgr, curVid);
                 }
@@ -707,67 +871,64 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     initiatePrefetching: function initiatePrefetching(selMgr, vid)
     {
-        var videoInfoUrlPrefix = IITK.CSE.CS213.BYTubeD.videoInfoUrlPrefix;
-                                // Defined in videoListManager.js
-
-        var XHRManager = IITK.CSE.CS213.BYTubeD.XmlHttpRequestManager;
-                            // Defined in xmlHttpRequestManager.js
-
-        // Check if the video was already prefetched before intiating prefetch
-        var ind = -1;
-        for(ind=0;ind<selMgr.videoList.length;ind++)
-            if(selMgr.videoList[ind].vid == vid)
-                break;
-
-        // Don't fetch again if it was already fetched.
-        if(ind < selMgr.videoList.length && !selMgr.videoList[ind].prefetched)
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
+        try
         {
-            // Don't install a localErrorHanlder for these requests.
-            // That will lead to failureDescription being non-null.
-            // videoListManager checks for nullity of failureDescription
-            // to issue requests.
-            var xmlReq = new XHRManager(selMgr, selMgr.setTitleUsingInfo , null, 1);
-            xmlReq.doRequest("GET", videoInfoUrlPrefix + vid);
+            var videoInfoUrlPrefix  = iccb.videoInfoUrlPrefix;    // <- videoListManager.js
+            var getIndexByKey       = iccb.getIndexByKey;         // <- globals.js
+            var XHRManager          = iccb.XmlHttpRequestManager; // <- xmlHttpRequestManager.js
+            
+            // Check if the video was already prefetched before intiating prefetch
+            var ind = getIndexByKey(selMgr.videoList, "vid", vid, function(x, y){return x==y;});
+                    
+            // Don't fetch again if it was already fetched.
+            if(ind != -1 && !selMgr.videoList[ind].prefetched)
+            {
+                // Don't install a localErrorHanlder for these requests.
+                // That will lead to failureDescription being non-null.
+                // videoListManager checks for nullity of failureDescription
+                // to issue requests.
+                var xmlReq = new XHRManager(selMgr, selMgr.setTitleUsingInfo , null);
+                xmlReq.doRequest("GET", videoInfoUrlPrefix + vid);
+            }
+        }
+        catch(error)
+        {
+            // iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
-    setTitleUsingInfo: function setTitleUsingInfo(selMgr, info, url, pos)
+    setTitleUsingInfo: function setTitleUsingInfo(selMgr, info, url)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
-            var localErrorHanlder = function localErrorHanlder(html,
-                                                                requestedUrl)
+            var localErrorHanlder = function localErrorHanlder(html, requestedUrl)
             {
                 try
                 {
-                    if(IITK)
+                    var failureString = iccb.getFailureString(html).replace(/^\s+|\s+$/g, '');
+                        
+                    var vid = iccb.getParamsFromUrl(requestedUrl)["v"];
+                    var ind = iccb.getIndexByKey(selMgr.videoList, "vid",
+                                                 vid, function(x, y){return x==y;});
+    
+                    if(ind != -1)
                     {
-                        var failureString = IITK.CSE.CS213.BYTubeD.getFailureString(html)
-                                                                  .replace(/^\s+|\s+$/g, '');
-                        var vid = requestedUrl.split("v=")[1];
-                        var ind = -1;
+                        selMgr.videoList[ind].failureDescription = failureString;
+                        var display = "(" + failureString.replace(/<[^>]*>/g, "") + ")";
 
-                        for(ind=0;ind<selMgr.videoList.length;ind++)
-                            if(selMgr.videoList[ind].vid == vid)
-                                break;
-
-                        if(ind < selMgr.videoList.length)
+                        if(selMgr.getValueAt(ind, "title") == "Loading...")
                         {
-                            selMgr.videoList[ind].failureDescription = failureString;
-                            var display = "(" + failureString.replace(/<[^>]*>/g, "") + ")";
-
-                            if(selMgr.getValueAt(ind, "title") == "Loading...")
-                            {
-                                selMgr.setValueAt(ind, "title", display);
-                                selMgr.setValueAt(ind, "maxResolution", "Unknown");
-                                selMgr.setValueAt(ind, "maxQuality", "Unknown");
-                            }
+                            selMgr.setValueAt(ind, "title", display);
                         }
                     }
                 }
@@ -777,9 +938,9 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                 }
             };
 
-            var preprocessInfo  = IITK.CSE.CS213.BYTubeD.preprocessInfo;
-            var XHRManager      = IITK.CSE.CS213.BYTubeD.XmlHttpRequestManager;
-            var watchUrlPrefix  = IITK.CSE.CS213.BYTubeD.watchUrlPrefix;
+            var preprocessInfo  = iccb.preprocessInfo;
+            var XHRManager      = iccb.XmlHttpRequestManager;
+            var watchUrlPrefix  = iccb.watchUrlPrefix;
 
             var vid = url.split("video_id=")[1];
             var swf_map = preprocessInfo(info);
@@ -798,40 +959,41 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            // iccb.reportProblem(error, arguments.callee.name);
         }
-
     },
 
-    setTitleUsingYouTubePageInfo: function setTitleUsingYouTubePageInfo( selMgr, html, url, pos)
+    setTitleUsingYouTubePageInfo: function setTitleUsingYouTubePageInfo( selMgr, html, url)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
             var vid = url.split("?v=")[1];
-            var swf_map = IITK.CSE.CS213.BYTubeD.processYouTubePage(html);
-            var failureString = IITK.CSE.CS213.BYTubeD.getFailureString(html)
+            var swf_map = iccb.processYouTubePage(html);
+            var failureString = iccb.getFailureString(html)
                                                       .replace(/^\s+|\s+$/g, '');
 
             selMgr.setFieldsCommonCode(selMgr, vid, swf_map, failureString);
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            // iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     setFieldsCommonCode: function setFieldsCommonCode(selMgr, vid, swf_map, failureString)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
-            var processTitle = IITK.CSE.CS213.BYTubeD.processTitle;
-            var ind = -1;
-
-            for(ind=0;ind<selMgr.videoList.length;ind++)
-                if(selMgr.videoList[ind].vid == vid)
-                    break;
-
-            if(ind != selMgr.videoList.length)
+            var processTitle    = iccb.processTitle;
+            var getIndexByKey   = iccb.getIndexByKey
+            
+            var ind = getIndexByKey(selMgr.videoList, "vid", vid, function(x, y){return x==y;});
+        
+            if(ind != -1)
             {
                 if(swf_map["title"])
                 {
@@ -850,18 +1012,40 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
                 if(swf_map["fmt_list"])
                 {
-                    var fmtMap          = IITK.CSE.CS213.BYTubeD.fmtMap;
+                    var fmtMap          = iccb.fmtMap;
                     var fmt_list        = swf_map["fmt_list"].split(",");
+                    
                     var maxResolution   = fmt_list[0].split("/")[1];
-
-                    var maxQual  = fmtMap[fmt_list[0].split("/")[0]].quality;
+                    var maxQual         = fmtMap[fmt_list[0].split("/")[0]].quality;
+                    
                     // var fType = fmtMap[fmt_list[0].split("/")[0]].fileType;
 
                     selMgr.setValueAt(ind, "maxResolution", maxResolution);
                     selMgr.setValueAt(ind, "maxQuality",  maxQual);
                                                 // + " (" + fType + ")");
                 }
-
+                
+                if(swf_map["length_seconds"])
+                {
+                    var zeroPad         = iccb.zeroPad;
+                    var length_seconds  = parseInt(swf_map["length_seconds"]);
+                    
+                    var clipLength = "";
+                    if(length_seconds > 3600)
+                    {
+                        var hh  = Math.floor(length_seconds / 3600);
+                        clipLength += zeroPad(hh, 2) + ":";
+                        length_seconds = length_seconds % (hh * 3600);
+                    }
+                    var mm = Math.floor(length_seconds / 60);
+                    clipLength +=  zeroPad(mm, 2) + ":";
+                    if(mm > 0)
+                        length_seconds = length_seconds % (mm * 60);
+                    clipLength += zeroPad(length_seconds, 2);
+                    clipLength = clipLength.replace(/^0/g, "");
+                    selMgr.setValueAt(ind, "clipLength", clipLength);
+                }
+                
                 if(selMgr.videoList[ind])
                 {
                     selMgr.videoList[ind].swfMap = swf_map;
@@ -876,8 +1060,6 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                     if(selMgr.getValueAt(ind, "title") == "Loading...")
                     {
                         selMgr.setValueAt(ind, "title", display);
-                        selMgr.setValueAt(ind, "maxResolution", "Unknown");
-                        selMgr.setValueAt(ind, "maxQuality", "Unknown");
                     }
                 }
             }
@@ -885,15 +1067,17 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            // Ignore
+            // iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     manageWindow: function manageWindow(event)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
-            var selMgr = IITK.CSE.CS213.BYTubeD.selectionManager;
+            var selMgr = iccb.selectionManager;
             if(document.getElementById("resizeWindow").checked)
             {
                 selMgr.resizeWindow();
@@ -909,13 +1093,14 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
-
     },
 
     resizeWindow: function resizeWindow()
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
             // This if block is an idea suggested by cadorn at
@@ -933,12 +1118,13 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     centerWindow: function centerWindow()
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
             // This condition makes sure that we don't mess with "maximize"
@@ -973,12 +1159,14 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     maintainAspectRatio: function maintainAspectRatio()
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         // This function uses the idea suggested by paxdiablo at
         // http://stackoverflow.com/questions/1186414/whats-the-algorithm-to-calculate-aspect-ratio-i-need-an-output-like-43-169
         try
@@ -1024,17 +1212,244 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
-
-    keyPressed: function keyPressed(event)
+    
+    // Subtitles related functions... 
+    // loadSubtitleLangs: prepares iccb.langList by parsing text
+    loadSubtitleLangs: function loadSubtitleLangs(text)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        var selMgr = iccb.selectionManager;
+        
+        // Make sure text is non-empty
+        if(text != null && text != "" && !selMgr.locked) try
+        {
+            selMgr.locked = true;
+            // It's not a proper locking mechanism; but that's ok, not a problem.
+            
+            var lines = text.split("\n");
+            iccb.langList = new Array();
+            
+            var str = "";
+            for(var i=0; i<lines.length; i++)
+            {
+                var line =lines[i];
+                var key = "";
+                var record = new Array();
+                if(line.indexOf(":") != -1)
+                {
+                    var parts = line.split("{");
+                    key = parts[0].split(":")[0].replace(/\s/g, "");
+                    
+                    var keyValpairs = parts[1].split('}')[0].split(",");
+                    for(var j=0; j<keyValpairs.length; j++)
+                    {
+                        parts = keyValpairs[j].split(":");
+                        record[parts[0].replace(/\s/g, "")] = parts[1].replace(/"/g, "").replace(/^(\s)+|(\s)+$/, "");
+                    }
+                    
+                    iccb.langList[key] = record;
+                }
+            }
+            selMgr.loadDefaultSubtitleLanguages();
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+        }
+    },
+    
+    // loadDefaultSubtitleLanguages: loads the list of languages from langList <- subtitles.js
+    loadDefaultSubtitleLanguages: function loadDefaultSubtitleLanguages()
+    {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
-            var selMgr = IITK.CSE.CS213.BYTubeD.selectionManager;
+            var selMgr              = iccb.selectionManager;
+            var prefs               = iccb.prefs;
+            
+            var subtitleLangList    = document.getElementById("subtitleLangList");
+            var secondaryLanguages  = document.getElementsByClassName("secondaryLanguage");
+            
+            var plc = new Array();  // previous lang_code preferences
+            
+            try
+            {
+                // Get the previous lang_code preferences
+                plc.push(prefs.getCharPref("subtitleLangCode"));
+                for(var i=0; i<secondaryLanguages.length; i++)
+                    plc.push(prefs.getCharPref("subtitleLangCode" + (i+1)));
+            } catch(error) { /* Ignore */ }
+            
+            // The following loop adds all language records to the four language selection lists
+            selMgr.subtitleLanguageInfo = iccb.loadDefaultSubtitleLanguages(); // <- subtitles.js
+            
+            var langList = selMgr.subtitleLanguageInfo;
+            for(var lang in langList)
+            {
+                var lc  = langList[lang].lang_code;
+                
+                if(lc == "und") continue;   // Unknown Language
+                
+                var lt  = langList[lang].lang_translated;
+                var lo  = langList[lang].lang_original;
+                
+                var ltm = lt.split(" (")[0];
+                var lcm = (lc + "-").split("-")[1] ;
+                
+                subtitleLangList.appendItem(lt, lc, lt == lo ? "" : lo);
+                for(var i=0; i<secondaryLanguages.length; i++)
+                {
+                    secondaryLanguages[i].appendItem(ltm + " " + lcm, lc, "");
+                }
+            }
+            
+            try
+            {
+                // Restore previous selections.
+                iccb.restoreSelectionByValue(subtitleLangList, plc[0]);
+                for(var i=0; i<secondaryLanguages.length; i++)
+                    iccb.restoreSelectionByValue(secondaryLanguages[i], plc[i+1]);
+            } catch(error) { /* Ignore */ }
+            
+            if(document.getElementById("fetchSubtitles").checked)
+            {
+                selMgr.fetchSubtitleLangList();
+            }
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+        }
+    },
+    
+    showLangList: function showLangList(event)
+    {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
+        try
+        {
+            var selMgr = iccb.selectionManager;
+            iccb._showSubtitleLanguageInfo(selMgr.subtitleLanguageInfo); // <- subtitles.js
+        }
+        catch(error)
+        {
+            // iccb.reportProblem(error, arguments.callee.name);
+        }
+    },
+    
+    // Fetch the list all languages in which closed captions (subtitles) are available
+    fetchSubtitleLangList: function fetchSubtitleLangList()
+    {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        try
+        {
+            var selMgr = iccb.selectionManager;
+            for(var i=0; i<selMgr.videoList.length; i++)
+            {
+                vid = selMgr.videoList[i].vid;
+                selMgr.getSubtitleLangList(vid);
+            }
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+        }
+    },
+    
+    getSubtitleLangList: function getSubtitleLangList(vid)
+    {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
+        try
+        {
+            var XHRManager = iccb.XmlHttpRequestManager;
+                            // Defined in xmlHttpRequestManager.js
+            var selMgr = iccb.selectionManager;
+            
+            var xmlReq = new XHRManager(selMgr, selMgr.processSubtitleLangList, null);
+            xmlReq.doRequest("GET", iccb.subtitleLangListURL.replace("VIDEO_ID", vid));
+        }
+        catch(error)
+        {
+            // iccb.reportProblem(error, arguments.callee.name);
+        }
+    },
+    
+    processSubtitleLangList: function processSubtitleLangList(previousBirth, xmlText, url)
+    {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
+        try
+        {
+            var subtitleLanguageInfo    = previousBirth.subtitleLanguageInfo; 
+            var subtitleLangList        = document.getElementById("subtitleLangList");
+            var secondaryLanguages      = document.getElementsByClassName("secondaryLanguage");
+            
+            var oldLangCount = subtitleLanguageInfo.length;
+            
+            var curLangs = iccb.processSubtitleLangListGlobal(xmlText, subtitleLanguageInfo); // <- subtitles.js
+            if(oldLangCount != subtitleLanguageInfo.length) // there was atleast one new language
+            {
+                //alert(oldLangCount + " -> " + subtitleLanguageInfo.length);
+                var plc = new Array();
+                
+                plc[0] = subtitleLangList.selectedItem ? subtitleLangList.selectedItem.value : "";
+                for(var i=0; i<secondaryLanguages.length; i++)
+                    plc[i+1] = secondaryLanguages[i].selectedItem ? secondaryLanguages[i].selectedItem.value : "";
+                 
+                iccb.removeAllItems(subtitleLangList);
+                for(var i=0; i<secondaryLanguages.length; i++)
+                    iccb.removeAllItems(secondaryLanguages[i]);
+                
+                for(var i=0; i<subtitleLanguageInfo.length; i++)
+                {
+                    var lc  = subtitleLanguageInfo[i].lang_code;
+                    
+                    if(lc == "und") continue; // Unknown Language
+                    
+                    var lo  = subtitleLanguageInfo[i].lang_original;
+                    var lt  = subtitleLanguageInfo[i].lang_translated;
+                    
+                    var ltm = lt.split(" (")[0];
+                    var lcm = (lc + "-").split("-")[1];
+     
+                    subtitleLangList.appendItem(lt, lc, lt == lo ? "" : lo);
+                    for(var j=0; j<secondaryLanguages.length; j++)
+                        secondaryLanguages[j].appendItem(ltm + " " + lcm , lc, "");
+                }
+                
+                // Restore previous selections.
+                iccb.restoreSelectionByValue(subtitleLangList, plc[0]);
+                for(var i=0; i<secondaryLanguages.length; i++)
+                    iccb.restoreSelectionByValue(secondaryLanguages[i], plc[i+1]);
+            }
+            
+            var vid = iccb.getParamsFromUrl(url)['v'];    // getParamsFromUrl <- globals.js
+            var ind = iccb.getIndexByKey(previousBirth.videoList, "vid",
+                                                     vid, function(x, y){return x==y;});
+            if(ind != -1)
+                previousBirth.videoList[ind].availableSubtitleLanguages = curLangs;
+            
+        }
+        catch(error)
+        {
+            // iccb.reportProblem(error, arguments.callee.name);
+        }
+    },
+    
+    keyPressed: function keyPressed(event)
+    {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
+        try
+        {
+            var selMgr = iccb.selectionManager;
 
-            if(event.keyCode == 13 && event.target.tagName != "button")
+            if(event.keyCode == 13 && event.target.tagName != "button" && event.target.tagName != "menulist")
             {
                 selMgr.onStart(event);
             }
@@ -1056,12 +1471,14 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     onBrowse: function onBrowse(event)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
             var Cc  = Components.classes;
@@ -1082,12 +1499,42 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
+    onBrowseSubtitles: function onBrowseSubtitles(event)
+    {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
+        try
+        {
+            var Cc  = Components.classes;
+            var Ci  = Components.interfaces;
+            var fp  = Cc["@mozilla.org/filepicker;1"]
+                        .createInstance(Ci.nsIFilePicker);
+
+            fp.init(window,
+                    "Please select a destination folder for your downloads.",
+                    2);
+            var result = fp.show();
+
+            if(result == Ci.nsIFilePicker.returnOK)
+            {
+                destination = document.getElementById("subtitleDestination");
+                destination.value = fp.file.path;
+            }
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+        }
+    },
+    
     onPreferences: function onPreferences(event)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
             window.openDialog(
@@ -1098,15 +1545,17 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     onSelect: function onSelect(event)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
-            var selMgr = IITK.CSE.CS213.BYTubeD.selectionManager;
+            var selMgr = iccb.selectionManager;
             var count = event.target.view.selection.count;
 
             if(selMgr.videoList.length > 0)
@@ -1118,20 +1567,22 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     onStart: function onStart(event)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
-            var selMgr              = IITK.CSE.CS213.BYTubeD.selectionManager;
-            var supportedQualities  = IITK.CSE.CS213.BYTubeD.supportedQualities;
-            var supportedFormats    = IITK.CSE.CS213.BYTubeD.supportedFormats;
-
-            var tree = document.getElementById("videoTitlesTree");
-            var selection = tree.view.selection;
+            var selMgr              = iccb.selectionManager;
+            var supportedQualities  = iccb.supportedQualities;
+            var supportedFormats    = iccb.supportedFormats;
+            
+            var tree        = document.getElementById("videoTitlesTree");
+            var selection   = tree.view.selection;
 
             var destination = document.getElementById("destination");
             selMgr.destinationDirectory = destination.value
@@ -1149,20 +1600,35 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
             }
             catch(error)
             {
-                this.destinationDirectory = IITK.CSE.CS213.BYTubeD.services
-                                                .downloadManager
-                                                .defaultDownloadsDirectory.path;
+                selMgr.destinationDirectory = iccb.services.downloadManager
+                                                           .userDownloadsDirectory.path;
 
-                IITK.CSE.CS213.BYTubeD.services.promptService.alert(window,
+                iccb.services.promptService.alert(window,
                     "Invalid Destination Directory",
-                    "Please check the Destination field." +
+                    "Please check the Destination field. " +
                     "It must be a valid absolute path. If you don't know \n" +
-                    "what that means, use the Browse button and select the " +
+                    "what that means, please use the Browse button and select the " +
                     "destination directory.");
 
                 return;
             }
 
+            try
+            {
+                file.initWithPath(document.getElementById("subtitleDestination").value);
+            }
+            catch(error)
+            {
+                iccb.services.promptService.alert(window,
+                    "Invalid Destination Directory for Subtitles",
+                    "Please check the destination directory field for subtitles. " +
+                    "It must be a valid absolute path. " +
+                    "If you don't know what that means, please use the Browse button " +
+                    "and select the destination directory.");
+
+                return;
+            }
+            
             var selCount = 0;
             var i = 0;
 
@@ -1177,11 +1643,13 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                 }
             }
 
-            var preferences    = new IITK.CSE.CS213.BYTubeD.Preferences();
-
+            // Preferences section begins
+            var preferences    = new iccb.Preferences();
+            
             var i1 = document.getElementById("formatPreferenceNew").selectedIndex;
             var i2 = document.getElementById("qualityNew").selectedIndex;
             var i3 = document.getElementById("todo").selectedIndex;
+            
             var c1 = document.getElementById("showDLWindow").checked;
             var c2 = document.getElementById("closeQStatusWindow").checked;
             var c3 = document.getElementById("preserveOrder").checked;
@@ -1190,7 +1658,12 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
             var c6 = document.getElementById("generateBadLinks").checked;
             var c7 = document.getElementById("generateGoodLinks").checked;
             var c8 = document.getElementById("ignoreFileType").checked;
-
+            var c9 = document.getElementById("fetchSubtitles").checked;
+            
+            // don't mess with c10 or worry about all occurences of c10 below.
+            var c10 = document.getElementById("tryOtherLanguages").checked; 
+            var c11 = document.getElementById("fetchSubtitlesInAlternateDialect").checked;
+            
             preferences.format              = supportedFormats[i1];
             preferences.quality             = supportedQualities[i2];
             preferences.todo                = i3;
@@ -1202,14 +1675,36 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
             preferences.generateBadLinks    = c6;
             preferences.generateGoodLinks   = c7;
             preferences.ignoreFileType      = c8;
-
+            preferences.fetchSubtitles      = c9;
+            // preferences.tryOtherLanguages   = c10; // this is not needed.
+            
+            preferences.fetchSubtitlesInAlternateDialect = c11;
+            
+            preferences.destinationDirectory = selMgr.destinationDirectory; // Used in processing subtitles
+            preferences.subtitleDestination  = document.getElementById("subtitleDestination").value;
+            
+            if(preferences.fetchSubtitles)
+            {
+                var subtitleLangList    = document.getElementById("subtitleLangList");
+                
+                if(subtitleLangList && subtitleLangList.selectedItem && subtitleLangList.selectedItem.value)
+                    preferences.subtitleLangCodes[0] = subtitleLangList.selectedItem.value;
+                
+                var secondaryLanguages = document.getElementsByClassName("secondaryLanguage");
+                
+                for(var i=0; i<secondaryLanguages.length; i++)
+                    if(secondaryLanguages[i].selectedItem && secondaryLanguages[i].selectedItem.value)
+                        preferences.subtitleLangCodes[i+1] = c10? secondaryLanguages[i].selectedItem.value : "";
+            }
+            // Preferences section ends
+            
             if(selCount > 0)
             {
                 var proceed = true;
                 if(selCount > 5 &&
-                       preferences.todo == IITK.CSE.CS213.BYTubeD.ENQUEUE_LINKS)
+                       preferences.todo == iccb.ENQUEUE_LINKS)
                 {
-                    var ps = IITK.CSE.CS213.BYTubeD.services.promptService;
+                    var ps = iccb.services.promptService;
 
                     proceed = ps.confirm(
                             window,
@@ -1235,7 +1730,8 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                         selectedVideoList,
                         selMgr.destinationDirectory,
                         preferences,
-                        selMgr.invocationInfo
+                        selMgr.invocationInfo,
+                        selMgr.subtitleLanguageInfo
                     );
 
                     window.close();
@@ -1243,33 +1739,105 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
             }
             else
             {
-                IITK.CSE.CS213.BYTubeD.services.promptService.alert(window,
-                                                                    "Selection",
-                                                                    "You haven't selected anything!" +
-                                                                    "Please select at least one video.");
+                iccb.services.promptService.alert(window,
+                                                    "Selection",
+                                                    "You haven't selected anything! " +
+                                                    "Please select at least one video.");
             }
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
-
-    toggleSuppression: function toggleSuppression(event)
+    
+    toggleFetchSubtitles: function toggleFetchSubtitles(event)
     {
+        var iccb    = IITK.CSE.CS213.BYTubeD;
+        var selMgr  = iccb.selectionManager;
         try
         {
-            IITK.CSE.CS213.BYTubeD.suppressErrorMessages =
+            var fetchingEnabled = document.getElementById("fetchSubtitles").checked;
+            var tryingOtherLanguagesEnabled = document.getElementById("tryOtherLanguages").checked;
+            
+            document.getElementById("subtitleLangList").disabled = !fetchingEnabled;
+            
+            var secondaryLanguages = document.getElementsByClassName("secondaryLanguage");
+            for(var i=0; i<secondaryLanguages.length; i++)
+                secondaryLanguages[i].disabled = !fetchingEnabled || !tryingOtherLanguagesEnabled;
+            
+            document.getElementById("tryOtherLanguages").disabled = !fetchingEnabled;
+            document.getElementById("fetchSubtitlesInAlternateDialect").disabled = !fetchingEnabled;
+            document.getElementById("subtitleDestination").disabled = !fetchingEnabled;
+            document.getElementById("browseSubtitles").disabled = !fetchingEnabled;
+            
+            if(fetchingEnabled)
+                selMgr.fetchSubtitleLangList();
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+        }
+    },
+    
+    toggleTryOtherLanguages: function toggleTryOtherLanguages(event)
+    {
+        var iccb    = IITK.CSE.CS213.BYTubeD;
+        var selMgr  = iccb.selectionManager;
+        try
+        {
+            var fetchingEnabled = document.getElementById("fetchSubtitles").checked;
+            var tryingOtherLanguagesEnabled = document.getElementById("tryOtherLanguages").checked;
+            
+            var secondaryLanguages = document.getElementsByClassName("secondaryLanguage");
+            for(var i=0; i<secondaryLanguages.length; i++)
+                secondaryLanguages[i].disabled = !tryingOtherLanguagesEnabled || !fetchingEnabled;
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+        }
+    },
+    
+    toggleScanTabs: function toggleScanTabs(event)
+    {
+        var iccb    = IITK.CSE.CS213.BYTubeD;
+        var selMgr  = iccb.selectionManager;
+        try
+        {
+            var scanAllTabs = document.getElementById("scanAllTabs").checked;
+            var scanCurTabFirst = document.getElementById("scanCurTabFirst");
+            
+            scanCurTabFirst.disabled = !scanAllTabs;
+            
+            if(!scanAllTabs)
+                scanCurTabFirst.checked = true;
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+        }
+    },
+    
+    toggleSuppression: function toggleSuppression(event)
+    {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
+        try
+        {
+            iccb.suppressErrorMessages =
                     document.getElementById("suppressErrorMessages").checked;
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     toggleFormatDisabled: function toggleFormatDisabled(event)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
             document.getElementById("formatPreferenceNew").disabled =
@@ -1277,12 +1845,14 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     toggleResAndQual: function toggleResAndQual(event)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
             var sRes        = document.getElementById("showResolution");
@@ -1296,21 +1866,42 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
-    togglePrefetching: function togglePrefetching(event)
+    toggleClipLength: function toggleClipLength(event)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
-            var selMgr = IITK.CSE.CS213.BYTubeD.selectionManager;
+            var sClipLen        = document.getElementById("showClipLength");
+            var showClipLength  = !sClipLen.disabled && sClipLen.checked;
+            
+            document.getElementById("clipLength").hidden = !showClipLength;
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+        }
+    },
+    
+    togglePrefetching: function togglePrefetching(event)
+    {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
+        try
+        {
+            var selMgr = iccb.selectionManager;
             var prefetchingEnabled = document.getElementById("prefetch").checked;
 
             document.getElementById("showResolution").disabled  = !prefetchingEnabled;
             document.getElementById("showQuality").disabled     = !prefetchingEnabled;
+            document.getElementById("showClipLength").disabled  = !prefetchingEnabled;
 
             selMgr.toggleResAndQual(null);
+            selMgr.toggleClipLength(null);
 
             if(prefetchingEnabled)
             {
@@ -1320,7 +1911,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
@@ -1331,16 +1922,28 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     onHelp: function onHelp(event)
     {
-        var Cc = Components.classes;
-        var Ci = Components.interfaces;
-        var win = Cc['@mozilla.org/appshell/window-mediator;1']
-                    .getService(Ci.nsIWindowMediator)
-                    .getMostRecentWindow('navigator:browser');
-        win.openUILinkIn(IITK.CSE.CS213.BYTubeD.helpPageLink, 'tab');
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
+        try
+        {
+            var Cc = Components.classes;
+            var Ci = Components.interfaces;
+            var win = Cc['@mozilla.org/appshell/window-mediator;1']
+                        .getService(Ci.nsIWindowMediator)
+                        .getMostRecentWindow('navigator:browser');
+            win.openUILinkIn(iccb.helpPageLink, 'tab');
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+        }
     },
 
     onUnload: function onUnload(event)
     {
+        var iccb   = IITK.CSE.CS213.BYTubeD;
+        var selMgr = iccb.selectionManager;
+        
         try
         {
             /**
@@ -1350,112 +1953,61 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
              * None of them is vacuous.
              */
 
-            document.getElementById("showDLWindow")
-                    .setAttribute("checked", document.getElementById("showDLWindow").checked);
-
-            document.getElementById("closeQStatusWindow")
-                    .setAttribute("checked", document.getElementById("closeQStatusWindow").checked);
-
-            document.getElementById("suppressErrorMessages")
-                    .setAttribute("checked", document.getElementById("suppressErrorMessages").checked);
-
-            document.getElementById("showResolution")
-                    .setAttribute("checked", document.getElementById("showResolution").checked);
-
-            document.getElementById("showResolution")
-                    .setAttribute("disabled", document.getElementById("showResolution").disabled);
-
-            document.getElementById("showQuality")
-                    .setAttribute("checked", document.getElementById("showQuality").checked);
-
-            document.getElementById("showQuality")
-                    .setAttribute("disabled", document.getElementById("showQuality").disabled);
-
-            document.getElementById("resizeWindow")
-                    .setAttribute("checked", document.getElementById("resizeWindow").checked);
-
-            document.getElementById("centerWindow")
-                    .setAttribute("checked", document.getElementById("centerWindow").checked);
-
-            document.getElementById("maintainAspectRatio")
-                    .setAttribute("checked", document.getElementById("maintainAspectRatio").checked);
-
-            document.getElementById("generateFailedLinks")
-                    .setAttribute("checked", document.getElementById("generateFailedLinks").checked);
-
-            document.getElementById("generateWatchLinks")
-                    .setAttribute("checked", document.getElementById("generateWatchLinks").checked);
-
-            document.getElementById("generateBadLinks")
-                    .setAttribute("checked", document.getElementById("generateBadLinks").checked);
-
-            document.getElementById("generateGoodLinks")
-                    .setAttribute("checked", document.getElementById("generateGoodLinks").checked);
-
-            document.getElementById("preserveOrder")
-                    .setAttribute("checked", document.getElementById("preserveOrder").checked);
-
-            document.getElementById("ignoreFileType")
-                    .setAttribute("checked", document.getElementById("ignoreFileType").checked);
-
-            document.getElementById("prefetch")
-                    .setAttribute("checked", document.getElementById("prefetch").checked);
-
-            document.getElementById("selectAll")
-                    .setAttribute("checked", document.getElementById("selectAll").checked);
-
-            document.getElementById("formatPreferenceNew")
-                    .setAttribute("disabled", document.getElementById("formatPreferenceNew").disabled);
-
-            document.getElementById("mp4")
-                    .setAttribute("selected", document.getElementById("mp4").selected);
-
-            document.getElementById("flv")
-                    .setAttribute("selected", document.getElementById("flv").selected);
-
-            document.getElementById("webm")
-                    .setAttribute("selected", document.getElementById("webm").selected);
-
-            document.getElementById("p240")
-                    .setAttribute("selected", document.getElementById("p240").selected);
-
-            document.getElementById("p360")
-                    .setAttribute("selected", document.getElementById("p360").selected);
-
-            document.getElementById("p480")
-                    .setAttribute("selected", document.getElementById("p480").selected);
-
-            document.getElementById("p720")
-                    .setAttribute("selected", document.getElementById("p720").selected);
-
-            document.getElementById("p1080")
-                    .setAttribute("selected", document.getElementById("p1080").selected);
-
-            document.getElementById("original")
-                    .setAttribute("selected", document.getElementById("original").selected);
-
-            document.getElementById("genLinks")
-                    .setAttribute("selected", document.getElementById("genLinks").selected);
-
-            document.getElementById("nqLinks")
-                    .setAttribute("selected", document.getElementById("nqLinks").selected);
-
-            var dest = document.getElementById("destination");
+            var checkboxes = document.getElementsByTagName("checkbox");
+            for(var i=0; i<checkboxes.length; i++)
+            {
+                if(checkboxes[i].hasAttribute("persist") && 
+                    checkboxes[i].getAttribute("persist") == "checked")
+                {
+                    checkboxes[i].setAttribute("checked", checkboxes[i].checked);
+                }
+            }
             
-            IITK.CSE.CS213.BYTubeD.prefs.setCharPref("destinationDirectory", IITK.CSE.CS213.BYTubeD.utf16to8(dest.value));
+            var menuitems = document.getElementsByTagName("menuitem");
+            for(var i=0; i<menuitems.length; i++)
+            {
+                if(menuitems[i].hasAttribute("persist") && 
+                    menuitems[i].getAttribute("persist") == "selected")
+                {
+                    menuitems[i].setAttribute("selected", menuitems[i].selected);
+                }
+            }
+
+            /*
+                Save certain values in preferences
+            */            
+            var dest = document.getElementById("destination");
+            iccb.prefs.setCharPref("destinationDirectory", iccb.utf16to8(dest.value));
+            
+            var subtitleLangList = document.getElementById("subtitleLangList");
+            if(subtitleLangList && subtitleLangList.selectedItem && subtitleLangList.selectedItem.value)
+                iccb.prefs.setCharPref("subtitleLangCode", subtitleLangList.selectedItem.value);
+            
+            var secondaryLanguages = document.getElementsByClassName("secondaryLanguage");
+            for(var i=0; i<secondaryLanguages.length; i++)
+                if(secondaryLanguages[i].selectedItem && secondaryLanguages[i].selectedItem.value)
+                    iccb.prefs.setCharPref("subtitleLangCode" + (i+1), secondaryLanguages[i].selectedItem.value);
+
+            var dest1 = document.getElementById("subtitleDestination");
+            iccb.prefs.setCharPref("subtitleDestination", iccb.utf16to8(dest1.value));
+            
+            // Save the subtitle language list, if the window is not aborting.
+            if(!selMgr.aborting)
+                iccb.saveSubtitleLanguageInfo(selMgr.subtitleLanguageInfo);
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     onSelectAll: function onSelectAll(event)
     {
-
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
-            var selMgr = IITK.CSE.CS213.BYTubeD.selectionManager;
+            var selMgr = iccb.selectionManager;
 
             if(document.getElementById("selectAll").checked)
                 selMgr.applyFilter(".*");
@@ -1464,15 +2016,17 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     applyFilter: function applyFilter(filterText)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
-            var selMgr = IITK.CSE.CS213.BYTubeD.selectionManager;
+            var selMgr = iccb.selectionManager;
             var tree = document.getElementById("videoTitlesTree");
             var selection = tree.view.selection;
 
@@ -1503,22 +2057,24 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            // Ignore
+            // iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     onFilterChange: function onFilterChange(event)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
-            var selMgr = IITK.CSE.CS213.BYTubeD.selectionManager;
+            var selMgr = iccb.selectionManager;
 
             var filterText = event.target.value.replace(/^\s+|\s+$/g,"");
             selMgr.applyFilter(filterText);
         }
         catch(error)
         {
-            // Ignore
+            // iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
@@ -1543,19 +2099,21 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         }
         catch(error)
         {
-            // Ignore
+            // iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     setStatus: function(statusMessage)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
+        
         try
         {
             document.getElementById("status").label = statusMessage;
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            // iccb.reportProblem(error, arguments.callee.name);
         }
     }
     // End

@@ -28,8 +28,8 @@ IITK.CSE.CS213.BYTubeD.YoutubeVideo = function()
 
     this.prefetched         = false;    // Set to TRUE when prefetched.
 
-    this.availableFormats   = new Array();
-
+    this.availableFormats               = new Array();
+    
     this.videoURL           = "";       // This is the downloadable URL of this video.
 
     this.selected           = false;    // Set by selectionManager to indicate that
@@ -37,6 +37,12 @@ IITK.CSE.CS213.BYTubeD.YoutubeVideo = function()
     this.bestMatchFormat    = "";       // This is the preferred file format (Ex: .mp4) for this video.
 
     this.videoQuality       = "";		// Used in the quality column on the generated links page
+    
+    this.availableSubtitleLanguages = null;    // Array of language records in which subtitles are available for this video
+                                                // indexed by lang_code
+    this.actualPrefLang             = null;
+    this.actualPrefLangName         = null;
+    this.fetchedLangName            = null;
 
     this.failureDescription = null;
 
@@ -54,8 +60,8 @@ IITK.CSE.CS213.BYTubeD.videoInfoUrlPrefix   = "https://www.youtube.com/get_video
 
 // supportedFormats and supportedQualities are to be listed in the same order
 // as they are shown to the user in the respective fields
-IITK.CSE.CS213.BYTubeD.supportedFormats     = ["flv", "mp4", "webm"];
-IITK.CSE.CS213.BYTubeD.supportedQualities   = ["240p", "360p", "480p", "720p", "1080p", "Original"];
+IITK.CSE.CS213.BYTubeD.supportedFormats     = ["flv", "mp4", "webm", "3gp"];
+IITK.CSE.CS213.BYTubeD.supportedQualities   = ["144p", "240p", "360p", "480p", "720p", "1080p", "Original"];
 
 /**
  * fmtMap is a dictionary that maps itags to (fileType, resolution, quality)
@@ -64,10 +70,12 @@ IITK.CSE.CS213.BYTubeD.supportedQualities   = ["240p", "360p", "480p", "720p", "
 
 IITK.CSE.CS213.BYTubeD.fmtMap = {
     "5" :   {fileType: "flv",   resolution: "400x226",      quality: "240p",        color: "black"},
+    "17":   {fileType: "3gp",   resolution: "",             quality: "144p",        color: "gray"},
     "18":   {fileType: "mp4",   resolution: "480x360",      quality: "360p",        color: "green"},
     "22":   {fileType: "mp4",   resolution: "1280x720",     quality: "720p",        color: "purple"},
     "34":   {fileType: "flv",   resolution: "640x360",      quality: "360p",        color: "green"},
     "35":   {fileType: "flv",   resolution: "854x480",      quality: "480p",        color: "lightblue"},
+    "36":   {fileType: "3gp",   resolution: "",             quality: "240p",        color: "black"},
     "37":   {fileType: "mp4",   resolution: "1920x1080",    quality: "1080p",       color: "pink"},
     "38":   {fileType: "mp4",   resolution: "",             quality: "Original",    color: "red"},
     "43":   {fileType: "webm",  resolution: "640x360",      quality: "360p",        color: "green"},
@@ -189,6 +197,7 @@ IITK.CSE.CS213.BYTubeD.processYouTubePage =  function processYouTubePage(html)
 
         var fmt_list = "";
         var url_encoded_fmt_stream_map = "";
+        var length_seconds = "Unknown";
 
         var author = "";
         var authIndex1 = argsString.indexOf("author=");
@@ -213,11 +222,15 @@ IITK.CSE.CS213.BYTubeD.processYouTubePage =  function processYouTubePage(html)
             {
                 url_encoded_fmt_stream_map = val.replace(/\\\//g, "/").replace(/\\u0026/g, "&");
             }
+            
+            if(key.indexOf("length_seconds") != -1)
+                length_seconds = val;
         }
 
         swf_map["title"] = title;
         swf_map["author"] = author;
         swf_map["fmt_list"] = fmt_list;
+        swf_map["length_seconds"] = length_seconds;
         swf_map["url_encoded_fmt_stream_map"] = url_encoded_fmt_stream_map;
     }
     catch(error)
@@ -245,18 +258,10 @@ IITK.CSE.CS213.BYTubeD.getFailureString = function getFailureString(html)
         body.appendChild(Components.classes["@mozilla.org/feed-unescapehtml;1"]
             .getService(Components.interfaces.nsIScriptableUnescapeHTML)
             .parseFragment(aHTMLString, false, null, body));
-
-        if(htmlDoc.getElementById("verify-details"))
+        
+        if(htmlDoc.getElementsByClassName("verify-age").length > 0)
         {
-            failureString = htmlDoc.getElementById("verify-details").innerHTML;
-
-            if(htmlDoc.getElementById("verify-actions"))
-            {
-                failureString += htmlDoc.getElementById("verify-actions").innerHTML;
-            }
-
-            failureString += "You may be able to download this video after signing in. " +
-                             "Please sign in and try again.";
+            failureString = htmlDoc.getElementsByClassName("verify-age")[0].innerHTML;
         }
 
         if(htmlDoc.getElementById("unavailable-message"))
@@ -285,7 +290,8 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
                                                     callBack,
                                                     errorHandler,
                                                     videoList,
-                                                    preferences)
+                                                    preferences,
+                                                    subtitleLanguageInfo)
 {
     this.callerObject   = callerObject;
     this.videoList      = videoList;
@@ -293,6 +299,8 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
     this.callBack       = callBack;
     this.errorHandler   = errorHandler;
 
+    this.subtitleLanguageInfo = subtitleLanguageInfo;
+    
     this.processVideoList = function processVideoList()
     {
         try
@@ -301,19 +309,20 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
             var XmlHttpRequestManager   = IITK.CSE.CS213.BYTubeD.XmlHttpRequestManager;
 
             var infoUrls = new Array();
-            var urlIndex = 0;
             var i=0;
             for(i= 0; i<this.videoList.length; i++)
             {
-                infoUrls[urlIndex] = videoInfoUrlPrefix + this.videoList[i].vid;
-                urlIndex++;
+                infoUrls[i] = videoInfoUrlPrefix + this.videoList[i].vid;
             }
 
-            var requestManager = new XmlHttpRequestManager(this, this.processInfoAndCallBack,
+            var videoRequestManager = new XmlHttpRequestManager(this, this.processInfoAndCallBack,
                                                                  this.errorHandler);
-
-            for(i=0;i<urlIndex;i++)
+            
+            for(i=0;i<this.videoList.length;i++)
             {
+                if(this.videoList[i].displayTitle == "Loading...")
+                    this.videoList[i].displayTitle = this.videoList[i].vid;
+                
                 if(this.videoList[i].failureDescription) // If already tried and failed
                 {
                     var message = this.videoList[i].failureDescription;
@@ -322,10 +331,11 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
                         var newTitle = message.replace(/<[^>]*>/g, "").match(/"[^"]*"/)[0].replace(/"/g, "");
                         if(this.videoList[i].displayTitle.length < newTitle.length)
                             this.videoList[i].displayTitle = newTitle;
+                        message = message.replace(/^(\s|\n)+/g, "");
                         this.errorHandler(message);
                     }
                     else
-                        this.errorHandler("\"" + this.videoList[i].displayTitle + "\"\n" + message);
+                        this.errorHandler("\"" + this.videoList[i].displayTitle + "\" -- " + message);
                 }
                 else if(this.videoList[i].swfMap)   // If prefetched
                 {
@@ -338,11 +348,11 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
                     else
                     {
                         this.videoList[i].failureDescription = "This video is not available for download at this point of time.";
-                        this.errorHandler("\"" + this.videoList[i].displayTitle + "\"\nThis video is not available for download at this point of time.");
+                        this.errorHandler("\"" + this.videoList[i].displayTitle + "\" -- This video is not available for download at this point of time.");
                     }
                 }
                 else
-                    requestManager.doRequest("GET", infoUrls[i]);
+                    videoRequestManager.doRequest("GET", infoUrls[i]);
             }
         }
         catch(error)
@@ -351,23 +361,23 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
         }
     };
 
-    this.processInfoAndCallBack = function processInfoAndCallBack(previousBirth, info, url, dummyVar)
+    this.processInfoAndCallBack = function processInfoAndCallBack(previousBirth, info, url)
     {
         try
         {
             var watchUrlPrefix          = IITK.CSE.CS213.BYTubeD.watchUrlPrefix;
             var XmlHttpRequestManager   = IITK.CSE.CS213.BYTubeD.XmlHttpRequestManager;
             var preprocessInfo          = IITK.CSE.CS213.BYTubeD.preprocessInfo;
+            var getParamsFromUrl        = IITK.CSE.CS213.BYTubeD.getParamsFromUrl;
+            var getIndexByKey           = IITK.CSE.CS213.BYTubeD.getIndexByKey;
 
             var swf_map = preprocessInfo(info);
 
-            var video_id = url.split("video_id=")[1];
-            var index = 0;
-
-            for(index = 0; index < previousBirth.videoList.length; index++)
-                if(previousBirth.videoList[index].vid == video_id)
-                    break;
-
+            var video_id = getParamsFromUrl(url)["video_id"];
+            
+            var index = getIndexByKey(previousBirth.videoList, "vid",
+                                                    video_id, function(x, y){return x==y;});
+            
             if(swf_map["status"] != "ok"
                 || !swf_map["url_encoded_fmt_stream_map"]
                 || swf_map["url_encoded_fmt_stream_map"] == ""
@@ -394,11 +404,12 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
                             if(previousBirth.videoList[index].displayTitle.length < newTitle.length)
                                 previousBirth.videoList[index].displayTitle = newTitle;
 
+                            message = message.replace(/^(\s|\n)+/g, "");
                             previousBirth.errorHandler(message);
                         }
                         else
                             previousBirth.errorHandler("\"" + previousBirth.videoList[index].displayTitle +
-                                                        "\"\n" + message);
+                                                        "\" -- " + message);
                     }
                     catch(error)
                     {
@@ -428,7 +439,7 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
                             if(swf_map && swf_map["display_title"])
                                 pb.videoList[index].displayTitle = swf_map["display_title"];
 
-                            pb.errorHandler("\"" + pb.videoList[index].displayTitle + "\"\n" + failureString);
+                            pb.errorHandler("\"" + pb.videoList[index].displayTitle + "\" -- " + failureString);
                         }
                     }
                     catch(error)
@@ -550,33 +561,38 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
 
             for(var i=0; i<encodedUrls.length; i++)
             {
-                encodedUrls[i]  = unescape(unescape(encodedUrls[i]));
-
-                var fmt     = encodedUrls[i].split("&itag=")[1].split('&')[0];
-                var type    = encodedUrls[i].split("&type=")[1].split('&')[0];
-                var quality = encodedUrls[i].split("&quality=")[1].split('&')[0];
-
-                if(fmtMap[fmt] && (!fmtMap[fmt].fileType || !fmtMap[fmt].quality))
+                try
                 {
-                    fmtMap[fmt].fileType = type.split(";")[0].split("/")[1].replace("x-", "");
-                    fmtMap[fmt].quality  = quality;
+                    encodedUrls[i]  = unescape(unescape(encodedUrls[i]));
+                    
+                    var fmt     = encodedUrls[i].split("&itag=")[1].split('&')[0];
+                    var type    = encodedUrls[i].split("&type=")[1].split('&')[0];
+                    var quality = encodedUrls[i].split("&quality=")[1].split('&')[0];
 
-                    // alert(swf_map["title"]);
+                    if(fmtMap[fmt] && (!fmtMap[fmt].fileType || !fmtMap[fmt].quality))
+                    {
+                        fmtMap[fmt].fileType = type.split(";")[0].split("/")[1].replace("x-", "");
+                        fmtMap[fmt].quality  = quality;
+
+                        // alert(swf_map["title"]);
+                    }
+
+                    encodedUrls[i] = encodedUrls[i].split("&quality")[0];
+                    vUrl = encodedUrls[i].split("url=")[1] + "&title=" + this.videoList[index].title;
+
+                    videoUrls[fmt]      = vUrl;
                 }
-
-                encodedUrls[i] = encodedUrls[i].split("&quality")[0];
-                vUrl = encodedUrls[i].split("url=")[1] + "&title=" + this.videoList[index].title;
-
-                videoUrls[fmt]      = vUrl;
+                catch(error)
+                {
+                    // Ignore error.
+                }
             }
 
             this.videoList[index].availableFormats = availableFormats;
-
+            
             var expire = vUrl.match(/expire=[^&]*&/)[0].replace(/&|expire=/g, "");
             var expiryTime = new Date(expire*1000);
             this.videoList[index].expiryTime = expiryTime;
-
-            // alert(availableFormats.length);
 
             // Find best match URL based on the user preferences.
             var pFormat         = this.preferences.format;

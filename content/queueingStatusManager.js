@@ -32,43 +32,47 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
     // onLoad is the handler for the event window.onload of qsMgr
     onLoad: function onLoad(event)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var qsMgr = IITK.CSE.CS213.BYTubeD.queueingStatusManager;
+            var qsMgr = iccb.queueingStatusManager;
             document.getElementById("successConsole").focus();
 
             qsMgr.selectedVideoList    	= window.arguments[0];
             qsMgr.destinationDirectory  = window.arguments[1];
             qsMgr.preferences           = window.arguments[2];
             qsMgr.invocationInfo		= window.arguments[3];
+            qsMgr.subtitleLanguageInfo  = window.arguments[4];
 
             qsMgr.setStatus("Processing selection...");
             document.getElementById("progressmeter").mode = "undetermined";
 
-            var dqManager    = new IITK.CSE.CS213.BYTubeD.DownloadQueueManager(
+            var dqManager    = new iccb.DownloadQueueManager(
                                                         qsMgr.reportProgress,
                                                         qsMgr.reportError,
                                                         qsMgr.destinationDirectory,
                                                         qsMgr.selectedVideoList,
-                                                        qsMgr.preferences);
+                                                        qsMgr.preferences,
+                                                        qsMgr.subtitleLanguageInfo);
             dqManager.processQueue();
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     // setStatus sets the given statusMessage in the status bar.
     setStatus: function setStatus(statusMessage)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
             document.getElementById("status").label = statusMessage;
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
@@ -76,9 +80,10 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
     // it's job is to report progress to the user.
     reportProgress: function reportProgress(progressMessage)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var qsMgr = IITK.CSE.CS213.BYTubeD.queueingStatusManager;
+            var qsMgr = iccb.queueingStatusManager;
 
             qsMgr.successCount++;
 
@@ -93,7 +98,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
@@ -101,18 +106,29 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
     // it's job is to report failures to the user.
     reportError: function reportError(errorMessage, requestedUrl)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var qsMgr = IITK.CSE.CS213.BYTubeD.queueingStatusManager;
+            var qsMgr = iccb.queueingStatusManager;
             qsMgr.failureCount++;
 
             var console = document.getElementById("errorConsole");
 
             errorMessage = errorMessage.replace(/<[^>]*>/g, " "); // Skip all html tags
-            errorMessage = errorMessage.replace(/\n*$/g, ""); // Remove newline characters at the end
-
+            errorMessage = errorMessage.replace(/^(\s|\n)+/g, "");
+            if(errorMessage.indexOf("--") == -1)
+                errorMessage = errorMessage.replace(/"(\s|\n)+/g, "\" -- ");
+            errorMessage = errorMessage.replace(/--\s(\s|\n)+/g, "-- ");
+            errorMessage = errorMessage.replace(/\n(\s)*\n/g, "\n"); // Make sure there aren't too many newline characters.
+            errorMessage = errorMessage.replace(/(\n|\s)+$/g, ""); // Remove newline characters at the end
+            
+            if(!(/\.$/).test(errorMessage)) // if message doesn't end in '.' then append '.'.
+            {
+                errorMessage += ".";
+            }
             while(errorMessage.indexOf("  ") != -1)
                 errorMessage = errorMessage.replace("  ", " ");     // Remove extra spaces
+                
 
             console.value += "[" + qsMgr.failureCount + "] " + errorMessage + "\n\n";
 
@@ -132,9 +148,10 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
     // check if the assigned task is completed.
     updateProgress: function updateProgress()
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var qsMgr = IITK.CSE.CS213.BYTubeD.queueingStatusManager;
+            var qsMgr = iccb.queueingStatusManager;
 
             var selCount = qsMgr.selectedVideoList.length;
 
@@ -143,8 +160,9 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
             progress.value  = 100*((qsMgr.successCount + qsMgr.failureCount)/selCount);
 
             qsMgr.setStatus(qsMgr.successCount +
-                                    "/" + selCount +  " videos have been processed successfully. " +
-                                    qsMgr.failureCount + " requests have failed.");
+                                    "/" + selCount +  " requests have been processed successfully; " +
+                                    qsMgr.failureCount + " request" + 
+                                    (qsMgr.failureCount == 1? " has ": "s have ") + "failed.");
 
             if(qsMgr.successCount + qsMgr.failureCount == qsMgr.selectedVideoList.length)
             {
@@ -154,20 +172,21 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     finishUp: function finishUp()
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var qsMgr = IITK.CSE.CS213.BYTubeD.queueingStatusManager;
+            var qsMgr = iccb.queueingStatusManager;
 
             document.getElementById("successConsole").value +=
-                "\n------------------- All the requests have been processed --------------------\n\n";
+                "\n-------------- All the requests have been processed --------------\n\n";
 
-            if(qsMgr.preferences.todo == IITK.CSE.CS213.BYTubeD.GENERATE_LINKS)
+            if(qsMgr.preferences.todo == iccb.GENERATE_LINKS)
             {
                 qsMgr.prepareWatchLinksFile();
                 qsMgr.prepareBadLinksTextFile();
@@ -182,9 +201,9 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
                 document.getElementById("consolePanels").selectedIndex = 1;
             }
 
-            if(qsMgr.preferences.todo == IITK.CSE.CS213.BYTubeD.ENQUEUE_LINKS &&
+            if(qsMgr.preferences.todo == iccb.ENQUEUE_LINKS &&
                                             qsMgr.successCount > 0 && qsMgr.preferences.showDLWindow)
-                IITK.CSE.CS213.BYTubeD.services.downloadManagerUI.show();
+                iccb.services.downloadManagerUI.show();
 
             if(qsMgr.preferences.closeQStatusWindow && qsMgr.failureCount == 0)
             {
@@ -193,17 +212,19 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     commonHtml: function commonHtml()
     {
         var htmlString = "";
+        var iccb = IITK.CSE.CS213.BYTubeD;
 
         try
         {
-            htmlString += " <html>" +
+            htmlString += " <!DOCTYPE html>" +
+                "\n <html>" +
                 "\n\t <head>" +
                 "\n\t\t <title>BYTubeD Generated Links</title>" +
                 "\n\t\t <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">" +
@@ -215,6 +236,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
                 "\n\t\t\t .red      { color:#FF0000; }" +
                 "\n\t\t\t .pink     { color:#FF00C0; }" +
                 "\n\t\t\t .purple   { color:#C000FF; }" +
+                "\n\t\t\t .ruby     { color:#C00000; }" +
                 "\n\t\t\t .lightblue{ color:#4480FF; }" +
                 "\n\t\t\t .center   { text-align:center; }" +
                 "\n\t\t\t .fullwidth{ width:100%; }" +
@@ -226,7 +248,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
 
         return htmlString;
@@ -234,9 +256,10 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
 
     prepareBadLinksTextFile: function prepareBadLinksTextFile()
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var qsMgr = IITK.CSE.CS213.BYTubeD.queueingStatusManager;
+            var qsMgr = iccb.queueingStatusManager;
             if(qsMgr.preferences.generateBadLinks)
             {
                 var text = "";
@@ -248,24 +271,25 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
                         text += "http://www.youtube.com/watch?v=" + qsMgr.selectedVideoList[i].vid + "\n";
                     }
                 }
-                IITK.CSE.CS213.BYTubeD.writeTextToFile(text,
+                iccb.writeTextToFile(text,
                                             "bad_links_bytubed@cs213.cse.iitk.ac.in.txt",
                                             qsMgr.destinationDirectory,
-                                            IITK.CSE.CS213.BYTubeD.services.downloadManager
-                                                                           .defaultDownloadsDirectory.path);
+                                            iccb.services.downloadManager
+                                                                           .userDownloadsDirectory.path);
             }
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     prepareGoodLinksTextFile: function prepareGoodLinksTextFile()
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var qsMgr = IITK.CSE.CS213.BYTubeD.queueingStatusManager;
+            var qsMgr = iccb.queueingStatusManager;
 
             if(qsMgr.preferences.generateGoodLinks)
             {
@@ -278,25 +302,31 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
                         text += "http://www.youtube.com/watch?v=" + qsMgr.selectedVideoList[i].vid + "\n";
                     }
                 }
-                IITK.CSE.CS213.BYTubeD.writeTextToFile(text,
+                iccb.writeTextToFile(text,
                                             "good_links_bytubed@cs213.cse.iitk.ac.in.txt",
                                             qsMgr.destinationDirectory,
-                                            IITK.CSE.CS213.BYTubeD.services.downloadManager
-                                                                           .defaultDownloadsDirectory.path);
+                                            iccb.services.downloadManager
+                                                                           .userDownloadsDirectory.path);
             }
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     prepareWatchLinksFile: function prepareWatchLinksFile()
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var qsMgr = IITK.CSE.CS213.BYTubeD.queueingStatusManager;
+            var qsMgr = iccb.queueingStatusManager;
 
+            if(!(qsMgr.preferences.generateFailedLinks || qsMgr.preferences.generateWatchLinks) || 
+                (!qsMgr.preferences.generateFailedLinks && qsMgr.successCount == 0) ||
+                (!qsMgr.preferences.generateWatchLinks && qsMgr.failureCount == 0))
+                return;
+            
             var htmlString = qsMgr.commonHtml();
 
             htmlString += "\n\t\t <div class=\"fullwidth center gray\">" +
@@ -328,7 +358,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
                                     "Didn't get enough time to process the request!";
                         }
                         if(qsMgr.selectedVideoList[i].displayTitle == "Loading...")
-                            qsMgr.selectedVideoList[i].displayTitle = k;
+                            qsMgr.selectedVideoList[i].displayTitle = qsMgr.selectedVideoList[i].vid;
 
                         htmlString += "\n\t\t\t\t <tr><td>"+ (k++) +
                                         "</td><td><a href=\"http://www.youtube.com/watch?v=" +
@@ -373,23 +403,24 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
             htmlString += "\n\t </body>" +
                           "\n </html>";
 
-            IITK.CSE.CS213.BYTubeD.writeTextToFile(htmlString,
+            iccb.writeTextToFile(htmlString,
                                     "watch_links_bytubed@cs213.cse.iitk.ac.in.html",
                                     qsMgr.destinationDirectory,
-                                    IITK.CSE.CS213.BYTubeD.services.downloadManager
-                                                                   .defaultDownloadsDirectory.path);
+                                    iccb.services.downloadManager
+                                                                   .userDownloadsDirectory.path);
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     },
 
     launchDownloadLinksFile: function launchDownloadLinksFile()
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var qsMgr = IITK.CSE.CS213.BYTubeD.queueingStatusManager;
+            var qsMgr = iccb.queueingStatusManager;
 
             var htmlString = qsMgr.commonHtml();
 
@@ -407,7 +438,8 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
                                qsMgr.successCount + txt + "</h2>" +
                                "\n\t\t\t Invoke a download manager, such as <b>DownThemAll</b>, " +
                                "on this page to download these videos." +
-                               "\n\t\t\t <br/><br/>" +
+                               "\n\t\t\t <br/>" +
+                               "\n\t\t\t <br/><hr size=\"1\" width=\"80%\"/><br/>" +
                                "\n\t\t\t <span class=\"gray\">" +
                                "\n\t\t\t\t If you do not have a download manger, " +
                                "you can click on the links below and download the videos one by one.<br/>" +
@@ -419,18 +451,29 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
 
                 htmlString  += "\n\t\t <div id=\"links\">" +
                                "\n\t\t\t <table border=\"1\" cellpadding=\"5px\">" +
-                               "\n\t\t\t\t <tr><th>S.No</th><th>Title</th><th>Quality</th></tr>";
+                               "\n\t\t\t\t <tr><th>S.No</th><th>Title</th><th>Quality</th>" + 
+                               (qsMgr.preferences.fetchSubtitles? "<th>Subtitles</th>" : "") +
+                               "</tr>";
 
                 var k = 1;
                 for(var i=0; i < qsMgr.selectedVideoList.length; i++)
                 {
                     if(qsMgr.selectedVideoList[i].videoURL != "")
+                    {
+                        var fetchedLangName = qsMgr.selectedVideoList[i].fetchedLangName;
+                        var actualPrefLangName  = qsMgr.selectedVideoList[i].actualPrefLangName;
+                        
                         htmlString += "\n\t\t\t\t <tr><td>"+ (k++) + "</td><td><a href=\"" +
                                         qsMgr.selectedVideoList[i].videoURL + "\">" +
                                         qsMgr.selectedVideoList[i].displayTitle +
                                         qsMgr.selectedVideoList[i].bestMatchFormat +
-                                        "</a></td><td>" + qsMgr.selectedVideoList[i].videoQuality +
-                                        "</td></tr>";
+                                        "</a></td><td>" + qsMgr.selectedVideoList[i].videoQuality + "</td>" +
+                                        (qsMgr.preferences.fetchSubtitles?
+                                            "<td>" + (fetchedLangName == null? "None" : "<span class='ruby'>" + fetchedLangName + "</span>") +
+                                            ((!actualPrefLangName || fetchedLangName == actualPrefLangName)? "" : "<br/>for " + actualPrefLangName) + "</td>"
+                                            : "") +
+                                        "</tr>";
+                    }
                 }
                 htmlString += "\n\t\t\t </table>" +
                               "\n\t\t </div>";
@@ -440,7 +483,12 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
                 htmlString += "\n\t\t <br/><h2 calss=\"center\"> " +
                                "BYTubeD has not generated any downnload links.</h2>\n";
             }
-
+            
+            if(qsMgr.expiryTime)
+                        htmlString += "\n\t\t <br/><div class='center gray'>" +
+                                        "Link Generation Time: " + new Date() +
+                                        "<br/>Link Expiry Time: " + qsMgr.expiryTime +
+                                        "</div><br/><hr size=\"1\" width=\"80%\"/><br/><br/>";
             var file1 = null;
             if( (qsMgr.preferences.generateFailedLinks && qsMgr.failureCount > 0) ||
                 (qsMgr.preferences.generateWatchLinks && qsMgr.successCount))
@@ -451,28 +499,24 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
                                      .createInstance(Components.interfaces.nsILocalFile);
                     file1.initWithPath(qsMgr.destinationDirectory);
                     file1.append("watch_links_bytubed@cs213.cse.iitk.ac.in.html");
-                    if(qsMgr.expiryTime)
-                        htmlString += "\n\t\t <br/><div class='center gray'>" +
-                                        "[ These links will expire after " + qsMgr.expiryTime +
-                                        " ]</div><br/><br/><hr size=\"1\"/><br/><br/>" +
-                                        "<div class=\"center\">" +
-                                        "See <a href=\"watch_links_bytubed@cs213.cse.iitk.ac.in.html\">" +
+                    htmlString += "<div class=\"center\">" +
+                                    "See <a href=\"watch_links_bytubed@cs213.cse.iitk.ac.in.html\">" +
                                         file1.path + "</a> for YouTube page links.</div><br/>";
                 }
                 catch(error)
                 {
-                    // Ignore!
+                    // alert(error);
                 }
             }
 
             htmlString += "\n\t </body>" +
                           "\n </html>";
 
-            var file = IITK.CSE.CS213.BYTubeD.writeTextToFile(htmlString,
+            var file = iccb.writeTextToFile(htmlString,
                                         "download_links_bytubed@cs213.cse.iitk.ac.in.html",
                                         qsMgr.destinationDirectory,
-                                        IITK.CSE.CS213.BYTubeD.services.downloadManager
-                                                                       .defaultDownloadsDirectory.path);
+                                        iccb.services.downloadManager
+                                                                       .userDownloadsDirectory.path);
 
             var win = Components.classes['@mozilla.org/appshell/window-mediator;1']
                                 .getService(Components.interfaces.nsIWindowMediator)
@@ -485,28 +529,29 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
         {
             if(error.message.indexOf("ACCESS") != -1)
             {
-                IITK.CSE.CS213.BYTubeD.services.promptService.confirm(window,
+                iccb.services.promptService.confirm(window,
                     "File write failed!",
                     "Probably you don't have write permissions on the destination directory.");
             }
             else
             {
-                IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+                iccb.reportProblem(error, arguments.callee.name);
             }
         }
     },
 
     onUnload: function onUnload(event)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var qsMgr = IITK.CSE.CS213.BYTubeD.queueingStatusManager;
+            var qsMgr = iccb.queueingStatusManager;
             if(!qsMgr.alreadyFinished)
                 qsMgr.finishUp();
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     }
 };

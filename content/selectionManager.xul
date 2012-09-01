@@ -30,18 +30,19 @@
         xmlns = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         onload = "IITK.CSE.CS213.BYTubeD.selectionManager.onLoad(event)"
         onunload = "IITK.CSE.CS213.BYTubeD.selectionManager.onUnload(event)"
-        persist = "height width" minheight = "480" minwidth = "640">
+        persist = "height width" minheight = "498" minwidth = "664">
 
     <!--
     <html:link rel = "icon" href = "chrome://BYTubeD/skin/icons/Down-32.png" />
     -->
     <script src = "globals.js"/>
     <script src = "utf.js"/>
+    <script src = "langList.js"/>
+    <script src = "subtitles.js"/>
     <script src = "xmlHttpRequestManager.js"/>
     <script src = "videoListManager.js" />
     <script src = "downloadQueueManager.js" />
     <script src = "selectionManager.js"/>
-
 
     <keyset>
         <key id = "close_cmd" keycode = "VK_ESCAPE"
@@ -55,27 +56,35 @@
         <command id = "toggle_format"       oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleFormatDisabled(event)"/>
         <command id = "manage_window"       oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.manageWindow()"/>
         <command id = "res_and_qual"        oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleResAndQual(event)"/>
+        <command id = "clip_len"            oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleClipLength(event)"/>
         <command id = "silent_prefetching"  oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.togglePrefetching(event)"/>
+        <command id = "fetch_subtitles"     oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleFetchSubtitles(event)"/>
+        <command id = "try_other_languages" oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleTryOtherLanguages(event)"/>
+        <command id = "show_lang_list"      oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.showLangList(event)"/>
+        <command id = "browse_subtitles"    oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onBrowseSubtitles(event)"/>
+        <command id = "toggle_scan_tabs"    oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleScanTabs(event)"/>
     </commandset>
-
     <box flex = "1" class = "spacingPanel">
         <tabbox flex = "1">
             <tabs>
                 <tab label = "Selection"/>
+                <tab label = "Additional Features"/>
                 <tab label = "Preferences"/>
             </tabs>
             <tabpanels flex = "1">
                 <tabpanel flex = "1">
-                    <tree   id = "videoTitlesTree" hidecolumnpicker = "true" flex = "1" rows = "2"
+                    <tree   id = "videoTitlesTree" hidecolumnpicker = "true" flex = "1"
                             onselect = "IITK.CSE.CS213.BYTubeD.selectionManager.onSelect(event);">
                         <treecols align = "stretch">
                             <treecol id = "sno" label = "S.No" />
                             <splitter class = "tree-splitter" />
-                            <treecol id = "title" label = "Title" flex = "1"/>
+                            <treecol id = "title" label = "Title" flex = "100" />
                             <splitter class = "tree-splitter" />
                             <treecol id = "maxResolution" label = "Max Resolution"/>
                             <splitter class = "tree-splitter" />
                             <treecol id = "maxQuality" label = "Max Quality"/>
+                            <splitter class = "tree-splitter" />
+                            <treecol id = "clipLength" label = "Clip Length" flex = "2" />
                         </treecols>
 
                         <treechildren   id = "treeChildren" flex = "1"
@@ -83,51 +92,134 @@
                         </treechildren>
                     </tree>
                 </tabpanel>
+                <tabpanel flex="1">
+                    <tabbox flex = "1">
+                        <tabs>
+                            <tab label = "Miscellaneous" />
+                            <tab label = "Subtitles" />
+                        </tabs>
+                        <tabpanels flex = "1">
+                            <tabpanel flex = "1">
+                                <vbox flex="1">
+                                    <groupbox flex="1" class="spacingPanel">
+                                        <description value="Places to scan for YouTube links:"/>
+                                        
+                                        <vbox class="indent">
+                                            <checkbox id="scanAllTabs"
+                                                      label="All tabs of the current window"
+                                                      checked="false"
+                                                      persist="checked" 
+                                                      command = "toggle_scan_tabs"/>
+                                                    
+                                            <hbox  class="indent">
+                                                <checkbox id="scanCurTabFirst"
+                                                      label="Scan the current tab first"
+                                                      checked="true"
+                                                      persist="checked" />
+                                            </hbox>
+                                            <checkbox id="scanClipboard"
+                                                      label="System clipboard"
+                                                      checked="false"
+                                                      persist="checked" />
+                                        </vbox>
+                                        <description
+                                            value="(Effective from the next invocation of BYTubeD)"/>
+                                        
+                                    </groupbox>
+                                    <groupbox flex="1" orient="vertical" class="spacingPanel">
+                                        <checkbox id    = "ignoreFileType"
+                                                  label = "Video format does not matter. Try to get the videos in requested quality."
+                                                  checked = "false"
+                                                  persist = "checked"
+                                                  command = "toggle_format"/>
+
+                                        <checkbox id = "preserveOrder"
+                                                  label = "Preserve order (prepends the file name with the serial number)."
+                                                  checked = "false"
+                                                  persist = "checked" />
+                                        
+                                        <checkbox id = "prefetch"
+                                                  label   = "Silently prefetch downloadable video URLs (makes the next step faster)."
+                                                  checked = "true" persist = "checked"
+                                                  command = "silent_prefetching"/>
+
+                                        <hbox   class = "indent middle" id = "showExtraInfo">
+                                            <description id="showInfoDesc" value = "Show"/>
+
+                                            <checkbox id  = "showResolution"
+                                                  label   = "Max Resolution"
+                                                  checked = "false" disabled = "false"
+                                                  persist = "checked"
+                                                  command = "res_and_qual"/>
+
+                                            <checkbox id  = "showQuality"
+                                                  label   = "Max Quality"
+                                                  checked = "false" disabled = "false"
+                                                  persist = "checked"
+                                                  command = "res_and_qual" />
+                                                  
+                                            <checkbox id  = "showClipLength"
+                                                  label   = "Clip Length"
+                                                  checked = "true" disabled = "false"
+                                                  persist = "checked"
+                                                  command = "clip_len" />
+                                        </hbox>
+                                    </groupbox>
+                                </vbox>
+                            </tabpanel>
+                            <tabpanel flex = "1">
+                                <groupbox flex="1" class="spacingPanel">
+                                    <hbox class="middle">
+                                        <checkbox id = "fetchSubtitles"
+                                                label = "Fetch subtitles in"
+                                                checked = "false" 
+                                                persist = "checked" 
+                                                command = "fetch_subtitles"/>
+                                        <menulist id="subtitleLangList" flex="1"/>
+                                        <description value="whenever available."/>
+                                    </hbox>
+                                    
+                                    <vbox class="indent">
+                                        <checkbox id="tryOtherLanguages"
+                                            label = "If subtitles are not available in the primary language, try the following languages in the given order."
+                                            checked = "false"
+                                            persist = "checked"
+                                            command = "try_other_languages" />
+                                            
+                                        <hbox class="middle indent" flex="1">
+                                            <menulist id="firstSubtitleLang" class="secondaryLanguage" flex="1"/>
+                                            <description value=" > "/>
+                                            <menulist id="secondSubtitleLang" class="secondaryLanguage" flex="1"/>
+                                            <description  value=" > "/>
+                                            <menulist id="thirdSubtitleLang" class="secondaryLanguage" flex="1"/>
+                                            <!-- <button label="Show All" command="show_lang_list"/> -->
+                                        </hbox>
+                                        
+                                        <checkbox id="fetchSubtitlesInAlternateDialect"
+                                                  label="If subtitles are not available in the requested dialect, try other dialects of the same language."
+                                                  checked="true"
+                                                  persist="checked" />
+                                        
+                                        <hbox class="middle">
+                                            <description value="Destination directory for subtitles " />
+                                            <textbox id = "subtitleDestination" flex = "1" />
+                                            <button label = " Browse " command="browse_subtitles" id="browseSubtitles"
+                                                    image = "chrome://BYTubeD/skin/icons/Browse-16.png"/>
+                                        </hbox>
+                                    </vbox>
+                                </groupbox>
+                            </tabpanel>
+                        </tabpanels>
+                    </tabbox>
+                </tabpanel>
                 <tabpanel flex = "1">
                     <tabbox flex = "1">
                         <tabs>
-                            <tab label = "Additional Features" />
                             <tab label = "User Interaction" />
-
                             <tab label = "Generate Links" />
                             <tab label = "Window Management" />
                         </tabs>
                         <tabpanels flex = "1">
-                            <tabpanel flex = "1">
-                                <groupbox class = "spacingPanel"  flex = "1">
-                                    <checkbox id    = "ignoreFileType"
-                                              label = "Video format does not matter. Try to get the videos in requested quality."
-                                              checked = "false"
-                                              persist = "checked"
-                                              command = "toggle_format"/>
-
-                                    <checkbox id = "preserveOrder"
-                                              label = "Preserve order (prepends the file name with the serial number)."
-                                              checked = "false"
-                                              persist = "checked" />
-
-                                    <checkbox id = "prefetch"
-                                              label   = "Silently prefetch downloadable video URLs (makes the next step faster)."
-                                              checked = "true" persist = "checked"
-                                              command = "silent_prefetching"/>
-
-                                    <hbox   class = "indent" id = "showResAndQual">
-
-                                        <checkbox id  = "showResolution"
-                                              label   = "Show Max Resolution"
-                                              checked = "false" disabled = "false"
-                                              persist = "checked disabled"
-                                              command = "res_and_qual"/>
-
-                                        <checkbox id  = "showQuality"
-                                              label   = "Show Max Quality"
-                                              checked = "false" disabled = "false"
-                                              persist = "checked disabled"
-                                              command = "res_and_qual" />
-                                    </hbox>
-                                </groupbox>
-                            </tabpanel>
-
                             <tabpanel flex = "1">
 
                                 <groupbox class = "spacingPanel" flex = "1">
@@ -147,7 +239,8 @@
                                               checked   = "false"
                                               persist   = "checked"
                                               command   = "suppress_errors"/>
-
+                                    
+                                    
                                 </groupbox>
 
                             </tabpanel>
@@ -160,19 +253,17 @@
                                     <description value = "When 'What to do?' = 'Generate Links' ..." />
 
                                     <groupbox class = "spacingPanel" flex = "1">
-
                                         <description value = "Generate an HTML file containing YouTube watch links for ..." />
                                         <hbox>
                                             <checkbox id = "generateFailedLinks" label = "Failed requests"
                                                       checked = "true" persist = "checked"/>
 
                                             <checkbox id = "generateWatchLinks" label = "Successful requests"
-                                                      checked = "true" persist = "checked"/>
+                                                      checked = "false" persist = "checked"/>
                                         </hbox>
                                     </groupbox>
 
                                     <groupbox class = "spacingPanel" flex = "1">
-
                                         <description value = "Generate text files containing YouTube watch links for ..." />
                                         <hbox>
                                             <checkbox id = "generateBadLinks"
@@ -184,7 +275,6 @@
                                                       checked = "false" persist = "checked"/>
                                         </hbox>
                                     </groupbox>
-
                                 </vbox>
                             </tabpanel>
                             <tabpanel flex = "1">
@@ -224,21 +314,23 @@
         </vbox>
 
         <vbox flex = "1">
-            <hbox flex = "1">
-                <menulist id = "formatPreferenceNew" persist = "disabled">
+            <hbox flex = "1" class="middle">
+                <menulist id = "formatPreferenceNew">
                     <menupopup>
                         <menuitem id = "flv" label = "FLV" persist = "selected"/>
                         <menuitem id = "mp4" label = "MP4" selected = "true" persist = "selected"/>
                         <menuitem id = "webm" label = "WebM" persist = "selected"/>
+                        <menuitem id = "3gp" label = "3GP" persist = "selected"/>
                     </menupopup>
                 </menulist>
 
-                <description class = "silver pad_top3" pack = "center" value = " | "/>
+                <description class = "silver" pack = "center" value = " | "/>
 
-                <description id = "qualityDesc" value = "Quality" class = "bold pad_top6"/>
+                <description id = "qualityDesc" value = "Quality" class = "bold"/>
 
                 <menulist id = "qualityNew">
                     <menupopup>
+                        <menuitem id = "p144" label = "144p" persist = "selected"/>
                         <menuitem id = "p240" label = "240p" persist = "selected"/>
                         <menuitem id = "p360" label = "360p" persist = "selected"/>
                         <menuitem id = "p480" label = "480p" persist = "selected"/>
@@ -248,9 +340,9 @@
                     </menupopup>
                 </menulist>
 
-                <description class = "silver pad_top3" pack = "center" value = " | " />
+                <description class = "silver" pack = "center" value = " | " />
 
-                <description id = "todoDesc" class = "bold pad_top6" value = "What to do?"
+                <description id = "todoDesc" class = "bold" value = "What to do?"
                              tooltiptext = "'Enqueue for Download' directly enqueues the videos into the default Downloads window. Use this option if you don't have a download manager already installed. 'Generate Links' generates downloadable video links. Use this option if you already have a download manager installed."/>
 
                 <menulist id = "todo" label = "Generate Links" flex = "1"
@@ -267,7 +359,7 @@
             </hbox>
 
             <hbox flex = "1">
-                <textbox id = "destination" accesskey = "D" flex = "2"/>
+                <textbox id = "destination" accesskey = "D" flex = "2" />
                 <button id = "browseButton" accesskey = "B" label = "  Browse"
                         oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onBrowse(event)"
                         image = "chrome://BYTubeD/skin/icons/Browse-16.png"/>

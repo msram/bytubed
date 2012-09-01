@@ -39,10 +39,12 @@ IITK.CSE.CS213.BYTubeD.Main = {
     {
         try
         {
-            var contentDocument = document.getElementById("content").contentDocument;
-
+            var tabBrowser = document.getElementsByTagName("tabbrowser")[0];
+            var contentDocument = tabBrowser.contentDocument;
+            
+            var browsers = tabBrowser.browsers;
             window.openDialog("chrome://BYTubeD/content/selectionManager.xul", "BYTubeD",
-                                "chrome,centerscreen,all,menubar=no", contentDocument);
+                                "chrome,centerscreen,all,menubar=no", contentDocument, browsers);
         }
         catch(error)
         {

@@ -29,20 +29,39 @@ treechildren::-moz-tree-cell-text(odd, selected)
 { 
     color: #000000; 
 }
+
 tabpanels, tabpanel, tabbox
 {
     background-color:#EFF0FF;
-    margin:0px;
-    padding:0px;
     border-color:#EFF0FF;
+    padding:0px;
+    
 }
+
 window
 {
     background-color:#EFF0FF;
+    
     min-width:640px;
     min-height:480px;
 }
 
+textbox
+{
+    min-height: 24px;
+}
+.middle
+{
+    -moz-box-align: center !important;
+}
+.center
+{
+    text-align: center;
+}
+.left
+{
+    text-align: left;
+}
 .spacingPanel
 {
    margin:10px;
@@ -69,7 +88,7 @@ treecols
 treechildren
 {
     font-family:  Georgia, 'Trebuchet MS', Ubuntu;
-    font-size: 15px;
+    font-size: 15px; 
 }
 
 .top
@@ -81,20 +100,20 @@ treechildren
 {
     background-color:#FFFFFF;
     color:#006600;
-    font-family:  Georgia, 'Trebuchet MS';
+    font-family:  Courier New, Georgia, 'Trebuchet MS';
     font-size: 15px;
 }
 #errorConsole
 {
     background-color:#FFFFFF;
     color:#FF0000;
-    font-family:  Georgia, 'Trebuchet MS';
+    font-family:  Courier New, Georgia, 'Trebuchet MS';
     font-size: 15px;
 }
 #infoConsole
 {
     background-color:#FFFFFF;
-    font-family:  Georgia, 'Trebuchet MS';
+    font-family:  Courier New, Georgia, 'Trebuchet MS';
     font-size: 15px;
 }
 
@@ -124,5 +143,5 @@ treechildren
 }
 .indent
 {
-    margin-left: 20px;
+    margin-left: 22px;
 }

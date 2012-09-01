@@ -60,5 +60,5 @@
                     class="toolbarbutton-1 chromeclass-toolbar-additional"/>
     </toolbarpalette>
 
-    <tabbrowser id="content"></tabbrowser>
+    <tabbrowser id="myTabBrowser"></tabbrowser>
 </overlay>

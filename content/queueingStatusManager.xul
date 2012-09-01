@@ -33,12 +33,14 @@
 
     <!-- <html:link rel="icon" href="chrome://BYTubeD/skin/icons/Down-32.png" /> -->
 
-    <script src="globals.js"/>
-    <script src="utf.js"/>
-    <script src="xmlHttpRequestManager.js" />
-    <script src="videoListManager.js" />
-    <script src="downloadQueueManager.js" />
-    <script src="queueingStatusManager.js"/>
+    <script src = "globals.js"/>
+    <script src = "utf.js"/>
+    <script src = "langList.js"/>
+    <script src = "subtitles.js" />
+    <script src = "xmlHttpRequestManager.js" />
+    <script src = "videoListManager.js" />
+    <script src = "downloadQueueManager.js" />
+    <script src = "queueingStatusManager.js"/>
 
     <keyset>
         <key id="close_cmd" keycode="VK_ESCAPE" oncommand="window.close();" />

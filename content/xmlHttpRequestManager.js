@@ -95,7 +95,7 @@ IITK.CSE.CS213.BYTubeD.XmlHttpRequestManager = function(callerObject, callBack, 
                     if(this.callBack != null && this.callBack != 'undefined' && this.xmlreqs[pos].freed == 0)
                     {
                         this.xmlreqs[pos].freed = 1;
-                        this.callBack(this.callerObject, returnValue, url, pos);
+                        this.callBack(this.callerObject, returnValue, url);
                     }
                 }
                 else

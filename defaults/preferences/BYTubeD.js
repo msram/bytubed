@@ -20,6 +20,13 @@
 
 // See http://kb.mozillazine.org/Localize_extension_descriptions
 pref("extensions.bytubed@cs213.cse.iitk.ac.in.description", 
-            "BYTubeD - Bulk (Batch) YouTube video Downloader");
+            "BYTubeD - Bulk YouTube video Downloader");
 
 pref("extensions.bytubed@cs213.cse.iitk.ac.in.destinationDirectory", "");
+pref("extensions.bytubed@cs213.cse.iitk.ac.in.subtitleDestination", "");
+
+pref("extensions.bytubed@cs213.cse.iitk.ac.in.subtitleLangCode", "en");
+
+pref("extensions.bytubed@cs213.cse.iitk.ac.in.subtitleLangCode1", "");
+pref("extensions.bytubed@cs213.cse.iitk.ac.in.subtitleLangCode2", "");
+pref("extensions.bytubed@cs213.cse.iitk.ac.in.subtitleLangCode3", "");
