@@ -40,16 +40,28 @@
         <!-- End Facebook code -->
         
         <!-- Meta-bar -->
-        <div class="meta-container"><span class="meta-bar">
-            &nbsp;&nbsp;
-            <script type="text/javascript">
-                document.write("<a href='mailto:bytubed@gmail.com?subject=BYTubeD'>Contact</a>");
-            </script>
-            &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
-            <a href="/bytubed/contribute.html">Contribute</a>
-            &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
-            <a href="http://github.com/msram/bytubed/">Fork</a>
-        </span></div>    <!-- two closing tags for div -->
+        <div class="meta-container">
+            <span class="meta-bar">
+                &nbsp;&nbsp;
+                <script type="text/javascript">
+                    var mail = "bytubed";
+                    var domain = "gmail.com";
+                    document.write("<a href='mailto:" + mail + "@" + domain + "?subject=BYTubeD'>Contact</a>");
+                </script>
+                    
+                &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+                <a href="/bytubed/contribute.html">Contribute</a>
+                &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+                <a href="http://github.com/msram/bytubed/">Fork</a>
+            </span>
+            <span id="fbLike" class="right40 fixed">
+                <div class="fb-like"
+                     data-href="https://addons.mozilla.org/en-US/firefox/addon/bytubed/"
+                     data-send="false" data-layout="button_count" data-width="50" style="width:50px"
+                     data-show-faces="true" data-font="arial">
+                </div>
+            </span>
+        </div>   
         
         <div class="container">
             <div class="document">
@@ -67,10 +79,7 @@
                 </h1>
                 <div class="description"> 
                     A <a href="https://addons.mozilla.org/addon/bytubed/">Firefox extension</a>
-                    to download YouTube videos in bulk. <div class="fb-like" 
-                data-href="https://addons.mozilla.org/en-US/firefox/addon/bytubed/" 
-                data-send="false" data-layout="button_count" data-width="50" style="width:50px"
-                data-show-faces="true" data-font="arial"></div>
+                    to download YouTube videos in bulk. 
                 </div>
                 
                 <!-- Begin Navigation bar -->
@@ -167,6 +176,11 @@
                             say Start, BYTubeD will generate all the downloadable video links in a
                             new window, where you can invoke your favorite download manager.
                         </dd>
+                        <dt>Can I download subtitles using BYTubeD?</dt>
+                        <dd>
+                            Yes, starting from version 1.0.9, BYTubeD can be used to download subtitles, if they are available.
+                            Please explore "Additional Features -> Subtitles".
+                        </dd>
                     </dl>
                     <hr class="thin"/>
                     <h3>Keyboard Shortcuts</h3>
@@ -202,7 +216,7 @@
                             </p>
                             <ul>
                                 <li>
-                                    Supported formats: MP4, FLV and WebM
+                                    Supported formats: MP4, FLV, WebM and 3GP
                                 </li>
                                 <li>
                                     Default value of the field is "MP4"
@@ -304,13 +318,50 @@
                         </li>
                     </ul>
                     <hr class="thin"/>
-                    <h3>Details of Preferences</h3>
+                    
+                    <h3>Details of Additional Features</h3>
                     <ul class="indent-right">
                         <li>
                             <p>
-                                <strong>Additional Features</strong>
+                                <strong>Miscellaneous</strong>
                             </p>
+                            
                             <ul>
+                                <li>Places to scan for YouTube links
+                                <ul>
+                                    <li>"All tabs of the current window"</li>
+                                    <ul>
+                                        <li>
+                                            Check this option if you would like BYTubeD to scan all tabs of
+                                            the current Firefox window, to grab YouTube links.
+                                        </li>
+                                        <li>
+                                            Not checked by default.
+                                        </li>
+                                    </ul>
+                                    <li>"Scan the current tab first"</li>
+                                    <ul>
+                                        <li>Applicable when "All tabs of the current window" is checked.</li>
+                                        <li>If this option is checked, instead of scanning all tabs starting from the first 
+                                            tab, BYTubeD will scan the current tab first and then starts from the first tab,
+                                            skipping the current tab; otherwise, the scanning will begin from the first tab.
+                                        </li>
+                                        <li>This option is useful when "Preserve Order" option is checked 
+                                            (see <a href="#preserve_order">below</a>).
+                                        </li>
+                                    </ul>
+                                    <li>"System clipboard"</li>
+                                    <ul>
+                                        <li>
+                                            This option enables scanning for YouTube links, any text content in the system
+                                            <a href="http://en.wikipedia.org/wiki/Clipboard_%28computing%29">clipboard</a>.
+                                        </li>
+                                        <li>Not checked by default.</li>
+                                    </ul>
+                                </ul>
+                                <br/>
+                                </li>
+                                
                                 <li>
                                     "Video format does not matter. Try to get the videos in requested
                                     quality."
@@ -326,6 +377,7 @@
                                     </ul>
                                 </li>
                                 <li>
+                                    <a name="preserve_order"></a>
                                     "Preserve order (prepends the file name with the serial number)."
                                     <ul>
                                         <li>
@@ -334,8 +386,8 @@
                                             appear on the page you invoked BYTubeD.
                                         </li>
                                         <li>
-                                            Ex: If you want to download all videos from a playlist like <a href="http://www.youtube.com/playlist?list=FD0EB975BA0CC1E0"
-                                            rel="nofollow">this
+                                            Ex: If you want to download all videos from a playlist like
+                                            <a href="http://www.youtube.com/playlist?list=FD0EB975BA0CC1E0">this
                                             one</a>, where
                                             there is a logical sequence in the videos but that sequence is not
                                             captured in the video titles by means of some kind of serial number,
@@ -359,19 +411,61 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    "Show Max Resolution" and "Show Max Quality"
+                                    "Show Max Resolution", "Show Max Quality" and "Show Clip Length"
                                     <ul>
                                         <li>
-                                            To show maximum resolution and maximum quality of each video along
+                                            To show maximum resolution, maximum quality and the clip length of each video along
                                             with S.No and Title in Selection Window.
                                         </li>
                                         <li>
                                             These options require silent prefetching enabled.
                                         </li>
+                                        <li>Clip length is shown by default</li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <p>
+                                <strong>Subtitles</strong>
+                            </p>
+                            <ul>
+                            <li>
+                                This tab has options to allow downloading subtitles in a chosen language. Upto 4 languages can be
+                                chosen. BYTubeD tries to fetch subtitles in each language in the chosen order. Subtitles are fetched
+                                in the first available of the chosen languages.
+                            
+                                <ul>
+                                    <li>"If subtitles are not available in the primary language, try the following languages in the given order."</li>
+                                    <ul>
+                                        <li>This option is by default off.</li>
+                                    </ul>
+                                    <li>"If subtitles are not available in the requested dialect, try other dialects of the same language."</li>
+                                    <ul>
+                                        <li>Check this option if you don't mind seeing subtitles in a different dialect.</li>
+                                        <li>
+                                            For example, if you choose to download subtitles in Chinese Traditional, and if they are not available
+                                            in Chinese Traditional but available in Chinese Simplified, then if this option is checked, subtitles
+                                            will be fetched in Chinese Simplified even if you have have not chosen Chinese Simplified.
+                                        </li>
+                                        <li>Checked by default</li>
+                                    </ul>
+                                    <li>Destination directory for subtitles</li>
+                                    <ul>
+                                        <li>This is where the subtitles will be stored on your system.</li>
+                                        <li>By default, same as the destination directory for videos/links.</li>
+                                    </ul>
+                                </ul>
+                            </li>
+                            <li>"Fetch subtitles" is not checked, by default. You need to check this to download subtitles.</li>
+                        </li>
+                        </ul>
+                    </ul>
+                    
+                    <hr class="thin"/>
+                    
+                    <h3>Details of Preferences</h3>
+                    <ul class="indent-right">
                         <li>
                             <p>
                                 <strong>User Interaction</strong>
@@ -449,7 +543,7 @@
                                                             contain YouTube page links to successful requests.
                                                         </li>
                                                         <li>
-                                                            Checked by default
+                                                            Not checked by default
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -592,8 +686,12 @@
                 
                 <!-- Begin Footer -->
                 <div class="footer">
-                    <div class="info italic">
-                        Last Modified: <script type="text/javascript">document.write(new Date(document.lastModified));</script>
+                    <div class="italic">
+                        <script type="text/javascript">
+                            var mail = "bytubed";
+                            var domain = "gmail.com";
+                            document.write("<a href='mailto:" + mail + "@" + domain + "?subject=BYTubeD'>Contact the author</a>");
+                        </script>
                     </div>
                 </div> 
                 <!-- End Footer -->

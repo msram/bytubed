@@ -256,6 +256,7 @@ table
 td, th
 {
     padding: 10px;
+    min-width: 100px;
     text-align: justify;
 }
 table.shortcuts td, table.shortcuts th
@@ -404,7 +405,11 @@ table.contributions td
     bottom: 10px; 
     left: 10px;
 }
-.right
+.right10
 {
     right: 10px;
+}
+.right40
+{
+    right: 40px;
 }

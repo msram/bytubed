@@ -40,16 +40,28 @@
         <!-- End Facebook code -->
         
         <!-- Meta-bar -->
-        <div class="meta-container"><span class="meta-bar">
-            &nbsp;&nbsp;
-            <script type="text/javascript">
-                document.write("<a href='mailto:bytubed@gmail.com?subject=BYTubeD'>Contact</a>");
-            </script>
-            &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
-            <a href="/bytubed/contribute.html">Contribute</a>
-            &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
-            <a href="http://github.com/msram/bytubed/">Fork</a>
-        </span></div>    <!-- two closing tags for div -->
+        <div class="meta-container">
+            <span class="meta-bar">
+                &nbsp;&nbsp;
+                <script type="text/javascript">
+                    var mail = "bytubed";
+                    var domain = "gmail.com";
+                    document.write("<a href='mailto:" + mail + "@" + domain + "?subject=BYTubeD'>Contact</a>");
+                </script>
+                    
+                &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+                <a href="/bytubed/contribute.html">Contribute</a>
+                &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+                <a href="http://github.com/msram/bytubed/">Fork</a>
+            </span>
+            <span id="fbLike" class="right40 fixed">
+                <div class="fb-like"
+                     data-href="https://addons.mozilla.org/en-US/firefox/addon/bytubed/"
+                     data-send="false" data-layout="button_count" data-width="50" style="width:50px"
+                     data-show-faces="true" data-font="arial">
+                </div>
+            </span>
+        </div>   
         
         <div class="container">
             <div class="document">
@@ -67,10 +79,7 @@
                 </h1>
                 <div class="description"> 
                     A <a href="https://addons.mozilla.org/addon/bytubed/">Firefox extension</a>
-                    to download YouTube videos in bulk. <div class="fb-like" 
-                data-href="https://addons.mozilla.org/en-US/firefox/addon/bytubed/" 
-                data-send="false" data-layout="button_count" data-width="50" style="width:50px"
-                data-show-faces="true" data-font="arial"></div>
+                    to download YouTube videos in bulk. 
                 </div>
                 
                 <!-- Begin Navigation bar -->
@@ -127,8 +136,12 @@ This is not really a new version in that it does not add any new features above
                 
                 <!-- Begin Footer -->
                 <div class="footer">
-                    <div class="info italic">
-                        Last Modified: <script type="text/javascript">document.write(new Date(document.lastModified));</script>
+                    <div class="italic">
+                        <script type="text/javascript">
+                            var mail = "bytubed";
+                            var domain = "gmail.com";
+                            document.write("<a href='mailto:" + mail + "@" + domain + "?subject=BYTubeD'>Contact the author</a>");
+                        </script>
                     </div>
                 </div> 
                 <!-- End Footer -->
