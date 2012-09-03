@@ -337,24 +337,20 @@ table.shortcuts td, table.shortcuts th
 
 .meta-container
 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: #444444;
-    
-    padding-top: 5px;
-    padding-bottom: 5px;
-    
+    width: 300px;
+    margin: auto;
     text-align: center;
-    width: 100%;
+    background: -moz-linear-gradient(center top , #434343 0%, #343434 100%) repeat scroll 0 0 transparent;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1), 0 6px 3px 0 rgba(0, 0, 0, 0.25);
+    padding-top: 5px;
+    position: relative;
+    top: -10px;
+    
 }
 .meta-bar
 {
-    padding: 5px;
-    padding-bottom: 8px;
     color: white;
-    opacity:0.7;
-    -moz-box-shadow: 1px 1px 1px 1px #333333;
 }
 
 .meta-bar a
