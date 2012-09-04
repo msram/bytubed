@@ -409,3 +409,7 @@ table.contributions td
 {
     right: 40px;
 }
+.bold
+{
+    font-weight: bold;
+}

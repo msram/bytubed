@@ -7,9 +7,61 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Mon, 03 Sep 2012 16:25:32 +0530</pubDate>
-        <lastBuildDate>Mon, 03 Sep 2012 16:25:32 +0530</lastBuildDate>
+        <pubDate>Wed, 05 Sep 2012 04:44:37 +0530</pubDate>
+        <lastBuildDate>Wed, 05 Sep 2012 04:44:37 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>New Version - 1.0.9</title>
+          <link>http://msram.github.com/bytubed//2012/09/05/new-version-1-0-9.html</link>
+          <pubDate>Wed, 05 Sep 2012 09:45:59 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2012/09/05/new-version-1-0-9</guid>
+          <description>                    &lt;div class=&quot;indent&quot;&gt;
+                        The latest version (1.0.9) of BYTubeD has been uploaded and it is public now. Following is
+                        a summary of important changes in the new version.
+                        &lt;p/&gt;
+                        &lt;span class=&quot;bold&quot;&gt;Features Added&lt;/span&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;Support for downloading subtitles&lt;/li&gt;
+                            &lt;li&gt;Support for 3gp format&lt;/li&gt;
+                            &lt;li&gt;Ability to scan all tabs of the current window for YouTube links&lt;/li&gt;
+                            &lt;li&gt;Show clip length along with Title and other columns in the selection window.
+                                Please see 
+                                &lt;a href=&quot;http://msram.github.com/bytubed/development.html#comment-443964751&quot;&gt;
+                                this discussion&lt;/a&gt; for more details.
+                            &lt;/li&gt;
+                        &lt;/ul&gt;
+                        
+                        &lt;span class=&quot;bold&quot;&gt;Issues Fixed&lt;/span&gt;
+                        &lt;ul&gt;
+                            &lt;li&gt;Watch-links file gets generated even when not asked for. 
+                                Please see &lt;a href=&quot;http://msram.github.com/bytubed/help.html#comment-449725380&quot;&gt;
+                                    this discussion&lt;/a&gt; for more details.
+                            &lt;/li&gt;
+                            &lt;li&gt;Video list order is messed up in the Selection Window and 
+                                the Preserve Order option does not work with FF 12+. 
+                                Please see 
+                                &lt;a href=&quot;http://msram.github.com/bytubed/issues-fixes.html#comment-590044115&quot;&gt;
+                                this discussion&lt;/a&gt; for more details.
+                            &lt;/li&gt;
+                            &lt;li&gt;Non-contiguous selection of videos does not work with FF 15+. 
+                                Please see 
+                                &lt;a href=&quot;http://localhost:4000/bytubed//2012/08/28/new-development-version-1-0-9a4.html#comment-632822038&quot;&gt;
+                                this discussion&lt;/a&gt; for more details. 
+                            &lt;/li&gt;
+                        &lt;/ul&gt;
+                        
+                        &lt;p/&gt;
+                        &lt;div class=&quot;center&quot;&gt;
+                            &lt;a class='add-to-firefox'
+                            href='https://addons.mozilla.org/firefox/downloads/latest/126518/addon-126518-latest.xpi?src=external-gh'&gt;
+                                Install BYTubeD 1.0.9
+                            &lt;/a&gt;
+                        &lt;/div&gt;
+                        &lt;p/&gt;
+                    &lt;/div&gt;</description>
+        </item>
         
         <item>
           <title>New Development Version - 1.0.9a5</title>
