@@ -7,8 +7,8 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Wed, 05 Sep 2012 04:44:37 +0530</pubDate>
-        <lastBuildDate>Wed, 05 Sep 2012 04:44:37 +0530</lastBuildDate>
+        <pubDate>Fri, 07 Sep 2012 15:48:37 +0530</pubDate>
+        <lastBuildDate>Fri, 07 Sep 2012 15:48:37 +0530</lastBuildDate>
 
         
         <item>
@@ -47,7 +47,7 @@
                             &lt;/li&gt;
                             &lt;li&gt;Non-contiguous selection of videos does not work with FF 15+. 
                                 Please see 
-                                &lt;a href=&quot;http://localhost:4000/bytubed//2012/08/28/new-development-version-1-0-9a4.html#comment-632822038&quot;&gt;
+                                &lt;a href=&quot;http://msram.github.com/bytubed//2012/08/28/new-development-version-1-0-9a4.html#comment-632822038&quot;&gt;
                                 this discussion&lt;/a&gt; for more details. 
                             &lt;/li&gt;
                         &lt;/ul&gt;
