@@ -172,9 +172,15 @@
                                 var pContent = header.parentNode.getElementsByClassName("pContent")[0];
                                 pContent.hidden = !pContent.hidden;
                                 if(!pContent.hidden)
+                                {
                                     header.style.borderBottom = '1px dotted silver';
+                                    header.style.borderRadius = '10px 10px 0px 0px';
+                                }
                                 else
+                                {
                                     header.style.borderBottom = '';
+                                    header.style.borderRadius = '10px 10px 10px 10px';
+                                }
                             }
                             catch(error)
                             {

@@ -146,12 +146,15 @@ a.headline
     font-weight: bold;
     display: block;
     padding: 10px;
+    background-color: #f8fcff;
+    border-radius: 10px;
     
 }
 a.headline:hover
 {
     color: #0000ff;
     text-decoration: none;
+    background-color: #f8fffc;
 }
 .description
 { 
