@@ -87,6 +87,7 @@ span.news
     padding: 10px;
     padding-top: 0px;
     display: hidden;
+    border-radius: 0px 0px 10px 10px;
 }
 .headline 
 {
@@ -147,6 +148,7 @@ a.headline
     display: block;
     padding: 10px;
     background-color: #f8fcff;
+    background: -moz-linear-gradient(rgb(244, 248, 252), rgb(252, 253, 254)) repeat scroll 0% 0% rgb(252, 253, 254);
     border-radius: 10px;
     
 }
@@ -155,6 +157,7 @@ a.headline:hover
     color: #0000ff;
     text-decoration: none;
     background-color: #f8fffc;
+    background: -moz-linear-gradient(rgb(252, 253, 254), rgb(244, 248, 252)) repeat scroll 0% 0% rgb(252, 253, 254);
 }
 .description
 { 
