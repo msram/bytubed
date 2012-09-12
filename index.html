@@ -100,6 +100,7 @@
                 <div class="content">
                     <h2>
                         Home
+                        <!--
                         
                         <span class="news">
                             <span class="quest">Q: What's new?</span><br/>
@@ -107,8 +108,25 @@
                             BYTubeD 1.0.9</a></span>
                         </span>
                         
+                        -->
                         
                     </h2>
+                    <!-- <script type="text/javascript" src="lightbox/js/jquery.js"></script>
+                    <script type="text/javascript"> 
+                        $(document).ready(function()
+                        {
+                            $(".headline").click(function(){
+                                $("pContent").slideToggle();
+                            });
+                        });
+                    </script> -->
+                    
+                    <span class="rfloat"><a class='add-to-firefox' 
+                    href='https://addons.mozilla.org/firefox/downloads/latest/126518/addon-126518-latest.xpi?src=external-gh'>
+                        Install BYTubeD 1.0.9
+                    </a></span>
+                
+                    
                     <h3>Features at a glance</h3>
                     <ul class="indent-right">
                         <li>Helps in batch downloading YouTube videos on any page</li>
@@ -127,6 +145,7 @@
                         {
                             try
                             {
+                                
                                 var divs = document.getElementsByTagName("div");
                                 for(var i=0; i<divs.length; i++)
                                 {
@@ -145,22 +164,40 @@
                                 //alert(error);
                             }
                         }
+                        
+                        function togglePost(header)
+                        {
+                            try
+                            {   
+                                var pContent = header.parentNode.getElementsByClassName("pContent")[0];
+                                pContent.hidden = !pContent.hidden;
+                                if(!pContent.hidden)
+                                    header.style.borderBottom = '1px dotted silver';
+                                else
+                                    header.style.borderBottom = '';
+                            }
+                            catch(error)
+                            {
+                                //alert(error);
+                            }
+                        }
                     </script>                        
                     <div class="posts">
                         
                         
                         <a name='2012-09-05-09-45-59'></a>
                         <br/>
-                        <div class="post" 
-                            onclick='togglePosts(this);location.hash=&quot;2012-09-05-09-45-59&quot;'>
-                            <div class="headline">
-                                <a href="/bytubed//2012/09/05/new-version-1-0-9.html">New Version - 1.0.9</a>
+                        <div class="post">
+                            <a class="headline"
+                                onclick='togglePost(this);'
+                                href='##'>New Version - 1.0.9
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 05 September 2012)
                                 </span>
-                            </div>
+                            </a>
+                            
                             <div class='pContent'>
-                                <hr class="thin"/>
+                                
                                 <br/>
                                                     <div class="indent">
                         The latest version (1.0.9) of BYTubeD has been uploaded and it is public now. Following is
@@ -220,16 +257,17 @@
                         
                         <a name='2012-08-30-05-10-26'></a>
                         <br/>
-                        <div class="post" 
-                            onclick='togglePosts(this);location.hash=&quot;2012-08-30-05-10-26&quot;'>
-                            <div class="headline">
-                                <a href="/bytubed//2012/08/30/new-development-version-1-0-9a5.html">New Development Version - 1.0.9a5</a>
+                        <div class="post">
+                            <a class="headline"
+                                onclick='togglePost(this);'
+                                href='##'>New Development Version - 1.0.9a5
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 30 August 2012)
                                 </span>
-                            </div>
+                            </a>
+                            
                             <div class='pContent'>
-                                <hr class="thin"/>
+                                
                                 <br/>
                                                 <div class="indent">
                     This version (1.0.9a5) just fixes the 
@@ -272,16 +310,17 @@
                         
                         <a name='2012-08-28-21-49-14'></a>
                         <br/>
-                        <div class="post" 
-                            onclick='togglePosts(this);location.hash=&quot;2012-08-28-21-49-14&quot;'>
-                            <div class="headline">
-                                <a href="/bytubed//2012/08/28/new-development-version-1-0-9a4.html">New Development Version - 1.0.9a4</a>
+                        <div class="post">
+                            <a class="headline"
+                                onclick='togglePost(this);'
+                                href='##'>New Development Version - 1.0.9a4
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 28 August 2012)
                                 </span>
-                            </div>
+                            </a>
+                            
                             <div class='pContent'>
-                                <hr class="thin"/>
+                                
                                 <br/>
                                                 <div class="indent">
                     This new version adds the following features:
@@ -310,16 +349,17 @@
                         
                         <a name='2012-08-04-22-43-02'></a>
                         <br/>
-                        <div class="post" 
-                            onclick='togglePosts(this);location.hash=&quot;2012-08-04-22-43-02&quot;'>
-                            <div class="headline">
-                                <a href="/bytubed//2012/08/04/new-development-version-1-0-9a3.html">New Development Version - 1.0.9a3</a>
+                        <div class="post">
+                            <a class="headline"
+                                onclick='togglePost(this);'
+                                href='##'>New Development Version - 1.0.9a3
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 04 August 2012)
                                 </span>
-                            </div>
+                            </a>
+                            
                             <div class='pContent'>
-                                <hr class="thin"/>
+                                
                                 <br/>
                                                 <p class="indent">
                     This new version fixes the issue: "Preserve Order option does not work." 
@@ -340,16 +380,17 @@
                         
                         <a name='2012-03-04-00-28-56'></a>
                         <br/>
-                        <div class="post" 
-                            onclick='togglePosts(this);location.hash=&quot;2012-03-04-00-28-56&quot;'>
-                            <div class="headline">
-                                <a href="/bytubed//2012/03/04/dev-versions-renamed.html">Dev-versions Renamed</a>
+                        <div class="post">
+                            <a class="headline"
+                                onclick='togglePost(this);'
+                                href='##'>Dev-versions Renamed
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 04 March 2012)
                                 </span>
-                            </div>
+                            </a>
+                            
                             <div class='pContent'>
-                                <hr class="thin"/>
+                                
                                 <br/>
                                 <div class="indent">
     Firefox is somehow treating 1.0.8a1 and 1.0.8a2 as lower versions than 1.0.8 and
@@ -371,16 +412,17 @@
                         
                         <a name='2012-02-27-17-58-01'></a>
                         <br/>
-                        <div class="post" 
-                            onclick='togglePosts(this);location.hash=&quot;2012-02-27-17-58-01&quot;'>
-                            <div class="headline">
-                                <a href="/bytubed//2012/02/27/new-development-version-1-0-8a2.html">New Development Version - 1.0.8a2</a>
+                        <div class="post">
+                            <a class="headline"
+                                onclick='togglePost(this);'
+                                href='##'>New Development Version - 1.0.8a2
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 27 February 2012)
                                 </span>
-                            </div>
+                            </a>
+                            
                             <div class='pContent'>
-                                <hr class="thin"/>
+                                
                                 <br/>
                                                 <p class="indent">
                     This new version fixes the issue: "Watch-links file gets generated even when
@@ -401,16 +443,17 @@
                         
                         <a name='2012-02-23-01-34-17'></a>
                         <br/>
-                        <div class="post" 
-                            onclick='togglePosts(this);location.hash=&quot;2012-02-23-01-34-17&quot;'>
-                            <div class="headline">
-                                <a href="/bytubed//2012/02/23/new-development-version-1-0-8a1.html">New Development Version - 1.0.8a1</a>
+                        <div class="post">
+                            <a class="headline"
+                                onclick='togglePost(this);'
+                                href='##'>New Development Version - 1.0.8a1
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 23 February 2012)
                                 </span>
-                            </div>
+                            </a>
+                            
                             <div class='pContent'>
-                                <hr class="thin"/>
+                                
                                 <br/>
                                 <div class="indent">
     A new development version (1.0.8a1) is up for trying. This version shows
@@ -433,16 +476,17 @@
                         
                         <a name='2012-02-20-21-58-35'></a>
                         <br/>
-                        <div class="post" 
-                            onclick='togglePosts(this);location.hash=&quot;2012-02-20-21-58-35&quot;'>
-                            <div class="headline">
-                                <a href="/bytubed//2012/02/20/site-changes.html">Site Changes</a>
+                        <div class="post">
+                            <a class="headline"
+                                onclick='togglePost(this);'
+                                href='##'>Site Changes
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 20 February 2012)
                                 </span>
-                            </div>
+                            </a>
+                            
                             <div class='pContent'>
-                                <hr class="thin"/>
+                                
                                 <br/>
                                 <ul class="indent-right">
 <li>Added <a href="/bytubed/feed.xml">RSS feeds</a> for News</li>
@@ -464,16 +508,17 @@
                         
                         <a name='2012-02-17-00-00-00'></a>
                         <br/>
-                        <div class="post" 
-                            onclick='togglePosts(this);location.hash=&quot;2012-02-17-00-00-00&quot;'>
-                            <div class="headline">
-                                <a href="/bytubed//2012/02/17/12-22-23-new-version-108.html">New Version - 1.0.8</a>
+                        <div class="post">
+                            <a class="headline"
+                                onclick='togglePost(this);'
+                                href='##'>New Version - 1.0.8
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 17 February 2012)
                                 </span>
-                            </div>
+                            </a>
+                            
                             <div class='pContent'>
-                                <hr class="thin"/>
+                                
                                 <br/>
                                 <div class="indent">
 This is not really a new version in that it does not add any new features above
@@ -493,16 +538,17 @@ This is not really a new version in that it does not add any new features above
                         
                         <a name='2012-02-12-00-00-00'></a>
                         <br/>
-                        <div class="post" 
-                            onclick='togglePosts(this);location.hash=&quot;2012-02-12-00-00-00&quot;'>
-                            <div class="headline">
-                                <a href="/bytubed//2012/02/12/01-52-29-issues-in-107.html">BYTubeD - Issues in 1.0.7</a>
+                        <div class="post">
+                            <a class="headline"
+                                onclick='togglePost(this);'
+                                href='##'>BYTubeD - Issues in 1.0.7
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 12 February 2012)
                                 </span>
-                            </div>
+                            </a>
+                            
                             <div class='pContent'>
-                                <hr class="thin"/>
+                                
                                 <br/>
                                 <div class="indent">
     Please see the <a href="/bytubed/issues-fixes.html">Issues & Fixes</a> section.
@@ -521,16 +567,17 @@ This is not really a new version in that it does not add any new features above
                         
                         <a name='2012-02-12-00-00-00'></a>
                         <br/>
-                        <div class="post" 
-                            onclick='togglePosts(this);location.hash=&quot;2012-02-12-00-00-00&quot;'>
-                            <div class="headline">
-                                <a href="/bytubed//2012/02/12/00-45-20-site-changes.html">Site Changes</a>
+                        <div class="post">
+                            <a class="headline"
+                                onclick='togglePost(this);'
+                                href='##'>Site Changes
                                 <span class="post-date">
                                     &nbsp;&nbsp;&nbsp;(Posted on 12 February 2012)
                                 </span>
-                            </div>
+                            </a>
+                            
                             <div class='pContent'>
-                                <hr class="thin"/>
+                                
                                 <br/>
                                 <ul class="indent">
     <li>News section has been added in the Home page.</li>
@@ -553,7 +600,16 @@ This is not really a new version in that it does not add any new features above
                         
                     </div>
                     <script type="text/javascript">
-                        togglePosts(document.getElementsByClassName('post')[0]);
+                        try
+                        {
+                            var headlines = document.getElementsByClassName('headline');
+                            for(var i=0; i<headlines.length; i++)
+                                togglePost(headlines[i]);
+                            //togglePost(headlines[0]);
+                        }
+                        catch(e)
+                        {
+                        }
                     </script>
                     
                     <span class="indent-right rfloat">
