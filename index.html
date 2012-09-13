@@ -141,30 +141,6 @@
                     
                     <h3>News <a href="feed.xml"> <img src="images/rss16.png"/> </a></h3> 
                     <script type="text/javascript">
-                        function togglePosts(obj)
-                        {
-                            try
-                            {
-                                
-                                var divs = document.getElementsByTagName("div");
-                                for(var i=0; i<divs.length; i++)
-                                {
-                                    if(divs[i].hasAttribute('class') && divs[i] != obj &&
-                                        divs[i].getAttribute('class').indexOf('post') != -1 && 
-                                        divs[i].getElementsByClassName('pContent').length != 0)
-                                    {
-                                        divs[i].getElementsByClassName('pContent')[0].hidden = true;
-                                    }
-                                }
-                                if(obj)
-                                    obj.getElementsByClassName('pContent')[0].hidden = false;
-                            }
-                            catch(error)
-                            {
-                                //alert(error);
-                            }
-                        }
-                        
                         function togglePost(header)
                         {
                             try
