@@ -7,8 +7,8 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Sun, 16 Sep 2012 12:10:44 +0530</pubDate>
-        <lastBuildDate>Sun, 16 Sep 2012 12:10:44 +0530</lastBuildDate>
+        <pubDate>Tue, 18 Sep 2012 03:25:13 +0530</pubDate>
+        <lastBuildDate>Tue, 18 Sep 2012 03:25:13 +0530</lastBuildDate>
 
         
         <item>
@@ -20,14 +20,14 @@
           <description>                    &lt;div class=&quot;indent&quot;&gt;
                         YouTube has made some changes to their code. Versions of BYTubeD till 1.0.9 are not able
                         to help download most of the videos. The new version 1.1.0 adds fixes for these changes.
-                        Please &lt;a href=&quot;https://addons.mozilla.org/firefox/downloads/file/167766/bytubed_bulk_youtube_video_downloader-1.1.0-fx.xpi?src=external-gh&quot;&gt;install 1.1.0&lt;/a&gt;
-                        (from the BYTubeD versions page on addons.mozilla.org). If you observe any issues, please
+                        Please &lt;a href=&quot;https://addons.mozilla.org/firefox/downloads/latest/126518/addon-126518-latest.xpi?src=external-gh&quot;&gt;install 1.1.0&lt;/a&gt;.
+                        If you observe any issues, please
                         report them in the &lt;a href=&quot;/bytubed/2012/09/15/new-version-1-1-0.html#comments&quot;&gt;
                         comments of this post&lt;/a&gt;.
                         &lt;br/&gt;&lt;br/&gt;
                         &lt;div class=&quot;center&quot;&gt;
                             &lt;a class='add-to-firefox'
-                                href=&quot;https://addons.mozilla.org/firefox/downloads/file/167766/bytubed_bulk_youtube_video_downloader-1.1.0-fx.xpi?src=external-gh&quot;&gt;
+                                href=&quot;https://addons.mozilla.org/firefox/downloads/latest/126518/addon-126518-latest.xpi?src=external-gh&quot;&gt;
                                 Install BYTubeD 1.1.0
                             &lt;/a&gt;
                         &lt;/div&gt;
