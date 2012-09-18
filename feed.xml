@@ -7,9 +7,34 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Tue, 18 Sep 2012 03:25:13 +0530</pubDate>
-        <lastBuildDate>Tue, 18 Sep 2012 03:25:13 +0530</lastBuildDate>
+        <pubDate>Wed, 19 Sep 2012 01:43:03 +0530</pubDate>
+        <lastBuildDate>Wed, 19 Sep 2012 01:43:03 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>New Development Version - 1.1.1a1</title>
+          <link>http://msram.github.com/bytubed//2012/09/19/new-development-version-1-1-1a1.html</link>
+          <pubDate>Wed, 19 Sep 2012 07:04:04 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2012/09/19/new-development-version-1-1-1a1</guid>
+          <description>                    &lt;div class=&quot;indent&quot;&gt;
+                        This version (1.1.1a1) fixes the 
+                        &lt;a href=&quot;http://msram.github.com/bytubed/2012/09/15/new-version-1-1-0.html#comment-654800200&quot;&gt;
+                        issue with non-Englis titles&lt;/a&gt;, that got introduced in 1.1.0. Please install it and if you
+                        observe any issues please report here in 
+                        &lt;a href=&quot;/bytubed/2012/09/19/new-development-version-1-1-1a1.html#comments&quot;&gt;the comments&lt;/a&gt;.
+                        
+                        &lt;p/&gt;
+                        &lt;div class=&quot;center&quot;&gt;
+                            &lt;a class='add-to-firefox'
+                                href='/bytubed/dev-versions/1.1.1a1.xpi'&gt;
+                                Install BYTubeD 1.1.1a1
+                            &lt;/a&gt;
+                        &lt;/div&gt;
+                        &lt;p/&gt;
+
+                    &lt;/div&gt;</description>
+        </item>
         
         <item>
           <title>New Version - 1.1.0</title>
