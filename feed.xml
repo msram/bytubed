@@ -7,8 +7,8 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Wed, 19 Sep 2012 01:58:08 +0530</pubDate>
-        <lastBuildDate>Wed, 19 Sep 2012 01:58:08 +0530</lastBuildDate>
+        <pubDate>Wed, 19 Sep 2012 02:05:48 +0530</pubDate>
+        <lastBuildDate>Wed, 19 Sep 2012 02:05:48 +0530</lastBuildDate>
 
         
         <item>
@@ -20,7 +20,8 @@
           <description>                    &lt;div class=&quot;indent&quot;&gt;
                         This version (1.1.1a1) fixes the 
                         &lt;a href=&quot;http://msram.github.com/bytubed/2012/09/15/new-version-1-1-0.html#comment-654800200&quot;&gt;
-                        issue with non-Englis titles&lt;/a&gt;, that got introduced in 1.1.0. Please install it and if you
+                        issue with non-English characters&lt;/a&gt; (they are not shown properly in the file name),
+                        that got introduced in 1.1.0. Please install it and if you
                         observe any issues please report here in 
                         &lt;a href=&quot;/bytubed/2012/09/19/new-development-version-1-1-1a1.html#comments&quot;&gt;the comments&lt;/a&gt;.
                         
