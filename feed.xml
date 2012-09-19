@@ -7,9 +7,33 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Wed, 19 Sep 2012 02:05:48 +0530</pubDate>
-        <lastBuildDate>Wed, 19 Sep 2012 02:05:48 +0530</lastBuildDate>
+        <pubDate>Wed, 19 Sep 2012 10:40:54 +0530</pubDate>
+        <lastBuildDate>Wed, 19 Sep 2012 10:40:54 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>New Development Version - 1.1.1a2</title>
+          <link>http://msram.github.com/bytubed//2012/09/19/new-development-version-1-1-1a2.html</link>
+          <pubDate>Wed, 19 Sep 2012 16:02:18 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2012/09/19/new-development-version-1-1-1a2</guid>
+          <description>                    &lt;div class=&quot;indent&quot;&gt;
+                        Videos are not downnloadable in FLV format with version upto 1.1.1a1. This version
+                        (1.1.1a2) fixes the problem. Now FLV videos can be downnloaded.
+                        Please install 1.1.1a2 and if you observe any issues, please report them here in
+                        &lt;a href=&quot;/bytubed/2012/09/19/new-development-version-1-1-1a2.html#comments&quot;&gt;the comments&lt;/a&gt;.
+                        
+                        &lt;p/&gt;
+                        &lt;div class=&quot;center&quot;&gt;
+                            &lt;a class='add-to-firefox'
+                                href='/bytubed/dev-versions/1.1.1a2.xpi'&gt;
+                                Install BYTubeD 1.1.1a2
+                            &lt;/a&gt;
+                        &lt;/div&gt;
+                        &lt;p/&gt;
+
+                    &lt;/div&gt;</description>
+        </item>
         
         <item>
           <title>New Development Version - 1.1.1a1</title>
