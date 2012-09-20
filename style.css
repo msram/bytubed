@@ -358,13 +358,13 @@ table.shortcuts td, table.shortcuts th
 
 .meta-container
 {
-    width: 380px;
+    width: 370px;
     margin: auto;
     text-align: center;
     background: -moz-linear-gradient(center top , #434343 0%, #343434 100%) repeat scroll 0 0 transparent;
     border-radius: 8px 8px 8px 8px;
     box-shadow: 0 5px 0 0 rgba(0, 0, 0, 0.1), 0 6px 3px 0 rgba(0, 0, 0, 0.25);
-    padding-top: 5px;
+    padding: 5px;
     position: relative;
     top: -10px;
     
