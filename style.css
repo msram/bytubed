@@ -426,6 +426,9 @@ table.contributions td
 {
     right: 10px;
 }
+
+.right30 { right: 30px; }
+
 .right40
 {
     right: 40px;
@@ -433,4 +436,8 @@ table.contributions td
 .bold
 {
     font-weight: bold;
+}
+.top10
+{
+    top: 10px;
 }
