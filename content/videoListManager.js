@@ -86,7 +86,9 @@ IITK.CSE.CS213.BYTubeD.fmtMap = {
     "84":   {fileType: "mp4",   resolution: "1280x720",     quality: "720p",        color: "purple"}
 };
 
-IITK.CSE.CS213.BYTubeD.requiredParams = ["upn", "sparams", "fexp", "ms", "itag", "ipbits", "signature", "sig", "mv", "sver", "mt", "ratebypass", "source", "expire", "key", "ip", "cp", "id", "gcr", "fallback_host"];
+IITK.CSE.CS213.BYTubeD.requiredParams = ["upn", "sparams", "fexp", "ms", "itag", "ipbits", "signature", 
+    "sig", "mv", "sver", "mt", "ratebypass", "source", "expire", "key", "ip", "cp", "id", "gcr", "fallback_host",
+    "algorithm", "newshard", "burst", "factor"];
 
 // =====================================================================================================
 
@@ -587,11 +589,11 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
                         var key =  iccb.requiredParams[k];
                         if(urlParams[key])
                         {
-                            var val = escape(urlParams[key]);
+                            var val = urlParams[key];
                             vUrl += "&" + (key == "sig"? "signature":key) + "=" + val;
                         }
                     }
-                    vUrl += "&title=" + escape(this.videoList[index].title);
+                    vUrl += "&title=" + this.videoList[index].title;
 
                     videoUrls[fmt] = vUrl.replace("?&", "?");
                 }
