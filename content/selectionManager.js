@@ -1052,7 +1052,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                 }
 
                 if(!swf_map["url_encoded_fmt_stream_map"] ||
-                    swf_map["url_encoded_fmt_stream_map"].indexOf("url") != 0)
+                    swf_map["url_encoded_fmt_stream_map"].indexOf("url") == -1)
                 {
                     selMgr.videoList[ind].failureDescription = failureString;
                     var display =  "(" + failureString + ")";

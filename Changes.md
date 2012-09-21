@@ -2,11 +2,21 @@
 
 -----------------------------------------------------
 
+## 1.1.0
+
+### Release Date
+
+* September 15, 2012
+
+### Changes
+
+* Added a fix for the recent YouTube changes. 
+
 ## 1.0.9
 
 ### Release Date
 
--   August 31, 2012
+* August 31, 2012
 
 ### Changes
 
@@ -30,7 +40,7 @@ Other changes
 
 ### Release Date
 
--   February 17, 2012
+* February 17, 2012
 
 ### Changes
 
@@ -47,11 +57,11 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
 ### Release Date
 
--   February 4, 2012
+* February 4, 2012
 
 ### License
     
--   Earlier versions of BYTubeD were released under MPL 1.1; BYTubeD 1.0.7 is released under GPL 3.
+* Earlier versions of BYTubeD were released under MPL 1.1; BYTubeD 1.0.7 is released under GPL 3.
 
 ### UI Changes
 
@@ -59,15 +69,15 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
     1.  "Additional Features" with the following options:
 
-        -   "Video format does not matter. Try to get the videos in requested quality."
+        * "Video format does not matter. Try to get the videos in requested quality."
 
-        -   "Preserve order (prepends the file name with the serial number)."
+        * "Preserve order (prepends the file name with the serial number)."
 
-        -   "Silently prefetch downloadable video URLs (makes the next step faster)."
+        * "Silently prefetch downloadable video URLs (makes the next step faster)."
 
-            -   "Show Max Resolution"
+            * "Show Max Resolution"
 
-            -   "Show Max Quality"
+            * "Show Max Quality"
 
     2.  "User Interaction" with the first 3 of the old options of the Preferences tab.
 
@@ -75,33 +85,33 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
     4.  "Window Management" with the following options:
 
-        -   "Try to resize the window to fit content."
+        * "Try to resize the window to fit content."
 
-        -   "Try to center the window after resizing."
+        * "Try to center the window after resizing."
 
-        -   "Maintain aspect ratio while resizing the window."
+        * "Maintain aspect ratio while resizing the window."
 
 2.  In addition to "FLV" and "MP4", a new option "WebM" has been added in the Video Format
     field
 
-    -   Radio-group has been replaced by a drop-down-menu.
+    * Radio-group has been replaced by a drop-down-menu.
 
-    -   If a video is not available in the requested format, then among the available
+    * If a video is not available in the requested format, then among the available
         formats, the highest quality video will be fetched subject to the quality
         constraints specified in the Quality field.
 
 3.  More specific Quality field:
 
-    -   The set {"High", "Medium", "Low"} of quality values has been replaced by the
+    * The set {"High", "Medium", "Low"} of quality values has been replaced by the
         following set of options:
 
-        -   {"240p", "360p", "480p", "720p HD", "1080p HD", "Original"}
+        * {"240p", "360p", "480p", "720p HD", "1080p HD", "Original"}
 
-    -   "240p" to "Original" are arranged in increasing order of quality.
+    * "240p" to "Original" are arranged in increasing order of quality.
 
-    -   "720p HD" is the default value.
+    * "720p HD" is the default value.
 
-    -   If a video is not available in the requested quality, then a lower quality video
+    * If a video is not available in the requested quality, then a lower quality video
         of the same format, as specified in the Video Format field, will be fetched.
 
 
@@ -111,14 +121,14 @@ For actual changes from earlier versions, please see notes on 1.0.7.
     been replaced by "Video format does not matter. Try to get the videos in requested
     quality." under Preferences -> Additional Features
 
-    -   This new option allows prioritizing quality over file format.
+    * This new option allows prioritizing quality over file format.
 
 6.  "Show Max Resolution" and "Show Max Quality" under Preferences -> Additional Features
 
-    -   To show maximum resolution and maximum quality of each video along with S.No and
+    * To show maximum resolution and maximum quality of each video along with S.No and
         Title in Selection Window.
 
-    -   Require silent prefetching enabled.
+    * Require silent prefetching enabled.
 
 7.  Added an option: "Select All" in the Selection Window to select all the videos.
 
@@ -131,25 +141,25 @@ For actual changes from earlier versions, please see notes on 1.0.7.
     1.  Ability to grab YouTube URLs even if they are not hyperlinks to YouTube videos.
         This means that now BYTubeD can be invoked on:
 
-        -   a page containing embedded YouTube videos, hidden video links, etc.
+        * a page containing embedded YouTube videos, hidden video links, etc.
 
-        -   even a text file containing some YouTube URLs here and there.
+        * even a text file containing some YouTube URLs here and there.
 
     2.  Ability to grab YouTube links from the clipboard.
 
 
 3.  **Preserve Order**
 
-    -   This option can be set to true to make sure that the videos in the destination
+    * This option can be set to true to make sure that the videos in the destination
         directory are in the same order as they appear on the page where BYTubeD was
         invoked.
 
 4.  **Support for WebM format**
 
-    -   In addition to "FLV" and "MP4", a new option "WebM" has been added in the
+    * In addition to "FLV" and "MP4", a new option "WebM" has been added in the
         Video Format field
 
-    -   If a video is not available in the requested format, then among the available
+    * If a video is not available in the requested format, then among the available
         formats, the highest quality video will be fetched subject to the quality
         constraints specified in the Quality field.
 
@@ -158,30 +168,30 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 1.  Generating the youtube-page-links in a sperate file; and showing only download links
     in the 'main' links file, to avoid watch links being shown in DownThemAll
 
-    -   *download_links_bytubed@cs213.cse.iitk.ac.in.html* contains the downloadable
+    * *download_links_bytubed@cs213.cse.iitk.ac.in.html* contains the downloadable
         video links
 
-    -   *watch_links_bytubed@cs213.cse.iitk.ac.in.html* contains the YouTube video page
+    * *watch_links_bytubed@cs213.cse.iitk.ac.in.html* contains the YouTube video page
         links for all the successful and failed requests.
 
 2.  Including, at the top of generated youtube-watch-links page:
 
-    -   time stamp of BYTubeD invocation
+    * time stamp of BYTubeD invocation
 
-    -   window/tab title/link of the source page on which BYTubeD was invoked,
+    * window/tab title/link of the source page on which BYTubeD was invoked,
 
 3.  Added an option to generate text files containing the YouTube page links for failed
     and successful requests  (not the download links, because the download links expire
     within 7 hours after generation)
 
-    -   Failed requests are saved in *bad_links_bytubed@cs213.cse.iitk.ac.in.txt*
+    * Failed requests are saved in *bad_links_bytubed@cs213.cse.iitk.ac.in.txt*
 
-    -   Successful requests are saved in *good_links_bytubed@cs213.cse.iitk.ac.in.txt*
+    * Successful requests are saved in *good_links_bytubed@cs213.cse.iitk.ac.in.txt*
 
 4.  All communication happens over HTTPS rather than HTTP
 
 5.  Change in support page:
-    -   All references to http://bytubed.blogspot.com/ have been replaced by 
+    * All references to http://bytubed.blogspot.com/ have been replaced by 
         http://msram.github.com/bytubed/
 
 ### Code Improvements
@@ -216,11 +226,11 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
 ### Release Date
 
--   August 4, 2011
+* August 4, 2011
 
 ### Changes
 
--   There have been some feature requests and a few bugs after 1.0.5. This new version
+* There have been some feature requests and a few bugs after 1.0.5. This new version
     (1.0.6) implements those features and fixes the bugs. Following are the changes from
     1.0.5 to 1.0.6.
 
@@ -262,7 +272,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
 ### Release Date
 
--   July 10, 2011
+* July 10, 2011
 
 ### Major Changes
 
@@ -288,7 +298,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
 ### Release Date
 
--   December 12, 2010
+* December 12, 2010
 
 ### Changes
 
@@ -297,9 +307,9 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 2. Added a way to use BYTubeD in combination with download managers like *DownThemAll* -
    i.e., the **What to do?** drop-down menu with two options:
 
-    -   *Enqueue for Download* : enqueues videos in the Downloads window as usual.
+    * *Enqueue for Download* : enqueues videos in the Downloads window as usual.
 
-    -   *Generate Links* : generates an HTML file containing list of downloadable video
+    * *Generate Links* : generates an HTML file containing list of downloadable video
         links, on which download managers like DownThemAll can be invoked.
 
 3. Added support for very high quality videos (if they are avaialble).
@@ -319,7 +329,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
 ### Release Date
 
--   August 8, 2010
+* August 8, 2010
 
 ### Changes
 
@@ -331,7 +341,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
 ### Release Date
 
--   April 13, 2010
+* April 13, 2010
 
 ### Changes
 
@@ -343,7 +353,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
 ### Release Date
 
--   April 12, 2010
+* April 12, 2010
 
 ### Changes
 
@@ -355,7 +365,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
 ### Release Date
 
--   April 11, 2010
+* April 11, 2010
 
 ### Changes
 
@@ -368,7 +378,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
 ### Release Date
 
--   April 10, 2010
+* April 10, 2010
 
 ### Changes
 
@@ -385,7 +395,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
 ### Release Date
 
--   April 8, 2010
+* April 8, 2010
 
 ### Changes
 
@@ -398,7 +408,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
 ### Release Date
 
--   April 6, 2010
+* April 6, 2010
 
 ### Changes
 
