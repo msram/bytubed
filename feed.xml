@@ -7,8 +7,8 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Fri, 21 Sep 2012 11:05:33 +0530</pubDate>
-        <lastBuildDate>Fri, 21 Sep 2012 11:05:33 +0530</lastBuildDate>
+        <pubDate>Fri, 21 Sep 2012 11:17:17 +0530</pubDate>
+        <lastBuildDate>Fri, 21 Sep 2012 11:17:17 +0530</lastBuildDate>
 
         
         <item>
@@ -82,29 +82,6 @@
                         &lt;/div&gt;
                         &lt;p/&gt;
 
-                    &lt;/div&gt;</description>
-        </item>
-        
-        <item>
-          <title>New Version - 1.1.0</title>
-          <link>http://msram.github.com/bytubed//2012/09/15/new-version-1-1-0+%28msram-sagarmoy%27s+conflicted+copy+2012-09-20%29.html</link>
-          <pubDate>Sat, 15 Sep 2012 19:11:18 +0530</pubDate>
-          <author>bytubed@gmail.com (M S Ram)</author>
-          <guid>http://msram.github.com/bytubed//2012/09/15/new-version-1-1-0 (msram-sagarmoy's conflicted copy 2012-09-20)</guid>
-          <description>                    &lt;div class=&quot;indent&quot;&gt;
-                        YouTube has made some changes to their code. Versions of BYTubeD till 1.0.9 are not able
-                        to help download most of the videos. The new version 1.1.0 adds fixes for these changes.
-                        Please &lt;a href=&quot;https://addons.mozilla.org/firefox/downloads/latest/126518/addon-126518-latest.xpi?src=external-gh&quot;&gt;install 1.1.0&lt;/a&gt;.
-                        If you observe any issues, please
-                        report them in the &lt;a href=&quot;/bytubed/2012/09/15/new-version-1-1-0.html#comments&quot;&gt;
-                        comments of this post&lt;/a&gt;.
-                        &lt;br/&gt;&lt;br/&gt;
-                        &lt;div class=&quot;center&quot;&gt;
-                            &lt;a class='add-to-firefox'
-                                href=&quot;https://addons.mozilla.org/firefox/downloads/latest/126518/addon-126518-latest.xpi?src=external-gh&quot;&gt;
-                                Install BYTubeD 1.1.0
-                            &lt;/a&gt;
-                        &lt;/div&gt;
                     &lt;/div&gt;</description>
         </item>
         
