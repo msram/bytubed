@@ -104,10 +104,14 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
 
     // reportError is the callback error handler function for the layers below this layer;
     // it's job is to report failures to the user.
-    reportError: function reportError(errorMessage, requestedUrl)
+    reportError: function reportError(errorMessage, requestedUrl, criticalError)
     {
         var iccb = IITK.CSE.CS213.BYTubeD;
-        try
+        
+        if(criticalError)
+            window.close();
+        
+        else try
         {
             var qsMgr = iccb.queueingStatusManager;
             qsMgr.failureCount++;
@@ -176,16 +180,16 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
         }
     },
 
-    finishUp: function finishUp()
+    finishUp: function finishUp(terminate)
     {
         var iccb = IITK.CSE.CS213.BYTubeD;
-        try
+        if(!terminate) try
         {
             var qsMgr = iccb.queueingStatusManager;
 
             document.getElementById("successConsole").value +=
                 "\n-------------- All the requests have been processed --------------\n\n";
-
+            
             if(qsMgr.preferences.todo == iccb.GENERATE_LINKS)
             {
                 qsMgr.prepareWatchLinksFile();
@@ -202,7 +206,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
             }
 
             if(qsMgr.preferences.todo == iccb.ENQUEUE_LINKS &&
-                                            qsMgr.successCount > 0 && qsMgr.preferences.showDLWindow)
+                qsMgr.successCount > 0 && qsMgr.preferences.showDLWindow)
                 iccb.services.downloadManagerUI.show();
 
             if(qsMgr.preferences.closeQStatusWindow && qsMgr.failureCount == 0)
@@ -213,6 +217,10 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
         catch(error)
         {
             iccb.reportProblem(error, arguments.callee.name);
+        }
+        else
+        {
+            window.close();
         }
     },
 
@@ -406,8 +414,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
             iccb.writeTextToFile(htmlString,
                                     "watch_links_bytubed@cs213.cse.iitk.ac.in.html",
                                     qsMgr.destinationDirectory,
-                                    iccb.services.downloadManager
-                                                                   .userDownloadsDirectory.path);
+                                    iccb.services.downloadManager.userDownloadsDirectory.path);
         }
         catch(error)
         {
@@ -515,19 +522,9 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
             var file = iccb.writeTextToFile(htmlString,
                                         "download_links_bytubed@cs213.cse.iitk.ac.in.html",
                                         qsMgr.destinationDirectory,
-                                        iccb.services.downloadManager
-                                                                       .userDownloadsDirectory.path);
+                                        iccb.services.downloadManager.userDownloadsDirectory.path);
 
-            var win = Components.classes['@mozilla.org/appshell/window-mediator;1']
-                                .getService(Components.interfaces.nsIWindowMediator)
-                                .getMostRecentWindow('navigator:browser');
-
-            var launchPath = (qsMgr.successCount > 0 || file1 == null) ? file.path : file1.path;
-            win.openUILinkIn("file:///" + launchPath, 'tab');
-        }
-        catch(error)
-        {
-            if(error.message.indexOf("ACCESS") != -1)
+            if(file == null && file1 == null)
             {
                 iccb.services.promptService.confirm(window,
                     "File write failed!",
@@ -535,8 +532,20 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
             }
             else
             {
-                iccb.reportProblem(error, arguments.callee.name);
+                var launchPath = (qsMgr.successCount > 0 || file1 == null) ? file.path : file1.path;
+                
+                var win = Components.classes['@mozilla.org/appshell/window-mediator;1']
+                                .getService(Components.interfaces.nsIWindowMediator)
+                                .getMostRecentWindow('navigator:browser');
+
+                if(win)
+                    win.openUILinkIn("file:///" + launchPath, 'tab');
             }
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+            window.close();
         }
     },
 
@@ -547,7 +556,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
         {
             var qsMgr = iccb.queueingStatusManager;
             if(!qsMgr.alreadyFinished)
-                qsMgr.finishUp();
+                qsMgr.finishUp(!qsMgr.alreadyFinished);
         }
         catch(error)
         {

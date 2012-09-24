@@ -230,6 +230,28 @@ IITK.CSE.CS213.BYTubeD.getIndexByKey = function getIndexByKey(objList, key, valu
     return -1;
 }
 
+IITK.CSE.CS213.BYTubeD.stripHTML = function stripHTML(text)
+{
+    var iccb = IITK.CSE.CS213.BYTubeD;
+    try
+    {
+        return iccb.escapeEntities(text.replace(/<(?:.|\n)*?>/gm, '').replace(/^(\s)+|(\s)+$/g, ""));
+    }
+    catch(e)
+    {
+        return "Some problem occurred in stripHTML: " + e.message;
+    }
+}
+
+IITK.CSE.CS213.BYTubeD.escapeEntities = function escapeEntities(inputText)  
+{
+    return inputText.replace(/&amp;/g, "&")
+                  .replace(/&lt;/g, "<")
+                  .replace(/&gt;/g, ">")
+                  .replace(/&#39;/g, "'")
+                  .replace(/&quot;/g, "\"");
+};
+
 // -------------------------------------------------------------------------------------------
 // --------------------------------- END OF General Utilities --------------------------------
 // -------------------------------------------------------------------------------------------
@@ -304,9 +326,9 @@ IITK.CSE.CS213.BYTubeD.writeTextToFileByFileRef = function writeTextToFileByFile
     }
     catch(error)
     {
-        IITK.CSE.CS213.BYTubeD.services.promptService.confirm(window,
-            "File write failed!",
-            "Writing text to " + (file? file.path: "file") + " failed due to " + error.message + ".");
+        //IITK.CSE.CS213.BYTubeD.services.promptService.confirm(window,
+        //    "File write failed!",
+        //    "Writing text to " + (file? file.path: "file") + " failed due to " + error.message + ".");
         return false;
     }
 };
@@ -420,9 +442,9 @@ IITK.CSE.CS213.BYTubeD.writeTextToFile = function writeTextToFile(text,
     }
     catch(error)
     {
-        iccb.services.promptService.confirm(window,
-            "File write failed!",
-            "Probably you don't have write permissions on the destination directory.");
+        // iccb.services.promptService.confirm(window,
+        //    "File write failed!",
+        //    "Probably you don't have write permissions on the destination directory.");
         return null;
     }
     return file;

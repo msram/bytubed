@@ -96,15 +96,13 @@ IITK.CSE.CS213.BYTubeD.requiredParams = ["upn", "sparams", "fexp", "ms", "itag",
 
 IITK.CSE.CS213.BYTubeD.processTitle = function processTitle(title)
 {
+    var iccb = IITK.CSE.CS213.BYTubeD;
     try
     {
         if(!title)
             return "";
 
-        var scriptableUnescapeHTML = Components.classes["@mozilla.org/feed-unescapehtml;1"]
-                             .getService(Components.interfaces.nsIScriptableUnescapeHTML);
-
-        title = scriptableUnescapeHTML.unescape(title);
+        title = iccb.stripHTML(title);
 
         title = title.replace(/^(\s)*|(\s)*$/g, "")    // Strip off white spaces
                      .replace(/(&lt;)|(&gt;)|"/g, "")  // replace < >
@@ -130,6 +128,7 @@ IITK.CSE.CS213.BYTubeD.processTitle = function processTitle(title)
 // swf_map is equivalent to SWF_ARGS in a YouTube page source.
 IITK.CSE.CS213.BYTubeD.preprocessInfo = function preprocessInfo(video_info)
 {
+    var iccb = IITK.CSE.CS213.BYTubeD;
     var swf_map = {};
     try
     {
@@ -150,10 +149,7 @@ IITK.CSE.CS213.BYTubeD.preprocessInfo = function preprocessInfo(video_info)
                 if(value.indexOf("+++") != -1)  // If title contains "++ " handle it seperately.
                     return {"status": "fail"};
 
-                var scriptableUnescapeHTML = Components.classes["@mozilla.org/feed-unescapehtml;1"]
-                             .getService(Components.interfaces.nsIScriptableUnescapeHTML);
-
-                swf_map["display_title"] = scriptableUnescapeHTML.unescape(swf_map[key]);
+                swf_map["display_title"] = iccb.stripHTML(swf_map[key]);
             }
         }
     }
@@ -168,6 +164,7 @@ IITK.CSE.CS213.BYTubeD.preprocessInfo = function preprocessInfo(video_info)
 // containing title, author, fmt_list and url_encoded_fmt_stream_map
 IITK.CSE.CS213.BYTubeD.processYouTubePage =  function processYouTubePage(html)
 {
+    var iccb = IITK.CSE.CS213.BYTubeD;
     var swf_map = {};
 
     try
@@ -176,10 +173,7 @@ IITK.CSE.CS213.BYTubeD.processYouTubePage =  function processYouTubePage(html)
         var i2 = html.indexOf("</title>");
         var title = unescape(html.substring(i1, i2));
 
-        var scriptableUnescapeHTML = Components.classes["@mozilla.org/feed-unescapehtml;1"]
-                             .getService(Components.interfaces.nsIScriptableUnescapeHTML);
-
-        swf_map["display_title"] = scriptableUnescapeHTML.unescape(title)
+        swf_map["display_title"] = iccb.stripHTML(title)
                                                          .replace("YouTube -", "")
                                                          .replace("- YouTube", "");
 
@@ -248,20 +242,18 @@ IITK.CSE.CS213.BYTubeD.processYouTubePage =  function processYouTubePage(html)
 
 // getFailureString(youTubePageHTML)
 
-IITK.CSE.CS213.BYTubeD.getFailureString = function getFailureString(html)
+IITK.CSE.CS213.BYTubeD.getFailureString = function getFailureString(aHTMLString)
 {
     var failureString = "";
-    try
+    var iccb = IITK.CSE.CS213.BYTubeD;
+    if(aHTMLString && aHTMLString != "") try
     {
-        var aHTMLString = html;
-
-        var htmlDoc = document.implementation.createDocument("http://www.w3.org/1999/xhtml", "html", null);
-        var body = document.createElementNS("http://www.w3.org/1999/xhtml", "body");
-        htmlDoc.documentElement.appendChild(body);
-
-        body.appendChild(Components.classes["@mozilla.org/feed-unescapehtml;1"]
-            .getService(Components.interfaces.nsIScriptableUnescapeHTML)
-            .parseFragment(aHTMLString, false, null, body));
+        var parser = Components.classes["@mozilla.org/xmlextras/domparser;1"]
+             .createInstance(Components.interfaces.nsIDOMParser);
+        
+        var htmlDoc = parser.parseFromString(aHTMLString, "text/html");
+        
+        //failureString = iccb.stripHTML(aHTMLString);
         
         if(htmlDoc.getElementsByClassName("verify-age").length > 0)
         {
@@ -272,15 +264,15 @@ IITK.CSE.CS213.BYTubeD.getFailureString = function getFailureString(html)
         {
             failureString = htmlDoc.getElementById("unavailable-message").innerHTML;
         }
-
-        if(failureString == "")
-            failureString = "This video is not available for download at this point of time.";
     }
     catch(error)
     {
         IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
     }
 
+    if(failureString == "")
+            failureString = "This video is not available for download at this point of time.";
+            
     return failureString;
 };
 

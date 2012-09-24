@@ -1,6 +1,20 @@
 # BYTubeD Release Notes
 
 -----------------------------------------------------
+## 1.1.2
+
+### Release Date
+
+* To be decided
+
+### Bugs/Issues Fixed
+
+- None
+
+### Code Improvements
+
+1. Got rid of the depricated scriptableUnescapeHTML and hence incompatibility with Easy YouTube Video Downloader
+
 
 ## 1.1.1
 

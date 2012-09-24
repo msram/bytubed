@@ -181,9 +181,9 @@ IITK.CSE.CS213.BYTubeD.processSubtitlesGlobal =  function processSubtitlesGlobal
     
     try
     {
-        // processTime and processText were inspired by YouTube Caption Downloader
+        // processTime and escapeEntities were inspired by YouTube Caption Downloader
         // https://addons.mozilla.org/en-us/firefox/addon/youtube-caption-downloader/
-        var processTime = function processTime(timeInSec) 
+        var processTime = function processTime(timeInSec)
         {
             var timeInMilliSec = Math.floor(timeInSec * 1000);
             timeInSec = Math.floor(timeInMilliSec / 1000);
@@ -194,15 +194,6 @@ IITK.CSE.CS213.BYTubeD.processSubtitlesGlobal =  function processSubtitlesGlobal
             var ms = timeInMilliSec % 1000;
             
             return zeroPad(hh, 2) + ":" + zeroPad(mm, 2) + ":" + zeroPad(ss, 2) + "," + zeroPad(ms, 3);
-        };
-        
-        var processText = function processText(inputText)  
-        {
-            return inputText.replace(/&amp;/g, "&")
-                          .replace(/&lt;/g, "<")
-                          .replace(/&gt;/g, ">")
-                          .replace(/&#39;/g, "'")
-                          .replace(/&quot;/g, "\"");
         };
 
         var parser = new DOMParser();
@@ -221,7 +212,7 @@ IITK.CSE.CS213.BYTubeD.processSubtitlesGlobal =  function processSubtitlesGlobal
             if(!textNodes[i].hasAttribute("start") || !textNodes[i].hasAttribute("dur"))
                 continue;
             
-            curText     = processText(textNodes[i].textContent);
+            curText     = iccb.escapeEntities(textNodes[i].textContent);
             start       = parseFloat(textNodes[i].getAttribute("start"));
             duration    = parseFloat(textNodes[i].getAttribute("dur"));
             stop        = start + duration;

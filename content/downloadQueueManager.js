@@ -33,6 +33,8 @@ IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, d
         var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
+            var allIsWell = true;
+            
             // create the destination directory if it doesn't exist
             var file = Components.classes["@mozilla.org/file/local;1"]
                                  .createInstance(Components.interfaces.nsILocalFile);
@@ -65,19 +67,27 @@ IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, d
                     iccb.services.promptService.alert(window,
                         "Directory creation failed!",
                         "Probably you don't have write permissions on the destination directory.");
-                    return;
+                    
+                    allIsWell = false;
                 }
             }
             // End
 
-            var videoListManager = new iccb.VideoListManager(this,
-                                                            this.enqueueAndCallBack,
-                                                            this.errorHandler,
-                                                            this.videoList,
-                                                            this.preferences,
-                                                            this.subtitleLanguageInfo);
+            if(allIsWell)
+            {
+                var videoListManager = new iccb.VideoListManager(this,
+                                                                this.enqueueAndCallBack,
+                                                                this.errorHandler,
+                                                                this.videoList,
+                                                                this.preferences,
+                                                                this.subtitleLanguageInfo);
 
-            videoListManager.processVideoList();
+                videoListManager.processVideoList();
+            }
+            else
+            {
+                this.errorHandler(null, null, !allIsWell);
+            }
         }
         catch(error)
         {
@@ -280,7 +290,7 @@ IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, d
             var content     = processSubtitlesGlobal(xmlText);
 			
             writeTextToFile(content, file_name, previousBirth.preferences.subtitleDestination,
-                                                                        previousBirth.preferences.destinationDirectory);
+                                previousBirth.preferences.destinationDirectory);
             
             if(actualPrefLang == null || actualPrefLangName == lang_name)
                 previousBirth.callBack("Request for \"" + previousBirth.videoList[vIndex].displayTitle +

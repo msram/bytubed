@@ -523,9 +523,6 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
         var Cc              = Components.classes;
         var Ci              = Components.interfaces
 
-        var scriptableUnescapeHTML = Cc["@mozilla.org/feed-unescapehtml;1"]
-                                     .getService(Ci.nsIScriptableUnescapeHTML);
-
         /*
          *  The following code tries to extract the video title from the span
          *  that surrounds the current link.
@@ -542,7 +539,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
                 else
                     title = spans[si].innerHTML;
 
-                displayTitle = scriptableUnescapeHTML.unescape(title);
+                displayTitle = iccb.stripHTML(title);
                 title = processTitle(displayTitle);
                 break;
             }
@@ -564,7 +561,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
                 else if(images[ii].hasAttribute("alt"))
                     title = images[ii].getAttribute("alt");
 
-                displayTitle = scriptableUnescapeHTML.unescape(title);
+                displayTitle = iccb.stripHTML(title);
                 title = processTitle(displayTitle);
 
                 if(title && title.length > 0)
@@ -577,7 +574,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
         if(title.length == 0 && link.title)
         {
             var text1 = link.title;
-            displayTitle = scriptableUnescapeHTML.unescape(text1);
+            displayTitle = iccb.stripHTML(text1);
             title = processTitle(displayTitle);
         }
 
@@ -590,7 +587,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
             if(text)
             {
                 text = text.replace(/<[^>]*>/g,""); // Remove all HTML tags
-                displayTitle = scriptableUnescapeHTML.unescape(text);
+                displayTitle = iccb.stripHTML(text);
                 title = processTitle(displayTitle);
             }
         }
@@ -602,7 +599,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
             if(spans.length > 0)
             {
                 var html     = spans[0].innerHTML;
-                displayTitle = scriptableUnescapeHTML.unescape(html);
+                displayTitle = iccb.stripHTML(html);
                 title        = processTitle(displayTitle);
             }
         }
