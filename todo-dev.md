@@ -1,4 +1,4 @@
-Now working on: 
+Now working on: Localization
 
 I. Issues
 ---------
@@ -11,8 +11,10 @@ II. Minor Changes
 
 2. Subtitle destination directory 
 
+3. Give a better message when 'directory creation fails'.
+
 III. Major Features
-------------------
+-------------------
 1. localization  (1.1.2)
     (do it!!)
 
@@ -29,12 +31,12 @@ IV. Code Improvements
     (done)
     
 2. Code Cleanup
-    1. organize global functions into logical modules and put them in different singleton objects.
-    2. file operations
-    3. XUL operations
-    4. subtitle operations
-    5. general utils
-    6. addon management
+    - organize global functions into logical modules and put them in different singleton objects
+        - file operations
+        - XUL operations
+        - subtitle operations
+        - general utils
+        - addon management
             
 3. Document every function
     
