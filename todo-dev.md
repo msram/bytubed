@@ -7,14 +7,14 @@ II. Minor Changes
 -----------------
 
 1. Handle "file is null" in line# 525 of chrome://bytubed/content/queueingStatusManager.js
-    - done!
+   (done!)
 
 2. Subtitle destination directory 
 
 III. Major Features
 ------------------
 1. localization  (1.1.2)
-    - do it!!
+   (do it!!)
 
 2. Ressurect dead request links;  Alternatives for this are:
     - Implement a simple download manager
