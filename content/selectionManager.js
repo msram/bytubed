@@ -398,7 +398,7 @@ IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument, links)
             */
 
             // t2 = new Date().getTime();
-            var text = innerHTML.replace(/<[^>]*>/g, "");
+            var text = iccb.stripHTML(innerHTML);
             vids = iccb.getVidsFromText(text);
             var majorityLength = 11; // iccb.getMajorityLength(links);  // getMajorityLength is slow
             for(i=0; i<vids.length; i++)
@@ -586,7 +586,6 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
 
             if(text)
             {
-                text = text.replace(/<[^>]*>/g,""); // Remove all HTML tags
                 displayTitle = iccb.stripHTML(text);
                 title = processTitle(displayTitle);
             }
@@ -912,7 +911,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
             {
                 try
                 {
-                    var failureString = iccb.getFailureString(html).replace(/^\s+|\s+$/g, '');
+                    var failureString = iccb.getFailureString(html);
                         
                     var vid = iccb.getParamsFromUrl(requestedUrl)["v"];
                     var ind = iccb.getIndexByKey(selMgr.videoList, "vid",
@@ -921,7 +920,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                     if(ind != -1)
                     {
                         selMgr.videoList[ind].failureDescription = failureString;
-                        var display = "(" + failureString.replace(/<[^>]*>/g, "") + ")";
+                        var display = "(" + iccb.stripHTML(failureString) + ")";
 
                         if(selMgr.getValueAt(ind, "title") == "Loading...")
                         {
@@ -968,8 +967,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
         {
             var vid = url.split("?v=")[1];
             var swf_map = iccb.processYouTubePage(html);
-            var failureString = iccb.getFailureString(html)
-                                                      .replace(/^\s+|\s+$/g, '');
+            var failureString = iccb.getFailureString(html);
 
             selMgr.setFieldsCommonCode(selMgr, vid, swf_map, failureString);
         }

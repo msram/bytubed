@@ -235,21 +235,51 @@ IITK.CSE.CS213.BYTubeD.stripHTML = function stripHTML(text)
     var iccb = IITK.CSE.CS213.BYTubeD;
     try
     {
-        return iccb.escapeEntities(text.replace(/<(?:.|\n)*?>/gm, '').replace(/^(\s)+|(\s)+$/g, ""));
+        // Based on the post by Lenka (http://stackoverflow.com/users/876375/lenka) on
+        // http://stackoverflow.com/questions/822452/strip-html-from-text-javascript
+        
+        var returnText = text;
+
+        //-- remove BR tags and replace them with line break
+        returnText = returnText.replace(/<br>/gi, "\n");
+        returnText = returnText.replace(/<br(\s)*\/>/gi, "\n");
+
+        //-- remove all inside SCRIPT and STYLE tags
+        returnText = returnText.replace(/<script.*>[\w\W]{1,}(.*?)[\w\W]{1,}<\/script>/gi, "");
+        returnText = returnText.replace(/<style.*>[\w\W]{1,}(.*?)[\w\W]{1,}<\/style>/gi, "");
+        
+        //-- remove all else
+        returnText = returnText.replace(/<(?:.|\s|\n)*?>/g, "");
+
+        //-- get rid of more than 2 multiple line breaks:
+        returnText = returnText.replace(/(?:(?:\r\n|\r|\n)\s*){2,}/gim, "\n\n");
+
+        //-- get rid of html-encoded characters:
+        returnText = iccb.escapeEntities(returnText);
+        
+        //-- get rid of more than 2 spaces:
+        returnText = returnText.replace(/(\s)+/g,' ');
+        
+        //-- strip space at the beginning and ending
+        returnText = returnText.replace(/^(\s)+|(\s)+$/g, "");
+        
+        //-- return
+        return returnText;
     }
     catch(e)
     {
-        return "Some problem occurred in stripHTML: " + e.message;
+        return iccb.escapeEntities(text.replace(/<(?:.|\n)*?>/gm, ''));
     }
 }
 
 IITK.CSE.CS213.BYTubeD.escapeEntities = function escapeEntities(inputText)  
 {
     return inputText.replace(/&amp;/g, "&")
-                  .replace(/&lt;/g, "<")
-                  .replace(/&gt;/g, ">")
-                  .replace(/&#39;/g, "'")
-                  .replace(/&quot;/g, "\"");
+                    .replace(/&lt;/g, "<")
+                    .replace(/&gt;/g, ">")
+                    .replace(/&#39;/g, "'")
+                    .replace(/&quot;/g, "\"")
+                    .replace(/&nbsp;/gi," ");
 };
 
 // -------------------------------------------------------------------------------------------
@@ -282,10 +312,11 @@ IITK.CSE.CS213.BYTubeD.File = function File(fileName, directory)
 
 IITK.CSE.CS213.BYTubeD.createFileIfNotExists = function createFileIfNotExists(fileName, directory)
 {
+    var iccb = IITK.CSE.CS213.BYTubeD;
     var file = null;
     try
     {
-        file = IITK.CSE.CS213.BYTubeD.File(fileName, directory);
+        file = iccb.File(fileName, directory);
         if(file && (!file.exists() || !file.isFile()))
         {
             file.create(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 0666);

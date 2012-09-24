@@ -118,21 +118,12 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
 
             var console = document.getElementById("errorConsole");
 
-            errorMessage = errorMessage.replace(/<[^>]*>/g, " "); // Skip all html tags
-            errorMessage = errorMessage.replace(/^(\s|\n)+/g, "");
+            errorMessage = iccb.stripHTML(errorMessage);
+            
             if(errorMessage.indexOf("--") == -1)
                 errorMessage = errorMessage.replace(/"(\s|\n)+/g, "\" -- ");
-            errorMessage = errorMessage.replace(/--\s(\s|\n)+/g, "-- ");
-            errorMessage = errorMessage.replace(/\n(\s)*\n/g, "\n"); // Make sure there aren't too many newline characters.
-            errorMessage = errorMessage.replace(/(\n|\s)+$/g, ""); // Remove newline characters at the end
-            
             if(!(/\.$/).test(errorMessage)) // if message doesn't end in '.' then append '.'.
-            {
                 errorMessage += ".";
-            }
-            while(errorMessage.indexOf("  ") != -1)
-                errorMessage = errorMessage.replace("  ", " ");     // Remove extra spaces
-                
 
             console.value += "[" + qsMgr.failureCount + "] " + errorMessage + "\n\n";
 

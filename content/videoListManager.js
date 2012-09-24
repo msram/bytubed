@@ -107,7 +107,6 @@ IITK.CSE.CS213.BYTubeD.processTitle = function processTitle(title)
         title = title.replace(/^(\s)*|(\s)*$/g, "")    // Strip off white spaces
                      .replace(/(&lt;)|(&gt;)|"/g, "")  // replace < >
                      .replace(/&#39;|'|&quot;/g, "")   // " and ' by nothing
-                     .replace(/<[^>]*>/g, "")          // skip all html tags
                      .replace(/[\\\/!|:?]/g, " - ")    // replace {/, |, ?, \} by " - "
                      .replace(/[*#<>%$]/g, " ")        // replace {*, #, <, >, %, $} by a single space.
                      .replace(/\+/g, " plus ")         // replace '+' by "plus ". (e.g. "C++" by "C plus plus"
@@ -118,7 +117,7 @@ IITK.CSE.CS213.BYTubeD.processTitle = function processTitle(title)
     }
     catch(error)
     {
-        IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+        iccb.reportProblem(error, arguments.callee.name);
     }
 
     return title;
@@ -144,7 +143,7 @@ IITK.CSE.CS213.BYTubeD.preprocessInfo = function preprocessInfo(video_info)
 
             if(key == "title")
             {
-                swf_map[key] = IITK.CSE.CS213.BYTubeD.utf8to16(swf_map[key]);
+                swf_map[key] = iccb.utf8to16(swf_map[key]);
 
                 if(value.indexOf("+++") != -1)  // If title contains "++ " handle it seperately.
                     return {"status": "fail"};
@@ -155,7 +154,7 @@ IITK.CSE.CS213.BYTubeD.preprocessInfo = function preprocessInfo(video_info)
     }
     catch(error)
     {
-        IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+        iccb.reportProblem(error, arguments.callee.name);
     }
     return swf_map;
 };
@@ -173,9 +172,7 @@ IITK.CSE.CS213.BYTubeD.processYouTubePage =  function processYouTubePage(html)
         var i2 = html.indexOf("</title>");
         var title = unescape(html.substring(i1, i2));
 
-        swf_map["display_title"] = iccb.stripHTML(title)
-                                                         .replace("YouTube -", "")
-                                                         .replace("- YouTube", "");
+        swf_map["display_title"] = iccb.stripHTML(title).replace("YouTube -", "").replace("- YouTube", "");
 
         title = IITK.CSE.CS213.BYTubeD.processTitle(title);
 
@@ -233,15 +230,13 @@ IITK.CSE.CS213.BYTubeD.processYouTubePage =  function processYouTubePage(html)
     }
     catch(error)
     {
-        IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+        iccb.reportProblem(error, arguments.callee.name);
     }
 
     return swf_map;
 };
 
-
 // getFailureString(youTubePageHTML)
-
 IITK.CSE.CS213.BYTubeD.getFailureString = function getFailureString(aHTMLString)
 {
     var failureString = "";
@@ -249,11 +244,9 @@ IITK.CSE.CS213.BYTubeD.getFailureString = function getFailureString(aHTMLString)
     if(aHTMLString && aHTMLString != "") try
     {
         var parser = Components.classes["@mozilla.org/xmlextras/domparser;1"]
-             .createInstance(Components.interfaces.nsIDOMParser);
+                               .createInstance(Components.interfaces.nsIDOMParser);
         
         var htmlDoc = parser.parseFromString(aHTMLString, "text/html");
-        
-        //failureString = iccb.stripHTML(aHTMLString);
         
         if(htmlDoc.getElementsByClassName("verify-age").length > 0)
         {
@@ -264,10 +257,13 @@ IITK.CSE.CS213.BYTubeD.getFailureString = function getFailureString(aHTMLString)
         {
             failureString = htmlDoc.getElementById("unavailable-message").innerHTML;
         }
+        
+        // Remove anchors from failureString.
+        failureString = failureString.replace(/<a [^>]*>/ig, "").replace(/<\/a(\s|\n)*>/ig, "");
     }
     catch(error)
     {
-        IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+        // iccb.reportProblem(error, arguments.callee.name);
     }
 
     if(failureString == "")
@@ -299,10 +295,11 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
     
     this.processVideoList = function processVideoList()
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var videoInfoUrlPrefix      = IITK.CSE.CS213.BYTubeD.videoInfoUrlPrefix;
-            var XmlHttpRequestManager   = IITK.CSE.CS213.BYTubeD.XmlHttpRequestManager;
+            var videoInfoUrlPrefix      = iccb.videoInfoUrlPrefix;
+            var XmlHttpRequestManager   = iccb.XmlHttpRequestManager;
 
             var infoUrls = new Array();
             var i=0;
@@ -354,19 +351,20 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     };
 
     this.processInfoAndCallBack = function processInfoAndCallBack(previousBirth, info, url)
     {
+        var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var watchUrlPrefix          = IITK.CSE.CS213.BYTubeD.watchUrlPrefix;
-            var XmlHttpRequestManager   = IITK.CSE.CS213.BYTubeD.XmlHttpRequestManager;
-            var preprocessInfo          = IITK.CSE.CS213.BYTubeD.preprocessInfo;
-            var getParamsFromUrl        = IITK.CSE.CS213.BYTubeD.getParamsFromUrl;
-            var getIndexByKey           = IITK.CSE.CS213.BYTubeD.getIndexByKey;
+            var watchUrlPrefix          = iccb.watchUrlPrefix;
+            var XmlHttpRequestManager   = iccb.XmlHttpRequestManager;
+            var preprocessInfo          = iccb.preprocessInfo;
+            var getParamsFromUrl        = iccb.getParamsFromUrl;
+            var getIndexByKey           = iccb.getIndexByKey;
 
             var swf_map = preprocessInfo(info);
 
@@ -386,9 +384,10 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
 
                 var localErrorHandler = function localErrorHandler(aHTMLString, requestedUrl)
                 {
+                    var iccb = IITK.CSE.CS213.BYTubeD;
                     try
                     {
-                        var message = IITK.CSE.CS213.BYTubeD.getFailureString(aHTMLString);
+                        var message = iccb.getFailureString(aHTMLString);
 
                         previousBirth.videoList[index].failureDescription = message;
 
@@ -416,9 +415,10 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
 
                 var youTubePageHandler = function youTubePageHandler(pb, html, dummyVar1, dummyVar2)
                 {
+                    var iccb = IITK.CSE.CS213.BYTubeD;
                     try
                     {
-                        swf_map = IITK.CSE.CS213.BYTubeD.processYouTubePage(html);
+                        swf_map = iccb.processYouTubePage(html);
 
                         if(swf_map && swf_map["url_encoded_fmt_stream_map"]
                                 && swf_map["url_encoded_fmt_stream_map"] != ""
@@ -430,7 +430,7 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
                         }
                         else
                         {
-                            var failureString = IITK.CSE.CS213.BYTubeD.getFailureString(html);
+                            var failureString = iccb.getFailureString(html);
                             pb.videoList[index].failureDescription = failureString;
 
                             if(swf_map && swf_map["display_title"])
@@ -460,7 +460,7 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
 
     };
@@ -470,11 +470,11 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
         var iccb = IITK.CSE.CS213.BYTubeD;
         try
         {
-            var processTitle        = IITK.CSE.CS213.BYTubeD.processTitle;
-            var supportedQualities  = IITK.CSE.CS213.BYTubeD.supportedQualities;
-            var fmtMap              = IITK.CSE.CS213.BYTubeD.fmtMap;
-            var zeroPad             = IITK.CSE.CS213.BYTubeD.zeroPad;
-            var digitCount          = IITK.CSE.CS213.BYTubeD.digitCount;
+            var processTitle        = iccb.processTitle;
+            var supportedQualities  = iccb.supportedQualities;
+            var fmtMap              = iccb.fmtMap;
+            var zeroPad             = iccb.zeroPad;
+            var digitCount          = iccb.digitCount;
 
             var url_encoded_fmt_stream_map = swf_map["url_encoded_fmt_stream_map"];
 
@@ -653,7 +653,7 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iccb.reportProblem(error, arguments.callee.name);
         }
     };
 };
