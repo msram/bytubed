@@ -13,6 +13,9 @@ II. Minor Changes
 
 3. Give a better message when 'directory creation fails'.
 
+4. Handle "win is null" in queueingStatusManager and selectionManager
+    (done!)
+
 III. Major Features
 -------------------
 1. localization  (1.1.2)

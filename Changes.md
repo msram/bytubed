@@ -16,6 +16,9 @@
 1. Got rid of the depricated scriptableUnescapeHTML and hence incompatibility with Easy YouTube Video Downloader
 2. Used iccb for IITK.CSE.CS213.BYTubeD everywhere.
 3. Centralized stripHTML
+4. Gracefully handling:
+    - "win is null"
+    - "file is null"
 
 ## 1.1.1
 

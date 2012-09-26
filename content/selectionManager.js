@@ -1926,7 +1926,14 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
             var win = Cc['@mozilla.org/appshell/window-mediator;1']
                         .getService(Ci.nsIWindowMediator)
                         .getMostRecentWindow('navigator:browser');
-            win.openUILinkIn(iccb.helpPageLink, 'tab');
+            
+            if(win)
+                win.openUILinkIn(iccb.helpPageLink, 'tab');
+            else
+            {
+                window.open("about:blank", "_old_window");      // opens firefox
+                window.open(iccb.helpPageLink, "_old_window");  // opens helpPageLink
+            }
         }
         catch(error)
         {

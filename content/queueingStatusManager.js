@@ -531,6 +531,11 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
 
                 if(win)
                     win.openUILinkIn("file:///" + launchPath, 'tab');
+                else
+                {
+                    window.open("about:blank", "_old_window");  // Opens firefox
+                    window.open("file:///" + launchPath, "_old_window"); // opens launchPath
+                }
             }
         }
         catch(error)
