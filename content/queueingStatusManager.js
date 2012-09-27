@@ -118,7 +118,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
 
             var console = document.getElementById("errorConsole");
 
-            errorMessage = iccb.stripHTML(errorMessage);
+            errorMessage = iccb.stripHTML(errorMessage, 3);
             
             if(errorMessage.indexOf("--") == -1)
                 errorMessage = errorMessage.replace(/"(\s|\n)+/g, "\" -- ");

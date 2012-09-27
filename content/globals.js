@@ -230,38 +230,54 @@ IITK.CSE.CS213.BYTubeD.getIndexByKey = function getIndexByKey(objList, key, valu
     return -1;
 }
 
-IITK.CSE.CS213.BYTubeD.stripHTML = function stripHTML(text)
+IITK.CSE.CS213.BYTubeD.stripHTML = function stripHTML(text, stripLevel)
 {
     var iccb = IITK.CSE.CS213.BYTubeD;
     try
     {
         // Based on the post by Lenka (http://stackoverflow.com/users/876375/lenka) on
         // http://stackoverflow.com/questions/822452/strip-html-from-text-javascript
+        // and ThiefMaster (http://stackoverflow.com/users/298479/thiefmaster) on
+        // http://stackoverflow.com/questions/6659351/removing-all-script-tags-from-html-with-js-regular-expression
         
         var returnText = text;
-
-        //-- remove BR tags and replace them with line break
-        returnText = returnText.replace(/<br>/gi, "\n");
-        returnText = returnText.replace(/<br(\s)*\/>/gi, "\n");
-
-        //-- remove all inside SCRIPT and STYLE tags
-        returnText = returnText.replace(/<script.*>[\w\W]{1,}(.*?)[\w\W]{1,}<\/script>/gi, "");
-        returnText = returnText.replace(/<style.*>[\w\W]{1,}(.*?)[\w\W]{1,}<\/style>/gi, "");
         
-        //-- remove all else
-        returnText = returnText.replace(/<(?:.|\s|\n)*?>/g, "");
+        switch(stripLevel)
+        {
+            case 3:
+                //-- remove all inside SCRIPT and STYLE tags
+                returnText = returnText.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gim, "");
+                returnText = returnText.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gim, "");
+                // DO NOT break.
+                
+            case 2:
+                //-- remove BR tags and replace them with line break
+                returnText = returnText.replace(/<br>/gi, "\n");
+                returnText = returnText.replace(/<br(\s)*\/>/gim, "\n");
+                // DO NOT break.
+                
+            case 1:
+                //-- remove all else
+                returnText = returnText.replace(/<(?:.|\s|\n)*?>/gm, "");
 
-        //-- get rid of more than 2 multiple line breaks:
-        returnText = returnText.replace(/(?:(?:\r\n|\r|\n)\s*){2,}/gim, "\n\n");
+                //-- get rid of more than 2 multiple line breaks:
+                returnText = returnText.replace(/(?:(?:\r\n|\r|\n)\s*){2,}/gim, "\n\n");
 
-        //-- get rid of html-encoded characters:
-        returnText = iccb.escapeEntities(returnText);
-        
-        //-- get rid of more than 2 spaces:
-        returnText = returnText.replace(/(\s)+/g,' ');
-        
-        //-- strip space at the beginning and ending
-        returnText = returnText.replace(/^(\s)+|(\s)+$/g, "");
+                //-- get rid of html-encoded characters:
+                returnText = iccb.escapeEntities(returnText);
+                
+                //-- get rid of more than 1 spaces:
+                returnText = returnText.replace(/(\s)+/gm,' ');
+                
+                //-- strip space at the beginning and ending
+                returnText = returnText.replace(/^(\s)+|(\s)+$/gm, "");
+                
+                break;
+            
+            default:
+                returnText = iccb.escapeEntities(text.replace(/<(?:.|\n)*?>/gm, ''));
+                break;
+        }
         
         //-- return
         return returnText;

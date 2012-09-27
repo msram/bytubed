@@ -18,7 +18,7 @@
 3. Centralized stripHTML
 4. Gracefully handling:
     - "win is null"
-    - "file is null"
+    - "file is null" 
 
 ## 1.1.1
 

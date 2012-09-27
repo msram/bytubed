@@ -102,7 +102,7 @@ IITK.CSE.CS213.BYTubeD.processTitle = function processTitle(title)
         if(!title)
             return "";
 
-        title = iccb.stripHTML(title);
+        title = iccb.stripHTML(title, 3);
 
         title = title.replace(/^(\s)*|(\s)*$/g, "")    // Strip off white spaces
                      .replace(/(&lt;)|(&gt;)|"/g, "")  // replace < >
@@ -148,7 +148,7 @@ IITK.CSE.CS213.BYTubeD.preprocessInfo = function preprocessInfo(video_info)
                 if(value.indexOf("+++") != -1)  // If title contains "++ " handle it seperately.
                     return {"status": "fail"};
 
-                swf_map["display_title"] = iccb.stripHTML(swf_map[key]);
+                swf_map["display_title"] = iccb.stripHTML(swf_map[key], 3);
             }
         }
     }
@@ -172,7 +172,7 @@ IITK.CSE.CS213.BYTubeD.processYouTubePage =  function processYouTubePage(html)
         var i2 = html.indexOf("</title>");
         var title = unescape(html.substring(i1, i2));
 
-        swf_map["display_title"] = iccb.stripHTML(title).replace("YouTube -", "").replace("- YouTube", "");
+        swf_map["display_title"] = iccb.stripHTML(title, 3).replace("YouTube -", "").replace("- YouTube", "");
 
         title = IITK.CSE.CS213.BYTubeD.processTitle(title);
 

@@ -65,21 +65,22 @@ IITK.CSE.CS213.BYTubeD.InvocationInfo = function()
 
 IITK.CSE.CS213.BYTubeD.helpPageLink = "http://msram.github.com/bytubed/help.html";
 
+IITK.CSE.CS213.BYTubeD.validVidLength = 11; // As of this writing.
+
 IITK.CSE.CS213.BYTubeD.undesirablePattern   =
     new RegExp( "^http|^<img|thumb|Back(\\s)+$|" +
                 "play.all|view.comments|return.to|play.video|" +
-                "sign.out|sign.in|switch.account|^(none)$", "i");
+                "sign.out|sign.in|switch.account|^(none)$", "igm");
 
 IITK.CSE.CS213.BYTubeD.youTubePatterns      =
-    new RegExp( "(youtube\\.com\\/v\\/|\\/watch\\?(.)*v=|" +
+    new RegExp( "(youtube\\.com\\/v\\/|\\/watch\\?v=|" +
                 "youtube\\.com\\/embed\\/|\\/movie?v=|" +
-                "youtu\\.be\\/|y2u\\.be\\/)([a-zA-Z0-9_-]+)", "ig");
+                "youtu\\.be\\/|y2u\\.be\\/)([a-zA-Z0-9_-]{11})", "igm");
 
 IITK.CSE.CS213.BYTubeD.patternToBeRemoved   =
     new RegExp( "(youtube\\.com\\/v\\/|\\/watch\\?(.)*v=|" +
                 "youtube\\.com\\/embed\\/|\\/movie?v=|" +
-                "youtu\\.be\\/|y2u\\.be\\/)", "i");
-
+                "youtu\\.be\\/|y2u\\.be\\/)", "igm");
 
 /**
  * hasUndesirablePatterns checks if a YouTube link has certain non-title text
@@ -361,6 +362,7 @@ IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument, links)
                 that look like YouTube URLs even though they are not hyper
                 links.
             */
+            
             var vids = iccb.getVidsFromText(innerHTML);
             iccb.buildLinksForVids(vids, links, processedVids);
             
@@ -382,6 +384,7 @@ IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument, links)
                     iccb.buildLinksForVids(dvids, links, processedVids);
                 }
             }
+            
             //var t2 = new Date().getTime(); // Let it be;
                                             //will use during development
             //alert(t2 - t1);
@@ -396,10 +399,11 @@ IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument, links)
              *  We will need to get "_1MMn25iWmo" and "co1CU3-Ms5Q" in these
              *  cases respectively.
             */
-
+            
             // t2 = new Date().getTime();
-            var text = iccb.stripHTML(innerHTML);
+            var text = iccb.stripHTML(innerHTML, 3);
             vids = iccb.getVidsFromText(text);
+            
             var majorityLength = 11; // iccb.getMajorityLength(links);  // getMajorityLength is slow
             for(i=0; i<vids.length; i++)
             {
@@ -539,7 +543,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
                 else
                     title = spans[si].innerHTML;
 
-                displayTitle = iccb.stripHTML(title);
+                displayTitle = iccb.stripHTML(title, 3);
                 title = processTitle(displayTitle);
                 break;
             }
@@ -561,7 +565,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
                 else if(images[ii].hasAttribute("alt"))
                     title = images[ii].getAttribute("alt");
 
-                displayTitle = iccb.stripHTML(title);
+                displayTitle = iccb.stripHTML(title, 3);
                 title = processTitle(displayTitle);
 
                 if(title && title.length > 0)
@@ -574,7 +578,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
         if(title.length == 0 && link.title)
         {
             var text1 = link.title;
-            displayTitle = iccb.stripHTML(text1);
+            displayTitle = iccb.stripHTML(text1, 3);
             title = processTitle(displayTitle);
         }
 
@@ -586,7 +590,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
 
             if(text)
             {
-                displayTitle = iccb.stripHTML(text);
+                displayTitle = iccb.stripHTML(text, 3);
                 title = processTitle(displayTitle);
             }
         }
@@ -598,7 +602,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
             if(spans.length > 0)
             {
                 var html     = spans[0].innerHTML;
-                displayTitle = iccb.stripHTML(html);
+                displayTitle = iccb.stripHTML(html, 3);
                 title        = processTitle(displayTitle);
             }
         }
@@ -658,8 +662,8 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
             
             var scanCB      = document.getElementById("scanClipboard").checked;
             var scanTabs    = document.getElementById("scanAllTabs").checked;
-            
             var scanCurTabFirst = document.getElementById("scanCurTabFirst").checked;
+            
             if(!scanTabs)
             {
                 iccb.buildLinks(currentDocument, links);
@@ -708,8 +712,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                 selMgr.invocationInfo.sourcePageTitle   = href;
                 if(currentDocument.title && currentDocument.title.length > 0)
                     selMgr.invocationInfo.sourcePageTitle = currentDocument.title;
-
-                    
+    
                 var start = new Date().getTime(); // Let it be;
                                                 // will use during development
                 
@@ -736,7 +739,6 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                 iccb.readTextFromAddonDirectory("langList.js", "content", selMgr.loadSubtitleLangs);
                 
                 // alert(stop-start);
-                
             }
         }
         catch(error)
@@ -920,7 +922,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                     if(ind != -1)
                     {
                         selMgr.videoList[ind].failureDescription = failureString;
-                        var display = "(" + iccb.stripHTML(failureString) + ")";
+                        var display = "(" + iccb.stripHTML(failureString, 3) + ")";
 
                         if(selMgr.getValueAt(ind, "title") == "Loading...")
                         {
