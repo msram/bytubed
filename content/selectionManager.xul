@@ -25,11 +25,13 @@
 <?xml-stylesheet href = "chrome://global/skin/" type = "text/css"?>
 <?xml-stylesheet href = "chrome://BYTubeD/skin/win.css" type = "text/css"?>
 
-<window id = "BYTubeD" title = "BYTubeD - Select the videos to be downloaded"
+<!DOCTYPE window SYSTEM "chrome://BYTubeD/locale/selectionManager.dtd">
+
+<window id = "BYTubeD" title = "&window.title;"
         xmlns:html = "http://www.w3.org/1999/xhtml"
         xmlns = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        onload = "IITK.CSE.CS213.BYTubeD.selectionManager.onLoad(event)"
-        onunload = "IITK.CSE.CS213.BYTubeD.selectionManager.onUnload(event)"
+        onload = "iitk.cse.cs213.bytubed.selectionManager.onLoad(event)"
+        onunload = "iitk.cse.cs213.bytubed.selectionManager.onUnload(event)"
         persist = "height width" minheight = "498" minwidth = "664">
 
     <!--
@@ -49,117 +51,116 @@
                    oncommand = "window.close();" />
     </keyset>
     <commandset>
-        <command id = "cmd_start"           oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onStart(event)"/>
-        <command id = "cmd_cancel"          oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onCancel(event)"/>
-        <command id = "cmd_select_all"      oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onSelectAll(event)"/>
-        <command id = "suppress_errors"     oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleSuppression(event)"/>
-        <command id = "toggle_format"       oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleFormatDisabled(event)"/>
-        <command id = "manage_window"       oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.manageWindow()"/>
-        <command id = "res_and_qual"        oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleResAndQual(event)"/>
-        <command id = "clip_len"            oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleClipLength(event)"/>
-        <command id = "silent_prefetching"  oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.togglePrefetching(event)"/>
-        <command id = "fetch_subtitles"     oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleFetchSubtitles(event)"/>
-        <command id = "try_other_languages" oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleTryOtherLanguages(event)"/>
-        <command id = "show_lang_list"      oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.showLangList(event)"/>
-        <command id = "browse_subtitles"    oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onBrowseSubtitles(event)"/>
-        <command id = "toggle_scan_tabs"    oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.toggleScanTabs(event)"/>
+        <command id = "cmd_start"           oncommand = "iitk.cse.cs213.bytubed.selectionManager.onStart(event)"/>
+        <command id = "cmd_cancel"          oncommand = "iitk.cse.cs213.bytubed.selectionManager.onCancel(event)"/>
+        <command id = "cmd_select_all"      oncommand = "iitk.cse.cs213.bytubed.selectionManager.onSelectAll(event)"/>
+        <command id = "suppress_errors"     oncommand = "iitk.cse.cs213.bytubed.selectionManager.toggleSuppression(event)"/>
+        <command id = "toggle_format"       oncommand = "iitk.cse.cs213.bytubed.selectionManager.toggleFormatDisabled(event)"/>
+        <command id = "manage_window"       oncommand = "iitk.cse.cs213.bytubed.selectionManager.manageWindow()"/>
+        <command id = "res_and_qual"        oncommand = "iitk.cse.cs213.bytubed.selectionManager.toggleResAndQual(event)"/>
+        <command id = "clip_len"            oncommand = "iitk.cse.cs213.bytubed.selectionManager.toggleClipLength(event)"/>
+        <command id = "silent_prefetching"  oncommand = "iitk.cse.cs213.bytubed.selectionManager.togglePrefetching(event)"/>
+        <command id = "fetch_subtitles"     oncommand = "iitk.cse.cs213.bytubed.selectionManager.toggleFetchSubtitles(event)"/>
+        <command id = "try_other_languages" oncommand = "iitk.cse.cs213.bytubed.selectionManager.toggleTryOtherLanguages(event)"/>
+        <command id = "show_lang_list"      oncommand = "iitk.cse.cs213.bytubed.selectionManager.showLangList(event)"/>
+        <command id = "browse_subtitles"    oncommand = "iitk.cse.cs213.bytubed.selectionManager.onBrowseSubtitles(event)"/>
+        <command id = "toggle_scan_tabs"    oncommand = "iitk.cse.cs213.bytubed.selectionManager.toggleScanTabs(event)"/>
     </commandset>
     <box flex = "1" class = "spacingPanel">
         <tabbox flex = "1">
             <tabs>
-                <tab label = "Selection"/>
-                <tab label = "Additional Features"/>
-                <tab label = "Preferences"/>
+                <tab label = "&tab.selection.label;"/>
+                <tab label = "&tab.additionalFeatures.label;"/>
+                <tab label = "&tab.preferences.label;"/>
             </tabs>
             <tabpanels flex = "1">
                 <tabpanel flex = "1">
                     <tree   id = "videoTitlesTree" hidecolumnpicker = "true" flex = "1"
-                            onselect = "IITK.CSE.CS213.BYTubeD.selectionManager.onSelect(event);">
+                            onselect = "iitk.cse.cs213.bytubed.selectionManager.onSelect(event);">
                         <treecols align = "stretch">
-                            <treecol id = "sno" label = "S.No" />
+                            <treecol id = "sno" label = "&treecol.sno.label;" />
                             <splitter class = "tree-splitter" />
-                            <treecol id = "title" label = "Title" flex = "100" />
+                            <treecol id = "title" label = "&treecol.title.label;" flex = "100" />
                             <splitter class = "tree-splitter" />
-                            <treecol id = "maxResolution" label = "Max Resolution"/>
+                            <treecol id = "maxResolution" label = "&treecol.maxResolution.label;"/>
                             <splitter class = "tree-splitter" />
-                            <treecol id = "maxQuality" label = "Max Quality"/>
+                            <treecol id = "maxQuality" label = "&treecol.maxQuality.label;"/>
                             <splitter class = "tree-splitter" />
-                            <treecol id = "clipLength" label = "Clip Length" flex = "2" />
+                            <treecol id = "clipLength" label = "&treecol.clipLength.label;" flex = "2" />
                         </treecols>
 
                         <treechildren   id = "treeChildren" flex = "1"
-                                        tooltiptext = "Hold Ctrl to select non-contiguous items">
+                                        tooltiptext = "&treechildren.tooltiptext;">
                         </treechildren>
                     </tree>
                 </tabpanel>
                 <tabpanel flex="1">
                     <tabbox flex = "1">
                         <tabs>
-                            <tab label = "Miscellaneous" />
-                            <tab label = "Subtitles" />
+                            <tab label = "&tab.miscellaneous.label;" />
+                            <tab label = "&tab.subtitles.label;" />
                         </tabs>
                         <tabpanels flex = "1">
                             <tabpanel flex = "1">
                                 <vbox flex="1">
                                     <groupbox flex="1" class="spacingPanel">
-                                        <description value="Places to scan for YouTube links:"/>
+                                        <description value="&description.placesToScan.value;"/>
                                         
                                         <vbox class="indent">
                                             <checkbox id="scanAllTabs"
-                                                      label="All tabs of the current window"
+                                                      label="&checkbox.scanAllTabs.label;"
                                                       checked="false"
                                                       persist="checked" 
                                                       command = "toggle_scan_tabs"/>
                                                     
                                             <hbox  class="indent">
                                                 <checkbox id="scanCurTabFirst"
-                                                      label="Scan the current tab first"
+                                                      label="&checkbox.scanCurTabFirst.label;"
                                                       checked="true"
                                                       persist="checked" />
                                             </hbox>
                                             <checkbox id="scanClipboard"
-                                                      label="System clipboard"
+                                                      label="&checkbox.scanClipboard.label;"
                                                       checked="false"
                                                       persist="checked" />
                                         </vbox>
-                                        <description
-                                            value="(Effective from the next invocation of BYTubeD)"/>
+                                        <description  value="&description.effectiveWhen.value;"/>
                                         
                                     </groupbox>
                                     <groupbox flex="1" orient="vertical" class="spacingPanel">
                                         <checkbox id    = "ignoreFileType"
-                                                  label = "Video format does not matter. Try to get the videos in requested quality."
+                                                  label = "&checkbox.ignoreFileType.label;"
                                                   checked = "false"
                                                   persist = "checked"
                                                   command = "toggle_format"/>
 
                                         <checkbox id = "preserveOrder"
-                                                  label = "Preserve order (prepends the file name with the serial number)."
+                                                  label = "&checkbox.preserveOrder.label;"
                                                   checked = "false"
                                                   persist = "checked" />
                                         
                                         <checkbox id = "prefetch"
-                                                  label   = "Silently prefetch downloadable video URLs (makes the next step faster)."
+                                                  label   = "&checkbox.prefetch.label;"
                                                   checked = "true" persist = "checked"
                                                   command = "silent_prefetching"/>
 
                                         <hbox   class = "indent middle" id = "showExtraInfo">
-                                            <description id="showInfoDesc" value = "Show"/>
+                                            <description id="showInfoDesc" value = "&description.showInfoDesc.value;"/>
 
                                             <checkbox id  = "showResolution"
-                                                  label   = "Max Resolution"
+                                                  label   = "&checkbox.showResolution.label;"
                                                   checked = "false" disabled = "false"
                                                   persist = "checked"
                                                   command = "res_and_qual"/>
 
                                             <checkbox id  = "showQuality"
-                                                  label   = "Max Quality"
+                                                  label   = "&checkbox.showQuality.label;"
                                                   checked = "false" disabled = "false"
                                                   persist = "checked"
                                                   command = "res_and_qual" />
                                                   
                                             <checkbox id  = "showClipLength"
-                                                  label   = "Clip Length"
+                                                  label   = "&checkbox.showClipLength.label;"
                                                   checked = "true" disabled = "false"
                                                   persist = "checked"
                                                   command = "clip_len" />
@@ -171,17 +172,17 @@
                                 <groupbox flex="1" class="spacingPanel">
                                     <hbox class="middle">
                                         <checkbox id = "fetchSubtitles"
-                                                label = "Fetch subtitles in"
+                                                label = "&checkbox.fetchSubtitles.label;"
                                                 checked = "false" 
                                                 persist = "checked" 
                                                 command = "fetch_subtitles"/>
                                         <menulist id="subtitleLangList" flex="1"/>
-                                        <description value="whenever available."/>
+                                        <description value="&description.whenAvailable.value;"/>
                                     </hbox>
                                     
                                     <vbox class="indent">
                                         <checkbox id="tryOtherLanguages"
-                                            label = "If subtitles are not available in the primary language, try the following languages in the given order."
+                                            label = "&checkbox.tryOtherLanguages.label;"
                                             checked = "false"
                                             persist = "checked"
                                             command = "try_other_languages" />
@@ -195,15 +196,15 @@
                                             <!-- <button label="Show All" command="show_lang_list"/> -->
                                         </hbox>
                                         
-                                        <checkbox id="fetchSubtitlesInAlternateDialect"
-                                                  label="If subtitles are not available in the requested dialect, try other dialects of the same language."
+                                        <checkbox id="tryOtherDialects"
+                                                  label="&checkbox.tryOtherDialects.label;"
                                                   checked="true"
                                                   persist="checked" />
                                         
                                         <hbox class="middle">
-                                            <description value="Destination directory for subtitles " />
-                                            <textbox id = "subtitleDestination" flex = "1" />
-                                            <button label = " Browse " command="browse_subtitles" id="browseSubtitles"
+                                            <description value="&description.subtitleDest.value; " />
+                                            <textbox id = "subtitleDest" flex = "1" />
+                                            <button label = " &button.browseSubtitles.label; " command="browse_subtitles" id="browseSubtitles"
                                                     image = "chrome://BYTubeD/skin/icons/Browse-16.png"/>
                                         </hbox>
                                     </vbox>
@@ -215,32 +216,29 @@
                 <tabpanel flex = "1">
                     <tabbox flex = "1">
                         <tabs>
-                            <tab label = "User Interaction" />
-                            <tab label = "Generate Links" />
-                            <tab label = "Window Management" />
+                            <tab label = "&tab.userInteraction.label;" />
+                            <tab label = "&tab.generateLinks.label;" />
+                            <tab label = "&tab.windowManagement.label;" />
                         </tabs>
                         <tabpanels flex = "1">
                             <tabpanel flex = "1">
 
                                 <groupbox class = "spacingPanel" flex = "1">
-
                                     <checkbox id        = "showDLWindow"
-                                              label     = "Popup the Downloads window after enqueueing all the videos, if 'What to do?' = 'Enqueue for Download'."
+                                              label     = "&checkbox.showDLWindow.label;"
                                               checked   = "true"
                                               persist   = "checked" />
 
                                     <checkbox id        = "closeQStatusWindow"
-                                              label     = "Close the queueing status window after processing all the requests unless there are some errors."
+                                              label     = "&checkbox.closeQStatusWindow.label;"
                                               checked   = "true"
                                               persist   = "checked" />
 
-                                    <checkbox id        = "suppressErrorMessages"
-                                              label     = "Suppress error messages. I don't want to see frequent error report requests."
+                                    <checkbox id        = "suppresErrors"
+                                              label     = "&checkbox.suppresErrors.label;"
                                               checked   = "false"
                                               persist   = "checked"
                                               command   = "suppress_errors"/>
-                                    
-                                    
                                 </groupbox>
 
                             </tabpanel>
@@ -250,28 +248,30 @@
 
                                     <description value = ""/>
 
-                                    <description value = "When 'What to do?' = 'Generate Links' ..." />
+                                    <description value = "&description.onGenerateLinks.value;" />
 
                                     <groupbox class = "spacingPanel" flex = "1">
-                                        <description value = "Generate an HTML file containing YouTube watch links for ..." />
+                                        <description value = "&description.genHtmlWatch.value;" />
                                         <hbox>
-                                            <checkbox id = "generateFailedLinks" label = "Failed requests"
+                                            <checkbox id = "generateFailedLinks"
+                                                      label = "&checkbox.generateFailedLinks.label;"
                                                       checked = "true" persist = "checked"/>
 
-                                            <checkbox id = "generateWatchLinks" label = "Successful requests"
+                                            <checkbox id = "generateWatchLinks" 
+                                                      label = "&checkbox.generateWatchLinks.label;"
                                                       checked = "false" persist = "checked"/>
                                         </hbox>
                                     </groupbox>
 
                                     <groupbox class = "spacingPanel" flex = "1">
-                                        <description value = "Generate text files containing YouTube watch links for ..." />
+                                        <description value = "&description.genTextWatch.value;" />
                                         <hbox>
                                             <checkbox id = "generateBadLinks"
-                                                      label = "Failed requests"
+                                                      label = "&checkbox.generateBadLinks.label;"
                                                       checked = "false" persist = "checked"/>
 
                                             <checkbox id = "generateGoodLinks"
-                                                      label = "Successful requests"
+                                                      label = "&checkbox.generateGoodLinks.label;"
                                                       checked = "false" persist = "checked"/>
                                         </hbox>
                                     </groupbox>
@@ -280,17 +280,17 @@
                             <tabpanel flex = "1">
                                 <groupbox class = "spacingPanel" flex = "1">
                                     <checkbox id = "resizeWindow"
-                                              label = "Try to resize the window to fit content."
+                                              label = "&checkbox.resizeWindow.label;"
                                               checked = "true" persist = "checked"
                                               command = "manage_window"/>
 
                                     <checkbox id = "centerWindow"
-                                              label = "Try to center the window after resizing."
+                                              label = "&checkbox.centerWindow.label;"
                                               checked = "true" persist = "checked"
                                               command = "manage_window"/>
 
                                     <checkbox id = "maintainAspectRatio"
-                                              label = "Maintain aspect ratio while resizing the window."
+                                              label = "&checkbox.maintainAspectRatio.label;"
                                               checked = "false" persist = "checked"
                                               command = "manage_window"/>
                                 </groupbox>
@@ -361,23 +361,23 @@
             <hbox flex = "1">
                 <textbox id = "destination" accesskey = "D" flex = "2" />
                 <button id = "browseButton" accesskey = "B" label = "  Browse"
-                        oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onBrowse(event)"
+                        oncommand = "iitk.cse.cs213.bytubed.selectionManager.onBrowse(event)"
                         image = "chrome://BYTubeD/skin/icons/Browse-16.png"/>
             </hbox>
 
             <hbox flex = "1">
                 <textbox id = "filter" accesskey = "F" flex = "1"
                          tooltiptext = "JavaScript regular expression for video selection."
-                         oninput = "IITK.CSE.CS213.BYTubeD.selectionManager.onFilterChange(event)"/>
+                         oninput = "iitk.cse.cs213.bytubed.selectionManager.onFilterChange(event)"/>
                 <checkbox id = "selectAll" label = "Select All"
                           checked = "false" persist = "checked" command = "cmd_select_all"/>
                 <button id = "start" accesskey = "S" label = "  Start" default = "true"
                         command = "cmd_start" image = "chrome://BYTubeD/skin/icons/Start-16.png" />
                 <button id = "help" accesskey = "H" label = "  Help"
-                        oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onHelp(event)"
+                        oncommand = "iitk.cse.cs213.bytubed.selectionManager.onHelp(event)"
                         image = "chrome://BYTubeD/skin/icons/Help-16.png" />
                 <button id = "cancel" accesskey = "C" label = "  Cancel" pack = "center"
-                        oncommand = "IITK.CSE.CS213.BYTubeD.selectionManager.onCancel(event)"
+                        oncommand = "iitk.cse.cs213.bytubed.selectionManager.onCancel(event)"
                         image = "chrome://BYTubeD/skin/icons/Cancel-16.png" />
             </hbox>
         </vbox>

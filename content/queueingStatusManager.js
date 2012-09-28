@@ -18,7 +18,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
+iitk.cse.cs213.bytubed.queueingStatusManager = {
     selectedVideoList   : null,
     destinationDirectory: "undefined",
     preferences         : null,
@@ -32,7 +32,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
     // onLoad is the handler for the event window.onload of qsMgr
     onLoad: function onLoad(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var qsMgr = iccb.queueingStatusManager;
@@ -65,7 +65,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
     // setStatus sets the given statusMessage in the status bar.
     setStatus: function setStatus(statusMessage)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             document.getElementById("status").label = statusMessage;
@@ -80,7 +80,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
     // it's job is to report progress to the user.
     reportProgress: function reportProgress(progressMessage)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var qsMgr = iccb.queueingStatusManager;
@@ -106,7 +106,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
     // it's job is to report failures to the user.
     reportError: function reportError(errorMessage, requestedUrl, criticalError)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         if(criticalError)
             window.close();
@@ -143,7 +143,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
     // check if the assigned task is completed.
     updateProgress: function updateProgress()
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var qsMgr = iccb.queueingStatusManager;
@@ -173,7 +173,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
 
     finishUp: function finishUp(terminate)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         if(!terminate) try
         {
             var qsMgr = iccb.queueingStatusManager;
@@ -218,7 +218,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
     commonHtml: function commonHtml()
     {
         var htmlString = "";
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
 
         try
         {
@@ -255,7 +255,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
 
     prepareBadLinksTextFile: function prepareBadLinksTextFile()
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var qsMgr = iccb.queueingStatusManager;
@@ -285,7 +285,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
 
     prepareGoodLinksTextFile: function prepareGoodLinksTextFile()
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var qsMgr = iccb.queueingStatusManager;
@@ -316,7 +316,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
 
     prepareWatchLinksFile: function prepareWatchLinksFile()
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var qsMgr = iccb.queueingStatusManager;
@@ -415,7 +415,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
 
     launchDownloadLinksFile: function launchDownloadLinksFile()
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var qsMgr = iccb.queueingStatusManager;
@@ -547,7 +547,7 @@ IITK.CSE.CS213.BYTubeD.queueingStatusManager = {
 
     onUnload: function onUnload(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var qsMgr = iccb.queueingStatusManager;

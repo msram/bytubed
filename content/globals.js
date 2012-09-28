@@ -18,19 +18,19 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-if(!IITK)
-    var IITK = {};
+if(!iitk)
+    var iitk = {};
 
-if(!IITK.CSE)
-    IITK.CSE = {};
+if(!iitk.cse)
+    iitk.cse = {};
 
-if(!IITK.CSE.CS213)
-    IITK.CSE.CS213 = {};
+if(!iitk.cse.cs213)
+    iitk.cse.cs213 = {};
 
-if(!IITK.CSE.CS213.BYTubeD)
-    IITK.CSE.CS213.BYTubeD = {};
+if(!iitk.cse.cs213.bytubed)
+    iitk.cse.cs213.bytubed = {};
 
-IITK.CSE.CS213.BYTubeD.services = {
+iitk.cse.cs213.bytubed.services = {
     downloadManager  :  Components.classes["@mozilla.org/download-manager;1"]
                                   .getService(Components.interfaces.nsIDownloadManager),
 
@@ -45,23 +45,23 @@ IITK.CSE.CS213.BYTubeD.services = {
 };
 
 // BYTubeD Preferences
-IITK.CSE.CS213.BYTubeD.prefs = Components.classes["@mozilla.org/preferences-service;1"]
+iitk.cse.cs213.bytubed.prefs = Components.classes["@mozilla.org/preferences-service;1"]
                                          .getService(Components.interfaces.nsIPrefService)
                                          .getBranch("extensions.bytubed@cs213.cse.iitk.ac.in.");
 
 
 // Version number
-IITK.CSE.CS213.BYTubeD.versionNumber = "";
+iitk.cse.cs213.bytubed.versionNumber = "";
 
 // Addon id
-IITK.CSE.CS213.BYTubeD.addonId = "bytubed@cs213.cse.iitk.ac.in";
+iitk.cse.cs213.bytubed.addonId = "bytubed@cs213.cse.iitk.ac.in";
 
 try
 {
     Components.utils.import("resource://gre/modules/AddonManager.jsm");
 
-    AddonManager.getAddonByID(IITK.CSE.CS213.BYTubeD.addonId, function(addon) {
-            IITK.CSE.CS213.BYTubeD.versionNumber = addon.version;
+    AddonManager.getAddonByID(iitk.cse.cs213.bytubed.addonId, function(addon) {
+            iitk.cse.cs213.bytubed.versionNumber = addon.version;
         });
 }
 catch(error)
@@ -70,24 +70,24 @@ catch(error)
 }
 
 // Constants for preference.todo
-IITK.CSE.CS213.BYTubeD.GENERATE_LINKS = 0;
-IITK.CSE.CS213.BYTubeD.ENQUEUE_LINKS = 1;
+iitk.cse.cs213.bytubed.GENERATE_LINKS = 0;
+iitk.cse.cs213.bytubed.ENQUEUE_LINKS = 1;
 
 // Suppress error messages
-IITK.CSE.CS213.BYTubeD.suppressErrorMessages = false;
+iitk.cse.cs213.bytubed.suppresErrors = false;
 
 
 // ------------------------ User interaction routines begin ---------------------------
 
-IITK.CSE.CS213.BYTubeD.reportRequestMessage = "There was some problem while I was doing my job.\n"+
+iitk.cse.cs213.bytubed.reportRequestMessage = "There was some problem while I was doing my job.\n"+
                                               "Please consider reporting this problem to my boss.\n\n" +
                                               "If you say \"OK\", then a mail window will be opened,\n" +
                                               "if you already have a mail client configured.";
 
-IITK.CSE.CS213.BYTubeD.reportProblem = function reportProblem(e, functionName)
+iitk.cse.cs213.bytubed.reportProblem = function reportProblem(e, functionName)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
-    if(! iccb.suppressErrorMessages)
+    var iccb = iitk.cse.cs213.bytubed;
+    if(! iccb.suppresErrors)
     {
         var ps   = iccb.services.promptService;
         try
@@ -117,7 +117,7 @@ IITK.CSE.CS213.BYTubeD.reportProblem = function reportProblem(e, functionName)
 
 // _showObjectProperties: shows the properties of obj as a list of key-value pairs
 // will be used for debugging.
-IITK.CSE.CS213.BYTubeD._showObjectProperties = function _showObjectProperties(obj)
+iitk.cse.cs213.bytubed._showObjectProperties = function _showObjectProperties(obj)
 {
     try
     {
@@ -142,7 +142,7 @@ IITK.CSE.CS213.BYTubeD._showObjectProperties = function _showObjectProperties(ob
 **/
 
 // Prepend a number with zeros: num is the number and count is the total number of digits at the end
-IITK.CSE.CS213.BYTubeD.zeroPad = function zeroPad(num, count)
+iitk.cse.cs213.bytubed.zeroPad = function zeroPad(num, count)
 {
     try
     {
@@ -160,7 +160,7 @@ IITK.CSE.CS213.BYTubeD.zeroPad = function zeroPad(num, count)
 };
 
 // commpute the number of digits in num
-IITK.CSE.CS213.BYTubeD.digitCount = function digitCount(num)
+iitk.cse.cs213.bytubed.digitCount = function digitCount(num)
 {
     try
     {
@@ -180,7 +180,7 @@ IITK.CSE.CS213.BYTubeD.digitCount = function digitCount(num)
 
 // getParamsFromUrl returns a dictionary of key-val pairs based on the query string in url
 // returns null if there is no query string in the url
-IITK.CSE.CS213.BYTubeD.getParamsFromUrl = function getParamsFromUrl(url)
+iitk.cse.cs213.bytubed.getParamsFromUrl = function getParamsFromUrl(url)
 {
     try
     {
@@ -210,7 +210,7 @@ IITK.CSE.CS213.BYTubeD.getParamsFromUrl = function getParamsFromUrl(url)
 // getIndexByKey returns the index of objList for which objList[index][key] and value areEqual.
 // areEqual is the function to use to say whether two 'things' are equal.
 // returns -1 if key is not found in objList[i] or objList[i][key] != value for any i.
-IITK.CSE.CS213.BYTubeD.getIndexByKey = function getIndexByKey(objList, key, value, areEqual)
+iitk.cse.cs213.bytubed.getIndexByKey = function getIndexByKey(objList, key, value, areEqual)
 {
     // This function is only for integer-indexed objLists. 
     // Use a different function for string-indexed objLists.
@@ -230,9 +230,9 @@ IITK.CSE.CS213.BYTubeD.getIndexByKey = function getIndexByKey(objList, key, valu
     return -1;
 }
 
-IITK.CSE.CS213.BYTubeD.stripHTML = function stripHTML(text, stripLevel)
+iitk.cse.cs213.bytubed.stripHTML = function stripHTML(text, stripLevel)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
         // Based on the post by Lenka (http://stackoverflow.com/users/876375/lenka) on
@@ -288,7 +288,7 @@ IITK.CSE.CS213.BYTubeD.stripHTML = function stripHTML(text, stripLevel)
     }
 }
 
-IITK.CSE.CS213.BYTubeD.escapeEntities = function escapeEntities(inputText)  
+iitk.cse.cs213.bytubed.escapeEntities = function escapeEntities(inputText)  
 {
     return inputText.replace(/&amp;/g, "&")
                     .replace(/&lt;/g, "<")
@@ -307,7 +307,7 @@ IITK.CSE.CS213.BYTubeD.escapeEntities = function escapeEntities(inputText)
 // -----------------------------------------------------------------------------
 
 // Create a nsILocalFile object for a given fileName in the given directory.
-IITK.CSE.CS213.BYTubeD.File = function File(fileName, directory)
+iitk.cse.cs213.bytubed.File = function File(fileName, directory)
 {
     var file = null;
     try
@@ -326,9 +326,9 @@ IITK.CSE.CS213.BYTubeD.File = function File(fileName, directory)
     return file;
 };
 
-IITK.CSE.CS213.BYTubeD.createFileIfNotExists = function createFileIfNotExists(fileName, directory)
+iitk.cse.cs213.bytubed.createFileIfNotExists = function createFileIfNotExists(fileName, directory)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     var file = null;
     try
     {
@@ -347,7 +347,7 @@ IITK.CSE.CS213.BYTubeD.createFileIfNotExists = function createFileIfNotExists(fi
 };
 
 
-IITK.CSE.CS213.BYTubeD.writeTextToFileByFileRef = function writeTextToFileByFileRef(text, fileRef)
+iitk.cse.cs213.bytubed.writeTextToFileByFileRef = function writeTextToFileByFileRef(text, fileRef)
 {
     try
     {
@@ -373,7 +373,7 @@ IITK.CSE.CS213.BYTubeD.writeTextToFileByFileRef = function writeTextToFileByFile
     }
     catch(error)
     {
-        //IITK.CSE.CS213.BYTubeD.services.promptService.confirm(window,
+        //iitk.cse.cs213.bytubed.services.promptService.confirm(window,
         //    "File write failed!",
         //    "Writing text to " + (file? file.path: "file") + " failed due to " + error.message + ".");
         return false;
@@ -383,7 +383,7 @@ IITK.CSE.CS213.BYTubeD.writeTextToFileByFileRef = function writeTextToFileByFile
 // getPathSeparator: returns file path separator under current OS
 // Suggested by bhovhannes on StackOverFlow
 // http://stackoverflow.com/questions/5814143/how-to-check-the-directory-separator-in-xpcom-component-via-js
-IITK.CSE.CS213.BYTubeD.getPathSeparator = function getPathSeparator()
+iitk.cse.cs213.bytubed.getPathSeparator = function getPathSeparator()
 {
     try
     {
@@ -408,9 +408,9 @@ IITK.CSE.CS213.BYTubeD.getPathSeparator = function getPathSeparator()
         destDir: destination directory as a string 
                : nested directories should be seperated by '/' (forward slash)
 */ 
-IITK.CSE.CS213.BYTubeD.saveTextInAddonDirectory = function saveTextInAddonDirectory(text, fileName, destDir)
+iitk.cse.cs213.bytubed.saveTextInAddonDirectory = function saveTextInAddonDirectory(text, fileName, destDir)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
         var Cc = Components.classes;
@@ -458,12 +458,12 @@ IITK.CSE.CS213.BYTubeD.saveTextInAddonDirectory = function saveTextInAddonDirect
     }
 };
 
-IITK.CSE.CS213.BYTubeD.writeTextToFile = function writeTextToFile(text,
+iitk.cse.cs213.bytubed.writeTextToFile = function writeTextToFile(text,
                                                                     fileName,
                                                                     primaryDestination,
                                                                     secondaryDestination)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     var file = null;
     try
     {
@@ -498,7 +498,7 @@ IITK.CSE.CS213.BYTubeD.writeTextToFile = function writeTextToFile(text,
 };
 
 // Return: text, on success; null, if file read fails
-IITK.CSE.CS213.BYTubeD.readTextFromFileByFileRef = function readTextFromFileByFileRef(fileRef)
+iitk.cse.cs213.bytubed.readTextFromFileByFileRef = function readTextFromFileByFileRef(fileRef)
 {   
     try
     {
@@ -528,7 +528,7 @@ IITK.CSE.CS213.BYTubeD.readTextFromFileByFileRef = function readTextFromFileByFi
     catch(error)
     {
         /*
-        IITK.CSE.CS213.BYTubeD.services.promptService.confirm(window,
+        iitk.cse.cs213.bytubed.services.promptService.confirm(window,
             "File read failed!",
             "Reading text from " + fileRef.path + " failed due to " + error.message + " in line " + error.lineNumber + ".");
         */
@@ -545,9 +545,9 @@ IITK.CSE.CS213.BYTubeD.readTextFromFileByFileRef = function readTextFromFileByFi
                
     callsback with text, which is either a string or null based on whether the file read was successful or not.
 */ 
-IITK.CSE.CS213.BYTubeD.readTextFromAddonDirectory = function readTextFromAddonDirectory(fileName, destDir, callback)
+iitk.cse.cs213.bytubed.readTextFromAddonDirectory = function readTextFromAddonDirectory(fileName, destDir, callback)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     var text = null;
     try
     {
@@ -601,7 +601,7 @@ IITK.CSE.CS213.BYTubeD.readTextFromAddonDirectory = function readTextFromAddonDi
 */
 
 // removeAllItems removes all items from listObject.
-IITK.CSE.CS213.BYTubeD.removeAllItems = function removeAllItems(listObject)
+iitk.cse.cs213.bytubed.removeAllItems = function removeAllItems(listObject)
 {
     try
     {
@@ -619,9 +619,9 @@ IITK.CSE.CS213.BYTubeD.removeAllItems = function removeAllItems(listObject)
 
 // restoreSelectionByValue sets the selection of menuList to the given selectedValue
 // Use it only for menulist control; don't use it for listbox control.
-IITK.CSE.CS213.BYTubeD.restoreSelectionByValue = function(menuList, selectedValue)
+iitk.cse.cs213.bytubed.restoreSelectionByValue = function(menuList, selectedValue)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
         var curValue = "";

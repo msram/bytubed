@@ -40,7 +40,7 @@
                 label="&BYTubeD.label;"
                 tooltiptext="&BYTubeD.tooltip;"
                 accesskey="&BYTubeDContext.accesskey;"
-                oncommand="IITK.CSE.CS213.BYTubeD.Main.onMenuItemCommand(event);"/>
+                oncommand="iitk.cse.cs213.bytubed.Main.onMenuItemCommand(event);"/>
     </menupopup>
 
     <popup id="contentAreaContextMenu">
@@ -48,7 +48,7 @@
         <menuitem id="context-BYTubeD" label="&BYTubeDContext.label;" class="menuitem-iconic"
                     accesskey="&BYTubeDContext.accesskey;"
                     tooltiptext="&BYTubeD.tooltip;"
-                    oncommand="IITK.CSE.CS213.BYTubeD.Main.onMenuItemCommand(event)"/>
+                    oncommand="iitk.cse.cs213.bytubed.Main.onMenuItemCommand(event)"/>
     </popup>
 
     <toolbarpalette id="BrowserToolbarPalette">
@@ -56,7 +56,7 @@
                     label="&BYTubeDToolbar.label;"
                     accesskey="&BYTubeDContext.accesskey;"
                     tooltiptext="&BYTubeD.tooltip;"
-                    oncommand="IITK.CSE.CS213.BYTubeD.Main.onToolbarButtonCommand()"
+                    oncommand="iitk.cse.cs213.bytubed.Main.onToolbarButtonCommand()"
                     class="toolbarbutton-1 chromeclass-toolbar-additional"/>
     </toolbarpalette>
 

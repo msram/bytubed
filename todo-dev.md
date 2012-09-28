@@ -31,7 +31,7 @@ III. Major Features
 
 IV. Code Improvements
 ----------------------
-1. Use iccb for IITK.CSE.CS213.BYTubeD everywhere.
+1. Use iccb for iitk.cse.cs213.bytubed everywhere.
     (done)
     
 2. Code Cleanup

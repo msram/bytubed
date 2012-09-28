@@ -1,6 +1,6 @@
 ﻿// A list of languages to start with; totally there are 14 languages so far.
 
-IITK.CSE.CS213.BYTubeD.langList = {
+iitk.cse.cs213.bytubed.langList = {
 	af: {lang_code: "af", lang_original: "Afrikaans", lang_translated: "Afrikaans"},
 	ar: {lang_code: "ar", lang_original: "العربية", lang_translated: "Arabic"},
 	zh_Hant: {lang_code: "zh-Hant", lang_original: "中文（繁體中文）", lang_translated: "Chinese (Traditional)"},

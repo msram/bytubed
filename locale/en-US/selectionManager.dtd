@@ -1,0 +1,46 @@
+<!ENTITY window.title                       "BYTubeD - Select the videos to be downloaded">
+<!ENTITY tab.selection.label                "Selection">
+<!ENTITY tab.additionalFeatures.label       "Additional Features">
+<!ENTITY tab.preferences.label              "Preferences">
+<!ENTITY treecol.sno.label                  "S.No">
+<!ENTITY treecol.title.label                "Title">
+<!ENTITY treecol.maxResolution.label        "Max Resolution">
+<!ENTITY treecol.maxQuality.label           "Max Quality">
+<!ENTITY treecol.clipLength.label           "Clip Length">
+<!ENTITY treechildren.tooltiptext           "Hold Ctrl to select non-contiguous items">
+<!ENTITY tab.miscellaneous.label            "Miscellaneous">
+<!ENTITY tab.subtitles.label                "Subtitles">
+<!ENTITY description.placesToScan.value     "Places to scan for YouTube links:">
+<!ENTITY checkbox.scanAllTabs.label         "All tabs of the current window">
+<!ENTITY checkbox.scanCurTabFirst.label     "Scan the current tab first">
+<!ENTITY checkbox.scanClipboard.label       "System clipboard">
+<!ENTITY description.effectiveWhen.value    "(Effective from the next invocation of BYTubeD)">
+<!ENTITY checkbox.ignoreFileType.label      "Video format does not matter. Try to get the videos in requested quality.">
+<!ENTITY checkbox.preserveOrder.label       "Preserve order (prepends the file name with the serial number).">
+<!ENTITY checkbox.prefetch.label            "Silently prefetch downloadable video URLs (makes the next step faster).">
+<!ENTITY description.showInfoDesc.value     "Show">
+<!ENTITY checkbox.showResolution.label      "Max Resolution">
+<!ENTITY checkbox.showQuality.label         "Max Quality">
+<!ENTITY checkbox.showClipLength.label      "Clip Length">
+<!ENTITY checkbox.fetchSubtitles.label      "Fetch subtitles in">
+<!ENTITY description.whenAvailable.value    "whenever available.">
+<!ENTITY checkbox.tryOtherLanguages.label   "If subtitles are not available in the primary language, try the following languages in the given order.">
+<!ENTITY checkbox.tryOtherDialects.label    "If subtitles are not available in the requested dialect, try other dialects of the same language.">
+<!ENTITY description.subtitleDest.value     "Destination directory for subtitles">
+<!ENTITY button.browseSubtitles.label       "Browse">
+<!ENTITY tab.userInteraction.label          "User Interaction">
+<!ENTITY tab.generateLinks.label            "Generate Links">
+<!ENTITY tab.windowManagement.label         "Window Management">
+<!ENTITY checkbox.showDLWindow.label        "Popup the Downloads window after enqueueing all the videos, if 'What to do?' = 'Enqueue for Download'.">
+<!ENTITY checkbox.closeQStatusWindow.label  "Close the queueing status window after processing all the requests unless there are some errors.">
+<!ENTITY checkbox.suppresErrors.label       "Suppress error messages. I don't want to see frequent error report requests.">
+<!ENTITY description.onGenerateLinks.value  "When 'What to do?' = 'Generate Links' ...">
+<!ENTITY description.genHtmlWatch.value     "Generate an HTML file containing YouTube watch links for ...">
+<!ENTITY checkbox.generateFailedLinks.label "Failed requests">
+<!ENTITY checkbox.generateWatchLinks.label  "Successful requests">
+<!ENTITY description.genTextWatch.value     "Generate text files containing YouTube watch links for ...">
+<!ENTITY checkbox.generateBadLinks.label    "Failed requests">
+<!ENTITY checkbox.generateGoodLinks.label   "Successful requests">
+<!ENTITY checkbox.resizeWindow.label        "Try to resize the window to fit content.">
+<!ENTITY checkbox.centerWindow.label        "Try to center the window after resizing.">
+<!ENTITY checkbox.maintainAspectRatio.label "Maintain aspect ratio while resizing the window.">    

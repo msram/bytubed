@@ -25,7 +25,7 @@
  * further layers. If a user preference is not needed beyond selectionManager,
  * then it won't be store in the Preferences ADT
  */
-IITK.CSE.CS213.BYTubeD.Preferences = function()
+iitk.cse.cs213.bytubed.Preferences = function()
 {
     this.format             = "flv";
     this.quality            = "720p";
@@ -36,7 +36,7 @@ IITK.CSE.CS213.BYTubeD.Preferences = function()
 
     this.showDLWindow           = true;
     this.closeQStatusWindow     = false;
-    this.suppressErrorMessages  = false;
+    this.suppresErrors  = false;
     
     this.fetchSubtitles         = false;
     this.subtitleLangCodes      = new Array();
@@ -48,10 +48,10 @@ IITK.CSE.CS213.BYTubeD.Preferences = function()
     this.generateGoodLinks      = false;
     
     this.destinationDirectory   = "";
-    this.subtitleDestination    = "";
+    this.subtitleDest    = "";
 };
 
-IITK.CSE.CS213.BYTubeD.InvocationInfo = function()
+iitk.cse.cs213.bytubed.InvocationInfo = function()
 {
     this.timeStamp          = "";
     this.sourcePageUrl      = "";
@@ -63,21 +63,21 @@ IITK.CSE.CS213.BYTubeD.InvocationInfo = function()
     };
 };
 
-IITK.CSE.CS213.BYTubeD.helpPageLink = "http://msram.github.com/bytubed/help.html";
+iitk.cse.cs213.bytubed.helpPageLink = "http://msram.github.com/bytubed/help.html";
 
-IITK.CSE.CS213.BYTubeD.validVidLength = 11; // As of this writing.
+iitk.cse.cs213.bytubed.validVidLength = 11; // As of this writing.
 
-IITK.CSE.CS213.BYTubeD.undesirablePattern   =
+iitk.cse.cs213.bytubed.undesirablePattern   =
     new RegExp( "^http|^<img|thumb|Back(\\s)+$|" +
                 "play.all|view.comments|return.to|play.video|" +
                 "sign.out|sign.in|switch.account|^(none)$", "igm");
 
-IITK.CSE.CS213.BYTubeD.youTubePatterns      =
+iitk.cse.cs213.bytubed.youTubePatterns      =
     new RegExp( "(youtube\\.com\\/v\\/|\\/watch\\?v=|" +
                 "youtube\\.com\\/embed\\/|\\/movie?v=|" +
                 "youtu\\.be\\/|y2u\\.be\\/)([a-zA-Z0-9_-]{11})", "igm");
 
-IITK.CSE.CS213.BYTubeD.patternToBeRemoved   =
+iitk.cse.cs213.bytubed.patternToBeRemoved   =
     new RegExp( "(youtube\\.com\\/v\\/|\\/watch\\?(.)*v=|" +
                 "youtube\\.com\\/embed\\/|\\/movie?v=|" +
                 "youtu\\.be\\/|y2u\\.be\\/)", "igm");
@@ -92,11 +92,11 @@ IITK.CSE.CS213.BYTubeD.patternToBeRemoved   =
  *      true, if str has undesirable patterns;
  *      false, otherwise
  */
-IITK.CSE.CS213.BYTubeD.hasUndesirablePatterns = function hasUndesirablePatterns(str)
+iitk.cse.cs213.bytubed.hasUndesirablePatterns = function hasUndesirablePatterns(str)
 {
     try
     {
-        return IITK.CSE.CS213.BYTubeD.undesirablePattern.test(str);
+        return iitk.cse.cs213.bytubed.undesirablePattern.test(str);
     }
     catch(error)
     {
@@ -105,7 +105,7 @@ IITK.CSE.CS213.BYTubeD.hasUndesirablePatterns = function hasUndesirablePatterns(
     return false;
 };
 
-IITK.CSE.CS213.BYTubeD.isValidVid = function isValidVid(vid)
+iitk.cse.cs213.bytubed.isValidVid = function isValidVid(vid)
 {
     try
     {
@@ -118,9 +118,9 @@ IITK.CSE.CS213.BYTubeD.isValidVid = function isValidVid(vid)
     return false;
 };
 
-IITK.CSE.CS213.BYTubeD.isYouTubeLink = function isYouTubeLink(link)
+iitk.cse.cs213.bytubed.isYouTubeLink = function isYouTubeLink(link)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
         var yp = iccb.youTubePatterns;
@@ -147,9 +147,9 @@ IITK.CSE.CS213.BYTubeD.isYouTubeLink = function isYouTubeLink(link)
  * @return
  *      YouTube video-id found in ytURL
  **/
-IITK.CSE.CS213.BYTubeD.getVidFromUrl = function getVidFromUrl(ytURL)
+iitk.cse.cs213.bytubed.getVidFromUrl = function getVidFromUrl(ytURL)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
         return iccb.getParamsFromUrl(ytURL)["v"];
@@ -171,9 +171,9 @@ IITK.CSE.CS213.BYTubeD.getVidFromUrl = function getVidFromUrl(ytURL)
  * @return array of YouTube video IDs found in text
  *
  */
-IITK.CSE.CS213.BYTubeD.getVidsFromText = function getVidsFromText(text)
+iitk.cse.cs213.bytubed.getVidsFromText = function getVidsFromText(text)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     var vids = new Array();
     var patternToBeRemoved = iccb.patternToBeRemoved;
     try
@@ -200,14 +200,14 @@ IITK.CSE.CS213.BYTubeD.getVidsFromText = function getVidsFromText(text)
  *      true, if vid was found in vids;
  *      false, otherwise
  */
-IITK.CSE.CS213.BYTubeD.yetToBeProcessed = function yetToBeProcessed(vid, vids)
+iitk.cse.cs213.bytubed.yetToBeProcessed = function yetToBeProcessed(vid, vids)
 {
     return vids.indexOf(vid) == -1;
 };
 
-IITK.CSE.CS213.BYTubeD.getVidsFromLinks = function getVidsFromLinks(links)
+iitk.cse.cs213.bytubed.getVidsFromLinks = function getVidsFromLinks(links)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     var vids = new Array();
     try
     {
@@ -224,9 +224,9 @@ IITK.CSE.CS213.BYTubeD.getVidsFromLinks = function getVidsFromLinks(links)
 }
 
 // Works by side-effect; Updates the varialbe "links"
-IITK.CSE.CS213.BYTubeD.buildLinksForVids = function buildLinksForVids(vids, links, processedVids)
+iitk.cse.cs213.bytubed.buildLinksForVids = function buildLinksForVids(vids, links, processedVids)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     var watchUrlPrefix =  iccb.watchUrlPrefix;
     
     try
@@ -259,9 +259,9 @@ IITK.CSE.CS213.BYTubeD.buildLinksForVids = function buildLinksForVids(vids, link
 };
 
 // getMajorityLength: returns the mode of the lengths of the video-ids from links
-IITK.CSE.CS213.BYTubeD.getMajorityLength = function getMajorityLength(links)
+iitk.cse.cs213.bytubed.getMajorityLength = function getMajorityLength(links)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     
     /*
         Implementation of MJRTY algorithm of
@@ -292,9 +292,9 @@ IITK.CSE.CS213.BYTubeD.getMajorityLength = function getMajorityLength(links)
 };
 
 // buildLinks builds anchors from contentDocument and clipboard
-IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument, links)
+iitk.cse.cs213.bytubed.buildLinks = function buildLinks(contentDocument, links)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
         if(links == null)
@@ -424,9 +424,9 @@ IITK.CSE.CS213.BYTubeD.buildLinks = function buildLinks(contentDocument, links)
     }
 };
 
-IITK.CSE.CS213.BYTubeD.getLinksFromClipboard = function getLinksFromClipboard(links)
+iitk.cse.cs213.bytubed.getLinksFromClipboard = function getLinksFromClipboard(links)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
         /*
@@ -492,9 +492,9 @@ IITK.CSE.CS213.BYTubeD.getLinksFromClipboard = function getLinksFromClipboard(li
     }
 };
 
-IITK.CSE.CS213.BYTubeD.getLinksFromAllTabs = function getLinksFromAllTabs(browsers, currentDocument, links)
+iitk.cse.cs213.bytubed.getLinksFromAllTabs = function getLinksFromAllTabs(browsers, currentDocument, links)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
         for(var i=0; i<browsers.length; i++)
@@ -509,9 +509,9 @@ IITK.CSE.CS213.BYTubeD.getLinksFromAllTabs = function getLinksFromAllTabs(browse
     }
 };
 
-IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitle(link)
+iitk.cse.cs213.bytubed.getTitleAndDisplayTitle = function getTitleAndDisplayTitle(link)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     
     var title = "";
     var displayTitle = "";
@@ -614,7 +614,7 @@ IITK.CSE.CS213.BYTubeD.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
     return [title, displayTitle];
 };
 
-IITK.CSE.CS213.BYTubeD.selectionManager = {
+iitk.cse.cs213.bytubed.selectionManager = {
     videoList: new Array(),
     destinationDirectory: null,
     invocationInfo: null,
@@ -624,7 +624,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     onLoad: function onLoad(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         var selMgr  = iccb.selectionManager;
         try
         {
@@ -634,8 +634,8 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
             var prefs       = iccb.prefs;
 
-            var chkd = document.getElementById("suppressErrorMessages").checked;
-            iccb.suppressErrorMessages = chkd;
+            var chkd = document.getElementById("suppresErrors").checked;
+            iccb.suppresErrors = chkd;
 
             var destination = document.getElementById("destination");
             var dlMgr       = iccb.services.downloadManager;
@@ -646,12 +646,12 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
             else
                 destination.value   = iccb.utf8to16(destDir);
                 
-            var subtitleDestination = document.getElementById("subtitleDestination");
-            var destDir1 = prefs.getCharPref("subtitleDestination");
+            var subtitleDest = document.getElementById("subtitleDest");
+            var destDir1 = prefs.getCharPref("subtitleDest");
             if(!destDir1 || destDir1 == "")
-                subtitleDestination.value = destination.value;
+                subtitleDest.value = destination.value;
             else
-                subtitleDestination.value = iccb.utf8to16(destDir1);
+                subtitleDest.value = iccb.utf8to16(destDir1);
             
             // ----------------------- END Important ----------------------- //
 
@@ -749,7 +749,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     loadFlags: function loadFlags()
     {
-        var selMgr = IITK.CSE.CS213.BYTubeD.selectionManager;
+        var selMgr = iitk.cse.cs213.bytubed.selectionManager;
         
         selMgr.onSelectAll();
         selMgr.togglePrefetching();
@@ -761,7 +761,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     
     buildVideoList: function buildVideoList(links)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -875,7 +875,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     initiatePrefetching: function initiatePrefetching(selMgr, vid)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -905,7 +905,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     setTitleUsingInfo: function setTitleUsingInfo(selMgr, info, url)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -963,7 +963,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     setTitleUsingYouTubePageInfo: function setTitleUsingYouTubePageInfo( selMgr, html, url)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -981,7 +981,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     setFieldsCommonCode: function setFieldsCommonCode(selMgr, vid, swf_map, failureString)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1070,7 +1070,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     manageWindow: function manageWindow(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1096,7 +1096,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     resizeWindow: function resizeWindow()
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1121,7 +1121,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     centerWindow: function centerWindow()
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             // This condition makes sure that we don't mess with "maximize"
@@ -1162,7 +1162,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     maintainAspectRatio: function maintainAspectRatio()
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         // This function uses the idea suggested by paxdiablo at
         // http://stackoverflow.com/questions/1186414/whats-the-algorithm-to-calculate-aspect-ratio-i-need-an-output-like-43-169
@@ -1217,7 +1217,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     // loadSubtitleLangs: prepares iccb.langList by parsing text
     loadSubtitleLangs: function loadSubtitleLangs(text)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         var selMgr = iccb.selectionManager;
         
         // Make sure text is non-empty
@@ -1261,7 +1261,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     // loadDefaultSubtitleLanguages: loads the list of languages from langList <- subtitles.js
     loadDefaultSubtitleLanguages: function loadDefaultSubtitleLanguages()
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1325,7 +1325,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     
     showLangList: function showLangList(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1341,7 +1341,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     // Fetch the list all languages in which closed captions (subtitles) are available
     fetchSubtitleLangList: function fetchSubtitleLangList()
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var selMgr = iccb.selectionManager;
@@ -1359,7 +1359,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     
     getSubtitleLangList: function getSubtitleLangList(vid)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1378,7 +1378,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     
     processSubtitleLangList: function processSubtitleLangList(previousBirth, xmlText, url)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1440,7 +1440,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     
     keyPressed: function keyPressed(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1474,7 +1474,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     onBrowse: function onBrowse(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1502,7 +1502,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     onBrowseSubtitles: function onBrowseSubtitles(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1518,7 +1518,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
             if(result == Ci.nsIFilePicker.returnOK)
             {
-                destination = document.getElementById("subtitleDestination");
+                destination = document.getElementById("subtitleDest");
                 destination.value = fp.file.path;
             }
         }
@@ -1530,7 +1530,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     
     onPreferences: function onPreferences(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1548,7 +1548,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     onSelect: function onSelect(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1570,7 +1570,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     onStart: function onStart(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1612,7 +1612,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
             try
             {
-                file.initWithPath(document.getElementById("subtitleDestination").value);
+                file.initWithPath(document.getElementById("subtitleDest").value);
             }
             catch(error)
             {
@@ -1659,7 +1659,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
             
             // don't mess with c10 or worry about all occurences of c10 below.
             var c10 = document.getElementById("tryOtherLanguages").checked; 
-            var c11 = document.getElementById("fetchSubtitlesInAlternateDialect").checked;
+            var c11 = document.getElementById("tryOtherDialects").checked;
             
             preferences.format              = supportedFormats[i1];
             preferences.quality             = supportedQualities[i2];
@@ -1675,10 +1675,10 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
             preferences.fetchSubtitles      = c9;
             // preferences.tryOtherLanguages   = c10; // this is not needed.
             
-            preferences.fetchSubtitlesInAlternateDialect = c11;
+            preferences.tryOtherDialects = c11;
             
             preferences.destinationDirectory = selMgr.destinationDirectory; // Used in processing subtitles
-            preferences.subtitleDestination  = document.getElementById("subtitleDestination").value;
+            preferences.subtitleDest  = document.getElementById("subtitleDest").value;
             
             if(preferences.fetchSubtitles)
             {
@@ -1750,7 +1750,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     
     toggleFetchSubtitles: function toggleFetchSubtitles(event)
     {
-        var iccb    = IITK.CSE.CS213.BYTubeD;
+        var iccb    = iitk.cse.cs213.bytubed;
         var selMgr  = iccb.selectionManager;
         try
         {
@@ -1764,8 +1764,8 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                 secondaryLanguages[i].disabled = !fetchingEnabled || !tryingOtherLanguagesEnabled;
             
             document.getElementById("tryOtherLanguages").disabled = !fetchingEnabled;
-            document.getElementById("fetchSubtitlesInAlternateDialect").disabled = !fetchingEnabled;
-            document.getElementById("subtitleDestination").disabled = !fetchingEnabled;
+            document.getElementById("tryOtherDialects").disabled = !fetchingEnabled;
+            document.getElementById("subtitleDest").disabled = !fetchingEnabled;
             document.getElementById("browseSubtitles").disabled = !fetchingEnabled;
             
             if(fetchingEnabled)
@@ -1779,7 +1779,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     
     toggleTryOtherLanguages: function toggleTryOtherLanguages(event)
     {
-        var iccb    = IITK.CSE.CS213.BYTubeD;
+        var iccb    = iitk.cse.cs213.bytubed;
         var selMgr  = iccb.selectionManager;
         try
         {
@@ -1798,7 +1798,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     
     toggleScanTabs: function toggleScanTabs(event)
     {
-        var iccb    = IITK.CSE.CS213.BYTubeD;
+        var iccb    = iitk.cse.cs213.bytubed;
         var selMgr  = iccb.selectionManager;
         try
         {
@@ -1818,12 +1818,12 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     
     toggleSuppression: function toggleSuppression(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
-            iccb.suppressErrorMessages =
-                    document.getElementById("suppressErrorMessages").checked;
+            iccb.suppresErrors =
+                    document.getElementById("suppresErrors").checked;
         }
         catch(error)
         {
@@ -1833,7 +1833,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     toggleFormatDisabled: function toggleFormatDisabled(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1848,7 +1848,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     toggleResAndQual: function toggleResAndQual(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1869,7 +1869,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     toggleClipLength: function toggleClipLength(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1886,7 +1886,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
     
     togglePrefetching: function togglePrefetching(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1919,7 +1919,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     onHelp: function onHelp(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -1945,7 +1945,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     onUnload: function onUnload(event)
     {
-        var iccb   = IITK.CSE.CS213.BYTubeD;
+        var iccb   = iitk.cse.cs213.bytubed;
         var selMgr = iccb.selectionManager;
         
         try
@@ -1992,8 +1992,8 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
                 if(secondaryLanguages[i].selectedItem && secondaryLanguages[i].selectedItem.value)
                     iccb.prefs.setCharPref("subtitleLangCode" + (i+1), secondaryLanguages[i].selectedItem.value);
 
-            var dest1 = document.getElementById("subtitleDestination");
-            iccb.prefs.setCharPref("subtitleDestination", iccb.utf16to8(dest1.value));
+            var dest1 = document.getElementById("subtitleDest");
+            iccb.prefs.setCharPref("subtitleDest", iccb.utf16to8(dest1.value));
             
             // Save the subtitle language list, if the window is not aborting.
             if(!selMgr.aborting)
@@ -2007,7 +2007,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     onSelectAll: function onSelectAll(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -2026,7 +2026,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     applyFilter: function applyFilter(filterText)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -2067,7 +2067,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     onFilterChange: function onFilterChange(event)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -2109,7 +2109,7 @@ IITK.CSE.CS213.BYTubeD.selectionManager = {
 
     setStatus: function(statusMessage)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {

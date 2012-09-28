@@ -28,8 +28,8 @@
 <window id="BYTubeD" title="BYTubeD - Queueing status window"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        onload="IITK.CSE.CS213.BYTubeD.queueingStatusManager.onLoad(event)"
-        onunload="IITK.CSE.CS213.BYTubeD.queueingStatusManager.onUnload(event)">
+        onload="iitk.cse.cs213.bytubed.queueingStatusManager.onLoad(event)"
+        onunload="iitk.cse.cs213.bytubed.queueingStatusManager.onUnload(event)">
 
     <!-- <html:link rel="icon" href="chrome://BYTubeD/skin/icons/Down-32.png" /> -->
 

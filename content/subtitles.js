@@ -1,14 +1,14 @@
 ﻿// URLs for Closed Captions aka subtitles
-IITK.CSE.CS213.BYTubeD.subtitleLangListURL = "http://www.youtube.com/api/timedtext?type=list&v=VIDEO_ID";
-IITK.CSE.CS213.BYTubeD.subtitleURL = "http://www.youtube.com/api/timedtext?v=VIDEO_ID&lang=LANGUAGE_CODE&name=LANG_NAME";
+iitk.cse.cs213.bytubed.subtitleLangListURL = "http://www.youtube.com/api/timedtext?type=list&v=VIDEO_ID";
+iitk.cse.cs213.bytubed.subtitleURL = "http://www.youtube.com/api/timedtext?v=VIDEO_ID&lang=LANGUAGE_CODE&name=LANG_NAME";
 
 /**
     loadDefaultSubtitleLanguages: loads the list of languages from langList defined in subtitles.js
     converting an associative array to an integer-indexed array to fecilitate sorting
 **/
-IITK.CSE.CS213.BYTubeD.loadDefaultSubtitleLanguages = function loadDefaultSubtitleLanguages()
+iitk.cse.cs213.bytubed.loadDefaultSubtitleLanguages = function loadDefaultSubtitleLanguages()
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     var subtitleLanguageInfo    = new Array();  
     try
     {
@@ -35,7 +35,7 @@ IITK.CSE.CS213.BYTubeD.loadDefaultSubtitleLanguages = function loadDefaultSubtit
 };
 
 // sortSubtitleLanguageInfo sorts subtitleLanguageInfo based on lang_translated
-IITK.CSE.CS213.BYTubeD.sortSubtitleLanguageInfo = function sortSubtitleLanguageInfo(subtitleLanguageInfo, property)
+iitk.cse.cs213.bytubed.sortSubtitleLanguageInfo = function sortSubtitleLanguageInfo(subtitleLanguageInfo, property)
 {   
     subtitleLanguageInfo.sort(function (a,b)
     {
@@ -48,16 +48,16 @@ IITK.CSE.CS213.BYTubeD.sortSubtitleLanguageInfo = function sortSubtitleLanguageI
 }
 
 // _showSubtitleLanguageInfo is for debgguing purposes
-IITK.CSE.CS213.BYTubeD._showSubtitleLanguageInfo = function _showSubtitleLanguageInfo(subtitleLanguageInfo)
+iitk.cse.cs213.bytubed._showSubtitleLanguageInfo = function _showSubtitleLanguageInfo(subtitleLanguageInfo)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
         iccb.sortSubtitleLanguageInfo(subtitleLanguageInfo, 'lang_translated');
         
         var langList = "// A list of languages to start with; totally there are " + 
                     subtitleLanguageInfo.length + " languages so far.\n\n" + 
-                    "IITK.CSE.CS213.BYTubeD.langList = {\n";
+                    "iitk.cse.cs213.bytubed.langList = {\n";
         for(var i=0; i<subtitleLanguageInfo.length; i++)
         {
             langList += "\t" + subtitleLanguageInfo[i].lang_code.replace("-", "_") +
@@ -77,16 +77,16 @@ IITK.CSE.CS213.BYTubeD._showSubtitleLanguageInfo = function _showSubtitleLanguag
 };
 
 
-IITK.CSE.CS213.BYTubeD.saveSubtitleLanguageInfo = function saveSubtitleLanguageInfo(subtitleLanguageInfo)
+iitk.cse.cs213.bytubed.saveSubtitleLanguageInfo = function saveSubtitleLanguageInfo(subtitleLanguageInfo)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
         iccb.sortSubtitleLanguageInfo(subtitleLanguageInfo, 'lang_translated');
         
         var langList = "// A list of accumulated languages; totally there are " + 
                     subtitleLanguageInfo.length + " languages so far.\n\n" + 
-                    "IITK.CSE.CS213.BYTubeD.langList = {\n";
+                    "iitk.cse.cs213.bytubed.langList = {\n";
         for(var i=0; i<subtitleLanguageInfo.length; i++)
         {
             langList += "\t" + subtitleLanguageInfo[i].lang_code.replace("-", "_") +
@@ -107,9 +107,9 @@ IITK.CSE.CS213.BYTubeD.saveSubtitleLanguageInfo = function saveSubtitleLanguageI
 };
 
 // Updates subtitleLanguageInfo with the new languages, if there are any, by side effect.
-IITK.CSE.CS213.BYTubeD.processSubtitleLangListGlobal = function processSubtitleLangListGlobal(xmlText, subtitleLanguageInfo)
+iitk.cse.cs213.bytubed.processSubtitleLangListGlobal = function processSubtitleLangListGlobal(xmlText, subtitleLanguageInfo)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     var curLangs = new Array();
     try
     {
@@ -155,9 +155,9 @@ IITK.CSE.CS213.BYTubeD.processSubtitleLangListGlobal = function processSubtitleL
     return curLangs;
 };
 
-IITK.CSE.CS213.BYTubeD.getLangRecordByLangCode = function getLangRecordByLangCode(subtitleLanguageInfo, lang_code)
+iitk.cse.cs213.bytubed.getLangRecordByLangCode = function getLangRecordByLangCode(subtitleLanguageInfo, lang_code)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
         for(var i=0; i<subtitleLanguageInfo.length; i++)
@@ -173,9 +173,9 @@ IITK.CSE.CS213.BYTubeD.getLangRecordByLangCode = function getLangRecordByLangCod
     return null;
 }
 
-IITK.CSE.CS213.BYTubeD.processSubtitlesGlobal =  function processSubtitlesGlobal(xmlText)
+iitk.cse.cs213.bytubed.processSubtitlesGlobal =  function processSubtitlesGlobal(xmlText)
 {  
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     var zeroPad = iccb.zeroPad;
     var ccContent   = "";
     

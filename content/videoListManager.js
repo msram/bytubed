@@ -20,7 +20,7 @@
 
 // YoutubeVideo is an ADT that encapsulates some properties related to a YouTube video
 // in the context of BYTubeD.
-IITK.CSE.CS213.BYTubeD.YoutubeVideo = function()
+iitk.cse.cs213.bytubed.YoutubeVideo = function()
 {
     this.vid                = "";
     this.title              = "";
@@ -55,20 +55,20 @@ IITK.CSE.CS213.BYTubeD.YoutubeVideo = function()
 // End of YoutubeVideo ADT definition.
 
 // Some YouTube URLs
-IITK.CSE.CS213.BYTubeD.watchUrlPrefix       = "https://www.youtube.com/watch?v=";
-IITK.CSE.CS213.BYTubeD.videoInfoUrlPrefix   = "https://www.youtube.com/get_video_info?video_id=";
+iitk.cse.cs213.bytubed.watchUrlPrefix       = "https://www.youtube.com/watch?v=";
+iitk.cse.cs213.bytubed.videoInfoUrlPrefix   = "https://www.youtube.com/get_video_info?video_id=";
 
 // supportedFormats and supportedQualities are to be listed in the same order
 // as they are shown to the user in the respective fields
-IITK.CSE.CS213.BYTubeD.supportedFormats     = ["flv", "mp4", "webm", "3gp"];
-IITK.CSE.CS213.BYTubeD.supportedQualities   = ["144p", "240p", "360p", "480p", "720p", "1080p", "Original"];
+iitk.cse.cs213.bytubed.supportedFormats     = ["flv", "mp4", "webm", "3gp"];
+iitk.cse.cs213.bytubed.supportedQualities   = ["144p", "240p", "360p", "480p", "720p", "1080p", "Original"];
 
 /**
  * fmtMap is a dictionary that maps itags to (fileType, resolution, quality)
  * Compute the resolution of "38" dynamically.
  **/
 
-IITK.CSE.CS213.BYTubeD.fmtMap = {
+iitk.cse.cs213.bytubed.fmtMap = {
     "5" :   {fileType: "flv",   resolution: "400x226",      quality: "240p",        color: "black"},
     "17":   {fileType: "3gp",   resolution: "",             quality: "144p",        color: "gray"},
     "18":   {fileType: "mp4",   resolution: "480x360",      quality: "360p",        color: "green"},
@@ -86,7 +86,7 @@ IITK.CSE.CS213.BYTubeD.fmtMap = {
     "84":   {fileType: "mp4",   resolution: "1280x720",     quality: "720p",        color: "purple"}
 };
 
-IITK.CSE.CS213.BYTubeD.requiredParams = ["upn", "sparams", "fexp", "ms", "itag", "ipbits", "signature", 
+iitk.cse.cs213.bytubed.requiredParams = ["upn", "sparams", "fexp", "ms", "itag", "ipbits", "signature", 
     "sig", "mv", "sver", "mt", "ratebypass", "source", "expire", "key", "ip", "cp", "id", "gcr", "fallback_host",
     "algorithm", "newshard", "burst", "factor"];
 
@@ -94,9 +94,9 @@ IITK.CSE.CS213.BYTubeD.requiredParams = ["upn", "sparams", "fexp", "ms", "itag",
 
 // YouTube video utilities.
 
-IITK.CSE.CS213.BYTubeD.processTitle = function processTitle(title)
+iitk.cse.cs213.bytubed.processTitle = function processTitle(title)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
         if(!title)
@@ -125,9 +125,9 @@ IITK.CSE.CS213.BYTubeD.processTitle = function processTitle(title)
 
 // preprocessInfo constructs swf_map based on the junk content in video_info
 // swf_map is equivalent to SWF_ARGS in a YouTube page source.
-IITK.CSE.CS213.BYTubeD.preprocessInfo = function preprocessInfo(video_info)
+iitk.cse.cs213.bytubed.preprocessInfo = function preprocessInfo(video_info)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     var swf_map = {};
     try
     {
@@ -161,9 +161,9 @@ IITK.CSE.CS213.BYTubeD.preprocessInfo = function preprocessInfo(video_info)
 
 // processYouTubePage takes the HTML source of a YouTube page and returns swf_map
 // containing title, author, fmt_list and url_encoded_fmt_stream_map
-IITK.CSE.CS213.BYTubeD.processYouTubePage =  function processYouTubePage(html)
+iitk.cse.cs213.bytubed.processYouTubePage =  function processYouTubePage(html)
 {
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     var swf_map = {};
 
     try
@@ -174,7 +174,7 @@ IITK.CSE.CS213.BYTubeD.processYouTubePage =  function processYouTubePage(html)
 
         swf_map["display_title"] = iccb.stripHTML(title, 3).replace("YouTube -", "").replace("- YouTube", "");
 
-        title = IITK.CSE.CS213.BYTubeD.processTitle(title);
+        title = iitk.cse.cs213.bytubed.processTitle(title);
 
         var argsString = "";
         var argsStringMatch = html.match(/\"args\":\s*\{.*\},/);
@@ -237,10 +237,10 @@ IITK.CSE.CS213.BYTubeD.processYouTubePage =  function processYouTubePage(html)
 };
 
 // getFailureString(youTubePageHTML)
-IITK.CSE.CS213.BYTubeD.getFailureString = function getFailureString(aHTMLString)
+iitk.cse.cs213.bytubed.getFailureString = function getFailureString(aHTMLString)
 {
     var failureString = "";
-    var iccb = IITK.CSE.CS213.BYTubeD;
+    var iccb = iitk.cse.cs213.bytubed;
     if(aHTMLString && aHTMLString != "") try
     {
         var parser = Components.classes["@mozilla.org/xmlextras/domparser;1"]
@@ -278,7 +278,7 @@ IITK.CSE.CS213.BYTubeD.getFailureString = function getFailureString(aHTMLString)
 
 // VideoListManager is an abstract data type that encapsulates the process of
 // making downloadble video URLs from /watch? URLs.
-IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
+iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
                                                     callBack,
                                                     errorHandler,
                                                     videoList,
@@ -295,7 +295,7 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
     
     this.processVideoList = function processVideoList()
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var videoInfoUrlPrefix      = iccb.videoInfoUrlPrefix;
@@ -357,7 +357,7 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
 
     this.processInfoAndCallBack = function processInfoAndCallBack(previousBirth, info, url)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var watchUrlPrefix          = iccb.watchUrlPrefix;
@@ -384,7 +384,7 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
 
                 var localErrorHandler = function localErrorHandler(aHTMLString, requestedUrl)
                 {
-                    var iccb = IITK.CSE.CS213.BYTubeD;
+                    var iccb = iitk.cse.cs213.bytubed;
                     try
                     {
                         var message = iccb.getFailureString(aHTMLString);
@@ -415,7 +415,7 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
 
                 var youTubePageHandler = function youTubePageHandler(pb, html, dummyVar1, dummyVar2)
                 {
-                    var iccb = IITK.CSE.CS213.BYTubeD;
+                    var iccb = iitk.cse.cs213.bytubed;
                     try
                     {
                         swf_map = iccb.processYouTubePage(html);
@@ -467,7 +467,7 @@ IITK.CSE.CS213.BYTubeD.VideoListManager = function(callerObject,
 
     this.processInfo = function processInfo(swf_map, url, index)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var processTitle        = iccb.processTitle;

@@ -18,7 +18,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, destDir, vList, prefs, subtitleLanguageInfo)
+iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, destDir, vList, prefs, subtitleLanguageInfo)
 {
     //this.caller                    = caller;
     this.destinationDirectory   = destDir;
@@ -30,7 +30,7 @@ IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, d
 
     this.processQueue = function processQueue()
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var allIsWell = true;
@@ -106,7 +106,7 @@ IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, d
 
     this.enqueueAndCallBack = function enqueueAndCallBack(previousBirth, videoIndex)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             if(this.preferences.todo == iccb.ENQUEUE_LINKS)
@@ -123,7 +123,7 @@ IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, d
     // Following code is to manage subtitles.
     this.manageSubtitles = function manageSubtitles(index)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {
@@ -156,7 +156,7 @@ IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, d
     
     this.processSubtitleLangList = function processSubtitleLangList(previousBirth, xmlText, url)
     {   
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var curLangs = iccb.processSubtitleLangListGlobal(xmlText, previousBirth.subtitleLanguageInfo);
@@ -186,7 +186,7 @@ IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, d
     
     this.processSubtitleRequest = function processSubtitleRequest(index)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         try
         {
             var prefLangs       = this.preferences.subtitleLangCodes;   // array of lang_codes
@@ -212,7 +212,7 @@ IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, d
                     lang_name = availableLangs[lang_code].name;
                     break;
                 }
-                else if(this.preferences.fetchSubtitlesInAlternateDialect)
+                else if(this.preferences.tryOtherDialects)
                 {
                     for(var key in availableLangs)
                     {
@@ -257,7 +257,7 @@ IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, d
     
     this.processSubtitles = function processSubtitles(previousBirth, xmlText, url)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         var getIndexByKey           = iccb.getIndexByKey;
         var writeTextToFile         = iccb.writeTextToFile;
         var getParamsFromUrl        = iccb.getParamsFromUrl;
@@ -289,7 +289,7 @@ IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, d
             
             var content     = processSubtitlesGlobal(xmlText);
 			
-            writeTextToFile(content, file_name, previousBirth.preferences.subtitleDestination,
+            writeTextToFile(content, file_name, previousBirth.preferences.subtitleDest,
                                 previousBirth.preferences.destinationDirectory);
             
             if(actualPrefLang == null || actualPrefLangName == lang_name)
@@ -313,7 +313,7 @@ IITK.CSE.CS213.BYTubeD.DownloadQueueManager = function(callBack, errorHandler, d
     
     this.enqueue = function enqueue(videoIndex)
     {
-        var iccb = IITK.CSE.CS213.BYTubeD;
+        var iccb = iitk.cse.cs213.bytubed;
         
         try
         {

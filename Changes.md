@@ -14,7 +14,7 @@
 ### Code Improvements
 
 1. Got rid of the depricated scriptableUnescapeHTML and hence incompatibility with Easy YouTube Video Downloader
-2. Used iccb for IITK.CSE.CS213.BYTubeD everywhere.
+2. Used iccb for iitk.cse.cs213.bytubed everywhere.
 3. Centralized stripHTML
 4. Gracefully handling:
     - "win is null"
@@ -418,7 +418,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
     process of enqueuing the videos for download.
 
 2.  As suggested by Andres Hernandez, everything has been wrapped in a unique namespace
-    called IITK.CSE.CS213.BYTubeD.
+    called iitk.cse.cs213.bytubed.
 
 -----------------------------------------------------
 

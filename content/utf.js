@@ -10,7 +10,7 @@
  * Modified by M S Ram (M.S.Ramaiah@gmail.com) to adapt to BYTubeD
  * 
  * Modifications include: 
- * 1. wrapping the functions in the IITK.CSE.CS213.BYTubeD namespace
+ * 1. wrapping the functions in the iitk.cse.cs213.bytubed namespace
  * 
  * LastModified: Jan 31 2012
  * 
@@ -22,7 +22,7 @@
  * utf16 = utf16to8(utf8);
  */
 
-IITK.CSE.CS213.BYTubeD.utf16to8 = function utf16to8(str) {
+iitk.cse.cs213.bytubed.utf16to8 = function utf16to8(str) {
     var out, i, len, c;
 
     out = "";
@@ -49,7 +49,7 @@ IITK.CSE.CS213.BYTubeD.utf16to8 = function utf16to8(str) {
     return out;
 };
 
-IITK.CSE.CS213.BYTubeD.utf8to16 = function utf8to16(str)
+iitk.cse.cs213.bytubed.utf8to16 = function utf8to16(str)
 {
     var out, i, len, c;
     var char2, char3;

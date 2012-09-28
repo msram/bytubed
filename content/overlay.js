@@ -18,13 +18,13 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-IITK.CSE.CS213.BYTubeD.Main = {
+iitk.cse.cs213.bytubed.Main = {
     onLoad: function onLoad()
     {
         // this.strings = document.getElementById("BYTubeD-strings");
         document.getElementById("contentAreaContextMenu")
                 .addEventListener("popupshowing", function(e) {
-                        IITK.CSE.CS213.BYTubeD.Main.showContextMenu(e);
+                        iitk.cse.cs213.bytubed.Main.showContextMenu(e);
                     }, false);
 
     },
@@ -48,7 +48,7 @@ IITK.CSE.CS213.BYTubeD.Main = {
         }
         catch(error)
         {
-            IITK.CSE.CS213.BYTubeD.reportProblem(error, arguments.callee.name);
+            iitk.cse.cs213.bytubed.reportProblem(error, arguments.callee.name);
         }
 
     },
@@ -56,9 +56,9 @@ IITK.CSE.CS213.BYTubeD.Main = {
     onToolbarButtonCommand: function onToolbarButtonCommand(e)
     {
         // Reuse the function above.
-        IITK.CSE.CS213.BYTubeD.Main.onMenuItemCommand(e);
+        iitk.cse.cs213.bytubed.Main.onMenuItemCommand(e);
     }
 
 };
 
-window.addEventListener("load", function(e) { IITK.CSE.CS213.BYTubeD.Main.onLoad(e); }, false);
+window.addEventListener("load", function(e) { iitk.cse.cs213.bytubed.Main.onLoad(e); }, false);

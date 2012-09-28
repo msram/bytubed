@@ -6,21 +6,21 @@
  * Modified by M S Ram (M.S.Ramaiah@gmail.com) to adapt to BYTubeD
  * 
  * Modifications include: 
- * 1. wrapping the functions in the IITK.CSE.CS213.BYTubeD namespace
+ * 1. wrapping the functions in the iitk.cse.cs213.bytubed namespace
  * 2. exception handling
  * 
  * LastModified: Jan 31 2012
  * 
  */
 
-IITK.CSE.CS213.BYTubeD.CXMLReq = function(freed)
+iitk.cse.cs213.bytubed.CXMLReq = function(freed)
 {
     this.freed = (freed != "undefined")? freed: 1;
     this.xmlhttp = new XMLHttpRequest();
     this.requestCompleted = false;
 };
 
-IITK.CSE.CS213.BYTubeD.XmlHttpRequestManager = function(callerObject, callBack, errorHandler)
+iitk.cse.cs213.bytubed.XmlHttpRequestManager = function(callerObject, callBack, errorHandler)
 {
     this.xmlreqs        = new Array();
 
@@ -31,7 +31,7 @@ IITK.CSE.CS213.BYTubeD.XmlHttpRequestManager = function(callerObject, callBack, 
     this.doRequest      = function doRequest(method, url)
     {
         var pos = this.xmlreqs.length;
-        this.xmlreqs[pos] = new IITK.CSE.CS213.BYTubeD.CXMLReq(1);
+        this.xmlreqs[pos] = new iitk.cse.cs213.bytubed.CXMLReq(1);
 
         if (this.xmlreqs[pos].xmlhttp)
         {

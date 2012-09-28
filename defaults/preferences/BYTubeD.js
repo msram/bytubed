@@ -23,7 +23,7 @@ pref("extensions.bytubed@cs213.cse.iitk.ac.in.description",
             "BYTubeD - Bulk YouTube video Downloader");
 
 pref("extensions.bytubed@cs213.cse.iitk.ac.in.destinationDirectory", "");
-pref("extensions.bytubed@cs213.cse.iitk.ac.in.subtitleDestination", "");
+pref("extensions.bytubed@cs213.cse.iitk.ac.in.subtitleDest", "");
 
 pref("extensions.bytubed@cs213.cse.iitk.ac.in.subtitleLangCode", "en");
 
