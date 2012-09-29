@@ -305,12 +305,12 @@
 
     <groupbox class = "spacingPanel1 pad_top6" orient = "horizontal">
         <vbox>
-            <description class = "bold pad_top6" value = "Video Format"
-                         tooltiptext = "Which file format do you prefer?"/>
-            <description class = "bold pad_top8" value = "Destination"
-                         tooltiptext = "Where do you want the files to be stored?"/>
-            <description class = "bold pad_top12" value = "Selection Filter"
-                         tooltiptext = "JavaScript regular expression for video selection." />
+            <description class = "bold pad_top6" value = "&description.vFormat.value;"
+                         tooltiptext = "&description.vFormat.tooltiptext;"/>
+            <description class = "bold pad_top8" value = "&description.destination.value;"
+                         tooltiptext = "&description.destination.tooltiptext;"/>
+            <description class = "bold pad_top12" value = "&description.selFilter.value;"
+                         tooltiptext = "&description.selFilter.tooltiptext;" />
         </vbox>
 
         <vbox flex = "1">
@@ -342,41 +342,41 @@
 
                 <description class = "silver" pack = "center" value = " | " />
 
-                <description id = "todoDesc" class = "bold" value = "What to do?"
-                             tooltiptext = "'Enqueue for Download' directly enqueues the videos into the default Downloads window. Use this option if you don't have a download manager already installed. 'Generate Links' generates downloadable video links. Use this option if you already have a download manager installed."/>
+                <description id = "todoDesc" class = "bold" value = "&description.todoDesc.value;"
+                             tooltiptext = "&menulist.todo.tooltiptext;"/>
 
-                <menulist id = "todo" label = "Generate Links" flex = "1"
-                            tooltiptext = "'Enqueue for Download' directly enqueues the videos into the default Downloads window. Use this option if you don't have a download manager already installed. 'Generate Links' generates downloadable video links. Use this option if you already have a download manager installed.">
+                <menulist id = "todo" label = "&menulist.todo.label;" flex = "1"
+                            tooltiptext = "&menulist.todo.tooltiptext;">
                     <menupopup>
-                        <menuitem id = "genLinks" label = "Generate Links" selected = "true"
+                        <menuitem id = "genLinks" label = "&menuitem.genLinks.label;" selected = "true"
                                   persist = "selected"
-                                  tooltiptext = "I will use a download manager; Don't enqueue the videos into the default Downloads window; Just generate links."/>
-                        <menuitem id = "nqLinks" label = "Enqueue for Download" persist = "selected"
-                                  tooltiptext = "I don't have a download manager; Enqueue the videos into the default Downloads window."/>
+                                  tooltiptext = "&menuitem.genLinks.tooltiptext;"/>
+                        <menuitem id = "nqLinks" label = "&menuitem.nqLinks.label;" persist = "selected"
+                                  tooltiptext = "&menuitem.nqLinks.tooltiptext;"/>
                     </menupopup>
                 </menulist>
 
             </hbox>
 
             <hbox flex = "1">
-                <textbox id = "destination" accesskey = "D" flex = "2" />
-                <button id = "browseButton" accesskey = "B" label = "  Browse"
+                <textbox id = "destination" accesskey = "&textbox.destination.accesskey;" flex = "2" />
+                <button id = "browseButton" accesskey = "&button.browseButton.accesskey;" label = " &button.browseButton.label; "
                         oncommand = "iitk.cse.cs213.bytubed.selectionManager.onBrowse(event)"
                         image = "chrome://BYTubeD/skin/icons/Browse-16.png"/>
             </hbox>
 
             <hbox flex = "1">
-                <textbox id = "filter" accesskey = "F" flex = "1"
-                         tooltiptext = "JavaScript regular expression for video selection."
+                <textbox id = "filter" accesskey = "&textbox.filter.accesskey;" flex = "1"
+                         tooltiptext = "&textbox.filter.tooltiptext;"
                          oninput = "iitk.cse.cs213.bytubed.selectionManager.onFilterChange(event)"/>
-                <checkbox id = "selectAll" label = "Select All"
+                <checkbox id = "selectAll" label = "&checkbox.selectAll.label;"
                           checked = "false" persist = "checked" command = "cmd_select_all"/>
-                <button id = "start" accesskey = "S" label = "  Start" default = "true"
+                <button id = "start" accesskey = "&button.start.accesskey;" label = " &button.start.label; " default = "true"
                         command = "cmd_start" image = "chrome://BYTubeD/skin/icons/Start-16.png" />
-                <button id = "help" accesskey = "H" label = "  Help"
+                <button id = "help" accesskey = "&button.help.accesskey;" label = " &button.help.label; "
                         oncommand = "iitk.cse.cs213.bytubed.selectionManager.onHelp(event)"
                         image = "chrome://BYTubeD/skin/icons/Help-16.png" />
-                <button id = "cancel" accesskey = "C" label = "  Cancel" pack = "center"
+                <button id = "cancel" accesskey = "&button.cancel.accesskey;" label = " &button.cancel.label; " pack = "center"
                         oncommand = "iitk.cse.cs213.bytubed.selectionManager.onCancel(event)"
                         image = "chrome://BYTubeD/skin/icons/Cancel-16.png" />
             </hbox>
@@ -385,6 +385,6 @@
     </groupbox>
 
     <statusbar id = "footer">
-        <statusbarpanel id = "status" label = "No videos selected."  flex = "1"/>
+        <statusbarpanel id = "status" label = "statusbarpanel.label"  flex = "1"/>
     </statusbar>
 </window>

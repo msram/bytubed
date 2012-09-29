@@ -1,6 +1,6 @@
 ﻿// A list of accumulated languages; totally there are 106 languages so far.
 
-IITK.CSE.CS213.BYTubeD.langList = {
+iitk.cse.cs213.bytubed.langList = {
 	af: {lang_code: "af", lang_original: "Afrikaans", lang_translated: "Afrikaans"},
 	sq: {lang_code: "sq", lang_original: "Shqip", lang_translated: "Albanian"},
 	am: {lang_code: "am", lang_original: "አማርኛ", lang_translated: "Amharic"},
