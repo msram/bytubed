@@ -46,6 +46,10 @@
     <script src = "downloadQueueManager.js" />
     <script src = "selectionManager.js"/>
 
+    <stringbundleset id="stringbundleset">
+        <stringbundle id="strings" src="chrome://BYTubeD/locale/BYTubeD.properties"/>
+    </stringbundleset>
+
     <keyset>
         <key id = "close_cmd" keycode = "VK_ESCAPE"
                    oncommand = "window.close();" />
@@ -385,6 +389,6 @@
     </groupbox>
 
     <statusbar id = "footer">
-        <statusbarpanel id = "status" label = "statusbarpanel.label"  flex = "1"/>
+        <statusbarpanel id = "status" label = "&statusbarpanel.label;"  flex = "1"/>
     </statusbar>
 </window>

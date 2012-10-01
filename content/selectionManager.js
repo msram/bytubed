@@ -658,6 +658,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             var currentDocument = window.arguments[0];
             var browsers        = window.arguments[1];
             
+            var strings = document.getElementById("strings");
             var links   = new Array();
             
             var scanCB      = document.getElementById("scanClipboard").checked;
@@ -689,11 +690,11 @@ iitk.cse.cs213.bytubed.selectionManager = {
             {
                 
                 var alrt = iccb.services.promptService.alert;
-                var message = "No YouTube links were found on this page";
+                var message = strings.getString("NoLinksOnPage");
                 if(scanCB)
-                    message += " or in the system clipboard";
+                    message += " " + strings.getString("NoLinksInClipboard");
                 if(scanTabs)
-                    message += " or in any open tab of the current window";
+                    message += " " + strings.getString("NoLinksInTabs");
                 message += ".";
                 
                 alrt(null, "BYTubeD", message);
@@ -719,7 +720,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
                 // populate the videoList before applying default fliters
                 selMgr.buildVideoList(links); // works by side-effect
                 selMgr.setStatus(selMgr.videoList.length +
-                                " video links have been found on this page.");
+                                " " + strings.getString("LinkCountOnPage"));
 
                 var stop = new Date().getTime(); // Let it be;
                                                 // will use during development
@@ -765,7 +766,8 @@ iitk.cse.cs213.bytubed.selectionManager = {
         
         try
         {
-            var selMgr                  = iccb.selectionManager;
+            var selMgr  = iccb.selectionManager;
+            var strings = document.getElementById("strings");
 
             var vidCount            = 0;
             var treeChildren        = document.getElementById("treeChildren");
@@ -810,7 +812,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
 
                 if(displayTitle.length == 0 || iccb.hasUndesirablePatterns(displayTitle))
                 {
-                    displayTitle = "Loading...";
+                    displayTitle = strings.getString("Loading");
                     title = "";
                 }
 
@@ -905,7 +907,8 @@ iitk.cse.cs213.bytubed.selectionManager = {
 
     setTitleUsingInfo: function setTitleUsingInfo(selMgr, info, url)
     {
-        var iccb = iitk.cse.cs213.bytubed;
+        var iccb    = iitk.cse.cs213.bytubed;
+        var strings = document.getElementById("strings");
         
         try
         {
@@ -924,7 +927,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
                         selMgr.videoList[ind].failureDescription = failureString;
                         var display = "(" + iccb.stripHTML(failureString, 3) + ")";
 
-                        if(selMgr.getValueAt(ind, "title") == "Loading...")
+                        if(selMgr.getValueAt(ind, "title") == strings.getString("Loading"))
                         {
                             selMgr.setValueAt(ind, "title", display);
                         }
@@ -950,8 +953,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             }
             else
             {
-                var failureString = "This video is not available for " +
-                                    "download at this point of time.";
+                var failureString = strings.getString("GenericFailureMessage");
                 selMgr.setFieldsCommonCode(selMgr, vid, swf_map, failureString);
             }
         }
@@ -982,6 +984,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     setFieldsCommonCode: function setFieldsCommonCode(selMgr, vid, swf_map, failureString)
     {
         var iccb = iitk.cse.cs213.bytubed;
+        var strings = document.getElementById("strings");
         
         try
         {
@@ -1054,7 +1057,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
                     selMgr.videoList[ind].failureDescription = failureString;
                     var display =  "(" + failureString + ")";
 
-                    if(selMgr.getValueAt(ind, "title") == "Loading...")
+                    if(selMgr.getValueAt(ind, "title") == strings.getString("Loading"))
                     {
                         selMgr.setValueAt(ind, "title", display);
                     }
@@ -1475,6 +1478,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     onBrowse: function onBrowse(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
+        var strings = document.getElementById("strings");
         
         try
         {
@@ -1483,9 +1487,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             var fp  = Cc["@mozilla.org/filepicker;1"]
                         .createInstance(Ci.nsIFilePicker);
 
-            fp.init(window,
-                    "Please select a destination folder for your downloads.",
-                    2);
+            fp.init(window, strings.getString("SelectDestination"), 2);
             var result = fp.show();
 
             if(result == Ci.nsIFilePicker.returnOK)
@@ -1503,7 +1505,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     onBrowseSubtitles: function onBrowseSubtitles(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        
+        var strings = document.getElementById("strings");
         try
         {
             var Cc  = Components.classes;
@@ -1511,9 +1513,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             var fp  = Cc["@mozilla.org/filepicker;1"]
                         .createInstance(Ci.nsIFilePicker);
 
-            fp.init(window,
-                    "Please select a destination folder for your downloads.",
-                    2);
+            fp.init(window, strings.getString("SelectDestinationForSubtitles"), 2);
             var result = fp.show();
 
             if(result == Ci.nsIFilePicker.returnOK)
@@ -1549,6 +1549,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     onSelect: function onSelect(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
+        var strings = document.getElementById("strings");
         
         try
         {
@@ -1559,7 +1560,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             {
                 selMgr.setStatus(count + "/" +
                                  selMgr.videoList.length +
-                                 " videos selected for download.");
+                                 " " + strings.getString("VideosSelected"));
             }
         }
         catch(error)
@@ -1571,6 +1572,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     onStart: function onStart(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
+        var strings = document.getElementById("strings");
         
         try
         {
@@ -1601,11 +1603,8 @@ iitk.cse.cs213.bytubed.selectionManager = {
                                                            .userDownloadsDirectory.path;
 
                 iccb.services.promptService.alert(window,
-                    "Invalid Destination Directory",
-                    "Please check the Destination field. " +
-                    "It must be a valid absolute path. If you don't know \n" +
-                    "what that means, please use the Browse button and select the " +
-                    "destination directory.");
+                    strings.getString("InvalidDestinationDirectory"),
+                    strings.getString("InvalidDestinationDirectoryMessage"));
 
                 return;
             }
@@ -1617,12 +1616,8 @@ iitk.cse.cs213.bytubed.selectionManager = {
             catch(error)
             {
                 iccb.services.promptService.alert(window,
-                    "Invalid Destination Directory for Subtitles",
-                    "Please check the destination directory field for subtitles. " +
-                    "It must be a valid absolute path. " +
-                    "If you don't know what that means, please use the Browse button " +
-                    "and select the destination directory.");
-
+                    strings.getString("InvalidSubtitleDestination"),
+                    strings.getString("InvalidSubtitleDestinationMessage"));
                 return;
             }
             
@@ -1705,16 +1700,8 @@ iitk.cse.cs213.bytubed.selectionManager = {
 
                     proceed = ps.confirm(
                             window,
-                            "Not a good idea",
-                            "\"What to do?\" = \"Enqueue for Download\" " +
-                                "is not a good setting if you want " +
-                                "to download more than 5 videos at a time. " +
-                                "This will slow down the browser. " +
-                                "\"Generate Links\" is the recommended setting. " +
-                                "\n\nPress OK to enqueue anyway and " +
-                                "Cancel to go back and set " +
-                                "\"What to do?\" = \"Generate Links\".");
-
+                            strings.getString("NotGoodIdea"),
+                            strings.getString("NotGoodIdeaMessage"));
                     // proceed is true if OK was pressed, false if cancel.
                 }
 
@@ -1728,7 +1715,8 @@ iitk.cse.cs213.bytubed.selectionManager = {
                         selMgr.destinationDirectory,
                         preferences,
                         selMgr.invocationInfo,
-                        selMgr.subtitleLanguageInfo
+                        selMgr.subtitleLanguageInfo,
+                        strings
                     );
 
                     window.close();
@@ -1737,9 +1725,8 @@ iitk.cse.cs213.bytubed.selectionManager = {
             else
             {
                 iccb.services.promptService.alert(window,
-                                                    "Selection",
-                                                    "You haven't selected anything! " +
-                                                    "Please select at least one video.");
+                                                    strings.getString("Selection"),
+                                                    strings.getString("NothingSelected"));
             }
         }
         catch(error)
