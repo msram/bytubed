@@ -1715,8 +1715,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
                         selMgr.destinationDirectory,
                         preferences,
                         selMgr.invocationInfo,
-                        selMgr.subtitleLanguageInfo,
-                        strings
+                        selMgr.subtitleLanguageInfo
                     );
 
                     window.close();
