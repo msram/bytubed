@@ -89,7 +89,7 @@ iitk.cse.cs213.bytubed.saveSubtitleLanguageInfo = function saveSubtitleLanguageI
                     "iitk.cse.cs213.bytubed.langList = {\n";
         for(var i=0; i<subtitleLanguageInfo.length; i++)
         {
-            langList += "\t" + subtitleLanguageInfo[i].lang_code.replace("-", "_") +
+            langList += "    " + subtitleLanguageInfo[i].lang_code.replace("-", "_") +
                     ": {" + 
                             "lang_code: \"" + subtitleLanguageInfo[i].lang_code + "\", " +
                             "lang_original: \"" + subtitleLanguageInfo[i].lang_original + "\", " +
