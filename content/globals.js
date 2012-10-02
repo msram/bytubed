@@ -489,9 +489,9 @@ iitk.cse.cs213.bytubed.writeTextToFile = function writeTextToFile(text,
     }
     catch(error)
     {
-        // iccb.services.promptService.confirm(window,
-        //    "File write failed!",
-        //    "Probably you don't have write permissions on the destination directory.");
+        iccb.services.promptService.alert(window,
+            "File write failed!",
+            "Probably you don't have write permissions on the destination directory.");
         return null;
     }
     return file;

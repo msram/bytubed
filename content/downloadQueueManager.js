@@ -285,7 +285,8 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
             var lang_name   = previousBirth.videoList[vIndex].availableSubtitleLanguages[lang_code].lang_translated;
             var file_name   = previousBirth.videoList[vIndex].title +  " - [" + lang_name + "].srt";
             
-            previousBirth.videoList[vIndex].fetchedLangName = lang_name;
+            previousBirth.videoList[vIndex].fetchedLangName = 
+                previousBirth.videoList[vIndex].availableSubtitleLanguages[lang_code].lang_original;
             
             var content     = processSubtitlesGlobal(xmlText);
 			

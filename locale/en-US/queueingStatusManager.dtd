@@ -1,0 +1,3 @@
+<!ENTITY window.title                   "BYTubeD - Queueing status window">
+<!ENTITY tab.successConsoleTab.label    "Sucessful Requests">
+<!ENTITY tab.errorConsoleTab.label      "Failed Requests">

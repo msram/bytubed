@@ -33,6 +33,8 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
     onLoad: function onLoad(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
+        var strings = document.getElementById("strings");
+        
         try
         {
             var qsMgr = iccb.queueingStatusManager;
@@ -44,7 +46,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
             qsMgr.invocationInfo		= window.arguments[3];
             qsMgr.subtitleLanguageInfo  = window.arguments[4];
 
-            qsMgr.setStatus("Processing selection...");
+            qsMgr.setStatus(strings.getString("ProcessingSelection"));
             document.getElementById("progressmeter").mode = "undetermined";
 
             var dqManager    = new iccb.DownloadQueueManager(
@@ -144,6 +146,8 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
     updateProgress: function updateProgress()
     {
         var iccb = iitk.cse.cs213.bytubed;
+        var strings = document.getElementById("strings");
+        
         try
         {
             var qsMgr = iccb.queueingStatusManager;
@@ -155,9 +159,8 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
             progress.value  = 100*((qsMgr.successCount + qsMgr.failureCount)/selCount);
 
             qsMgr.setStatus(qsMgr.successCount +
-                                    "/" + selCount +  " requests have been processed successfully; " +
-                                    qsMgr.failureCount + " request" + 
-                                    (qsMgr.failureCount == 1? " has ": "s have ") + "failed.");
+                                    "/" + selCount +  " " + strings.getString("RequestsSuccessful") + " " +
+                                    qsMgr.failureCount + " " + strings.getString("RequestsFailed"));
 
             if(qsMgr.successCount + qsMgr.failureCount == qsMgr.selectedVideoList.length)
             {
@@ -179,7 +182,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
             var qsMgr = iccb.queueingStatusManager;
 
             document.getElementById("successConsole").value +=
-                "\n-------------- All the requests have been processed --------------\n\n";
+                document.getElementById("strings").getString("AllRequestsProcessed");
             
             if(qsMgr.preferences.todo == iccb.GENERATE_LINKS)
             {
@@ -217,15 +220,16 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
 
     commonHtml: function commonHtml()
     {
-        var htmlString = "";
-        var iccb = iitk.cse.cs213.bytubed;
-
+        var htmlString  = "";
+        var iccb        = iitk.cse.cs213.bytubed;
+        var strings     = document.getElementById("strings");
+        
         try
         {
             htmlString += " <!DOCTYPE html>" +
                 "\n <html>" +
                 "\n\t <head>" +
-                "\n\t\t <title>BYTubeD Generated Links</title>" +
+                "\n\t\t <title>" + strings.getString("HtmlPageTitle") + "</title>" +
                 "\n\t\t <meta http-equiv=\"content-type\" content=\"text/html;charset=UTF-8\">" +
                 "\n\t\t <style>"+
                 "\n\t\t\t body      { font-family:Georgia,Ubuntu,Times,Sans; text-align:justify }" +
@@ -271,10 +275,9 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                     }
                 }
                 iccb.writeTextToFile(text,
-                                            "bad_links_bytubed@cs213.cse.iitk.ac.in.txt",
-                                            qsMgr.destinationDirectory,
-                                            iccb.services.downloadManager
-                                                                           .userDownloadsDirectory.path);
+                                    "bad_links_bytubed@cs213.cse.iitk.ac.in.txt",
+                                    qsMgr.destinationDirectory,
+                                    iccb.services.downloadManager.userDownloadsDirectory.path);
             }
         }
         catch(error)
@@ -302,10 +305,9 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                     }
                 }
                 iccb.writeTextToFile(text,
-                                            "good_links_bytubed@cs213.cse.iitk.ac.in.txt",
-                                            qsMgr.destinationDirectory,
-                                            iccb.services.downloadManager
-                                                                           .userDownloadsDirectory.path);
+                                    "good_links_bytubed@cs213.cse.iitk.ac.in.txt",
+                                    qsMgr.destinationDirectory,
+                                    iccb.services.downloadManager.userDownloadsDirectory.path);
             }
         }
         catch(error)
@@ -316,7 +318,9 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
 
     prepareWatchLinksFile: function prepareWatchLinksFile()
     {
-        var iccb = iitk.cse.cs213.bytubed;
+        var iccb    = iitk.cse.cs213.bytubed;
+        var strings = document.getElementById("strings");
+        
         try
         {
             var qsMgr = iccb.queueingStatusManager;
@@ -329,9 +333,9 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
             var htmlString = qsMgr.commonHtml();
 
             htmlString += "\n\t\t <div class=\"fullwidth center gray\">" +
-                          "\n\t\t\t <b>BYTubeD Invocation Timestamp:</b> " +
+                          "\n\t\t\t <b>" + strings.getString("InvocationTime") + "</b> " +
                           qsMgr.invocationInfo.timeStamp + "" + "<br/>" +
-                          "\n\t\t\t <b>Source page:</b> <a href=\"" +
+                          "\n\t\t\t <b>" + strings.getString("SourcePage") + "</b> <a href=\"" +
                           qsMgr.invocationInfo.sourcePageUrl + "\">" +
                           qsMgr.invocationInfo.sourcePageTitle + "</a>" +
                           "\n\t\t </div>";
@@ -339,12 +343,14 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
             // if there is atleast one failure and generateFailedLinks is true
             if(qsMgr.successCount < qsMgr.selectedVideoList.length && qsMgr.preferences.generateFailedLinks)
             {
-                htmlString += "\n\t\t <br/><h2 class=\"red center\">" +
-                              "Failed to generate download links for the following videos.</h2>" +
+                htmlString += "\n\t\t <br/><h2 class=\"red center\">" + 
+                              strings.getString("LinkGenerationFailedFor") + "</h2>" +
                               "\n\t\t <div id=\"failed_links\" class=\"pad20\">" +
                               "\n\t\t\t <table border=\"1\" cellpadding=\"5px\" " +
                               "style=\"border-collapse:collapse;margin-left:auto;margin-right:auto\">" +
-                              "\n\t\t\t\t <tr><th>S.No</th><th>Title</th><th>Reason for failure</th></tr>";
+                              "\n\t\t\t\t <tr><th>" + strings.getString("SNo") + 
+                              "</th><th>" + strings.getString("Title") + 
+                              "</th><th>" + strings.getString("ReasonForFailure") + "</th></tr>";
 
                 var k = 1;
                 for(var i=0; i < qsMgr.selectedVideoList.length; i++)
@@ -354,9 +360,9 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                         if(qsMgr.selectedVideoList[i].failureDescription == null)
                         {
                             qsMgr.selectedVideoList[i].failureDescription =
-                                    "Didn't get enough time to process the request!";
+                                    strings.getString("NotEnoughTime");
                         }
-                        if(qsMgr.selectedVideoList[i].displayTitle == "Loading...")
+                        if(qsMgr.selectedVideoList[i].displayTitle == strings.getString("Loading"))
                             qsMgr.selectedVideoList[i].displayTitle = qsMgr.selectedVideoList[i].vid;
 
                         htmlString += "\n\t\t\t\t <tr><td>"+ (k++) +
@@ -379,10 +385,11 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
 
                 htmlString += "\n\t\t" +
                               "\n\t\t <br/><h2 class=\"center\">" +
-                              "YouTube page links of the successful requests:</h2>" +
+                              strings.getString("LinkGenerationSucessfulFor") + "</h2>" +
                               "\n\t\t <div id=\"successful_links\" class=\"pad20\">" +
                               "\n\t\t\t <table border=\"1\" cellpadding=\"5px\">" +
-                              "\n\t\t\t\t <tr><th>S.No</th><th>Title</th></tr>";
+                              "\n\t\t\t\t <tr><th>" + strings.getString("SNo") + 
+                              "</th><th>" + strings.getString("Title") + "</th></tr>";
 
                 var k = 1;
                 for(var i=0; i < qsMgr.selectedVideoList.length; i++)
@@ -415,7 +422,9 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
 
     launchDownloadLinksFile: function launchDownloadLinksFile()
     {
-        var iccb = iitk.cse.cs213.bytubed;
+        var iccb    = iitk.cse.cs213.bytubed;
+        var strings = document.getElementById("strings");
+        
         try
         {
             var qsMgr = iccb.queueingStatusManager;
@@ -428,29 +437,29 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                     if(qsMgr.selectedVideoList[i].expiryTime)
                         qsMgr.expiryTime = qsMgr.selectedVideoList[i].expiryTime;
 
-                var txt = qsMgr.successCount == 1? " downloadable video link." :
-                                                   " downloadable video links.";
                 htmlString  += "\n\t\t <br/>" +
                                "\n\t\t <div class=\"center\">" +
-                               "\n\t\t\t <h2 class=\"green\"> BYTubeD has generated " +
-                               qsMgr.successCount + txt + "</h2>" +
-                               "\n\t\t\t Invoke a download manager, such as <b>DownThemAll</b>, " +
-                               "on this page to download these videos." +
+                               "\n\t\t\t <h2 class=\"green\"> " + 
+                               strings.getFormattedString("HasGeneratedLinks", 
+                                                        [qsMgr.successCount]) +
+                               "</h2>" +
+                               "\n\t\t\t " + strings.getFormattedString("InvokeDTA", 
+                                                                ["<b>DownThemAll</b>"]) +
                                "\n\t\t\t <br/>" +
                                "\n\t\t\t <br/><hr size=\"1\" width=\"80%\"/><br/>" +
                                "\n\t\t\t <span class=\"gray\">" +
-                               "\n\t\t\t\t If you do not have a download manger, " +
-                               "you can click on the links below and download the videos one by one.<br/>" +
-                               "\n\t\t\t\t But batch download becomes far easier " +
-                               "if you have a download manager like DownThemAll.<br/>" +
+                               "\n\t\t\t\t " + strings.getString("IfNoDM") + "<br/>" +
                                "\n\t\t\t </span>" +
                                "\n\t\t </div>" +
                                "\n\t\t <p/>";
 
                 htmlString  += "\n\t\t <div id=\"links\">" +
                                "\n\t\t\t <table border=\"1\" cellpadding=\"5px\">" +
-                               "\n\t\t\t\t <tr><th>S.No</th><th>Title</th><th>Quality</th>" + 
-                               (qsMgr.preferences.fetchSubtitles? "<th>Subtitles</th>" : "") +
+                               "\n\t\t\t\t <tr><th>" + strings.getString("SNo") +
+                               "</th><th>Title</th><th>"+ strings.getString("Quality") +
+                               "</th>" + (qsMgr.preferences.fetchSubtitles? 
+                                                "<th>"+ strings.getString("Subtitles") 
+                                                + "</th>" : "") +
                                "</tr>";
 
                 var k = 1;
@@ -467,9 +476,13 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                                         qsMgr.selectedVideoList[i].bestMatchFormat +
                                         "</a></td><td>" + qsMgr.selectedVideoList[i].videoQuality + "</td>" +
                                         (qsMgr.preferences.fetchSubtitles?
-                                            "<td>" + (fetchedLangName == null? "None" : "<span class='ruby'>" + fetchedLangName + "</span>") +
-                                            ((!actualPrefLangName || fetchedLangName == actualPrefLangName)? "" : "<br/>for " + actualPrefLangName) + "</td>"
-                                            : "") +
+                                            "<td>" + (fetchedLangName == null? 
+                                                strings.getString("None") : 
+                                                "<span class='ruby'>" + fetchedLangName + "</span>") +
+                                                    ((!actualPrefLangName || fetchedLangName == actualPrefLangName)? 
+                                                    "" : 
+                                                    "<br/>for " + actualPrefLangName) + "</td>"
+                                        : "") +
                                         "</tr>";
                     }
                 }
@@ -478,14 +491,14 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
             }
             else
             {
-                htmlString += "\n\t\t <br/><h2 calss=\"center\"> " +
-                               "BYTubeD has not generated any downnload links.</h2>\n";
+                htmlString += "\n\t\t <br/><h2 calss=\"center\"> " + 
+                                strings.getString("NoDownloadLinksGenerated") + "</h2>\n";
             }
             
             if(qsMgr.expiryTime)
                         htmlString += "\n\t\t <br/><div class='center gray'>" +
-                                        "Link Generation Time: " + new Date() +
-                                        "<br/>Link Expiry Time: " + qsMgr.expiryTime +
+                                        strings.getString("LinkGenerationTime") + " " + new Date() +
+                                        "<br/>" + strings.getString("LinkExpiryTime") + " " + qsMgr.expiryTime +
                                         "</div><br/><hr size=\"1\" width=\"80%\"/><br/><br/>";
             var file1 = null;
             if( (qsMgr.preferences.generateFailedLinks && qsMgr.failureCount > 0) ||
@@ -498,8 +511,10 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                     file1.initWithPath(qsMgr.destinationDirectory);
                     file1.append("watch_links_bytubed@cs213.cse.iitk.ac.in.html");
                     htmlString += "<div class=\"center\">" +
-                                    "See <a href=\"watch_links_bytubed@cs213.cse.iitk.ac.in.html\">" +
-                                        file1.path + "</a> for YouTube page links.</div><br/>";
+                                    strings.getFormattedString("WatchLinksFile", 
+                                        ["<a href=\"watch_links_bytubed@cs213.cse.iitk.ac.in.html\">" + 
+                                            file1.path + "</a>"]) + 
+                                    "</div><br/>";
                 }
                 catch(error)
                 {
@@ -517,9 +532,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
 
             if(file == null && file1 == null)
             {
-                iccb.services.promptService.confirm(window,
-                    "File write failed!",
-                    "Probably you don't have write permissions on the destination directory.");
+                
             }
             else
             {

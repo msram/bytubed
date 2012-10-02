@@ -25,14 +25,16 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://BYTubeD/skin/win.css" type="text/css"?>
 
-<window id="BYTubeD" title="BYTubeD - Queueing status window"
+<!DOCTYPE window SYSTEM "chrome://BYTubeD/locale/queueingStatusManager.dtd">
+
+<window id="BYTubeD" title="&window.title;"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         onload="iitk.cse.cs213.bytubed.queueingStatusManager.onLoad(event)"
         onunload="iitk.cse.cs213.bytubed.queueingStatusManager.onUnload(event)">
 
     <!-- <html:link rel="icon" href="chrome://BYTubeD/skin/icons/Down-32.png" /> -->
-
+    
     <script src = "globals.js"/>
     <script src = "utf.js"/>
     <script src = "langList.js"/>
@@ -42,6 +44,10 @@
     <script src = "downloadQueueManager.js" />
     <script src = "queueingStatusManager.js"/>
 
+    <stringbundleset id="stringbundleset">
+        <stringbundle id="strings" src="chrome://BYTubeD/locale/BYTubeD.properties"/>
+    </stringbundleset>
+    
     <keyset>
         <key id="close_cmd" keycode="VK_ESCAPE" oncommand="window.close();" />
     </keyset>
@@ -49,8 +55,8 @@
     <box class="spacingPanel" orient="vertical" flex="1">
         <tabbox flex="1">
             <tabs id="consoleTabs">
-                <tab label="Sucessful Requests" id="successConsoleTab"/>
-                <tab label="Failed Requests" id="errorConsoleTab"/>
+                <tab label="&tab.successConsoleTab.label;" id="successConsoleTab"/>
+                <tab label="&tab.errorConsoleTab.label;" id="errorConsoleTab"/>
             </tabs>
             <tabpanels id="consolePanels" flex="1">
                 <tabpanel>
@@ -59,13 +65,12 @@
                 <tabpanel>
                     <textbox id="errorConsole" flex="1" multiline="true" readonly="true" class="plain"/>
                 </tabpanel>
-
             </tabpanels>
         </tabbox>
     </box>
+    
     <statusbar id="footer">
-        <statusbarpanel id="status" label="No videos selected." flex="1" />
+        <statusbarpanel id="status" label="" flex="1" />
         <progressmeter id="progressmeter" mode="determined" value="0"/>
     </statusbar>
-
 </window>
