@@ -473,7 +473,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                         htmlString += "\n\t\t\t\t <tr><td>"+ (k++) + "</td><td><a href=\"" +
                                         qsMgr.selectedVideoList[i].videoURL + "\">" +
                                         qsMgr.selectedVideoList[i].displayTitle +
-                                        qsMgr.selectedVideoList[i].bestMatchFormat +
+                                        qsMgr.selectedVideoList[i].fileType +
                                         "</a></td><td>" + qsMgr.selectedVideoList[i].videoQuality + "</td>" +
                                         (qsMgr.preferences.fetchSubtitles?
                                             "<td>" + (fetchedLangName == null? 

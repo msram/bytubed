@@ -330,7 +330,7 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
                                         .createInstance(Components.interfaces.nsILocalFile);
             targetFile.initWithPath(this.destinationDirectory);     // download destination
 
-            var fileName    = this.videoList[videoIndex].title + this.videoList[videoIndex].bestMatchFormat;
+            var fileName    = this.videoList[videoIndex].title + this.videoList[videoIndex].fileType;
 
             targetFile.appendRelativePath(fileName);
 

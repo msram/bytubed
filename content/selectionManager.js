@@ -781,7 +781,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
                 // This is faster than getVidFromUrl
                 // probably because of instruction caching.
                 var curVid = iccb.getVidsFromText(links[li].href)[0];
-                if(curVid == "")
+                if(!curVid || curVid == "")
                     continue;
 
                 var title = "";
@@ -1528,24 +1528,6 @@ iitk.cse.cs213.bytubed.selectionManager = {
         }
     },
     
-    onPreferences: function onPreferences(event)
-    {
-        var iccb = iitk.cse.cs213.bytubed;
-        
-        try
-        {
-            window.openDialog(
-                    "chrome://BYTubeD/content/preferences.xul",
-                    "BYTubeD-Preferences",
-                    "chrome,centerscreen,all,menubar=no,width=680,height=510",
-                    null);
-        }
-        catch(error)
-        {
-            iccb.reportProblem(error, arguments.callee.name);
-        }
-    },
-
     onSelect: function onSelect(event)
     {
         var iccb = iitk.cse.cs213.bytubed;

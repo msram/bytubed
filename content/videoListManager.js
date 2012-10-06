@@ -34,7 +34,7 @@ iitk.cse.cs213.bytubed.YoutubeVideo = function()
 
     this.selected           = false;    // Set by selectionManager to indicate that
                                         // this video needs to downloaded.
-    this.bestMatchFormat    = "";       // This is the preferred file format (Ex: .mp4) for this video.
+    this.fileType           = "";       // This is the preferred file format (Ex: .mp4) for this video.
 
     this.videoQuality       = "";		// Used in the quality column on the generated links page
     
@@ -626,7 +626,7 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
                                                                       props.resolution + " (" +
                                                                       props.quality + ")</span>";
 
-                                this.videoList[index].bestMatchFormat   = "." + props.fileType;
+                                this.videoList[index].fileType   = "." + props.fileType;
 
                                 found = true;
                                 break;
