@@ -1,8 +1,10 @@
-Now working on: Localization
+Now working on: 
+    - III.1 Localization
+    - I.1
 
 I. Issues
 ---------
-
+1. Netowrk failures during XHR processing are not properly addressed.
 
 II. Minor Changes
 -----------------

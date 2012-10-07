@@ -55,7 +55,8 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                                                         qsMgr.destinationDirectory,
                                                         qsMgr.selectedVideoList,
                                                         qsMgr.preferences,
-                                                        qsMgr.subtitleLanguageInfo);
+                                                        qsMgr.subtitleLanguageInfo,
+                                                        strings);
             dqManager.processQueue();
         }
         catch(error)
@@ -481,7 +482,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                                                 "<span class='ruby'>" + fetchedLangName + "</span>") +
                                                     ((!actualPrefLangName || fetchedLangName == actualPrefLangName)? 
                                                     "" : 
-                                                    "<br/>for " + actualPrefLangName) + "</td>"
+                                                    "<br/>" + strings.getString("For") + " " + actualPrefLangName) + "</td>"
                                         : "") +
                                         "</tr>";
                     }

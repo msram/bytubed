@@ -18,7 +18,8 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, destDir, vList, prefs, subtitleLanguageInfo)
+iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, destDir, vList, 
+                                                        prefs, subtitleLanguageInfo, strings)
 {
     //this.caller                    = caller;
     this.destinationDirectory   = destDir;
@@ -27,10 +28,12 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
     this.errorHandler           = errorHandler;
     this.preferences            = prefs;
     this.subtitleLanguageInfo   = subtitleLanguageInfo;
+    this.strings                = strings;
 
     this.processQueue = function processQueue()
     {
-        var iccb = iitk.cse.cs213.bytubed;
+        var iccb    = iitk.cse.cs213.bytubed;
+        
         try
         {
             var allIsWell = true;
@@ -48,10 +51,9 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
                 this.destinationDirectory = iccb.services.downloadManager.userDownloadsDirectory.path;
 
                 iccb.services.promptService.alert(window,
-                    "Invalid Destination Directory",
-                    "Please check the Destination field. It must be a valid absolute path.\n" +
-                    "\nFor now proceeding with the default Downloads directory...\n(" +
-                    this.destinationDirectory + ")");
+                    this.strings.getString("InvalidDestinationDirectory"),
+                    this.strings.getFormattedString("dqMgr.InvalidDestinationDirectoryMessage", 
+                                                    [this.destinationDirectory]));
 
                 file.initWithPath(this.destinationDirectory);
             }
@@ -65,8 +67,8 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
                 catch(error)
                 {
                     iccb.services.promptService.alert(window,
-                        "Directory creation failed!",
-                        "Probably you don't have write permissions on the destination directory.");
+                        this.strings.getString("DirectoryCreationFailed"),
+                        this.strings.getString("NoWritePermission"));
                     
                     allIsWell = false;
                 }
@@ -94,8 +96,8 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
             if(error.message.indexOf("ACCESS") != -1)
             {
                 iccb.services.promptService.alert(window,
-                    "Directory creation failed!",
-                    "Probably you don't have write permissions on the destination directory.");
+                        this.strings.getString("DirectoryCreationFailed"),
+                        this.strings.getString("NoWritePermission"));
             }
             else
             {
@@ -144,19 +146,21 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
                 }
             }
             else
-                this.callBack("Request for \"" + this.videoList[index].displayTitle +
-                                        "\" has been successfully processed.");
+                this.callBack(this.strings.getFormattedString("RequestSuccessfullyProcessed", 
+                                                              [this.videoList[index].displayTitle]));
         }
         catch(error)
         {
-            this.callBack("Request for \"" + this.videoList[index].displayTitle +
-                                        "\" has been successfully processed.");
+            this.callBack(this.strings.getFormattedString("RequestSuccessfullyProcessed", 
+                                                              [this.videoList[index].displayTitle]));
         }
     };
     
     this.processSubtitleLangList = function processSubtitleLangList(previousBirth, xmlText, url)
     {   
         var iccb = iitk.cse.cs213.bytubed;
+        var title = "";
+        
         try
         {
             var curLangs = iccb.processSubtitleLangListGlobal(xmlText, previousBirth.subtitleLanguageInfo);
@@ -169,6 +173,7 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
                 if(previousBirth.videoList[i].vid == vid)
                 {
                     previousBirth.videoList[i].availableSubtitleLanguages = curLangs;
+                    title = previousBirth.videoList[i].displayTitle;
                     index = i;
                     break;
                 }
@@ -178,15 +183,19 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
         }
         catch(error)
         {
-            previousBirth.callBack("Request for \"" + previousBirth.videoList[vIndex].displayTitle +
-                            "\" has been successfully processed." +
-                            " But subtitles were not downloaded due to an internal error [" + error.message + "].");
+            previousBirth.callBack( previousBirth.strings
+                                                 .getFormattedString("RequestSuccessfullyProcessed", 
+                                                                    [title]) + " " + 
+                                    previousBirth.strings
+                                                 .getFormattedString("ButNoSubtitlesDueToInternalError", 
+                                                                    [error.message]));
         }
     };
     
     this.processSubtitleRequest = function processSubtitleRequest(index)
     {
         var iccb = iitk.cse.cs213.bytubed;
+        
         try
         {
             var prefLangs       = this.preferences.subtitleLangCodes;   // array of lang_codes
@@ -236,24 +245,33 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
                 var XHRManager  = iccb.XmlHttpRequestManager;
                                         // Defined in xmlHttpRequestManager.js
             
-                var xmlReq = new XHRManager(this, this.processSubtitles, null);
+                var xmlReq = new XHRManager(this, this.processSubtitles, null);//function(msg){this.handleSubtitleFailure(index, msg)});
                 xmlReq.doRequest("GET", url);
             }
             else
             {
-                this.callBack("Request for \"" + this.videoList[index].displayTitle +
-                                    "\" has been successfully processed." +
-                                    " But subtitles are not available for this video in any language you have chosen.");
+                this.callBack(this.strings.getFormattedString("RequestSuccessfullyProcessed", 
+                                                              [this.videoList[index].displayTitle]) +
+                              " " + this.strings.getString("ButNoSubtitlesAvailable"));
             }   
         }
         catch(error)
         {
             // Ignore error
-            this.callBack("Request for \"" + this.videoList[index].displayTitle +
-                            "\" has been successfully processed." +
-                            " But subtitles were not downloaded due to an internal error [" + error.message + "].");
+            this.callBack(this.strings.getFormattedString("RequestSuccessfullyProcessed", 
+                                                [this.videoList[index].displayTitle]) + " " + 
+                          this.strings.getFormattedString("ButNoSubtitlesDueToInternalError", 
+                                                          [error.message]));
         }
-    }
+    };
+    
+    this.handleSubtitleFailure = function handleSubtitleFailure(index, msg)
+    {
+        this.callBack(this.strings.getFormattedString("RequestSuccessfullyProcessed", 
+                                        [this.videoList[index].displayTitle]) + " " + 
+                      this.strings.getFormattedString("ButNoSubtitlesDueToInternalError", 
+                                                      [msg]));
+    };
     
     this.processSubtitles = function processSubtitles(previousBirth, xmlText, url)
     {
@@ -278,11 +296,11 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
             if(actualPrefLang != null)
             {
                 actualPrefLangName  = iccb.getLangRecordByLangCode(previousBirth.subtitleLanguageInfo, actualPrefLang)
-                                          .lang_translated;
+                                          .lang_original;
                 previousBirth.videoList[vIndex].actualPrefLangName = actualPrefLangName;
             }
             
-            var lang_name   = previousBirth.videoList[vIndex].availableSubtitleLanguages[lang_code].lang_translated;
+            var lang_name   = previousBirth.videoList[vIndex].availableSubtitleLanguages[lang_code].lang_original;
             var file_name   = previousBirth.videoList[vIndex].title +  " - [" + lang_name + "].srt";
             
             previousBirth.videoList[vIndex].fetchedLangName = 
@@ -294,22 +312,28 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
                                 previousBirth.preferences.destinationDirectory);
             
             if(actualPrefLang == null || actualPrefLangName == lang_name)
-                previousBirth.callBack("Request for \"" + previousBirth.videoList[vIndex].displayTitle +
-                                    "\" has been successfully processed; " +
-                                    "subtitles were downloaded in " + lang_name + ".");
+                previousBirth.callBack( previousBirth.strings
+                                                     .getFormattedString("RequestSuccessfullyProcessed", 
+                                                            [previousBirth.videoList[vIndex].displayTitle]) + " " + 
+                                        previousBirth.strings
+                                                     .getFormattedString("SubtitlesDownloadedIn", [lang_name]));
             else
-                previousBirth.callBack("Request for \"" + previousBirth.videoList[vIndex].displayTitle +
-                                    "\" has been successfully processed; " +
-                                    "subtitles were asked in " + actualPrefLangName + 
-                                    ", but downloaded in " + lang_name + " due to their unavailability in " + 
-                                    actualPrefLangName + ".");
+                previousBirth.callBack( previousBirth.strings
+                                                     .getFormattedString("RequestSuccessfullyProcessed", 
+                                                            [previousBirth.videoList[vIndex].displayTitle]) + " " + 
+                                        previousBirth.strings
+                                                     .getFormattedString("SubtitlesDownloadedInDifferentDialect",
+                                                                    [actualPrefLangName, lang_name, actualPrefLangName]));
         }
         catch(error)
         {
-            previousBirth.callBack("Request for \"" + previousBirth.videoList[vIndex].displayTitle +
-                            "\" has been successfully processed." +
-                            " But subtitles were not downloaded due to an internal error [" + error.message + "].");
-        }       
+            previousBirth.callBack( previousBirth.strings
+                                                 .getFormattedString("RequestSuccessfullyProcessed", 
+                                                    [previousBirth.videoList[vIndex].displayTitle]) + " " + 
+                                    previousBirth.strings
+                                                 .getFormattedString("ButNoSubtitlesDueToInternalError", 
+                                                                    [error.message]));
+        }
     };
     
     this.enqueue = function enqueue(videoIndex)
@@ -341,8 +365,8 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
             catch(error)
             {
                 iccb.services.promptService.alert(window,
-                    "File creation failed!",
-                    fileName + " - Probably you don't have write permissions on the destination directory.");
+                    this.strings.getString("FileCreationFailed"), 
+                    fileName + " - " + this.strings.getString("NoWritePermission"));
 
                 return;
             }
@@ -362,8 +386,8 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
             if(error.message.indexOf("ACCESS") != -1)
             {
                 iccb.services.promptService.alert(window,
-                    "File creation failed!",
-                    "Probably you don't have write permissions on the destination directory.");
+                    this.strings.getString("FileCreationFailed"),
+                    this.strings.getString("NoWritePermission"));
             }
             else
             {

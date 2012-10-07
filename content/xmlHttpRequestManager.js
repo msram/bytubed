@@ -63,6 +63,7 @@ iitk.cse.cs213.bytubed.XmlHttpRequestManager = function(callerObject, callBack, 
             if (typeof(this.xmlreqs[pos]) && this.xmlreqs[pos].freed == 0)
             {
                 var xmlhttp = this.xmlreqs[pos].xmlhttp;
+                
                 if(method == "GET" && xmlhttp.readyState == 4)
                 {
                     if (this.xmlreqs[pos].xmlhttp.status == 200 || this.xmlreqs[pos].xmlhttp.status == 304)
@@ -78,7 +79,7 @@ iitk.cse.cs213.bytubed.XmlHttpRequestManager = function(callerObject, callBack, 
                     else
                     {
                         // handle_error();
-
+                        
                         if(this.errorHandler)
                         {
                             this.errorHandler(xmlhttp.responseText, url);
