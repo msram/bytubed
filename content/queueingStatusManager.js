@@ -322,9 +322,10 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
         {
             var qsMgr = iccb.queueingStatusManager;
 
-            if(!(qsMgr.preferences.generateFailedLinks || qsMgr.preferences.generateWatchLinks) || 
+            if( qsMgr.successCount + qsMgr.failureCount == qsMgr.selectedVideoList.length &&
+                (!(qsMgr.preferences.generateFailedLinks || qsMgr.preferences.generateWatchLinks) || 
                 (!qsMgr.preferences.generateFailedLinks && qsMgr.successCount == 0) ||
-                (!qsMgr.preferences.generateWatchLinks && qsMgr.failureCount == 0))
+                (!qsMgr.preferences.generateWatchLinks && qsMgr.failureCount == 0)))
                 return;
             
             var htmlString = qsMgr.commonHtml();
@@ -354,7 +355,8 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                 {
                     if(qsMgr.selectedVideoList[i].videoURL == "")
                     {
-                        if(qsMgr.selectedVideoList[i].failureDescription == null)
+                        if(qsMgr.selectedVideoList[i].failureDescription == null ||
+                            qsMgr.selectedVideoList[i].failureDescription == "")
                         {
                             qsMgr.selectedVideoList[i].failureDescription =
                                     strings.getString("NotEnoughTime");
@@ -498,7 +500,8 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                                         "<br/>" + strings.getString("LinkExpiryTime") + " " + qsMgr.expiryTime +
                                         "</div><br/><hr size=\"1\" width=\"80%\"/><br/><br/>";
             var file1 = null;
-            if( (qsMgr.preferences.generateFailedLinks && qsMgr.failureCount > 0) ||
+            if( qsMgr.failureCount + qsMgr.successCount != qsMgr.selectedVideoList.length ||
+                (qsMgr.preferences.generateFailedLinks && qsMgr.failureCount > 0) ||
                 (qsMgr.preferences.generateWatchLinks && qsMgr.successCount))
             {
                 try

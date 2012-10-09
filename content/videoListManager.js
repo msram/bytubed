@@ -107,7 +107,8 @@ iitk.cse.cs213.bytubed.processTitle = function processTitle(title)
         title = title.replace(/^(\s)*|(\s)*$/g, "")    // Strip off white spaces
                      .replace(/(&lt;)|(&gt;)|"/g, "")  // replace < >
                      .replace(/&#39;|'|&quot;/g, "")   // " and ' by nothing
-                     .replace(/[\\\/!|:?]/g, " - ")    // replace {/, |, ?, \} by " - "
+                     .replace(/\?/g, "!")              // ? by !
+                     .replace(/[\\\/|:]/g, " - ")      // replace {/, |, \} by " - "
                      .replace(/[*#<>%$]/g, " ")        // replace {*, #, <, >, %, $} by a single space.
                      .replace(/\+/g, " plus ")         // replace '+' by "plus ". (e.g. "C++" by "C plus plus"
                      .replace(/&/g, " and ")           // replace &amp; by " and "
