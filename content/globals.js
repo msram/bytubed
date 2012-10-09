@@ -45,10 +45,24 @@ iitk.cse.cs213.bytubed.services = {
 };
 
 // BYTubeD Preferences
-iitk.cse.cs213.bytubed.prefs = Components.classes["@mozilla.org/preferences-service;1"]
+iitk.cse.cs213.bytubed.prefs    = Components.classes["@mozilla.org/preferences-service;1"]
                                          .getService(Components.interfaces.nsIPrefService)
                                          .getBranch("extensions.bytubed@cs213.cse.iitk.ac.in.");
 
+// BYTubeD strings
+iitk.cse.cs213.bytubed.strings  = {
+    _bundle: Components.classes["@mozilla.org/intl/stringbundle;1"]
+                       .getService(Components.interfaces.nsIStringBundleService)
+                       .createBundle("chrome://BYTubeD/locale/BYTubeD.properties"),
+    getString: function getString(str)
+    {
+         return this._bundle.GetStringFromName(str);
+    },
+    getFormattedString: function getFormattedString(str, args)
+    {
+        return this._bundle.formatStringFromName(str, args, args.length);
+    }
+};
 
 // Version number
 iitk.cse.cs213.bytubed.versionNumber = "";
@@ -79,10 +93,7 @@ iitk.cse.cs213.bytubed.suppresErrors = false;
 
 // ------------------------ User interaction routines begin ---------------------------
 
-iitk.cse.cs213.bytubed.reportRequestMessage = "There was some problem while I was doing my job.\n"+
-                                              "Please consider reporting this problem to my boss.\n\n" +
-                                              "If you say \"OK\", then a mail window will be opened,\n" +
-                                              "if you already have a mail client configured.";
+iitk.cse.cs213.bytubed.reportRequestMessage = iitk.cse.cs213.bytubed.strings.getString("ReportRequestMessage");
 
 iitk.cse.cs213.bytubed.reportProblem = function reportProblem(e, functionName)
 {
@@ -490,8 +501,8 @@ iitk.cse.cs213.bytubed.writeTextToFile = function writeTextToFile(text,
     catch(error)
     {
         iccb.services.promptService.alert(window,
-            "File write failed!",
-            "Probably you don't have write permissions on the destination directory.");
+            iccb.strings.getString("FileWriteFailed"),
+            iccb.strings.getString("NoWritePermission"));
         return null;
     }
     return file;

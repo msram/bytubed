@@ -19,7 +19,7 @@
  * ***** END LICENSE BLOCK ***** */
 
 iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, destDir, vList, 
-                                                        prefs, subtitleLanguageInfo, strings)
+                                                        prefs, subtitleLanguageInfo)
 {
     //this.caller                    = caller;
     this.destinationDirectory   = destDir;
@@ -28,7 +28,7 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
     this.errorHandler           = errorHandler;
     this.preferences            = prefs;
     this.subtitleLanguageInfo   = subtitleLanguageInfo;
-    this.strings                = strings;
+    this.strings                = iitk.cse.cs213.bytubed.strings;
 
     this.processQueue = function processQueue()
     {

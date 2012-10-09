@@ -192,7 +192,7 @@ iitk.cse.cs213.bytubed.processYouTubePage =  function processYouTubePage(html)
 
         var fmt_list = "";
         var url_encoded_fmt_stream_map = "";
-        var length_seconds = "Unknown";
+        var length_seconds = iccb.strings.getString("Unknown");
 
         var author = "";
         var authIndex1 = argsString.indexOf("author=");
@@ -267,7 +267,7 @@ iitk.cse.cs213.bytubed.getFailureString = function getFailureString(aHTMLString)
     }
 
     if(failureString == "")
-            failureString = "This video is not available for download at this point of time.";
+            failureString = iccb.strings.getString("GenericFailureMessage");
             
     return failureString;
 };
@@ -313,7 +313,7 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
             
             for(i=0;i<this.videoList.length;i++)
             {
-                if(this.videoList[i].displayTitle == "Loading...")
+                if(this.videoList[i].displayTitle == iccb.strings.getString("Loading"))
                     this.videoList[i].displayTitle = this.videoList[i].vid;
                 
                 if(this.videoList[i].failureDescription) // If already tried and failed
@@ -341,8 +341,9 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
                     }
                     else
                     {
-                        this.videoList[i].failureDescription = "This video is not available for download at this point of time.";
-                        this.errorHandler("\"" + this.videoList[i].displayTitle + "\" -- This video is not available for download at this point of time.");
+                        this.videoList[i].failureDescription = iccb.strings.getString("GenericFailureMessage");
+                        this.errorHandler("\"" + this.videoList[i].displayTitle + "\" -- " + 
+                                                iccb.strings.getString("GenericFailureMessage"));
                     }
                 }
                 else

@@ -55,8 +55,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                                                         qsMgr.destinationDirectory,
                                                         qsMgr.selectedVideoList,
                                                         qsMgr.preferences,
-                                                        qsMgr.subtitleLanguageInfo,
-                                                        strings);
+                                                        qsMgr.subtitleLanguageInfo);
             dqManager.processQueue();
         }
         catch(error)
@@ -175,13 +174,14 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
         }
     },
 
-    finishUp: function finishUp(terminate)
+    finishUp: function finishUp()
     {
         var iccb = iitk.cse.cs213.bytubed;
-        if(!terminate) try
+        
+        try
         {
             var qsMgr = iccb.queueingStatusManager;
-
+            
             document.getElementById("successConsole").value +=
                 document.getElementById("strings").getString("AllRequestsProcessed");
             
@@ -212,10 +212,6 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
         catch(error)
         {
             iccb.reportProblem(error, arguments.callee.name);
-        }
-        else
-        {
-            window.close();
         }
     },
 
@@ -565,8 +561,8 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
         try
         {
             var qsMgr = iccb.queueingStatusManager;
-            if(!qsMgr.alreadyFinished)
-                qsMgr.finishUp(!qsMgr.alreadyFinished);
+            
+            qsMgr.finishUp();
         }
         catch(error)
         {

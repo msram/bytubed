@@ -626,6 +626,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     {
         var iccb = iitk.cse.cs213.bytubed;
         var selMgr  = iccb.selectionManager;
+        
         try
         {
             // ---------------------- BEGIN Important ---------------------- //

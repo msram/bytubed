@@ -1,10 +1,13 @@
 Now working on: 
-    - III.1 Localization
-    - I.1
+* III.1 Localization
+* I.1, I.2
 
 I. Issues
 ---------
 1. Netowrk failures during XHR processing are not properly addressed.
+2. onUnload is not called when qsMgr window is closed.
+    - Investigate qsMgr.finishUp(terminate), qsMgr.alreadyFinished
+    
 
 II. Minor Changes
 -----------------
