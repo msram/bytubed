@@ -561,8 +561,8 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
         try
         {
             var qsMgr = iccb.queueingStatusManager;
-            
-            qsMgr.finishUp();
+            if(!qsMgr.alreadyFinished)
+                qsMgr.finishUp();
         }
         catch(error)
         {
