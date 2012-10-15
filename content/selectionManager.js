@@ -82,6 +82,8 @@ iitk.cse.cs213.bytubed.patternToBeRemoved   =
                 "youtube\\.com\\/embed\\/|\\/movie?v=|" +
                 "youtu\\.be\\/|y2u\\.be\\/)", "igm");
 
+iitk.cse.cs213.bytubed.invalidVids   =  ["__video_id_", "__playlist_", null, ""];
+
 /**
  * hasUndesirablePatterns checks if a YouTube link has certain non-title text
  * as title for the video
@@ -107,9 +109,10 @@ iitk.cse.cs213.bytubed.hasUndesirablePatterns = function hasUndesirablePatterns(
 
 iitk.cse.cs213.bytubed.isValidVid = function isValidVid(vid)
 {
+    var iccb = iitk.cse.cs213.bytubed;
     try
     {
-        return (vid && vid.length > 10 && ! /[^a-zA-Z0-9_-]/.test(vid));
+        return (iccb.invalidVids.indexOf(vid) == -1 && vid.length > 10 && ! /[^a-zA-Z0-9_-]/.test(vid));
     }
     catch(error)
     {
@@ -1618,6 +1621,8 @@ iitk.cse.cs213.bytubed.selectionManager = {
                 }
             }
 
+            
+            
             // Preferences section begins
             var preferences    = new iccb.Preferences();
             
