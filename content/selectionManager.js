@@ -316,16 +316,28 @@ iitk.cse.cs213.bytubed.buildLinks = function buildLinks(contentDocument, links)
         
         for(var i=0; i<anchors.length; i++)
         {
-            if(anchors[i].href && iccb.isYouTubeLink(anchors[i].href))
+            if(anchors[i].href)
             {
-                var vid = iccb.getVidsFromText(anchors[i].href)[0];
-
-                if(iccb.isValidVid(vid))
+                var vid = '';
+                
+                if(iccb.isYouTubeLink(anchors[i].href))
                 {
-                    // Allow duplicates so that the getTitleAndDisplayTitle
-                    // method can choose the best diplay title
-                    links[links.length] = anchors[i]; // This is special
-                    processedVids.push(vid);
+                    vid = iccb.getVidsFromText(anchors[i].href)[0];
+                    if(iccb.isValidVid(vid))
+                    {
+                        // Allow duplicates so that the getTitleAndDisplayTitle
+                        // method can choose the best diplay title
+                        links[links.length] = anchors[i]; // This is special
+                        processedVids.push(vid);
+                    }
+                }
+                else if(anchors[i].href.indexOf('youtube.com/watch?') != -1)
+                {
+                    // To deal with cases like the following:
+                    // http://www.youtube.com/watch?feature=player_embedded&v=U6Z6_sc9mLE
+                    // in which "v=" appears not after "watch?", but at some random place.
+                    vid = iccb.getParamsFromUrl(anchors[i].href)['v'];
+                    iccb.buildLinksForVids([vid], links, processedVids);
                 }
             }
         }
