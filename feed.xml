@@ -7,9 +7,23 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Sun, 28 Oct 2012 15:26:56 +0530</pubDate>
-        <lastBuildDate>Sun, 28 Oct 2012 15:26:56 +0530</lastBuildDate>
+        <pubDate>Sun, 28 Oct 2012 16:01:40 +0530</pubDate>
+        <lastBuildDate>Sun, 28 Oct 2012 16:01:40 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>BYTubeD Facebook Page</title>
+          <link>http://msram.github.com/bytubed//2012/10/28/bytubed-facebook-page.html</link>
+          <pubDate>Sun, 28 Oct 2012 21:19:54 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2012/10/28/bytubed-facebook-page</guid>
+          <description>                    &lt;div class=&quot;indent&quot;&gt;
+                        Now BYTubeD has a &lt;a href=&quot;https://www.facebook.com/bytubed&quot;&gt;Facebook page&lt;/a&gt;.
+                        Users are requested to use this new page for any queries and discussions.                         
+                        Comments may still be posted in the current web site, but the facebook page is 
+                        more convenient for me to share any quick updates.
+                    &lt;/div&gt;</description>
+        </item>
         
         <item>
           <title>New Version - 1.1.1</title>
