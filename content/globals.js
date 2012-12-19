@@ -135,7 +135,7 @@ iitk.cse.cs213.bytubed._showObjectProperties = function _showObjectProperties(ob
         var str = "";
         for(key in obj)
             str += key + " -> " + obj[key] + "\n";
-        alert(str); // Let this alert be there. 
+        alert(unescape(unescape(str))); // Let this alert be there. 
     }
     catch(error)
     {

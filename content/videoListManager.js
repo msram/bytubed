@@ -36,7 +36,7 @@ iitk.cse.cs213.bytubed.YoutubeVideo = function()
                                         // this video needs to downloaded.
     this.fileType           = "";       // This is the preferred file format (Ex: .mp4) for this video.
 
-    this.videoQuality       = "";		// Used in the quality column on the generated links page
+    this.videoQuality       = "";       // Used in the quality column on the generated links page
     
     this.availableSubtitleLanguages = null;    // Array of language records in which subtitles are available for this video
                                                 // indexed by lang_code
@@ -85,10 +85,6 @@ iitk.cse.cs213.bytubed.fmtMap = {
     "82":   {fileType: "mp4",   resolution: "640x360",      quality: "360p",        color: "green"},
     "84":   {fileType: "mp4",   resolution: "1280x720",     quality: "720p",        color: "purple"}
 };
-
-iitk.cse.cs213.bytubed.requiredParams = ["upn", "sparams", "fexp", "ms", "itag", "ipbits", "signature", 
-    "sig", "mv", "sver", "mt", "ratebypass", "source", "expire", "key", "ip", "cp", "id", "gcr", "fallback_host",
-    "algorithm", "newshard", "burst", "factor"];
 
 // =====================================================================================================
 
@@ -480,16 +476,8 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
 
             var url_encoded_fmt_stream_map = swf_map["url_encoded_fmt_stream_map"];
 
-            /*
-                // DO NOT remove this block. I will use this for development purposes.
-            var testString = "";
-            for(key in swf_map)
-            {
-                testString += key + " -> " + swf_map[key] + "\n";
-            }
-            alert(testString);
-            */
-
+            //iccb._showObjectProperties(swf_map);
+            
             var availableFormats    = new Array();
             var fmt_list =  swf_map["fmt_list"];
 
@@ -555,15 +543,17 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
                                           this.videoList[index].vid + ")";
             */
 
-            var encodedUrls 	    = url_encoded_fmt_stream_map.split(",");
-            var videoUrls       	= new Array();
+            var encodedUrls         = url_encoded_fmt_stream_map.split(",");
+            var videoUrls           = new Array();
             var vUrl                = "";
 
             for(var i=0; i<encodedUrls.length; i++)
             {
                 try
                 {
-                    vUrl = unescape(unescape(encodedUrls[i].split("url=")[1]));
+                    var rawUrl  = unescape(unescape(encodedUrls[i]));
+                    var parts   = rawUrl.split("url=");
+                    vUrl = parts[1] + "&" + parts[0];
                     var urlParams = iccb.getParamsFromUrl(vUrl.replace(/\"/g, "%22"));
                     //alert(vUrl.replace("\"", "%22"));
                     var fmt     = urlParams["itag"];
@@ -578,18 +568,18 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
                     }
                     
                     vUrl = vUrl.split("?")[0] + "?";
-                    for(var k=0; k<iccb.requiredParams.length; k++)
+                    for(var key in urlParams)
                     {
-                        var key =  iccb.requiredParams[k];
-                        if(urlParams[key])
+                        if(key && urlParams[key])
                         {
                             var val = urlParams[key];
                             vUrl += "&" + (key == "sig"? "signature":key) + "=" + val;
                         }
                     }
+                    
                     vUrl += "&title=" + this.videoList[index].title;
 
-                    videoUrls[fmt] = vUrl.replace("?&", "?");
+                    videoUrls[fmt] = vUrl.replace("?&", "?").replace("&&", "&");
                 }
                 catch(error)
                 {
