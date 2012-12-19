@@ -7,9 +7,28 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Sun, 28 Oct 2012 16:56:03 +0530</pubDate>
-        <lastBuildDate>Sun, 28 Oct 2012 16:56:03 +0530</lastBuildDate>
+        <pubDate>Wed, 19 Dec 2012 18:20:52 +0530</pubDate>
+        <lastBuildDate>Wed, 19 Dec 2012 18:20:52 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>New Development Version - 1.1.2a1</title>
+          <link>http://msram.github.com/bytubed//2012/12/19/new-develpment-version-1-1-2a1.html</link>
+          <pubDate>Wed, 19 Dec 2012 23:33:56 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2012/12/19/new-develpment-version-1-1-2a1</guid>
+          <description>                &lt;div class=&quot;indent&quot;&gt;
+                    Today YouTube changed the way they serve the videos and BYTubeD stopped working for most videos. Please install this new version to get rid of the problem.
+                    
+                    &lt;p/&gt;
+                    &lt;div class=&quot;center&quot;&gt;
+                        &lt;a class='add-to-firefox'
+                        href='/bytubed/dev-versions/1.1.2a1.xpi'&gt;
+                            Install BYTubeD 1.1.2a1
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;</description>
+        </item>
         
         <item>
           <title>BYTubeD Facebook Page</title>
