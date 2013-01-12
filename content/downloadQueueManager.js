@@ -376,10 +376,10 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
             var tgt_URI     = nioService.newFileURI(targetFile);
 
             var dlMgr       = iccb.services.downloadManager;
-            var aDownload   = dlMgr.addDownload(0, src_URI, tgt_URI, null, null, null, null, persist);
+            var aDownload   = dlMgr.addDownload(0, src_URI, tgt_URI, null, null, null, null, persist, false);
 
             persist.progressListener = aDownload;
-            persist.saveURI(src_URI, null, null, null, "", tgt_URI);
+            persist.saveURI(src_URI, null, null, null, "", tgt_URI, null);
         }
         catch(error)
         {
