@@ -7,9 +7,31 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Sat, 12 Jan 2013 09:58:06 +0530</pubDate>
-        <lastBuildDate>Sat, 12 Jan 2013 09:58:06 +0530</lastBuildDate>
+        <pubDate>Sun, 10 Feb 2013 20:39:55 +0530</pubDate>
+        <lastBuildDate>Sun, 10 Feb 2013 20:39:55 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>New Development Version - 1.1.2a2</title>
+          <link>http://msram.github.com/bytubed//2013/02/11/new-development-version-1-1-2a2.html</link>
+          <pubDate>Mon, 11 Feb 2013 02:03:05 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2013/02/11/new-development-version-1-1-2a2</guid>
+          <description>                &lt;div class=&quot;indent&quot;&gt;
+                    
+                    The problem with direct download through 'Enqueue for Downloads' has
+                    been solved (almost). Please install the fix from the link below.
+                    
+                    &lt;p/&gt;
+                    
+					&lt;div class=&quot;center&quot;&gt;
+                        &lt;a class='add-to-firefox'
+                        href='/bytubed/dev-versions/1.1.2a2.xpi'&gt;
+                            Install BYTubeD 1.1.2a2
+                        &lt;/a&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;</description>
+        </item>
         
         <item>
           <title>Problem with 'Enqueue for Download'</title>
