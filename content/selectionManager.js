@@ -36,7 +36,8 @@ iitk.cse.cs213.bytubed.Preferences = function()
 
     this.showDLWindow           = true;
     this.closeQStatusWindow     = false;
-    this.suppresErrors  = false;
+    // this.suppressErrors         = false;     // Not needed
+    // this.suppressWarnings       = false;     // Not needed
     
     this.fetchSubtitles         = false;
     this.subtitleLangCodes      = new Array();
@@ -650,8 +651,10 @@ iitk.cse.cs213.bytubed.selectionManager = {
 
             var prefs       = iccb.prefs;
 
-            var chkd = document.getElementById("suppresErrors").checked;
-            iccb.suppresErrors = chkd;
+            var chkd1 = document.getElementById("suppressErrors").checked;
+            var chkd2 = document.getElementById("suppressWarnings").checked;
+            iccb.suppressErrors     = chkd1;
+            iccb.suppressWarnings   = chkd2;
 
             var destination = document.getElementById("destination");
             var dlMgr       = iccb.services.downloadManager;
@@ -1694,7 +1697,8 @@ iitk.cse.cs213.bytubed.selectionManager = {
             {
                 var proceed = true;
                 if(selCount > 5 &&
-                       preferences.todo == iccb.ENQUEUE_LINKS)
+                       preferences.todo == iccb.ENQUEUE_LINKS &&
+                       iccb.suppressWarnings == false)
                 {
                     var ps = iccb.services.promptService;
 
@@ -1808,8 +1812,10 @@ iitk.cse.cs213.bytubed.selectionManager = {
         
         try
         {
-            iccb.suppresErrors =
-                    document.getElementById("suppresErrors").checked;
+            iccb.suppressErrors =
+                    document.getElementById("suppressErrors").checked;
+            iccb.suppressWarnings =
+                    document.getElementById("suppressWarnings").checked;
         }
         catch(error)
         {

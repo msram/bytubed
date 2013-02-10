@@ -59,6 +59,7 @@
         <command id = "cmd_cancel"          oncommand = "iitk.cse.cs213.bytubed.selectionManager.onCancel(event)"/>
         <command id = "cmd_select_all"      oncommand = "iitk.cse.cs213.bytubed.selectionManager.onSelectAll(event)"/>
         <command id = "suppress_errors"     oncommand = "iitk.cse.cs213.bytubed.selectionManager.toggleSuppression(event)"/>
+        <command id = "suppress_warnings"   oncommand = "iitk.cse.cs213.bytubed.selectionManager.toggleSuppression(event)"/>
         <command id = "toggle_format"       oncommand = "iitk.cse.cs213.bytubed.selectionManager.toggleFormatDisabled(event)"/>
         <command id = "manage_window"       oncommand = "iitk.cse.cs213.bytubed.selectionManager.manageWindow()"/>
         <command id = "res_and_qual"        oncommand = "iitk.cse.cs213.bytubed.selectionManager.toggleResAndQual(event)"/>
@@ -238,11 +239,18 @@
                                               checked   = "true"
                                               persist   = "checked" />
 
-                                    <checkbox id        = "suppresErrors"
-                                              label     = "&checkbox.suppresErrors.label;"
+                                    <checkbox id        = "suppressErrors"
+                                              label     = "&checkbox.suppressErrors.label;"
                                               checked   = "false"
                                               persist   = "checked"
-                                              command   = "suppress_errors"/>
+                                              command   = "suppress_errors" />
+                                    
+                                    <checkbox id        = "suppressWarnings"
+                                              label     = "&checkbox.suppressWarnings.label;"
+                                              checked   = "false"
+                                              persist   = "checked"
+                                              command   = "suppress_warnings" />
+                                    
                                 </groupbox>
 
                             </tabpanel>

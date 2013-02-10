@@ -87,8 +87,9 @@ catch(error)
 iitk.cse.cs213.bytubed.GENERATE_LINKS = 0;
 iitk.cse.cs213.bytubed.ENQUEUE_LINKS = 1;
 
-// Suppress error messages
-iitk.cse.cs213.bytubed.suppresErrors = false;
+// Suppress error/warning messages
+iitk.cse.cs213.bytubed.suppressErrors    = false;
+iitk.cse.cs213.bytubed.suppressWarnings  = false;
 
 
 // ------------------------ User interaction routines begin ---------------------------
@@ -98,7 +99,7 @@ iitk.cse.cs213.bytubed.reportRequestMessage = iitk.cse.cs213.bytubed.strings.get
 iitk.cse.cs213.bytubed.reportProblem = function reportProblem(e, functionName)
 {
     var iccb = iitk.cse.cs213.bytubed;
-    if(! iccb.suppresErrors)
+    if(! iccb.suppressErrors)
     {
         var ps   = iccb.services.promptService;
         try
@@ -106,7 +107,7 @@ iitk.cse.cs213.bytubed.reportProblem = function reportProblem(e, functionName)
             var eMsg = " " + e + ".\n\n This error occurred in line# " + e.lineNumber + " of " + e.fileName + 
                           "\n while executing the " + functionName + " function.\n\n " ;
             
-            var ok   = ps.confirm(null, "Oops!", iccb.reportRequestMessage);
+            var ok   = ps.confirm(null, "BYTubeD - Oops!", iccb.reportRequestMessage);
 
             if(ok)
             {

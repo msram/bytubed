@@ -33,7 +33,8 @@
 <!ENTITY tab.windowManagement.label             "Window Management">
 <!ENTITY checkbox.showDLWindow.label            "Popup the Downloads window after enqueueing all the videos, if 'What to do?' = 'Enqueue for Download'.">
 <!ENTITY checkbox.closeQStatusWindow.label      "Close the queueing status window after processing all the requests unless there are some errors.">
-<!ENTITY checkbox.suppresErrors.label           "Suppress error messages. I don't want to see frequent error report requests.">
+<!ENTITY checkbox.suppressErrors.label          "Suppress error messages. I don't want to see frequent error report requests.">
+<!ENTITY checkbox.suppressWarnings.label        "Suppress warning messages. I don't want to see frequent warning messages.">
 <!ENTITY description.onGenerateLinks.value      "When 'What to do?' = 'Generate Links' ...">
 <!ENTITY description.genHtmlWatch.value         "Generate an HTML file containing YouTube watch links for ...">
 <!ENTITY checkbox.generateFailedLinks.label     "Failed requests">

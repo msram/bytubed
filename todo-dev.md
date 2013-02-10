@@ -1,11 +1,21 @@
 Now working on: 
 * III.1 Localization
-* I.1, I.2
+* I.1
+
+
+0. User requests
+----------------
+1. Give an option to keep old files of generated links (i.e., no over-write).
+
+2. Give an optin to suppress the warning regarding 'Enqueue for Download'. 
+    (done!)
+
+3. Mention "BYTubeD" in the error report request message. 
+    (done!)
 
 I. Issues
 ---------
-1. Netowrk failures during XHR processing are not properly addressed.
-2. onUnload is not called when qsMgr window is closed.
+1. onUnload is not called when qsMgr window is closed.
     - Investigate qsMgr.finishUp(terminate), qsMgr.alreadyFinished
     
 
@@ -52,3 +62,4 @@ IV. Code Improvements
 4. Logging
     
 5. Modularize, instead of using namespaces.
+
