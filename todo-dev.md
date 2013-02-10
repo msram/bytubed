@@ -1,5 +1,4 @@
 Now working on: 
-* III.1 Localization
 * I.1
 
 
@@ -35,7 +34,7 @@ II. Minor Changes
 III. Major Features
 -------------------
 1. localization  (1.1.2)
-    (do it!!)
+    (done!)
 
 2. Ressurect dead request links;  Alternatives for this are:
     - Implement a simple download manager
