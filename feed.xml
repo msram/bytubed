@@ -7,8 +7,8 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Sun, 10 Feb 2013 20:39:55 +0530</pubDate>
-        <lastBuildDate>Sun, 10 Feb 2013 20:39:55 +0530</lastBuildDate>
+        <pubDate>Sun, 10 Feb 2013 20:45:44 +0530</pubDate>
+        <lastBuildDate>Sun, 10 Feb 2013 20:45:44 +0530</lastBuildDate>
 
         
         <item>
@@ -19,9 +19,12 @@
           <guid>http://msram.github.com/bytubed//2013/02/11/new-development-version-1-1-2a2</guid>
           <description>                &lt;div class=&quot;indent&quot;&gt;
                     
-                    The problem with direct download through 'Enqueue for Downloads' has
+                    The problem with direct download through 'Enqueue for Download' has
                     been solved (almost). Please install the fix from the link below.
                     
+                    In addition to that, an option has been added to suppress the warning
+                    displayed when 'Enqueue for Download' is used with more than 5 downloads.
+                    See Preferences -&gt; User Interaction.
                     &lt;p/&gt;
                     
 					&lt;div class=&quot;center&quot;&gt;
