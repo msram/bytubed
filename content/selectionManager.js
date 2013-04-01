@@ -1712,7 +1712,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
                 if(proceed)
                 {
                     window.openDialog(
-                        "chrome://BYTubeD/content/queueingStatusManager.xul",
+                        "chrome://BYTubeD/content/queueStatusManager.xul",
                         "queueingStatusManager" + (new Date()).getTime(),
                         "chrome,all,menubar=no,width=680,height=480,left=80,top=80",
                         selectedVideoList,

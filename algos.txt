@@ -1,0 +1,15 @@
+Queueing of downloads
+---------------------
+0. Merge downloadQueueManager and queueingStatusManager into one file, to begin with.
+
+1. Implement a queue in queueingStatusManager
+    queue = new Array()
+    for(var i=0; i<selectedVideos.length; i++)
+    {
+        queue.shift(selectedVideos[i].vid)
+    }
+
+2. Monitor the FF DownloadManager and make sure there are never more than maxDownloads
+   downloads running
+    
+    

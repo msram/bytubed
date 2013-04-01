@@ -30,8 +30,8 @@
 <window id="BYTubeD" title="&window.title;"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        onload="iitk.cse.cs213.bytubed.queueingStatusManager.onLoad(event)"
-        onunload="iitk.cse.cs213.bytubed.queueingStatusManager.onUnload(event)">
+        onload="iitk.cse.cs213.bytubed.queueStatusManager.onLoad(event)"
+        onunload="iitk.cse.cs213.bytubed.queueStatusManager.onUnload(event)"> 
 
     <!-- <html:link rel="icon" href="chrome://BYTubeD/skin/icons/Down-32.png" /> -->
     
@@ -39,10 +39,10 @@
     <script src = "utf.js"/>
     <script src = "langList.js"/>
     <script src = "subtitles.js" />
-    <script src = "xmlHttpRequestManager.js" />
-    <script src = "videoListManager.js" />
-    <script src = "downloadQueueManager.js" />
-    <script src = "queueingStatusManager.js"/>
+    <script src = "xhrManager.js" />
+    <script src = "videoManager.js" />
+    <script src = "downloadManager.js" />
+    <script src = "queueStatusManager.js" />
 
     <stringbundleset id="stringbundleset">
         <stringbundle id="strings" src="chrome://BYTubeD/locale/BYTubeD.properties"/>
@@ -69,7 +69,7 @@
                             <splitter class = "tree-splitter" />
                             <treecol id = "title" label = "Title" flex = "10" />
                             <splitter class = "tree-splitter" />
-                            <treecol id = "progress" label = "Progress" flex = "5" />
+                            <treecol id = "progress" label = "Progress" flex = "5" type="progressmeter" />
                             <treecol id = "timeElapsed" label="Elapsed" flex="2" />
                             <splitter class = "tree-splitter" />
                             <treecol id = "ert" label = "ERT" flex="2"/>

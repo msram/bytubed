@@ -1,5 +1,9 @@
 Now working on: 
+* Report progress from Download to queueStautsManager
+    - manage 'this' in DownloadManager
+    - DownloadManager IS IN A VERY BAD SHAPE!!
 * I.1
+* III.3
 
 
 0. User requests
@@ -36,12 +40,25 @@ III. Major Features
 1. localization  (1.1.2)
     (done!)
 
+
 2. Ressurect dead request links;  Alternatives for this are:
     - Implement a simple download manager
     - Implement resurrect(download_links_file) as follows:
         - prereq: write all the relevant preferences into the download_links_file on each invocation.
         - use the preferences in download_links_file to regenerate links.
 
+3. Implement a queue for 'Enqueue for Download' with the following abilities:
+    - ability to control the number of parallel downloads
+    - ability to cancel to downloads
+    - ability to resurrect dead links
+   Method:
+    - Remove the batch calls and make them one-by-one
+    - Localize the strings later
+
+4. Implement history management
+    - to avoid duplicate downloads across sessions.
+    - give the user a chance to switch it ON/OFF.
+    
 
 IV. Code Improvements
 ----------------------

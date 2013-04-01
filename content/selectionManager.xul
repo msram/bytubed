@@ -44,6 +44,7 @@
     <script src = "xmlHttpRequestManager.js"/>
     <script src = "videoListManager.js" />
     <script src = "downloadQueueManager.js" />
+    <script src = "downloadManager.js" />
     <script src = "selectionManager.js"/>
 
     <stringbundleset id="stringbundleset">

@@ -1,0 +1,631 @@
+/* ***** BEGIN LICENSE BLOCK *****
+ *
+ * The contents of this file are subject to the GNU General Public License
+ * Version 3 (the "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ * http://www.gnu.org/copyleft/gpl.html
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing the rights and limitations under the
+ * License.
+ *
+ * The Original Code is BYTubeD. The Initial Developer of the Original Code
+ * is M S Ram (M.S.Ramaiah@gmail.com).
+ *
+ * Portions created by the Initial Developer are Copyright (C) 2010-2012 the
+ * Initial Developer. All Rights Reserved.
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+// YoutubeVideo is an ADT that encapsulates some properties related to a YouTube video
+// in the context of BYTubeD.
+iitk.cse.cs213.bytubed.YoutubeVideo = function()
+{
+    this.vid                = "";
+    this.title              = "";
+    this.displayTitle       = "";
+
+    this.prefetched         = false;    // Set to TRUE when prefetched.
+
+    this.availableFormats               = new Array();
+    
+    this.videoURL           = "";       // This is the downloadable URL of this video.
+
+    this.selected           = false;    // Set by selectionManager to indicate that
+                                        // this video needs to downloaded.
+    this.fileType           = "";       // This is the preferred file format (Ex: .mp4) for this video.
+
+    this.videoQuality       = "";       // Used in the quality column on the generated links page
+    
+    this.availableSubtitleLanguages = null;    // Array of language records in which subtitles are available for this video
+                                                // indexed by lang_code
+    this.actualPrefLang             = null;
+    this.actualPrefLangName         = null;
+    this.fetchedLangName            = null;
+
+    this.failureDescription = null;
+
+    this.swfMap             = null;
+    this.expiryTime         = null;
+
+    this.author             = "";
+    this.resolution         = "";
+};
+// End of YoutubeVideo ADT definition.
+
+// Some YouTube URLs
+iitk.cse.cs213.bytubed.watchUrlPrefix       = "https://www.youtube.com/watch?v=";
+iitk.cse.cs213.bytubed.videoInfoUrlPrefix   = "https://www.youtube.com/get_video_info?video_id=";
+
+// supportedFormats and supportedQualities are to be listed in the same order
+// as they are shown to the user in the respective fields
+iitk.cse.cs213.bytubed.supportedFormats     = ["flv", "mp4", "webm", "3gp"];
+iitk.cse.cs213.bytubed.supportedQualities   = ["144p", "240p", "360p", "480p", "720p", "1080p", "Original"];
+
+/**
+ * fmtMap is a dictionary that maps itags to (fileType, resolution, quality)
+ * Compute the resolution of "38" dynamically.
+ **/
+
+iitk.cse.cs213.bytubed.fmtMap = {
+    "5" :   {fileType: "flv",   resolution: "400x226",      quality: "240p",        color: "black"},
+    "17":   {fileType: "3gp",   resolution: "",             quality: "144p",        color: "gray"},
+    "18":   {fileType: "mp4",   resolution: "480x360",      quality: "360p",        color: "green"},
+    "22":   {fileType: "mp4",   resolution: "1280x720",     quality: "720p",        color: "purple"},
+    "34":   {fileType: "flv",   resolution: "640x360",      quality: "360p",        color: "green"},
+    "35":   {fileType: "flv",   resolution: "854x480",      quality: "480p",        color: "lightblue"},
+    "36":   {fileType: "3gp",   resolution: "",             quality: "240p",        color: "black"},
+    "37":   {fileType: "mp4",   resolution: "1920x1080",    quality: "1080p",       color: "pink"},
+    "38":   {fileType: "mp4",   resolution: "",             quality: "Original",    color: "red"},
+    "43":   {fileType: "webm",  resolution: "640x360",      quality: "360p",        color: "green"},
+    "44":   {fileType: "webm",  resolution: "854x480",      quality: "480p",        color: "lightblue"},
+    "45":   {fileType: "webm",  resolution: "1280x720",     quality: "720p",        color: "purple"},
+    "46":   {fileType: "webm",  resolution: "1920x1080",    quality: "1080p",       color: "pink"},
+    "82":   {fileType: "mp4",   resolution: "640x360",      quality: "360p",        color: "green"},
+    "84":   {fileType: "mp4",   resolution: "1280x720",     quality: "720p",        color: "purple"}
+};
+
+// =====================================================================================================
+
+// YouTube video utilities.
+
+iitk.cse.cs213.bytubed.processTitle = function processTitle(title)
+{
+    var iccb = iitk.cse.cs213.bytubed;
+    try
+    {
+        if(!title)
+            return "";
+
+        title = iccb.stripHTML(title, 3);
+
+        title = title.replace(/^(\s)*|(\s)*$/g, "")    // Strip off white spaces
+                     .replace(/(&lt;)|(&gt;)|"/g, "")  // replace < >
+                     .replace(/&#39;|'|&quot;/g, "")   // " and ' by nothing
+                     .replace(/\?/g, "!")              // ? by !
+                     .replace(/[\\\/|:]/g, " - ")      // replace {/, |, \} by " - "
+                     .replace(/[*#<>%$]/g, " ")        // replace {*, #, <, >, %, $} by a single space.
+                     .replace(/\+/g, " plus ")         // replace '+' by "plus ". (e.g. "C++" by "C plus plus"
+                     .replace(/&/g, " and ")           // replace &amp; by " and "
+                     .replace(/(\s)+/g, " ")           // replace multiple white-spaces by a single space
+                     .replace(/-\s-/g, "-")            // replace all double hyphens by a single hyphen.
+                    ;
+    }
+    catch(error)
+    {
+        iccb.reportProblem(error, arguments.callee.name);
+    }
+
+    return title;
+};
+
+// preprocessInfo constructs swf_map based on the junk content in video_info
+// swf_map is equivalent to SWF_ARGS in a YouTube page source.
+iitk.cse.cs213.bytubed.preprocessInfo = function preprocessInfo(video_info)
+{
+    var iccb = iitk.cse.cs213.bytubed;
+    var swf_map = {};
+    try
+    {
+        var components  = video_info.replace(/%2C/g,",").replace(/<[^>]*>/g, ".").split('&');
+
+        var i=0;
+        for(i=0; i<components.length; i++)
+        {
+            var key     = unescape(components[i]).substring(0, components[i].indexOf("="));
+            var value   = unescape(components[i]).slice(key.length+1);
+
+            swf_map[key] = value.replace(/\+/g, " ");
+
+            if(key == "title")
+            {
+                swf_map[key] = iccb.utf8to16(swf_map[key]);
+
+                if(value.indexOf("+++") != -1)  // If title contains "++ " handle it seperately.
+                    return {"status": "fail"};
+
+                swf_map["display_title"] = iccb.stripHTML(swf_map[key], 3);
+            }
+        }
+    }
+    catch(error)
+    {
+        iccb.reportProblem(error, arguments.callee.name);
+    }
+    return swf_map;
+};
+
+// processYouTubePage takes the HTML source of a YouTube page and returns swf_map
+// containing title, author, fmt_list and url_encoded_fmt_stream_map
+iitk.cse.cs213.bytubed.processYouTubePage =  function processYouTubePage(html)
+{
+    var iccb = iitk.cse.cs213.bytubed;
+    var swf_map = {};
+
+    try
+    {
+        var i1 = html.indexOf("<title>") + 7;
+        var i2 = html.indexOf("</title>");
+        var title = unescape(html.substring(i1, i2));
+
+        swf_map["display_title"] = iccb.stripHTML(title, 3).replace("YouTube -", "").replace("- YouTube", "");
+
+        title = iitk.cse.cs213.bytubed.processTitle(title);
+
+        var argsString = "";
+        var argsStringMatch = html.match(/\"args\":\s*\{.*\},/);
+        if(argsStringMatch)
+        {
+            argsString = argsStringMatch[0];
+            var i1 = argsString.indexOf("args\":") + 8;
+            var i2 = argsString.indexOf("},", i1);
+            argsString = argsString.substring(i1, i2).replace(/\\\//g, "/").replace(/\\u0026/g, "&");
+        }
+        else
+            return swf_map;
+
+        var keyValPairs = argsString.split(", \"");
+
+        var fmt_list = "";
+        var url_encoded_fmt_stream_map = "";
+        var length_seconds = iccb.strings.getString("Unknown");
+
+        var author = "";
+        var authIndex1 = argsString.indexOf("author=");
+        var authIndex2 = argsString.indexOf("&", authIndex1);
+        if( authIndex1 != -1 && authIndex2 != -1)
+        {
+            author = argsString.substring(authIndex1 + 7, authIndex2);
+        }
+
+        for(var i=0; i<keyValPairs.length; i++)
+        {
+            var key = keyValPairs[i].split(": ")[0];
+            var val = keyValPairs[i].split(": ")[1];
+
+            key = key.replace(/\"/g, "");
+            val = val.replace("\",", "").replace(/\"/g, "");
+
+            if(key.indexOf("fmt_list") != -1)
+                fmt_list = val;
+
+            if(key.indexOf("url_encoded_fmt_stream_map") != -1)
+            {
+                url_encoded_fmt_stream_map = val.replace(/\\\//g, "/").replace(/\\u0026/g, "&");
+            }
+            
+            if(key.indexOf("length_seconds") != -1)
+                length_seconds = val;
+        }
+
+        swf_map["title"] = title;
+        swf_map["author"] = author;
+        swf_map["fmt_list"] = fmt_list;
+        swf_map["length_seconds"] = length_seconds;
+        swf_map["url_encoded_fmt_stream_map"] = url_encoded_fmt_stream_map;
+    }
+    catch(error)
+    {
+        iccb.reportProblem(error, arguments.callee.name);
+    }
+
+    return swf_map;
+};
+
+// getFailureString(youTubePageHTML)
+iitk.cse.cs213.bytubed.getFailureString = function getFailureString(aHTMLString)
+{
+    var failureString = "";
+    var iccb = iitk.cse.cs213.bytubed;
+    if(aHTMLString && aHTMLString != "") try
+    {
+        var parser = Components.classes["@mozilla.org/xmlextras/domparser;1"]
+                               .createInstance(Components.interfaces.nsIDOMParser);
+        
+        var htmlDoc = parser.parseFromString(aHTMLString, "text/html");
+        
+        if(htmlDoc.getElementsByClassName("verify-age").length > 0)
+        {
+            failureString = htmlDoc.getElementsByClassName("verify-age")[0].innerHTML;
+        }
+
+        if(htmlDoc.getElementById("unavailable-message"))
+        {
+            failureString = htmlDoc.getElementById("unavailable-message").innerHTML;
+        }
+        
+        // Remove anchors from failureString.
+        failureString = failureString.replace(/<a [^>]*>/ig, "").replace(/<\/a(\s|\n)*>/ig, "");
+    }
+    catch(error)
+    {
+        // iccb.reportProblem(error, arguments.callee.name);
+    }
+
+    if(failureString == "")
+            failureString = iccb.strings.getString("GenericFailureMessage");
+            
+    return failureString;
+};
+
+// End of YouTube utilities.
+
+// =====================================================================================================
+
+// VideoManager is an abstract data type that encapsulates the process of
+// making downloadble video URLs from /watch? URLs.
+iitk.cse.cs213.bytubed.VideoManager = function(callerObject,
+                                                callBack,
+                                                errorHandler,
+                                                ytVideo, indexInList, totalCount,
+                                                preferences,
+                                                subtitleLanguageInfo)
+{
+    this.callerObject   = callerObject;
+    this.ytVideo        = ytVideo;
+    this.indexInList    = indexInList;
+    this.totalCount     = totalCount;
+    this.preferences    = preferences;
+    this.callBack       = callBack;
+    this.errorHandler   = errorHandler;
+
+    this.subtitleLanguageInfo = subtitleLanguageInfo;
+    
+    this.processVideo = function processVideo()
+    {
+        var iccb = iitk.cse.cs213.bytubed;
+        try
+        {
+            infoUrl = iccb.videoInfoUrlPrefix + this.ytVideo.vid;
+            
+            var videoRequestManager = new iccb.XHRManager(this, this.processInfoAndCallBack,
+                                                                 this.errorHandler);
+            
+            if(this.ytVideo.displayTitle == iccb.strings.getString("Loading"))
+            {
+                    this.ytVideo.displayTitle = this.ytVideo.vid;
+            }    
+             
+            if(this.ytVideo.failureDescription) // If already tried and failed
+            {
+                var message = this.ytVideo.failureDescription;
+                if(message.replace(/<[^>]*>/g, "").match(/"[^"]*"/))
+                {
+                    var newTitle = message.replace(/<[^>]*>/g, "").match(/"[^"]*"/)[0].replace(/"/g, "");
+                    if(this.ytVideo.displayTitle.length < newTitle.length)
+                        this.ytVideo.displayTitle = newTitle;
+                    message = message.replace(/^(\s|\n)+/g, "");
+                    this.errorHandler(message);
+                }
+                else
+                    this.errorHandler("\"" + this.ytVideo.displayTitle + "\" -- " + message);
+            }
+            else if(this.ytVideo.swfMap)   // If prefetched
+            {
+                if(this.ytVideo.swfMap["url_encoded_fmt_stream_map"] 
+                    && this.ytVideo.swfMap["url_encoded_fmt_stream_map"].indexOf("url") != -1
+                    )
+                {
+                    this.processInfo(this.ytVideo.swfMap, infoUrl);
+                    this.callBack(this.callerObject);
+                }
+                else
+                {
+                    this.ytVideo.failureDescription = iccb.strings.getString("GenericFailureMessage");
+                    this.errorHandler("\"" + this.ytVideo.displayTitle + "\" -- " + 
+                                            iccb.strings.getString("GenericFailureMessage"));
+                }
+            }
+            else
+                videoRequestManager.doRequest("GET", infoUrl);
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+        }
+    };
+
+    this.processInfoAndCallBack = function processInfoAndCallBack(previousBirth, info, url)
+    {
+        var iccb = iitk.cse.cs213.bytubed;
+        try
+        {
+            var swf_map = iccb.preprocessInfo(info);
+            var video_id = iccb.getParamsFromUrl(url)["video_id"];
+            
+            if(swf_map["status"] != "ok"
+                || !swf_map["url_encoded_fmt_stream_map"]
+                || swf_map["url_encoded_fmt_stream_map"] == ""
+                || swf_map["url_encoded_fmt_stream_map"].indexOf("url") == -1
+                )
+            {
+                var vid = previousBirth.ytVideo.vid;
+                var videoUrl = iccb.watchUrlPrefix + vid;
+
+                var localErrorHandler = function localErrorHandler(aHTMLString, requestedUrl)
+                {
+                    var iccb = iitk.cse.cs213.bytubed;
+                    try
+                    {
+                        var message = iccb.getFailureString(aHTMLString);
+
+                        previousBirth.ytVideo.failureDescription = message;
+
+                        if(message.replace(/<[^>]*>/g, "").match(/"[^"]*"/))
+                        {
+                            var newTitle = message.replace(/<[^>]*>/g, "")
+                                                  .match(/"[^"]*"/)[0]
+                                                  .replace(/"/g, "");
+
+                            if(previousBirth.ytVideo.displayTitle.length < newTitle.length)
+                                previousBirth.ytVideo.displayTitle = newTitle;
+
+                            message = message.replace(/^(\s|\n)+/g, "");
+                            previousBirth.errorHandler(message);
+                        }
+                        else
+                            previousBirth.errorHandler("\"" + previousBirth.ytVideo.displayTitle +
+                                                        "\" -- " + message);
+                    }
+                    catch(error)
+                    {
+                        // Do nothing.
+                    }
+                };
+
+                var youTubePageHandler = function youTubePageHandler(pb, html, dummyVar1, dummyVar2)
+                {
+                    var iccb = iitk.cse.cs213.bytubed;
+                    try
+                    {
+                        swf_map = iccb.processYouTubePage(html);
+
+                        if(swf_map && swf_map["url_encoded_fmt_stream_map"]
+                                && swf_map["url_encoded_fmt_stream_map"] != ""
+                                && swf_map["url_encoded_fmt_stream_map"].indexOf("url") != -1
+                            )
+                        {
+                            pb.processInfo(swf_map, url);
+                            pb.callBack(pb.callerObject);
+                        }
+                        else
+                        {
+                            var failureString = iccb.getFailureString(html);
+                            pb.ytVideo.failureDescription = failureString;
+
+                            if(swf_map && swf_map["display_title"])
+                                pb.ytVideo.displayTitle = swf_map["display_title"];
+
+                            pb.errorHandler("\"" + pb.ytVideo.displayTitle + "\" -- " + failureString);
+                        }
+                    }
+                    catch(error)
+                    {
+
+                    }
+                };
+
+                var requestManager = new iccb.XHRManager(previousBirth,
+                                                                youTubePageHandler,
+                                                                localErrorHandler);
+
+                requestManager.doRequest("GET", videoUrl);
+
+            }
+            else
+            {
+                previousBirth.processInfo(swf_map, url);
+                previousBirth.callBack(previousBirth.callerObject);
+            }
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+        }
+
+    };
+
+    this.processInfo = function processInfo(swf_map, url)
+    {
+        var iccb = iitk.cse.cs213.bytubed;
+        
+        try
+        {
+            var fmtMap              = iccb.fmtMap;
+            var url_encoded_fmt_stream_map = swf_map["url_encoded_fmt_stream_map"];
+
+            //iccb._showObjectProperties(swf_map);
+            
+            var availableFormats    = new Array();
+            var fmt_list =  swf_map["fmt_list"];
+
+            if(fmt_list)
+            {
+                // fmt_list looks like
+                // "45/1280x720/99/0/0,22/1280x720/9/0/115," +
+                // "44/854x480/99/0/0,35/854x480/9/0/115,43/640x360/99/0/0," +
+                // "34/640x360/9/0/115,18/640x360/9/0/115,5/320x240/7/0/0"
+
+                var formats = fmt_list.split(",");
+
+                for(var i=0; i<formats.length; i++)
+                {
+                    var fmt = formats[i].split("/")[0];
+                    var res = formats[i].split("/")[1];
+
+                    availableFormats[i] = fmt;
+
+                    if(fmt in fmtMap)
+                        fmtMap[fmt].resolution = res;
+                    else
+                    {
+                        fmtMap[fmt] = new Object();
+                        fmtMap[fmt].resolution = res;
+                    }
+                }
+            }
+
+            var curTitle = this.ytVideo.title;
+            curTitle = curTitle.replace(/^\s*/, "").replace(/\s*$/, "");
+
+            var newTitle = "";
+
+            if(swf_map["title"])
+                newTitle = iccb.processTitle(swf_map["title"]);
+
+            if(curTitle.length != newTitle.length)
+            {
+                this.ytVideo.title = newTitle;
+            }
+            
+            // Prepend the s.no if preserveOrder = true
+            if(this.preferences.preserveOrder) // Move this block to caller, to get rid of need for index 
+            {
+                var sNo = iccb.zeroPad(indexInList+1, iccb.digitCount(this.totalCount));
+                this.ytVideo.title = sNo + " - " + this.ytVideo.title;
+            }
+
+            if(swf_map["display_title"])
+                this.ytVideo.displayTitle = swf_map["display_title"];
+
+            /*
+            // If verboseTitles
+
+            if(swf_map["author"])
+            {
+                this.ytVideo.author = swf_map["author"];
+            }
+
+            this.ytVideo.title = this.ytVideo.author + " - " +
+                                          this.ytVideo.title + " (" +
+                                          this.ytVideo.vid + ")";
+            */
+
+            var encodedUrls         = url_encoded_fmt_stream_map.split(",");
+            var videoUrls           = new Array();
+            var vUrl                = "";
+
+            for(var i=0; i<encodedUrls.length; i++)
+            {
+                try
+                {
+                    var rawUrl  = unescape(unescape(encodedUrls[i]));
+                    var parts   = rawUrl.split("url=");
+                    vUrl = parts[1] + "&" + parts[0];
+                    var urlParams = iccb.getParamsFromUrl(vUrl.replace(/\"/g, "%22"));
+                    //alert(vUrl.replace("\"", "%22"));
+                    var fmt     = urlParams["itag"];
+                    var type    = urlParams["type"];
+                    
+                    var quality = urlParams["quality"];
+
+                    if(fmtMap[fmt] && (!fmtMap[fmt].fileType || !fmtMap[fmt].quality))
+                    {
+                        fmtMap[fmt].fileType = type.split(";")[0].split("/")[1].replace("x-", "");
+                        fmtMap[fmt].quality  = quality;
+                    }
+                    
+                    vUrl = vUrl.split("?")[0] + "?";
+                    for(var key in urlParams)
+                    {
+                        if(key && urlParams[key])
+                        {
+                            var val = urlParams[key];
+                            vUrl += "&" + (key == "sig"? "signature":key) + "=" + val;
+                        }
+                    }
+                    
+                    vUrl += "&vid=" + this.ytVideo.vid;
+                    vUrl += "&title=" + this.ytVideo.title;
+
+                    videoUrls[fmt] = vUrl.replace("?&", "?").replace("&&", "&");
+                }
+                catch(error)
+                {
+                    // Ignore error.
+                }
+            }
+
+            this.ytVideo.availableFormats = availableFormats;
+            
+            var expire = vUrl.match(/expire=[^&]*&/)[0].replace(/&|expire=/g, "");
+            var expiryTime = new Date(expire*1000);
+            this.ytVideo.expiryTime = expiryTime;
+
+            // Find best match URL based on the user preferences.
+            var pFormat         = this.preferences.format;
+            var ignoreFileType  = this.preferences.ignoreFileType;
+
+            var found       = false;
+            var loopCount   = 0; // Just to ensure that the loop ends in finite time.
+
+            while(!found && loopCount++ < 4)
+            {
+                for(var qIndex = iccb.supportedQualities.indexOf(this.preferences.quality); qIndex >= 0; qIndex--)
+                {
+                    var pQuality = iccb.supportedQualities[qIndex];
+
+                    for(var key in videoUrls)
+                    {
+                        if(fmtMap[key])
+                        {
+                            var props = fmtMap[key];
+                            if( (ignoreFileType || props.fileType == pFormat) && props.quality == pQuality)
+                            {
+                                this.ytVideo.videoURL      = videoUrls[key];
+                                this.ytVideo.videoQuality  = "<span class='" + props.color + "'>" +
+                                                                      props.resolution + " (" +
+                                                                      props.quality + ")</span>";
+
+                                this.ytVideo.fileType   = "." + props.fileType;
+
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(found)
+                        break;
+                }
+                if(!found)
+                {
+                    // This means that the video is not available in the requested format.
+                    // Set ignoreFileType to true and repeat the above loop.
+                    ignoreFileType = true;
+                }
+            }
+
+            //alert(this.ytVideo.videoURL);
+            
+            if(this.ytVideo.failureDescription == null)
+                this.ytVideo.failureDescription  = "";
+            
+        }
+        catch(error)
+        {
+            iccb.reportProblem(error, arguments.callee.name);
+        }
+    };
+};
