@@ -7,8 +7,8 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Fri, 27 Sep 2013 20:25:07 +0530</pubDate>
-        <lastBuildDate>Fri, 27 Sep 2013 20:25:07 +0530</lastBuildDate>
+        <pubDate>Fri, 27 Sep 2013 20:29:15 +0530</pubDate>
+        <lastBuildDate>Fri, 27 Sep 2013 20:29:15 +0530</lastBuildDate>
 
         
         <item>
@@ -29,7 +29,7 @@
                 will continue to be available, but I have disabled the add-on on 
                 addons.mozilla.org.  &lt;p/&gt;
                 
-                I do not have any plans to resurrect BYTubeD given the state of
+                I do not have any plans to resurrect BYTubeD, given the state of
                 affairs. Programmers who think they have enough time to spend on
                 hacking the encrypted URLs can get the existing code of BYTubeD
                 from &lt;a href='http://github.com/msram/bytubed/'&gt;here&lt;/a&gt; and try
