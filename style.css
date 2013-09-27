@@ -447,3 +447,8 @@ table.contributions td
 {
     top: 10px;
 }
+
+.nomore
+{
+    text-decoration:line-through;
+}
