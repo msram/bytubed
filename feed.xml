@@ -7,9 +7,40 @@
         <atom:link href="http://coyled.com/rss.xml" rel="self" type="application/rss+xml" />
         <description>from msram@github</description>
         <language>en-us</language>
-        <pubDate>Sun, 10 Feb 2013 20:45:44 +0530</pubDate>
-        <lastBuildDate>Sun, 10 Feb 2013 20:45:44 +0530</lastBuildDate>
+        <pubDate>Fri, 27 Sep 2013 16:08:37 +0530</pubDate>
+        <lastBuildDate>Fri, 27 Sep 2013 16:08:37 +0530</lastBuildDate>
 
+        
+        <item>
+          <title>Disabling BYTubeD</title>
+          <link>http://msram.github.com/bytubed//2013/09/27/disabling-bytubed.html</link>
+          <pubDate>Fri, 27 Sep 2013 19:45:14 +0530</pubDate>
+          <author>bytubed@gmail.com (M S Ram)</author>
+          <guid>http://msram.github.com/bytubed//2013/09/27/disabling-bytubed</guid>
+          <description>            &lt;div class=&quot;indent&quot;&gt;
+                Previously YouTube used to change things in way which is easy to
+                figure out and adapt to. Now they have started encrypting some 
+                portions of the video URLs, and the encryption schemes are 
+                sufficiently random to consider the effort of chasing around 
+                these changes to be futile, if at all legitimate. &lt;p/&gt;
+                
+                So, highly probably BYTubeD will never be back again in its 
+                normal working condition. The development versions on this site
+                will continue to be available, but I have disabled the add-on on 
+                addons.mozilla.org.  &lt;p/&gt;
+                
+                I do not have any plans to resurrect BYTubeD given the state of
+                affairs. Programmers who think they have enough time to spend on
+                hacking the encrypted URLs can get the existing code of BYTubeD
+                from &lt;a href='http://github.com/msram/bytubed/'&gt;here&lt;/a&gt; and try
+                to modify it. &lt;p/&gt;
+
+                &lt;span class='bold'&gt;Users who still wish to test their luck may 
+                try version 
+                &lt;a href='http://msram.github.io/bytubed/2013/02/11/new-development-version-1-1-2a2.html'&gt;
+                1.1.2a2&lt;/a&gt;.&lt;/span&gt;
+            &lt;/div&gt;</description>
+        </item>
         
         <item>
           <title>New Development Version - 1.1.2a2</title>
