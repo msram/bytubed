@@ -1,6 +1,5 @@
 # BYTubeD Release Notes
 
------------------------------------------------------
 ## 1.1.2
 
 ### Release Date
@@ -20,6 +19,8 @@
     - "win is null"
     - "file is null" 
 
+-----------------------------------------------------
+
 ## 1.1.1
 
 ### Release Date
@@ -32,6 +33,8 @@
     * Videos are not downloadable in FLV format.
     * Non-English characters are not shown properly in the file name.
 
+-----------------------------------------------------
+
 ## 1.1.0
 
 ### Release Date
@@ -42,6 +45,7 @@
 
 * Added a fix for the recent YouTube changes. 
 
+-----------------------------------------------------
 
 ## 1.0.9
 
@@ -67,6 +71,8 @@ Other changes
 * Added "Miscellaneous" and "Subtitles" tabs under "Additional Features".
 * Changed the default value of Generate links for "Successful requests" to "false".
 
+-----------------------------------------------------
+
 ## 1.0.8
 
 ### Release Date
@@ -83,6 +89,8 @@ in 1.0.7:
 3.  Cannot download videos containing double-quotes in title, when using "Enqueue for Download". 
 
 For actual changes from earlier versions, please see notes on 1.0.7.
+
+-----------------------------------------------------
 
 ## 1.0.7
 
@@ -250,6 +258,7 @@ For actual changes from earlier versions, please see notes on 1.0.7.
 
         return returnValue;
     }
+    ```
 
 ---------------------------------------------------
 
@@ -354,7 +363,6 @@ For actual changes from earlier versions, please see notes on 1.0.7.
     - Added an option to suppress error messages.
 
 -----------------------------------------------------
-
 
 ##  1.0.3
 
