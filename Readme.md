@@ -26,6 +26,6 @@ Tools menu or in the context menu. To know more about how to use BYTubeD, please
 
 ## Development
 
--   [Release Notes](https://github.com/msram/bytubed/blob/master/Changes.md)
--   [To do](https://github.com/msram/bytubed/blob/master/todo-dev.md)
+-   [Release Notes](https://github.com/dieterds/bytubed/blob/master/Changes.md)
+-   [To do](https://github.com/dieterds/bytubed/blob/master/todo-dev.md)
 
