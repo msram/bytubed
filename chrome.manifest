@@ -1,6 +1,3 @@
-content	BYTubeD	content/
-locale	BYTubeD	en-US	locale/en-US/
-skin	BYTubeD	classic/1.0	skin/
-defaults BYTubeD defaults/
-overlay	chrome://browser/content/browser.xul	chrome://BYTubeD/content/overlay.xul
-style	chrome://global/content/customizeToolbar.xul	chrome://BYTubeD/skin/overlay.css
+content	BYTubeD	chrome/content/
+locale	BYTubeD	en-US	chrome/locale/en-US/
+skin	BYTubeD	classic/1.0	chrome/skin/

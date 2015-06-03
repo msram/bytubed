@@ -34,7 +34,7 @@ iitk.cse.cs213.bytubed.Preferences = function()
     this.preserveOrder      = false;
     this.ignoreFileType     = false;
 
-    this.showDLWindow           = true;
+//    this.showDLWindow           = false;
     this.closeQStatusWindow     = false;
     // this.suppressErrors         = false;     // Not needed
     // this.suppressWarnings       = false;     // Not needed
@@ -1645,7 +1645,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             var i2 = document.getElementById("qualityNew").selectedIndex;
             var i3 = document.getElementById("todo").selectedIndex;
             
-            var c1 = document.getElementById("showDLWindow").checked;
+//            var c1 = document.getElementById("showDLWindow").checked;
             var c2 = document.getElementById("closeQStatusWindow").checked;
             var c3 = document.getElementById("preserveOrder").checked;
             var c4 = document.getElementById("generateFailedLinks").checked;
@@ -1662,7 +1662,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             preferences.format              = supportedFormats[i1];
             preferences.quality             = supportedQualities[i2];
             preferences.todo                = i3;
-            preferences.showDLWindow        = c1;
+//            preferences.showDLWindow        = c1;
             preferences.closeQStatusWindow  = c2;
             preferences.preserveOrder       = c3;
             preferences.generateFailedLinks = c4;

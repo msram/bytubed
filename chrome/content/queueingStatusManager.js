@@ -200,9 +200,9 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                 document.getElementById("consolePanels").selectedIndex = 1;
             }
 
-            if(qsMgr.preferences.todo == iccb.ENQUEUE_LINKS &&
-                qsMgr.successCount > 0 && qsMgr.preferences.showDLWindow)
-                iccb.services.downloadManagerUI.show();
+//            if(qsMgr.preferences.todo == iccb.ENQUEUE_LINKS &&
+//                qsMgr.successCount > 0 && qsMgr.preferences.showDLWindow)
+//                iccb.services.downloadManagerUI.show();
 
             if(qsMgr.preferences.closeQStatusWindow && qsMgr.failureCount == 0)
             {
