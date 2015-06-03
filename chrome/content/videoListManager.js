@@ -203,6 +203,9 @@ iitk.cse.cs213.bytubed.processYouTubePage =  function processYouTubePage(html)
         {
             var key = keyValPairs[i].split(": ")[0];
             var val = keyValPairs[i].split(": ")[1];
+	if (key === undefined) continue;
+	if (val === undefined) continue;
+
 
             key = key.replace(/\"/g, "");
             val = val.replace("\",", "").replace(/\"/g, "");
