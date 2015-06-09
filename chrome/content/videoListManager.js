@@ -185,7 +185,7 @@ iitk.cse.cs213.bytubed.processYouTubePage =  function processYouTubePage(html)
         else
             return swf_map;
 
-        var keyValPairs = argsString.split(", \"");
+        var keyValPairs = argsString.split(",\"");
 
         var fmt_list = "";
         var url_encoded_fmt_stream_map = "";
@@ -201,10 +201,11 @@ iitk.cse.cs213.bytubed.processYouTubePage =  function processYouTubePage(html)
 
         for(var i=0; i<keyValPairs.length; i++)
         {
-            var key = keyValPairs[i].split(": ")[0];
-            var val = keyValPairs[i].split(": ")[1];
-	if (key === undefined) continue;
-	if (val === undefined) continue;
+            var key = keyValPairs[i].split(":")[0];
+            var val = keyValPairs[i].split(":")[1];
+
+//	if (key === undefined) continue;
+//	if (val === undefined) continue;
 
 
             key = key.replace(/\"/g, "");

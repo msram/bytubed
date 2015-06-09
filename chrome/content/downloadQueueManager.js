@@ -465,13 +465,13 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
         
         try
         {
-            var persist = Components.classes["@mozilla.org/embedding/browser/nsWebBrowserPersist;1"]
-                                    .createInstance(Components.interfaces.nsIWebBrowserPersist);
-
-            var nsIWBP  = Components.interfaces.nsIWebBrowserPersist;
-            persist.persistFlags =  nsIWBP.PERSIST_FLAGS_NO_CONVERSION |
-                                    // nsIWBP.PERSIST_FLAGS_REPLACE_EXISTING_FILES |
-                                    nsIWBP.PERSIST_FLAGS_CLEANUP_ON_FAILURE;
+//            var persist = Components.classes["@mozilla.org/embedding/browser/nsWebBrowserPersist;1"]
+//                .createInstance(Components.interfaces.nsIWebBrowserPersist);
+//
+//            var nsIWBP = Components.interfaces.nsIWebBrowserPersist;
+//            persist.persistFlags = nsIWBP.PERSIST_FLAGS_NO_CONVERSION |
+//            // nsIWBP.PERSIST_FLAGS_REPLACE_EXISTING_FILES |
+//            nsIWBP.PERSIST_FLAGS_CLEANUP_ON_FAILURE;
 
             var targetFile  = Components.classes["@mozilla.org/file/local;1"]
                                         .createInstance(Components.interfaces.nsILocalFile);
@@ -494,11 +494,11 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
                 return;
             }
 
-            var nioService = iccb.services.networkIOService;
-            var src_URI = nioService.newURI(this.videoList[videoIndex].videoURL, null, null);
-            var tgt_URI = nioService.newFileURI(targetFile);
+//            var nioService = iccb.services.networkIOService;
+//            var src_URI = nioService.newURI(this.videoList[videoIndex].videoURL, null, null);
+//            var tgt_URI = nioService.newFileURI(targetFile);
 
-            var dlMgr = iccb.services.downloadManager;
+//            var dlMgr = iccb.services.downloadManager;
             var url = this.videoList[videoIndex].videoURL;
             var file = targetFile.path;
 
