@@ -14,8 +14,8 @@ It makes the job of downloading YouTube playlists easy.
 
 ###  How to install BYTubeD?
 
-To install BYTubeD, please install from this Page [this page](https://github.com/dieterds/bytubed/raw/master/bytubed.xpi)
-and click on "Add to Firefox" or use the bytubed.xpi in this repository.
+To install BYTubeD, please use the XPI from this Page [Releases](https://github.com/dieterds/bytubed/releases)
+and click on "Add to Firefox".
 
 ###  How to invoke BYTubeD?
 
