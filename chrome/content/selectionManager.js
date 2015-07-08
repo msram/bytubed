@@ -677,7 +677,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             var currentDocument = window.arguments[0];
             var browsers        = window.arguments[1];
             
-            var strings = document.getElementById("strings");
+            var strings = document.getElementById("bytubedstrings");
             var links   = new Array();
             
             var scanCB      = document.getElementById("scanClipboard").checked;
@@ -786,7 +786,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
         try
         {
             var selMgr  = iccb.selectionManager;
-            var strings = document.getElementById("strings");
+            var strings = document.getElementById("bytubedstrings");
 
             var vidCount            = 0;
             var treeChildren        = document.getElementById("treeChildren");
@@ -927,7 +927,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     setTitleUsingInfo: function setTitleUsingInfo(selMgr, info, url)
     {
         var iccb    = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -1003,7 +1003,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     setFieldsCommonCode: function setFieldsCommonCode(selMgr, vid, swf_map, failureString)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -1497,7 +1497,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     onBrowse: function onBrowse(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -1524,7 +1524,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     onBrowseSubtitles: function onBrowseSubtitles(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         try
         {
             var Cc  = Components.classes;
@@ -1550,7 +1550,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     onSelect: function onSelect(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -1573,7 +1573,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     onStart: function onStart(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {

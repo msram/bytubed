@@ -34,9 +34,6 @@ iitk.cse.cs213.bytubed.services = {
     downloadManager  :  Components.classes["@mozilla.org/download-manager;1"]
                                   .getService(Components.interfaces.nsIDownloadManager),
 
-//    downloadManagerUI:  Components.classes["@mozilla.org/download-manager-ui;1"]
-//                                  .getService(Components.interfaces.nsIDownloadManagerUI),
-
     promptService    :  Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                                   .getService(Components.interfaces.nsIPromptService),
 

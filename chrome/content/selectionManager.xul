@@ -46,8 +46,8 @@
     <script src = "downloadQueueManager.js" />
     <script src = "selectionManager.js"/>
 
-    <stringbundleset id="stringbundleset">
-        <stringbundle id="strings" src="chrome://BYTubeD/locale/BYTubeD.properties"/>
+    <stringbundleset id="bytubedstringbundleset">
+        <stringbundle id="bytubedstrings" src="chrome://BYTubeD/locale/BYTubeD.properties"/>
     </stringbundleset>
 
     <keyset>

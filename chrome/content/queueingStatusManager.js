@@ -33,7 +33,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
     onLoad: function onLoad(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -146,7 +146,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
     updateProgress: function updateProgress()
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -219,7 +219,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
     {
         var htmlString  = "";
         var iccb        = iitk.cse.cs213.bytubed;
-        var strings     = document.getElementById("strings");
+        var strings     = document.getElementById("bytubedstrings");
         
         try
         {
@@ -316,7 +316,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
     prepareWatchLinksFile: function prepareWatchLinksFile()
     {
         var iccb    = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -422,7 +422,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
     launchDownloadLinksFile: function launchDownloadLinksFile()
     {
         var iccb    = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {

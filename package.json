@@ -3,12 +3,17 @@
   "title": "BYTubeD - Bulk YouTube video Downloader",
   "id": "bytubed@cs213.cse.iitk.ac.in",
   "description": "BYTubeD is a Bulk YouTube video Downloader. It can be used to batch download all/selected YouTube videos on any page which has some links to YouTube videos, by clicking the BYTubeD menu item in the Tools menu or in the context menu.",
+  "main": "lib/main.js",
   "author": "M S Ram",
   "homepage": "http://msram.github.com/bytubed/",
-  "contributors": ["dieterds", "Downloadcode from iaextractor"],
+  "contributors": [
+    "dieterds",
+    "Downloadcode from iaextractor"
+  ],
   "license": "MPL 2.0",
-  "unpack": "true",
-  "icon": "data/Down-32.png",
+  "unpack": true,
+  "icon": "icon.png",
   "dependencies": ["menuitems", "addon-sdk"],
-  "version": "1.2.2"
+  "version": "1.2.3",
+  "updateURL": "https://github.com/dieterds/bytubed/raw/master/bytubed.update.rdf"
 }
