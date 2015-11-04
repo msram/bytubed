@@ -1,4 +1,4 @@
-﻿// URLs for Closed Captions aka subtitles
+// URLs for Closed Captions aka subtitles
 iitk.cse.cs213.bytubed.subtitleLangListURL = "http://www.youtube.com/api/timedtext?type=list&v=VIDEO_ID";
 iitk.cse.cs213.bytubed.subtitleURL = "http://www.youtube.com/api/timedtext?v=VIDEO_ID&lang=LANGUAGE_CODE&name=LANG_NAME";
 
@@ -9,7 +9,7 @@ iitk.cse.cs213.bytubed.subtitleURL = "http://www.youtube.com/api/timedtext?v=VID
 iitk.cse.cs213.bytubed.loadDefaultSubtitleLanguages = function loadDefaultSubtitleLanguages()
 {
     var iccb = iitk.cse.cs213.bytubed;
-    var subtitleLanguageInfo    = new Array();  
+    var subtitleLanguageInfo    = [];  
     try
     {
         var langList                = iccb.langList;
@@ -45,7 +45,7 @@ iitk.cse.cs213.bytubed.sortSubtitleLanguageInfo = function sortSubtitleLanguageI
             return 1;
         return 0;
     }); // Array.sort takes an optional compare function to sort 'this'.
-}
+};
 
 // _showSubtitleLanguageInfo is for debgguing purposes
 iitk.cse.cs213.bytubed._showSubtitleLanguageInfo = function _showSubtitleLanguageInfo(subtitleLanguageInfo)
@@ -67,7 +67,7 @@ iitk.cse.cs213.bytubed._showSubtitleLanguageInfo = function _showSubtitleLanguag
                             "lang_translated: \"" + subtitleLanguageInfo[i].lang_translated + "\"" +
                     "}" + (i == subtitleLanguageInfo.length - 1? "" : ",") + "\n";
         }
-        langList += "};"
+        langList += "};";
         alert(langList);    // this alert is necessary; don't remove it.
     }
     catch(error)
@@ -96,7 +96,7 @@ iitk.cse.cs213.bytubed.saveSubtitleLanguageInfo = function saveSubtitleLanguageI
                             "lang_translated: \"" + subtitleLanguageInfo[i].lang_translated + "\"" +
                     "}" + (i == subtitleLanguageInfo.length - 1? "" : ",") + "\n";
         }
-        langList += "};"
+        langList += "};";
         
         iccb.saveTextInAddonDirectory(langList, "langList.js", "generated");
     }
@@ -110,7 +110,7 @@ iitk.cse.cs213.bytubed.saveSubtitleLanguageInfo = function saveSubtitleLanguageI
 iitk.cse.cs213.bytubed.processSubtitleLangListGlobal = function processSubtitleLangListGlobal(xmlText, subtitleLanguageInfo)
 {
     var iccb = iitk.cse.cs213.bytubed;
-    var curLangs = new Array();
+    var curLangs = [];
     try
     {
         var parser = new DOMParser();
@@ -171,7 +171,7 @@ iitk.cse.cs213.bytubed.getLangRecordByLangCode = function getLangRecordByLangCod
         // iccb.reportProblem(error, arguments.callee.name);
     }
     return null;
-}
+};
 
 iitk.cse.cs213.bytubed.processSubtitlesGlobal =  function processSubtitlesGlobal(xmlText)
 {  

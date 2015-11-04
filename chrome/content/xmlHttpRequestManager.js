@@ -22,7 +22,7 @@ iitk.cse.cs213.bytubed.CXMLReq = function(freed)
 
 iitk.cse.cs213.bytubed.XmlHttpRequestManager = function(callerObject, callBack, errorHandler)
 {
-    this.xmlreqs        = new Array();
+    this.xmlreqs        = [];
 
     this.callerObject   = callerObject;
     this.callBack       = callBack;
@@ -60,7 +60,7 @@ iitk.cse.cs213.bytubed.XmlHttpRequestManager = function(callerObject, callBack, 
     {
         try
         {
-            if (typeof(this.xmlreqs[pos]) && this.xmlreqs[pos].freed == 0)
+            if (typeof(this.xmlreqs[pos]) && this.xmlreqs[pos].freed === 0)
             {
                 var xmlhttp = this.xmlreqs[pos].xmlhttp;
                 
@@ -70,7 +70,7 @@ iitk.cse.cs213.bytubed.XmlHttpRequestManager = function(callerObject, callBack, 
                     {
                         this.xmlreqs[pos].requestCompleted = true;
 
-                        if(this.callBack != null && this.callBack != 'undefined')
+                        if(this.callBack !== null && this.callBack != 'undefined')
                         {
                             var returnValue = xmlhttp.responseText;
                             this.callBack(this.callerObject, returnValue, url, pos);
@@ -93,7 +93,7 @@ iitk.cse.cs213.bytubed.XmlHttpRequestManager = function(callerObject, callBack, 
                     //alert(xmlhttp.readyState);
                     var returnValue = xmlhttp.getAllResponseHeaders();
 
-                    if(this.callBack != null && this.callBack != 'undefined' && this.xmlreqs[pos].freed == 0)
+                    if(this.callBack !== null && this.callBack != 'undefined' && this.xmlreqs[pos].freed === 0)
                     {
                         this.xmlreqs[pos].freed = 1;
                         this.callBack(this.callerObject, returnValue, url);
