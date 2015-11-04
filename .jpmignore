@@ -1,0 +1,11 @@
+*.cmd
+*.bat
+*.bak
+*.md
+*.xpi
+.jpmignore
+GPL
+LICENSE
+packages
+.npmignore
+.travis.yml
