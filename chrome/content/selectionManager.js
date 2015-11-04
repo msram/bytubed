@@ -360,16 +360,16 @@ iitk.cse.cs213.bytubed.buildLinks = function buildLinks(contentDocument, links)
         //var t1 = new Date().getTime();    // Let it be;
                                             // will use during development
         
-        var innerHTML = contentDocument.documentElement.innerHTML;
-        // var getElementsByTagName = contentDocument.getElementsByTagName;
-        // 
-        // try
-        // {
-        //     if(getElementsByTagName("html") && getElementsByTagName("html")[0])
-        //         innerHTML = getElementsByTagName("html")[0].innerHTML;
-        //     else if(getElementsByTagName("HTML") && getElementsByTagName("HTML")[0])
-        //         innerHTML = getElementsByTagName("HTML")[0].innerHTML;
-        // } catch(error) { /* Ignore */ }
+        var innerHTML            = null;
+        var getElementsByTagName = contentDocument.getElementsByTagName;
+        
+        try
+        {
+            if(getElementsByTagName("html") && getElementsByTagName("html")[0])
+                innerHTML = getElementsByTagName("html")[0].innerHTML;
+            else if(getElementsByTagName("HTML") && getElementsByTagName("HTML")[0])
+                innerHTML = getElementsByTagName("HTML")[0].innerHTML;
+        } catch(error) { /* Ignore */ }
 
         if(innerHTML)
         {
