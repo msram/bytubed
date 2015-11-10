@@ -22,5 +22,6 @@
   "engines": {
     "Firefox": ">=36.0"
   },
-  "updateURL": "https://github.com/dieterds/bytubed/raw/master/bytubed.update.rdf"
+  "updateURL": "https://github.com/dieterds/bytubed/raw/master/bytubed.update.rdf",
+  "updateLink": "https://github.com/dieterds/bytubed/raw/master/bytubed2.xpi"
 }
