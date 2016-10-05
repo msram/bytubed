@@ -33,7 +33,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
     onLoad: function onLoad(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -146,7 +146,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
     updateProgress: function updateProgress()
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -183,7 +183,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
             var qsMgr = iccb.queueingStatusManager;
             
             document.getElementById("successConsole").value +=
-                document.getElementById("strings").getString("AllRequestsProcessed");
+                document.getElementById("bytubedstrings").getString("AllRequestsProcessed");
             
             if(qsMgr.preferences.todo == iccb.GENERATE_LINKS)
             {
@@ -200,11 +200,11 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                 document.getElementById("consolePanels").selectedIndex = 1;
             }
 
-            if(qsMgr.preferences.todo == iccb.ENQUEUE_LINKS &&
-                qsMgr.successCount > 0 && qsMgr.preferences.showDLWindow)
-                iccb.services.downloadManagerUI.show();
+//            if(qsMgr.preferences.todo == iccb.ENQUEUE_LINKS &&
+//                qsMgr.successCount > 0 && qsMgr.preferences.showDLWindow)
+//                iccb.services.downloadManagerUI.show();
 
-            if(qsMgr.preferences.closeQStatusWindow && qsMgr.failureCount == 0)
+            if(qsMgr.preferences.closeQStatusWindow && qsMgr.failureCount === 0)
             {
                 window.close();
             }
@@ -219,7 +219,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
     {
         var htmlString  = "";
         var iccb        = iitk.cse.cs213.bytubed;
-        var strings     = document.getElementById("strings");
+        var strings     = document.getElementById("bytubedstrings");
         
         try
         {
@@ -266,7 +266,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
 
                 for(var i=0; i < qsMgr.selectedVideoList.length; i++)
                 {
-                    if(qsMgr.selectedVideoList[i].videoURL == "")
+                    if(qsMgr.selectedVideoList[i].videoURL === "")
                     {
                         text += "http://www.youtube.com/watch?v=" + qsMgr.selectedVideoList[i].vid + "\n";
                     }
@@ -296,7 +296,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
 
                 for(var i=0; i < qsMgr.selectedVideoList.length; i++)
                 {
-                    if(qsMgr.selectedVideoList[i].videoURL != "")
+                    if(qsMgr.selectedVideoList[i].videoURL !== "")
                     {
                         text += "http://www.youtube.com/watch?v=" + qsMgr.selectedVideoList[i].vid + "\n";
                     }
@@ -316,7 +316,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
     prepareWatchLinksFile: function prepareWatchLinksFile()
     {
         var iccb    = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -324,8 +324,8 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
 
             if( qsMgr.successCount + qsMgr.failureCount == qsMgr.selectedVideoList.length &&
                 (!(qsMgr.preferences.generateFailedLinks || qsMgr.preferences.generateWatchLinks) || 
-                (!qsMgr.preferences.generateFailedLinks && qsMgr.successCount == 0) ||
-                (!qsMgr.preferences.generateWatchLinks && qsMgr.failureCount == 0)))
+                (!qsMgr.preferences.generateFailedLinks && qsMgr.successCount === 0) ||
+                (!qsMgr.preferences.generateWatchLinks && qsMgr.failureCount === 0)))
                 return;
             
             var htmlString = qsMgr.commonHtml();
@@ -353,10 +353,10 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                 var k = 1;
                 for(var i=0; i < qsMgr.selectedVideoList.length; i++)
                 {
-                    if(qsMgr.selectedVideoList[i].videoURL == "")
+                    if(qsMgr.selectedVideoList[i].videoURL === "")
                     {
-                        if(qsMgr.selectedVideoList[i].failureDescription == null ||
-                            qsMgr.selectedVideoList[i].failureDescription == "")
+                        if(qsMgr.selectedVideoList[i].failureDescription === null ||
+                            qsMgr.selectedVideoList[i].failureDescription === "")
                         {
                             qsMgr.selectedVideoList[i].failureDescription =
                                     strings.getString("NotEnoughTime");
@@ -393,7 +393,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                 var k = 1;
                 for(var i=0; i < qsMgr.selectedVideoList.length; i++)
                 {
-                    if(qsMgr.selectedVideoList[i].videoURL != "")
+                    if(qsMgr.selectedVideoList[i].videoURL !== "")
                     {
                         htmlString += "\n\t\t\t\t <tr><td>"+ (k++) +
                             "</td><td><a href=\"http://www.youtube.com/watch?v=" +
@@ -422,7 +422,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
     launchDownloadLinksFile: function launchDownloadLinksFile()
     {
         var iccb    = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -464,7 +464,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                 var k = 1;
                 for(var i=0; i < qsMgr.selectedVideoList.length; i++)
                 {
-                    if(qsMgr.selectedVideoList[i].videoURL != "")
+                    if(qsMgr.selectedVideoList[i].videoURL !== "")
                     {
                         var fetchedLangName = qsMgr.selectedVideoList[i].fetchedLangName;
                         var actualPrefLangName  = qsMgr.selectedVideoList[i].actualPrefLangName;
@@ -475,7 +475,7 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                                         qsMgr.selectedVideoList[i].fileType +
                                         "</a></td><td>" + qsMgr.selectedVideoList[i].videoQuality + "</td>" +
                                         (qsMgr.preferences.fetchSubtitles?
-                                            "<td>" + (fetchedLangName == null? 
+                                            "<td>" + (fetchedLangName === null? 
                                                 strings.getString("None") : 
                                                 "<span class='ruby'>" + fetchedLangName + "</span>") +
                                                     ((!actualPrefLangName || fetchedLangName == actualPrefLangName)? 
@@ -530,13 +530,13 @@ iitk.cse.cs213.bytubed.queueingStatusManager = {
                                         qsMgr.destinationDirectory,
                                         iccb.services.downloadManager.userDownloadsDirectory.path);
 
-            if(file == null && file1 == null)
+            if(file === null && file1 === null)
             {
                 
             }
             else
             {
-                var launchPath = (qsMgr.successCount > 0 || file1 == null) ? file.path : file1.path;
+                var launchPath = (qsMgr.successCount > 0 || file1 === null) ? file.path : file1.path;
                 
                 var win = Components.classes['@mozilla.org/appshell/window-mediator;1']
                                 .getService(Components.interfaces.nsIWindowMediator)

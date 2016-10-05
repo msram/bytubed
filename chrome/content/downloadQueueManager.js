@@ -18,6 +18,69 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+Components.utils.import("resource://gre/modules/Downloads.jsm");
+const Cu = Components.utils;
+const Ci = Components.interfaces;
+const Cc = Components.classes;
+
+
+var get, cancel;
+if (Downloads.getList) {  // use Downloads.jsm
+    Cu.import("resource://gre/modules/Promise.jsm");
+    var cache = [];
+    get = function (callback, pointer) {
+        return function (url, file, aPrivacyContext, aIsPrivate, callback2, pointer2) {
+            Promise.all([
+                Downloads.createDownload({
+                    source: {
+                        url: url,
+                        isPrivate: aIsPrivate
+                    },
+                    target: file
+                }),
+                Downloads.getList(Downloads.PUBLIC)
+            ]).then(function ([dl, list]) {
+                // Adapting to the old download object
+                dl.id = Math.floor(Math.random() * 100000);
+                Object.defineProperty(dl, "amountTransferred", { get: function () { return dl.currentBytes; } });
+                Object.defineProperty(dl, "size", { get: function () { return dl.totalBytes; } });
+                // Observe progress
+                list.add(dl);
+                var view = {
+                    onDownloadChanged: function (d) {
+                        if (d != dl) return;
+                        if (callback && callback.progress) {
+                            callback.progress.apply(pointer, [dl]);
+                        }
+                        if (d.succeeded && d.stopped) {
+                            if (callback && callback.done) callback.done.apply(pointer, [dl]);
+                        }
+                        if (d.stopped && !(d.canceled || d.succeeded) && d.error) {
+                            if (callback && callback.error) callback.error.apply(pointer, [dl, d.error.message]);
+                        }
+                        if (d.stopped && !(d.canceled || d.succeeded) && !d.error) {
+                            if (callback && callback.paused) callback.paused.apply(pointer, [dl]);
+                        }
+                        if (d.stopped && d.canceled) {
+                            if (callback && callback.error) callback.error.apply(pointer, [dl]);
+                        }
+                        if (d.stopped) list.removeView(view);
+                    }
+                };
+                list.addView(view);
+                dl.start();
+                cache.push({ id: dl.id, dl: dl });
+                if (callback2) callback2.apply(pointer2, [dl]);
+            }, function (err) { throw err; });
+        };
+    };
+    cancel = function (id) {
+        cache.forEach(function (obj) {
+            if (obj.id == id) obj.dl.cancel();
+        });
+    };
+}
+
 iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, destDir, vList, 
                                                         prefs, subtitleLanguageInfo)
 {
@@ -135,7 +198,7 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
                 var subtitleLangRequestManager = new XmlHttpRequestManager(this, this.processSubtitleLangList, null);
                 
                 var vid = this.videoList[index].vid;
-                if(this.videoList[index].availableSubtitleLanguages == null)    // Not yet fetched available languages
+                if(this.videoList[index].availableSubtitleLanguages === null)    // Not yet fetched available languages
                 {
                     subtitleLangRequestManager.doRequest("GET", 
                                                 iccb.subtitleLangListURL.replace("VIDEO_ID", vid));
@@ -213,7 +276,7 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
             var lang_code = null;
             var lang_name = null;
             
-            for(var i=0; i<prefLangs.length && lang_code == null; i++)
+            for(var i=0; i<prefLangs.length && lang_code === null; i++)
             {
                 if(prefLangs[i] in availableLangs)
                 {
@@ -236,7 +299,7 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
                 }
             }
             
-            if(lang_code != null && lang_name != null)
+            if(lang_code !== null && lang_name !== null)
             {
                 var url = iccb.subtitleURL.replace("VIDEO_ID", this.videoList[index].vid)
                                                             .replace("LANGUAGE_CODE", lang_code)
@@ -289,11 +352,11 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
             var vid         = params['v'];
             var lang_code   = params['lang'];
             
-            var vIndex      = getIndexByKey(previousBirth.videoList, "vid", vid, function(x,y){return x==y});
+            vIndex      = getIndexByKey(previousBirth.videoList, "vid", vid, function(x,y){return x==y;});
             
             var actualPrefLang      = previousBirth.videoList[vIndex].actualPrefLang;
             var actualPrefLangName  = "";
-            if(actualPrefLang != null)
+            if(actualPrefLang !== null)
             {
                 actualPrefLangName  = iccb.getLangRecordByLangCode(previousBirth.subtitleLanguageInfo, actualPrefLang)
                                           .lang_original;
@@ -311,7 +374,7 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
             writeTextToFile(content, file_name, previousBirth.preferences.subtitleDest,
                                 previousBirth.preferences.destinationDirectory);
             
-            if(actualPrefLang == null || actualPrefLangName == lang_name)
+            if(actualPrefLang === null || actualPrefLangName == lang_name)
                 previousBirth.callBack( previousBirth.strings
                                                      .getFormattedString("RequestSuccessfullyProcessed", 
                                                             [previousBirth.videoList[vIndex].displayTitle]) + " " + 
@@ -342,13 +405,13 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
         
         try
         {
-            var persist = Components.classes["@mozilla.org/embedding/browser/nsWebBrowserPersist;1"]
-                                    .createInstance(Components.interfaces.nsIWebBrowserPersist);
-
-            var nsIWBP  = Components.interfaces.nsIWebBrowserPersist;
-            persist.persistFlags =  nsIWBP.PERSIST_FLAGS_NO_CONVERSION |
-                                    // nsIWBP.PERSIST_FLAGS_REPLACE_EXISTING_FILES |
-                                    nsIWBP.PERSIST_FLAGS_CLEANUP_ON_FAILURE;
+//            var persist = Components.classes["@mozilla.org/embedding/browser/nsWebBrowserPersist;1"]
+//                .createInstance(Components.interfaces.nsIWebBrowserPersist);
+//
+//            var nsIWBP = Components.interfaces.nsIWebBrowserPersist;
+//            persist.persistFlags = nsIWBP.PERSIST_FLAGS_NO_CONVERSION |
+//            // nsIWBP.PERSIST_FLAGS_REPLACE_EXISTING_FILES |
+//            nsIWBP.PERSIST_FLAGS_CLEANUP_ON_FAILURE;
 
             var targetFile  = Components.classes["@mozilla.org/file/local;1"]
                                         .createInstance(Components.interfaces.nsILocalFile);
@@ -371,15 +434,21 @@ iitk.cse.cs213.bytubed.DownloadQueueManager = function(callBack, errorHandler, d
                 return;
             }
 
-            var nioService  = iccb.services.networkIOService;
-            var src_URI     = nioService.newURI(this.videoList[videoIndex].videoURL, null, null);
-            var tgt_URI     = nioService.newFileURI(targetFile);
-            
-            var dlMgr       = iccb.services.downloadManager;
-            var aDownload   = dlMgr.addDownload(0, src_URI, tgt_URI, null, null, null, null, persist, false);
-            
-            persist.saveURI(src_URI, null, null, null, "", tgt_URI, null);
-            persist.progressListener = aDownload;
+//            var nioService = iccb.services.networkIOService;
+//            var src_URI = nioService.newURI(this.videoList[videoIndex].videoURL, null, null);
+//            var tgt_URI = nioService.newFileURI(targetFile);
+
+//            var dlMgr = iccb.services.downloadManager;
+            var url = this.videoList[videoIndex].videoURL;
+            var file = targetFile.path;
+
+
+            var aDownload = new get();
+            aDownload(url, file);
+            //            var aDownload   = dlMgr.addDownload(0, src_URI, tgt_URI, null, null, null, null, persist, false);
+            //
+            //            persist.saveURI(src_URI, null, null, null, "", tgt_URI, null);
+            //            persist.progressListener = aDownload;
         }
         catch(error)
         {

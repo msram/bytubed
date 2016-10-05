@@ -34,9 +34,6 @@ iitk.cse.cs213.bytubed.services = {
     downloadManager  :  Components.classes["@mozilla.org/download-manager;1"]
                                   .getService(Components.interfaces.nsIDownloadManager),
 
-    downloadManagerUI:  Components.classes["@mozilla.org/download-manager-ui;1"]
-                                  .getService(Components.interfaces.nsIDownloadManagerUI),
-
     promptService    :  Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
                                   .getService(Components.interfaces.nsIPromptService),
 
@@ -134,7 +131,7 @@ iitk.cse.cs213.bytubed._showObjectProperties = function _showObjectProperties(ob
     try
     {
         var str = "";
-        for(key in obj)
+        for(var key in obj)
             str += key + " -> " + obj[key] + "\n";
         alert(unescape(unescape(str))); // Let this alert be there. 
     }
@@ -199,7 +196,7 @@ iitk.cse.cs213.bytubed.getParamsFromUrl = function getParamsFromUrl(url)
         if(url.indexOf("?") == -1)
             return null;
         
-        var params = new Array();
+        var params = [];
         
         var qString = url.split("?")[1];
         var keyValPairs = qString.split("&");
@@ -217,7 +214,7 @@ iitk.cse.cs213.bytubed.getParamsFromUrl = function getParamsFromUrl(url)
     {
         return null;
     }
-}
+};
 
 // getIndexByKey returns the index of objList for which objList[index][key] and value areEqual.
 // areEqual is the function to use to say whether two 'things' are equal.
@@ -240,7 +237,7 @@ iitk.cse.cs213.bytubed.getIndexByKey = function getIndexByKey(objList, key, valu
     }
     catch(error) { }
     return -1;
-}
+};
 
 iitk.cse.cs213.bytubed.stripHTML = function stripHTML(text, stripLevel)
 {
@@ -298,7 +295,7 @@ iitk.cse.cs213.bytubed.stripHTML = function stripHTML(text, stripLevel)
     {
         return iccb.escapeEntities(text.replace(/<(?:.|\n)*?>/gm, ''));
     }
-}
+};
 
 iitk.cse.cs213.bytubed.escapeEntities = function escapeEntities(inputText)  
 {
@@ -411,7 +408,7 @@ iitk.cse.cs213.bytubed.getPathSeparator = function getPathSeparator()
     {
         return null;
     }
-}
+};
 
 /*
     saveTextInAddonDirectory: allows saving something like logs and other data in the addon directory
@@ -530,7 +527,7 @@ iitk.cse.cs213.bytubed.readTextFromFileByFileRef = function readTextFromFileByFi
         
         var text = "";
         var str = {};
-        while (converter.readString(4096, str) != 0) {
+        while (converter.readString(4096, str) !== 0) {
           text += str.value;
         }
         
@@ -627,7 +624,7 @@ iitk.cse.cs213.bytubed.removeAllItems = function removeAllItems(listObject)
     {
         // alert(error);
     }
-}
+};
 
 // restoreSelectionByValue sets the selection of menuList to the given selectedValue
 // Use it only for menulist control; don't use it for listbox control.
@@ -639,7 +636,7 @@ iitk.cse.cs213.bytubed.restoreSelectionByValue = function(menuList, selectedValu
         var curValue = "";
         for(var i=0; i<menuList.itemCount; i++)
         {
-            var curValue = menuList.getItemAtIndex(i).value;
+            curValue = menuList.getItemAtIndex(i).value;
             
             if(selectedValue == curValue)
             {
@@ -652,5 +649,5 @@ iitk.cse.cs213.bytubed.restoreSelectionByValue = function(menuList, selectedValu
     {
         iccb.reportProblem(error, arguments.callee.name);
     }
-}
+};
 // --------------------------- XUL operations END ---------------------------------

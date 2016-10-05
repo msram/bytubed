@@ -34,13 +34,13 @@ iitk.cse.cs213.bytubed.Preferences = function()
     this.preserveOrder      = false;
     this.ignoreFileType     = false;
 
-    this.showDLWindow           = true;
+//    this.showDLWindow           = false;
     this.closeQStatusWindow     = false;
     // this.suppressErrors         = false;     // Not needed
     // this.suppressWarnings       = false;     // Not needed
     
     this.fetchSubtitles         = false;
-    this.subtitleLangCodes      = new Array();
+    this.subtitleLangCodes      = [];
     // this.tryOtherLanguages      = true;      // this is not needed.
 
     this.generateFailedLinks    = true;
@@ -178,7 +178,7 @@ iitk.cse.cs213.bytubed.getVidFromUrl = function getVidFromUrl(ytURL)
 iitk.cse.cs213.bytubed.getVidsFromText = function getVidsFromText(text)
 {
     var iccb = iitk.cse.cs213.bytubed;
-    var vids = new Array();
+    var vids = [];
     var patternToBeRemoved = iccb.patternToBeRemoved;
     try
     {
@@ -212,7 +212,7 @@ iitk.cse.cs213.bytubed.yetToBeProcessed = function yetToBeProcessed(vid, vids)
 iitk.cse.cs213.bytubed.getVidsFromLinks = function getVidsFromLinks(links)
 {
     var iccb = iitk.cse.cs213.bytubed;
-    var vids = new Array();
+    var vids = [];
     try
     {
         for(var i=0; i<links.length; i++)
@@ -225,7 +225,7 @@ iitk.cse.cs213.bytubed.getVidsFromLinks = function getVidsFromLinks(links)
         // Ignore
     }
     return vids;
-}
+};
 
 // Works by side-effect; Updates the varialbe "links"
 iitk.cse.cs213.bytubed.buildLinksForVids = function buildLinksForVids(vids, links, processedVids)
@@ -280,7 +280,7 @@ iitk.cse.cs213.bytubed.getMajorityLength = function getMajorityLength(links)
         for(var i=0; i<vids.length; i++)
         {
             var len = vids[i].length;
-            if(counter == 0)
+            if(counter === 0)
                 majorityLength = len;
             else if(len == majorityLength)
                 counter++;
@@ -301,10 +301,10 @@ iitk.cse.cs213.bytubed.buildLinks = function buildLinks(contentDocument, links)
     var iccb = iitk.cse.cs213.bytubed;
     try
     {
-        if(links == null)
-            links = new Array();
+        if(links === null)
+            links = [];
         
-        var processedVids = new Array();
+        var processedVids = [];
         
         /**
          *  Get all the anchors in the current page and append them to links.
@@ -463,8 +463,8 @@ iitk.cse.cs213.bytubed.getLinksFromClipboard = function getLinksFromClipboard(li
             
             if(trans)
             {
-                var str       = new Object();
-                var strLength = new Object();
+                var str       = {};
+                var strLength = {};
 
                 if(clipboard.hasDataMatchingFlavors(["text/html"], 1, clipboard.kGlobalClipboard))
                 {
@@ -541,7 +541,7 @@ iitk.cse.cs213.bytubed.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
     {
         var processTitle    = iccb.processTitle;
         var Cc              = Components.classes;
-        var Ci              = Components.interfaces
+        var Ci              = Components.interfaces;
 
         /*
          *  The following code tries to extract the video title from the span
@@ -565,7 +565,7 @@ iitk.cse.cs213.bytubed.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
             }
         }
 
-        if(!title || title.length == 0)
+        if(!title || title.length === 0)
         {
             // in case title was null, set it to empty string.
             title = "";
@@ -591,7 +591,7 @@ iitk.cse.cs213.bytubed.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
 
         title = stripSpace(title);
 
-        if(title.length == 0 && link.title)
+        if(title.length === 0 && link.title)
         {
             var text1 = link.title;
             displayTitle = iccb.stripHTML(text1, 3);
@@ -600,7 +600,7 @@ iitk.cse.cs213.bytubed.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
 
         title = stripSpace(title);
 
-        if(title.length == 0)
+        if(title.length === 0)
         {
             var text = link.innerHTML;
 
@@ -631,10 +631,10 @@ iitk.cse.cs213.bytubed.getTitleAndDisplayTitle = function getTitleAndDisplayTitl
 };
 
 iitk.cse.cs213.bytubed.selectionManager = {
-    videoList: new Array(),
+    videoList: [],
     destinationDirectory: null,
     invocationInfo: null,
-    subtitleLanguageInfo: new Array(),
+    subtitleLanguageInfo: [],
     aborting: false,
     locked: false,
 
@@ -660,14 +660,14 @@ iitk.cse.cs213.bytubed.selectionManager = {
             var dlMgr       = iccb.services.downloadManager;
             var destDir     = prefs.getCharPref("destinationDirectory");
             
-            if(!destDir || destDir == "")
+            if(!destDir || destDir === "")
                 destination.value   = dlMgr.userDownloadsDirectory.path;
             else
                 destination.value   = iccb.utf8to16(destDir);
                 
             var subtitleDest = document.getElementById("subtitleDest");
             var destDir1 = prefs.getCharPref("subtitleDest");
-            if(!destDir1 || destDir1 == "")
+            if(!destDir1 || destDir1 === "")
                 subtitleDest.value = destination.value;
             else
                 subtitleDest.value = iccb.utf8to16(destDir1);
@@ -677,8 +677,8 @@ iitk.cse.cs213.bytubed.selectionManager = {
             var currentDocument = window.arguments[0];
             var browsers        = window.arguments[1];
             
-            var strings = document.getElementById("strings");
-            var links   = new Array();
+            var strings = document.getElementById("bytubedstrings");
+            var links   = [];
             
             var scanCB      = document.getElementById("scanClipboard").checked;
             var scanTabs    = document.getElementById("scanAllTabs").checked;
@@ -705,7 +705,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             
             // If no YouTube links were found on 'this' page, alert the user
             // "No YouTube links were found on this page."
-            if(links.length == 0)
+            if(links.length === 0)
             {
                 
                 var alrt = iccb.services.promptService.alert;
@@ -786,7 +786,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
         try
         {
             var selMgr  = iccb.selectionManager;
-            var strings = document.getElementById("strings");
+            var strings = document.getElementById("bytubedstrings");
 
             var vidCount            = 0;
             var treeChildren        = document.getElementById("treeChildren");
@@ -800,7 +800,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
                 // This is faster than getVidFromUrl
                 // probably because of instruction caching.
                 var curVid = iccb.getVidsFromText(links[li].href)[0];
-                if(!curVid || curVid == "")
+                if(!curVid || curVid === "")
                     continue;
 
                 var title = "";
@@ -829,13 +829,13 @@ iitk.cse.cs213.bytubed.selectionManager = {
                     selMgr.videoList[vi].displayTitle = displayTitle;
                 }
 
-                if(displayTitle.length == 0 || iccb.hasUndesirablePatterns(displayTitle))
+                if(displayTitle.length === 0 || iccb.hasUndesirablePatterns(displayTitle))
                 {
                     displayTitle = strings.getString("Loading");
                     title = "";
                 }
 
-                if(found == false)
+                if(found === false)
                 {
                     selMgr.videoList[vidCount] = new iccb.YoutubeVideo(); // <- videoListManager.js
 
@@ -927,7 +927,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     setTitleUsingInfo: function setTitleUsingInfo(selMgr, info, url)
     {
         var iccb    = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -1003,12 +1003,12 @@ iitk.cse.cs213.bytubed.selectionManager = {
     setFieldsCommonCode: function setFieldsCommonCode(selMgr, vid, swf_map, failureString)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
             var processTitle    = iccb.processTitle;
-            var getIndexByKey   = iccb.getIndexByKey
+            var getIndexByKey   = iccb.getIndexByKey;
             
             var ind = getIndexByKey(selMgr.videoList, "vid", vid, function(x, y){return x==y;});
         
@@ -1188,12 +1188,13 @@ iitk.cse.cs213.bytubed.selectionManager = {
         
         // This function uses the idea suggested by paxdiablo at
         // http://stackoverflow.com/questions/1186414/whats-the-algorithm-to-calculate-aspect-ratio-i-need-an-output-like-43-169
+       function gcd (a, b)
+        {
+            return (b === 0) ? a : gcd (b, a%b);
+        }
         try
         {
-            function gcd (a, b)
-            {
-                return (b == 0) ? a : gcd (b, a%b);
-            }
+            
 
             var sw = screen.width;
             var sh = screen.height;
@@ -1243,20 +1244,20 @@ iitk.cse.cs213.bytubed.selectionManager = {
         var selMgr = iccb.selectionManager;
         
         // Make sure text is non-empty
-        if(text != null && text != "" && !selMgr.locked) try
+        if(text !== null && text !== "" && !selMgr.locked) try
         {
             selMgr.locked = true;
             // It's not a proper locking mechanism; but that's ok, not a problem.
             
             var lines = text.split("\n");
-            iccb.langList = new Array();
+            iccb.langList = [];
             
             var str = "";
             for(var i=0; i<lines.length; i++)
             {
                 var line =lines[i];
                 var key = "";
-                var record = new Array();
+                var record = [];
                 if(line.indexOf(":") != -1)
                 {
                     var parts = line.split("{");
@@ -1293,7 +1294,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             var subtitleLangList    = document.getElementById("subtitleLangList");
             var secondaryLanguages  = document.getElementsByClassName("secondaryLanguage");
             
-            var plc = new Array();  // previous lang_code preferences
+            var plc = [];  // previous lang_code preferences
             
             try
             {
@@ -1414,7 +1415,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             if(oldLangCount != subtitleLanguageInfo.length) // there was atleast one new language
             {
                 //alert(oldLangCount + " -> " + subtitleLanguageInfo.length);
-                var plc = new Array();
+                var plc = [];
                 
                 plc[0] = subtitleLangList.selectedItem ? subtitleLangList.selectedItem.value : "";
                 for(var i=0; i<secondaryLanguages.length; i++)
@@ -1474,7 +1475,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             }
             else if(
                     (event.target.tagName != "textbox" ||
-                     event.target.value == "")
+                     event.target.value === "")
                         &&
                     (event.charCode == 65 || event.charCode == 97)
                         &&
@@ -1497,7 +1498,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     onBrowse: function onBrowse(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -1524,7 +1525,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     onBrowseSubtitles: function onBrowseSubtitles(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         try
         {
             var Cc  = Components.classes;
@@ -1550,7 +1551,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     onSelect: function onSelect(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -1573,7 +1574,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
     onStart: function onStart(event)
     {
         var iccb = iitk.cse.cs213.bytubed;
-        var strings = document.getElementById("strings");
+        var strings = document.getElementById("bytubedstrings");
         
         try
         {
@@ -1625,7 +1626,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             var selCount = 0;
             var i = 0;
 
-            var selectedVideoList = new Array();
+            var selectedVideoList = [];
 
             for(i=0; i<selMgr.videoList.length; i++)
             {
@@ -1645,7 +1646,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             var i2 = document.getElementById("qualityNew").selectedIndex;
             var i3 = document.getElementById("todo").selectedIndex;
             
-            var c1 = document.getElementById("showDLWindow").checked;
+//            var c1 = document.getElementById("showDLWindow").checked;
             var c2 = document.getElementById("closeQStatusWindow").checked;
             var c3 = document.getElementById("preserveOrder").checked;
             var c4 = document.getElementById("generateFailedLinks").checked;
@@ -1662,7 +1663,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             preferences.format              = supportedFormats[i1];
             preferences.quality             = supportedQualities[i2];
             preferences.todo                = i3;
-            preferences.showDLWindow        = c1;
+//            preferences.showDLWindow        = c1;
             preferences.closeQStatusWindow  = c2;
             preferences.preserveOrder       = c3;
             preferences.generateFailedLinks = c4;
@@ -1698,7 +1699,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
                 var proceed = true;
                 if(selCount > 5 &&
                        preferences.todo == iccb.ENQUEUE_LINKS &&
-                       iccb.suppressWarnings == false)
+                       iccb.suppressWarnings === false)
                 {
                     var ps = iccb.services.promptService;
 
@@ -2026,7 +2027,7 @@ iitk.cse.cs213.bytubed.selectionManager = {
             var tree = document.getElementById("videoTitlesTree");
             var selection = tree.view.selection;
 
-            if(filterText == "")
+            if(filterText === "")
             {
                 selection.clearSelection();
                 return;

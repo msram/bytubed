@@ -28,7 +28,7 @@ iitk.cse.cs213.bytubed.YoutubeVideo = function()
 
     this.prefetched         = false;    // Set to TRUE when prefetched.
 
-    this.availableFormats               = new Array();
+    this.availableFormats               = [];
     
     this.videoURL           = "";       // This is the downloadable URL of this video.
 
@@ -175,17 +175,28 @@ iitk.cse.cs213.bytubed.processYouTubePage =  function processYouTubePage(html)
 
         var argsString = "";
         var argsStringMatch = html.match(/\"args\":\s*\{.*\},/);
+
+
+// tool
+//https://r9---sn-4g57km7e.googlevideo.com/videoplayback?dur=145.426&mime=video/mp4&itag=22&upn=lmm836bR-70&nh=EAM&ipbits=0&sver=3&signature=9DF906948EDA2AA7CB1715B2F265CBC0727CDF46.A53BA8E2336A42A70A87CC5C3498E4342D9F5443&fexp=9405183,9406010,9407662,9408142,9408420,9408710,9413420,9413503,9415304,9415436,9415488,9416104&initcwndbps=2341250&key=yt5&expire=1433861517&sparams=dur,id,initcwndbps,ip,ipbits,itag,mime,mm,mn,ms,mv,nh,pl,ratebypass,requiressl,source,upn,expire&requiressl=yes&mn=sn-4g57km7e&source=youtube&mm=31&ratebypass=yes&ip=192.35.17.17&ms=au&id=294dd7b1c93bab2d&mv=m&pl=22&mt=1433839877&type=video/mp4;%20codecs&quality=hd720&fallback_host=tc.v22.cache7.googlevideo.com&title=Add-on%20Debugger%20-%20Firefox%20Developer%20Tools
+//
+//https://r9---sn-4g57km7e.googlevideo.com/videoplayback?key=yt5&mime=video/mp4&expire=1433861580&sver=3&ipbits=0&itag=22&pl=22&initcwndbps=2341250&dur=145.426&source=youtube&ratebypass=yes&requiressl=yes&nh=EAM&id=294dd7b1c93bab2d&ip=192.35.17.17&fexp=9405183,9406010,9407662,9408142,9408420,9408710,9413420,9413503,9415304,9415436,9415488,9416104&sparams=dur,id,initcwndbps,ip,ipbits,itag,mime,mm,mn,ms,mv,nh,pl,ratebypass,requiressl,source,upn,expire&signature=42B30A535E085D14B50274AF1A21B39812FB2F54.819B9952F42ABC5C030D6B53DFA304BD37688126&ms=au&mv=m&mt=1433839877&mn=sn-4g57km7e&mm=31&upn=zUD9h7r1H9M&fallback_host=tc.v22.cache7.googlevideo.com&quality=hd720
+
         if(argsStringMatch)
         {
             argsString = argsStringMatch[0];
-            var i1 = argsString.indexOf("args\":") + 8;
-            var i2 = argsString.indexOf("},", i1);
-            argsString = argsString.substring(i1, i2).replace(/\\\//g, "/").replace(/\\u0026/g, "&");
+            i1 = argsString.indexOf("args\":") + 8;
+            i2 = argsString.indexOf("},", i1);
+            argsString = argsString.substring(i1, i2).replace(/\\\//g, "/").replace(/\\u0026/g, "&");            
+            console.log('args found on ' + title + '!');
         }
         else
+        {
+        	console.log('no args found on ' + title + '!');
             return swf_map;
+		}
 
-        var keyValPairs = argsString.split(", \"");
+        var keyValPairs = argsString.split(",\"");
 
         var fmt_list = "";
         var url_encoded_fmt_stream_map = "";
@@ -201,11 +212,21 @@ iitk.cse.cs213.bytubed.processYouTubePage =  function processYouTubePage(html)
 
         for(var i=0; i<keyValPairs.length; i++)
         {
-            var key = keyValPairs[i].split(": ")[0];
-            var val = keyValPairs[i].split(": ")[1];
+            //console.log('splitting ' + keyValPairs[i]);
+            var key = keyValPairs[i].split(":")[0];
+            var val = keyValPairs[i].split(":")[1];
+            //console.log(html);
+
+//	if (key === undefined) continue;
+//	if (val === undefined) continue;
+
+
+//11:30:44.152 Array [ "loeid":"916634,936122,937517,9407134,9407641,9412773,9412928,9413020,9413057,9414871,9415054,9415488","iv3_module":"1","cafe_experiment_id":"56702029","ptk":"thegamestation","thumbnail_url":"https://i.ytimg.com/vi/bCRsPEhvXqw/default.jpg","adaptive_fmts":"projection_type=1&url=https%3A%2F%2Fr18---sn-4g57km76.googlevideo.com%2Fvideoplayback%3Fsignature%3DA6770F80F56AEF80BE04836C8936183FCED913A3.E4B46CD077C860A1144358868EFA2E5868D5B45D%26upn%3D_uMktUYPurY%26sparams%3Dclen%252Cdur%252Cgir%252Cid%252Cinitcwndbps%252Cip%252Cipbits%252Citag%252Ckeepalive%252Clmt%252Cmime%252Cmm%252Cmn%252Cms%252Cmv%252Cnh%252Cpl%252Crequiressl%252Csource%252Cupn%252Cexpire%26ipbits%3D0%26id%3D6c246c3c486f5eac%26initcwndbps%3D1918750%26source%3Dyoutube%26lmt%3D1426154834525199%26ip%3D192.35.17.17%26key%3Dyt5%26expire%3D1433863843%26dur%3D724.623%26sver%3D3%26requiressl%3Dyes%26mv%3Dm%26mt%3D1433842219%26ms%3Dau%26mn%3Dsn-4g57km76%26mm%3D31%26gir%3Dyes%26fexp%3D916634%252C936122%252C937517%252C9407134%252C9407"[] ]1 videoListManager.js:214:12
+
 
             key = key.replace(/\"/g, "");
             val = val.replace("\",", "").replace(/\"/g, "");
+	         console.log('splitted to key: ' + key + ' value: ' + val);
 
             if(key.indexOf("fmt_list") != -1)
                 fmt_list = val;
@@ -238,7 +259,7 @@ iitk.cse.cs213.bytubed.getFailureString = function getFailureString(aHTMLString)
 {
     var failureString = "";
     var iccb = iitk.cse.cs213.bytubed;
-    if(aHTMLString && aHTMLString != "") try
+    if(aHTMLString && aHTMLString !== "") try
     {
         var parser = Components.classes["@mozilla.org/xmlextras/domparser;1"]
                                .createInstance(Components.interfaces.nsIDOMParser);
@@ -263,7 +284,7 @@ iitk.cse.cs213.bytubed.getFailureString = function getFailureString(aHTMLString)
         // iccb.reportProblem(error, arguments.callee.name);
     }
 
-    if(failureString == "")
+    if(failureString === "")
             failureString = iccb.strings.getString("GenericFailureMessage");
             
     return failureString;
@@ -298,7 +319,7 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
             var videoInfoUrlPrefix      = iccb.videoInfoUrlPrefix;
             var XmlHttpRequestManager   = iccb.XmlHttpRequestManager;
 
-            var infoUrls = new Array();
+            var infoUrls = [];
             var i=0;
             for(i= 0; i<this.videoList.length; i++)
             {
@@ -373,7 +394,7 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
             
             if(swf_map["status"] != "ok"
                 || !swf_map["url_encoded_fmt_stream_map"]
-                || swf_map["url_encoded_fmt_stream_map"] == ""
+                || swf_map["url_encoded_fmt_stream_map"] === ""
                 || swf_map["url_encoded_fmt_stream_map"].indexOf("url") == -1
                 )
             {
@@ -420,7 +441,7 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
 
                         if(swf_map && swf_map["url_encoded_fmt_stream_map"]
                                 && swf_map["url_encoded_fmt_stream_map"] != ""
-                                && swf_map["url_encoded_fmt_stream_map"].indexOf("url") != -1
+                                && swf_map["url_encoded_fmt_stream_map"].indexOf("url") !== -1
                             )
                         {
                             pb.processInfo(swf_map, url, index);
@@ -478,7 +499,7 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
 
             //iccb._showObjectProperties(swf_map);
             
-            var availableFormats    = new Array();
+            var availableFormats    = [];
             var fmt_list =  swf_map["fmt_list"];
 
             if(fmt_list)
@@ -501,7 +522,7 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
                         fmtMap[fmt].resolution = res;
                     else
                     {
-                        fmtMap[fmt] = new Object();
+                        fmtMap[fmt] = {};
                         fmtMap[fmt].resolution = res;
                     }
                 }
@@ -544,7 +565,7 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
             */
 
             var encodedUrls         = url_encoded_fmt_stream_map.split(",");
-            var videoUrls           = new Array();
+            var videoUrls           = [];
             var vUrl                = "";
 
             for(var i=0; i<encodedUrls.length; i++)
@@ -639,7 +660,7 @@ iitk.cse.cs213.bytubed.VideoListManager = function(callerObject,
 
             //alert(this.videoList[index].videoURL);
             
-            if(this.videoList[index].failureDescription == null)
+            if(this.videoList[index].failureDescription === null)
                 this.videoList[index].failureDescription  = "";
             
         }
